@@ -48,8 +48,15 @@ python3 check.py --dry               # see what would be sent
 python3 check.py --test              # needs DISCORD_WEBHOOK_URL
 ```
 
-The webhook URL is a secret: set it as a repo secret named `DISCORD_WEBHOOK_URL`,
-never commit it.
+## Email alerts (Gmail)
+
+Same messages by email. Create a Gmail **app password** (Google Account, Security,
+2-Step Verification, App passwords) and set these as repo secrets: `GMAIL_USER`,
+`GMAIL_APP_PASSWORD`, and optionally `EMAIL_TO` (defaults to yourself). Discord and
+email can both be on; either one alone also works.
+
+Webhook URLs and passwords are secrets: only ever put them in repo secrets or
+environment variables, never in a file you commit.
 
 ## Roadmap
 

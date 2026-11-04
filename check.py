@@ -6,8 +6,10 @@
     python3 check.py --test              send a test message to Discord
     python3 check.py                     real run (this is what GitHub Actions does)
 
-Needs the env var DISCORD_WEBHOOK_URL for real runs. Never put that URL in a file:
-it is a secret. Locally:  export DISCORD_WEBHOOK_URL='...'  (GitHub: repo secret).
+Notifications go to every channel that is set up (env vars, never in files; on GitHub
+they are repo secrets):
+    Discord   DISCORD_WEBHOOK_URL
+    Email     GMAIL_USER, GMAIL_APP_PASSWORD (a Gmail app password), optional EMAIL_TO
 
 Files:
     series.json  the manga you follow (AniList ids)        <- you edit this
@@ -17,10 +19,12 @@ Files:
 import argparse
 import json
 import os
+import smtplib
 import sys
 import time
 import urllib.request
 from datetime import datetime, timezone
+from email.message import EmailMessage
 
 import server  # reuses the MangaDex lookup (latest_chapter) from server.py
 
@@ -274,13 +278,59 @@ def check(series_path, state_path, dry):
     return messages
 
 
+def discord_configured():
+    return os.environ.get("DISCORD_WEBHOOK_URL", "").startswith("https://discord.com/api/webhooks/")
+
+
+def email_configured():
+    return bool(os.environ.get("GMAIL_USER") and os.environ.get("GMAIL_APP_PASSWORD"))
+
+
 def send_discord(text):
-    url = os.environ.get("DISCORD_WEBHOOK_URL", "")
-    if not url.startswith("https://discord.com/api/webhooks/"):
-        sys.exit("DISCORD_WEBHOOK_URL is missing or doesn't look like a Discord webhook URL.")
     # Discord messages max out at 2000 characters.
     for i in range(0, len(text), 1900):
-        post_json(url, {"content": text[i : i + 1900]})
+        post_json(os.environ["DISCORD_WEBHOOK_URL"], {"content": text[i : i + 1900]})
+
+
+def send_email(subject, text):
+    """Send through Gmail. Needs a Gmail *app password* (not your normal password):
+    Google Account > Security > 2-Step Verification > App passwords."""
+    user = os.environ["GMAIL_USER"]
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = user
+    msg["To"] = os.environ.get("EMAIL_TO") or user  # default: send to yourself
+    msg.set_content(text.replace("**", ""))  # the ** are Discord bold marks
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
+        smtp.login(user, os.environ["GMAIL_APP_PASSWORD"].replace(" ", ""))  # Google shows it with spaces
+        smtp.send_message(msg)
+
+
+def notify(text, subject):
+    """Send to every configured channel. One failing channel doesn't block the other."""
+    channels = []
+    if discord_configured():
+        channels.append(("Discord", lambda: send_discord(text)))
+    if email_configured():
+        channels.append(("Email", lambda: send_email(subject, text)))
+    if not channels:
+        sys.exit(
+            "No notification channel set up. Set DISCORD_WEBHOOK_URL and/or "
+            "GMAIL_USER + GMAIL_APP_PASSWORD."
+        )
+    ok, failed = [], []
+    for name, send in channels:
+        try:
+            send()
+            ok.append(name)
+        except Exception as err:  # the message never contains a secret
+            failed.append(f"{name}: {type(err).__name__}: {err}")
+    if ok:
+        print("Sent via " + ", ".join(ok) + ".")
+    if failed:
+        print("FAILED -> " + "; ".join(failed))
+    if not ok:
+        sys.exit(1)
 
 
 def main():
@@ -299,8 +349,10 @@ def main():
     if args.import_mal:
         return import_mal(args.import_mal, args.series, {s.strip() for s in args.mal_status.split(",")})
     if args.test:
-        send_discord("✅ Manga Tracker is connected. You'll get chapter and break alerts here.")
-        print("Test message sent.")
+        notify(
+            "✅ Manga Tracker is connected. You'll get chapter and break alerts here.",
+            "Manga Tracker: test message",
+        )
         return
 
     messages = check(args.series, args.state, args.dry)
@@ -311,8 +363,9 @@ def main():
     if args.dry:
         print("--- would send ---\n" + text)
     else:
-        send_discord(text)
-        print(f"Sent {len(messages)} notification(s).")
+        n = len(messages)
+        notify(text, f"Manga Tracker: {n} update{'s' if n != 1 else ''}")
+        print(f"{n} notification(s).")
 
 
 if __name__ == "__main__":
