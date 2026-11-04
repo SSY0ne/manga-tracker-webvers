@@ -120,7 +120,11 @@ def add_series(path, text):
 
 def check(series_path, state_path, dry):
     series = read_json(series_path, [])
-    state = read_json(state_path, {})
+    raw = read_json(state_path, {})
+    # state.json is {"checkedAt": ..., "series": {id: {...}}}. The first version of
+    # this file was just {id: {...}}, so accept both.
+    old_state = raw.get("series", raw)
+    new_state_map = {}  # only series still in series.json are kept
     if not series:
         print("series.json is empty. Add one with: python3 check.py --add \"title\"")
         return []
@@ -128,7 +132,7 @@ def check(series_path, state_path, dry):
     ids = [s["id"] for s in series]
     data = anilist(
         """query ($ids: [Int]) { Page(perPage: 50) {
-             media(id_in: $ids, type: MANGA) { id title { romaji english } status }
+             media(id_in: $ids, type: MANGA) { id title { romaji english } status coverImage { medium } }
         } }""",
         {"ids": ids},
     )
@@ -141,7 +145,7 @@ def check(series_path, state_path, dry):
             print(f"! {s['title']}: not found on AniList, skipped")
             continue
         name = title_of(m)
-        old = state.get(str(m["id"]))
+        old = old_state.get(str(m["id"]))
 
         try:
             latest = server.latest_chapter(str(m["id"]), [m["title"].get("english"), m["title"].get("romaji")])
@@ -151,20 +155,25 @@ def check(series_path, state_path, dry):
         time.sleep(0.4)  # be polite to MangaDex
 
         if latest and latest.get("found") and latest.get("chapter"):
-            chapter, published, url = latest["chapter"], latest["publishedAt"], latest["url"]
-        elif old:
-            chapter, published, url = old.get("chapter"), old.get("publishedAt"), old.get("url")
+            info = latest
         else:
-            chapter = published = url = None
+            info = old or {}  # lookup failed or unknown: keep what we knew
+        chapter, published, url = info.get("chapter"), info.get("publishedAt"), info.get("url")
+        gap = info.get("typicalGapDays")
 
-        quiet = bool(
-            m["status"] == "RELEASING" and published and weeks_since(published) >= BREAK_WEEKS
-        )
+        # "On break?" = way overdue compared to this series' own rhythm (see server.py).
+        quiet_for = server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
+        quiet = quiet_for > 0
         new_state = {
+            "title": name,
+            "cover": (m.get("coverImage") or {}).get("medium"),
             "status": m["status"],
             "chapter": chapter,
             "publishedAt": published,
             "url": url,
+            "typicalGapDays": gap,
+            "expectedNext": info.get("expectedNext"),
+            "history": info.get("history", []),
             "quiet": quiet,
         }
 
@@ -180,18 +189,22 @@ def check(series_path, state_path, dry):
                 else:
                     messages.append(f"📖 **{name}**: new chapter **{chapter}**{link}")
             elif quiet and not was_quiet:
+                usual = f", usually every {round(gap)} days" if gap else ""
                 messages.append(
-                    f"⏸️ **{name}**: no new chapter for {weeks_since(published)} weeks, maybe on break "
+                    f"⏸️ **{name}**: no new chapter for {quiet_for // 7} weeks{usual}, maybe on break "
                     f"(last was {chapter})"
                 )
             if m["status"] != old.get("status"):
                 messages.append(
                     f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList"
                 )
-        state[str(m["id"])] = new_state
+        new_state_map[str(m["id"])] = new_state
 
     if not dry:
-        write_json(state_path, state)
+        write_json(
+            state_path,
+            {"checkedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "series": new_state_map},
+        )
     return messages
 
 

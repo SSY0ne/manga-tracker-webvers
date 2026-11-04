@@ -5,14 +5,16 @@ like it is on break.
 
 ## What it does
 
-- Search manga (AniList) and add it to your list.
+- Search manga (AniList) and add it to your list (`series.json`).
 - Shows the latest chapter and its date, linked to the official reader (MangaDex data).
-- Flags **On break?** when a Releasing series has had no new chapter for N weeks
-  (3 to 12, default 6), because AniList is slow to mark hiatus.
-- **Refresh statuses** reports new chapters, series back from break, and series that
-  just went quiet.
-
-Your list is stored in the browser (`localStorage`) for now.
+- Learns each series' **own rhythm** from its chapter history and flags **On break?**
+  when it is far more overdue than usual (at least 2.5x its usual gap and 2 weeks more).
+  AniList is slow to mark hiatus, and a fixed "6 weeks" would flag slow series all the time.
+- **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
+  `.ics` download for your calendar app.
+- The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.
+  Run with `server.py` it can also add/remove series and refresh live; on a static
+  host it is read-only.
 
 ## Run it
 
@@ -47,7 +49,8 @@ never commit it.
 
 - [x] Search and list (AniList)
 - [x] Latest chapter (MangaDex)
-- [x] "On break?" detection
+- [x] "On break?" detection from each series' own rhythm
+- [x] Calendar tab (+ .ics)
 - [x] Daily check with Discord alerts (GitHub Actions)
 - [ ] Deploy (GitHub Pages plus a small hosted function)
 

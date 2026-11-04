@@ -1,6 +1,7 @@
 :root {
   --bg: #0f1115;
   --card: #181b22;
+  --line: #2a2f3a;
   --text: #e8eaf0;
   --muted: #8b91a3;
   --accent: #ffb703;
@@ -8,6 +9,7 @@
   --orange: #ff9f43;
   --grey: #6b7280;
   --red: #ef4444;
+  --blue: #60a5fa;
 }
 
 * { box-sizing: border-box; }
@@ -21,11 +23,25 @@ body {
   line-height: 1.4;
 }
 
-header, main { max-width: 760px; margin: 0 auto; }
+header, main, .tabs { max-width: 760px; margin: 0 auto; }
 header { padding: 32px 0 8px; }
 h1 { margin: 0; font-size: 1.8rem; }
 h2 { margin: 28px 0 12px; font-size: 1.1rem; color: var(--muted); font-weight: 600; }
 .tagline { margin: 4px 0 0; color: var(--muted); }
+[hidden] { display: none !important; }
+
+/* tabs */
+.tabs { display: flex; gap: 4px; margin-top: 16px; border-bottom: 1px solid var(--line); }
+.tab {
+  padding: 10px 16px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  font-size: 1rem;
+}
+.tab.active { color: var(--text); border-bottom-color: var(--accent); }
 
 input[type="search"] {
   width: 100%;
@@ -33,7 +49,7 @@ input[type="search"] {
   font-size: 1rem;
   color: var(--text);
   background: var(--card);
-  border: 1px solid #2a2f3a;
+  border: 1px solid var(--line);
   border-radius: 10px;
 }
 input[type="search"]:focus { outline: 2px solid var(--accent); border-color: transparent; }
@@ -48,11 +64,13 @@ button {
   cursor: pointer;
 }
 button:disabled { opacity: 0.5; cursor: default; }
-button.ghost { color: var(--text); background: transparent; border: 1px solid #2a2f3a; }
+button.ghost { color: var(--text); background: transparent; border: 1px solid var(--line); }
 
-.row { display: flex; align-items: center; justify-content: space-between; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .msg { min-height: 1.2em; margin: 8px 0; color: var(--muted); font-size: 0.9rem; }
 
+/* cards */
 .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .card {
   display: flex;
@@ -79,18 +97,47 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid #2
   color: #111;
 }
 .badge.RELEASING { background: var(--green); }
-.badge.HIATUS { background: var(--orange); }
+.badge.HIATUS, .badge.QUIET { background: var(--orange); }
 .badge.FINISHED { background: var(--grey); color: #fff; }
-.badge.QUIET { background: var(--orange); }
-.controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
-.controls label { color: var(--muted); font-size: 0.85rem; }
-.controls select {
-  margin-left: 4px;
-  padding: 6px 8px;
-  color: var(--text);
-  background: var(--card);
-  border: 1px solid #2a2f3a;
-  border-radius: 8px;
-}
 .badge.CANCELLED { background: var(--red); color: #fff; }
-.badge.NOT_YET_RELEASED { background: #60a5fa; }
+.badge.NOT_YET_RELEASED { background: var(--blue); }
+
+/* calendar tab */
+.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.plain li { padding: 8px 12px; background: var(--card); border-radius: 10px; font-size: 0.92rem; }
+.plain .when { color: var(--accent); font-weight: 600; margin-right: 6px; }
+.plain .note { color: var(--muted); }
+
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
+.cal .dow { text-align: center; font-size: 0.75rem; color: var(--muted); padding: 4px 0; }
+.cal .cell {
+  min-height: 74px;
+  padding: 4px;
+  background: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cal .cell.other { opacity: 0.35; }
+.cal .cell.today { outline: 2px solid var(--accent); }
+.cal .num { font-size: 0.72rem; color: var(--muted); }
+.pill {
+  display: block;
+  margin-top: 2px;
+  padding: 1px 5px;
+  font-size: 0.66rem;
+  line-height: 1.3;
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pill.released { background: var(--green); color: #111; }
+.pill.expected { border: 1px dashed var(--accent); color: var(--accent); }
+.pill.late { background: var(--orange); color: #111; }
+.legend { display: flex; gap: 8px; margin: 12px 0; }
+.legend .pill { display: inline-block; padding: 2px 8px; font-size: 0.75rem; }
+
+@media (max-width: 480px) {
+  .cal .cell { min-height: 58px; }
+  .pill { font-size: 0.6rem; padding: 0 3px; }
+}

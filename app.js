@@ -1,17 +1,16 @@
-// Manga Tracker, step 1: search AniList, save a list in the browser.
-// No backend yet. Your list lives in localStorage on this device.
+// Manga Tracker page.
+//
+// The list comes from two files in this repo:
+//   series.json  the manga you follow (you edit it, or the page does when run locally)
+//   state.json   what the daily bot (check.py) last saw: chapters, rhythm, cover...
+// So this page is a dashboard for the bot: same list, same "on break" rule.
+//
+// When started with `python3 server.py` it can also add/remove series and refresh
+// live. On a static host (GitHub Pages) it is read-only.
 
-const API = "https://graphql.anilist.co";
-const STORAGE_KEY = "manga-tracker:list";
-
-// What we ask AniList for. Keep it small: AniList allows ~30 requests/minute.
-const FIELDS = `
-  id
-  title { romaji english }
-  status
-  chapters
-  coverImage { medium }
-`;
+const ANILIST = "https://graphql.anilist.co";
+const DAY = 24 * 60 * 60 * 1000;
+const FIELDS = `id title { romaji english } status coverImage { medium }`;
 
 const STATUS_LABEL = {
   RELEASING: "Releasing",
@@ -21,48 +20,66 @@ const STATUS_LABEL = {
   NOT_YET_RELEASED: "Not yet released",
 };
 
-// ---------- "On break?" detection ----------
-// AniList keeps saying "Releasing" for series that are really paused, so we
-// look at the date of the last chapter instead: if a Releasing series has had
-// nothing new for N weeks, we flag it as "On break?". N is yours to tune.
+let canEdit = false; // true only when server.py is running
+let entries = []; // what we show (one per series)
+let checkedAt = null;
+let lastResults = [];
+let calMonth = firstOfMonth(new Date());
 
-const THRESHOLD_KEY = "manga-tracker:break-weeks";
-const DEFAULT_BREAK_WEEKS = 6;
+// ---------- small helpers ----------
 
-function getBreakWeeks() {
-  const n = Number(localStorage.getItem(THRESHOLD_KEY));
-  return n > 0 ? n : DEFAULT_BREAK_WEEKS;
-}
-
-function weeksSince(iso) {
-  return Math.floor((Date.now() - new Date(iso).getTime()) / (7 * 24 * 3600 * 1000));
-}
-
-// Returns how many weeks it has been quiet, or 0 if it doesn't look on break.
-function quietWeeks(m) {
-  if (m.status !== "RELEASING" || !m.latest) return 0;
-  const w = weeksSince(m.latest.publishedAt);
-  return w >= getBreakWeeks() ? w : 0;
-}
-
-// ---------- Saved list (localStorage) ----------
-
-function loadList() {
+async function fetchJSON(path) {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const res = await fetch(path);
+    return res.ok ? await res.json() : null;
   } catch {
-    return [];
+    return null;
   }
 }
 
-function saveList(list) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+function startOfDay(d) {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+function addDays(d, n) {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+}
+function firstOfMonth(d) {
+  return new Date(d.getFullYear(), d.getMonth(), 1);
+}
+function dayKey(d) {
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+function localDay(iso) {
+  return startOfDay(new Date(iso)); // a timestamp -> the local calendar day
+}
+function parseDay(ymd) {
+  const [y, m, d] = ymd.split("-").map(Number); // "2026-11-09" -> local midnight
+  return new Date(y, m - 1, d);
+}
+function fmtShort(d) {
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+function fmtLong(d) {
+  return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 }
 
-// ---------- AniList ----------
+// ---------- the "on break" rule ----------
+// Same rule as quiet_days() in server.py (the bot uses that one). A Releasing series is
+// "quiet" when it is way overdue compared to ITS OWN rhythm: at least 2.5x its usual
+// gap and at least 2 weeks more. No rhythm known yet -> flat 6 weeks.
+
+function quietDays(e) {
+  if (e.status !== "RELEASING" || !e.publishedAt) return 0;
+  const days = Math.floor((Date.now() - new Date(e.publishedAt).getTime()) / DAY);
+  const gap = e.typicalGapDays;
+  const limit = gap ? Math.max(2.5 * gap, gap + 14) : 6 * 7;
+  return days >= limit ? days : 0;
+}
+
+// ---------- data: AniList + our server ----------
 
 async function anilist(query, variables) {
-  const res = await fetch(API, {
+  const res = await fetch(ANILIST, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ query, variables }),
@@ -73,65 +90,81 @@ async function anilist(query, variables) {
   return json.data;
 }
 
-// Latest chapter comes from MangaDex, through our own server.py
-// (MangaDex refuses calls made directly from a web page).
-// Returns {chapter, publishedAt, url} or null if unknown / server not running.
-async function fetchLatest(m) {
-  const params = new URLSearchParams({ al: m.id });
-  if (m.title.english) params.append("title", m.title.english);
-  if (m.title.romaji) params.append("alt", m.title.romaji);
-  try {
-    const res = await fetch(`/api/latest?${params}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.found && data.chapter ? data : null;
-  } catch {
-    return null;
-  }
-}
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+function fromAniList(m) {
+  return {
+    id: m.id,
+    title: m.title.english || m.title.romaji,
+    cover: m.coverImage?.medium || null,
+    status: m.status,
+  };
 }
 
 async function searchManga(text) {
   const data = await anilist(
-    `query ($s: String) {
-       Page(perPage: 8) {
-         media(search: $s, type: MANGA, sort: SEARCH_MATCH) { ${FIELDS} }
-       }
-     }`,
+    `query ($s: String) { Page(perPage: 8) {
+       media(search: $s, type: MANGA, sort: SEARCH_MATCH) { ${FIELDS} } } }`,
     { s: text }
   );
-  return data.Page.media;
+  return data.Page.media.map(fromAniList);
 }
 
-async function fetchManyByIds(ids) {
-  if (ids.length === 0) return [];
-  const data = await anilist(
-    `query ($ids: [Int]) {
-       Page(perPage: 50) {
-         media(id_in: $ids, type: MANGA) { ${FIELDS} }
-       }
-     }`,
-    { ids }
-  );
-  return data.Page.media;
+// Latest chapter + rhythm from MangaDex, through server.py (MangaDex blocks browsers).
+async function fetchLatest(e) {
+  const params = new URLSearchParams({ al: e.id, title: e.title });
+  const data = await fetchJSON(`api/latest?${params}`);
+  return data && data.found ? data : null;
 }
 
-// ---------- Rendering ----------
-// We build elements with textContent (not innerHTML) so a weird title can't inject HTML.
-
-function displayTitle(m) {
-  return m.title.english || m.title.romaji;
+// Fill entries with live data (AniList for covers/status, server.py for chapters).
+async function fillLive(list) {
+  if (list.length === 0) return;
+  try {
+    const data = await anilist(
+      `query ($ids: [Int]) { Page(perPage: 50) {
+         media(id_in: $ids, type: MANGA) { ${FIELDS} } } }`,
+      { ids: list.map((e) => e.id) }
+    );
+    const byId = new Map(data.Page.media.map((m) => [m.id, fromAniList(m)]));
+    for (const e of list) Object.assign(e, byId.get(e.id) || {});
+  } catch {
+    /* offline: keep what we have */
+  }
+  for (const e of list) {
+    if (canEdit) {
+      // chapter lookups need server.py
+      const info = await fetchLatest(e);
+      if (info) {
+        const { found, ...rest } = info;
+        Object.assign(e, rest);
+      }
+    }
+    e.pending = false;
+  }
 }
 
-function makeCard(m, button) {
+async function loadAll() {
+  const series = (await fetchJSON("series.json")) || [];
+  const raw = (await fetchJSON("state.json")) || {};
+  const state = raw.series || raw; // the first version of state.json had no wrapper
+  checkedAt = raw.checkedAt || null;
+
+  // An entry from the OLD state.json format has no history/cover: treat it as pending too,
+  // so the page fills it live until the bot rewrites state.json in the new format.
+  entries = series.map((s) => {
+    const known = state[s.id];
+    return { id: s.id, title: s.title, ...known, pending: !known || !known.history };
+  });
+  await fillLive(entries.filter((e) => e.pending));
+}
+
+// ---------- rendering: My list ----------
+
+function makeCard(e, button) {
   const li = document.createElement("li");
   li.className = "card";
 
   const img = document.createElement("img");
-  img.src = m.coverImage?.medium || "";
+  img.src = e.cover || "";
   img.alt = "";
   img.loading = "lazy";
 
@@ -140,185 +173,337 @@ function makeCard(m, button) {
 
   const title = document.createElement("div");
   title.className = "title";
-  title.textContent = displayTitle(m);
+  title.textContent = e.title;
 
   const sub = document.createElement("div");
   sub.className = "sub";
-  if (m.latest) {
-    // Link to the official reader when MangaDex knows one.
-    const a = document.createElement("a");
-    a.href = m.latest.url;
+  if (e.chapter) {
+    const a = document.createElement("a"); // official reader when MangaDex knows one
+    a.href = e.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-    a.textContent = `Ch. ${m.latest.chapter}`;
-    sub.append(a, ` · ${formatDate(m.latest.publishedAt)}`);
-  } else if (m.chapters) {
-    sub.textContent = `${m.chapters} ${m.chapters === 1 ? "chapter" : "chapters"}`;
-  } else {
-    sub.textContent = "Ongoing";
+    a.textContent = `Ch. ${e.chapter}`;
+    sub.append(a, ` · ${fmtShort(new Date(e.publishedAt))}`);
+    if (e.typicalGapDays) sub.append(` · about every ${Math.round(e.typicalGapDays)} days`);
+  } else if (e.pending) {
+    sub.textContent = "Waiting for the first check";
   }
 
   const badge = document.createElement("span");
-  const quiet = quietWeeks(m);
+  const quiet = quietDays(e);
   if (quiet) {
     badge.className = "badge QUIET";
-    badge.textContent = `On break? ${quiet} wks quiet`;
-    badge.title = `AniList says Releasing, but the last chapter was ${quiet} weeks ago.`;
+    badge.textContent = `On break? ${Math.floor(quiet / 7)} wks quiet`;
+    badge.title = `AniList says Releasing, but the last chapter was ${quiet} days ago.`;
   } else {
-    badge.className = `badge ${m.status}`;
-    badge.textContent = STATUS_LABEL[m.status] || m.status;
+    badge.className = `badge ${e.status}`;
+    badge.textContent = STATUS_LABEL[e.status] || e.status || "";
   }
 
   info.append(title, sub, badge);
-  li.append(img, info, button);
+  if (e.expectedNext && !quiet && e.status === "RELEASING") {
+    const next = document.createElement("div");
+    next.className = "sub";
+    next.textContent = `Next expected around ${fmtShort(parseDay(e.expectedNext))}`;
+    info.append(next);
+  }
+
+  li.append(img, info);
+  if (button) li.append(button);
   return li;
 }
 
-function renderResults(items) {
+function renderResults() {
   const ul = document.getElementById("results");
-  const saved = new Set(loadList().map((m) => m.id));
+  const saved = new Set(entries.map((e) => e.id));
   ul.replaceChildren(
-    ...items.map((m) => {
+    ...lastResults.map((m) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = saved.has(m.id) ? "Added" : "Add";
       btn.disabled = saved.has(m.id);
-      btn.addEventListener("click", () => {
-        addToList(m);
-        btn.textContent = "Added";
-        btn.disabled = true;
-      });
+      btn.addEventListener("click", () => addSeries(m, btn));
       return makeCard(m, btn);
     })
   );
 }
 
 function renderList() {
-  const list = loadList();
-  const ul = document.getElementById("mylist");
-  document.getElementById("list-msg").textContent = list.length
+  const msg = document.getElementById("list-msg");
+  msg.textContent = entries.length
     ? ""
-    : "Nothing here yet. Search a manga above and press Add.";
+    : canEdit
+      ? "Nothing here yet. Search a manga above and press Add."
+      : "series.json is empty.";
+  document.getElementById("checked-at").textContent = checkedAt
+    ? `Bot last checked ${new Date(checkedAt).toLocaleString()}`
+    : "";
 
-  ul.replaceChildren(
-    ...list.map((m) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "ghost";
-      btn.textContent = "Remove";
-      btn.addEventListener("click", () => removeFromList(m.id));
-      return makeCard(m, btn);
+  document.getElementById("mylist").replaceChildren(
+    ...entries.map((e) => {
+      let btn = null;
+      if (canEdit) {
+        btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "ghost";
+        btn.textContent = "Remove";
+        btn.addEventListener("click", () => removeSeries(e.id));
+      }
+      return makeCard(e, btn);
     })
   );
 }
 
-// ---------- Actions ----------
+// ---------- actions (only with server.py) ----------
 
-async function addToList(m) {
-  const list = loadList();
-  if (list.some((x) => x.id === m.id)) return;
-  list.push(m);
-  saveList(list);
-  renderList();
-
-  // Fetch the latest chapter in the background, then update the saved copy.
-  const latest = await fetchLatest(m);
-  if (!latest) return;
-  saveList(loadList().map((x) => (x.id === m.id ? { ...x, latest } : x)));
-  renderList();
-}
-
-function removeFromList(id) {
-  saveList(loadList().filter((m) => m.id !== id));
-  renderList();
-  // Re-draw search results so the "Added" button resets if it's visible.
-  if (lastResults.length) renderResults(lastResults);
-}
-
-async function refreshStatuses() {
-  const btn = document.getElementById("refresh");
-  const msg = document.getElementById("list-msg");
-  const list = loadList();
-  if (list.length === 0) return;
-
+async function addSeries(m, btn) {
   btn.disabled = true;
-  msg.textContent = "Checking AniList...";
-  try {
-    const fresh = await fetchManyByIds(list.map((m) => m.id));
-    const byId = new Map(fresh.map((m) => [m.id, m]));
-    const changes = [];
+  btn.textContent = "Adding...";
+  const res = await fetch("api/series", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: m.id, title: m.title }),
+  });
+  if (!res.ok) {
+    btn.textContent = "Failed";
+    return;
+  }
+  btn.textContent = "Added";
+  const e = { ...m, pending: true };
+  entries.push(e);
+  renderList();
+  await fillLive([e]);
+  renderList();
+  document.getElementById("list-msg").textContent =
+    "Saved to series.json. Commit and push it so the daily bot tracks it too.";
+}
 
-    // One at a time, so we stay polite to MangaDex's rate limit.
-    const updated = [];
-    for (const old of list) {
-      const now = byId.get(old.id) || old;
-      if (now.status !== old.status) {
-        changes.push(`${displayTitle(now)}: ${STATUS_LABEL[old.status]} -> ${STATUS_LABEL[now.status]}`);
-      }
-      // If the lookup fails, keep what we knew before.
-      const latest = (await fetchLatest(now)) || old.latest;
-      const next = { ...now, latest };
-      if (latest && old.latest && latest.chapter !== old.latest.chapter) {
-        // A new chapter after a quiet stretch means it's back from break.
-        changes.push(
-          quietWeeks(old)
-            ? `${displayTitle(now)}: back from break, chapter ${latest.chapter}`
-            : `${displayTitle(now)}: new chapter ${latest.chapter}`
-        );
-      } else if (!quietWeeks(old) && quietWeeks(next)) {
-        changes.push(`${displayTitle(now)}: ${quietWeeks(next)} weeks without a chapter, maybe on break`);
-      }
-      updated.push(next);
+async function removeSeries(id) {
+  const res = await fetch(`api/series?id=${id}`, { method: "DELETE" });
+  if (!res.ok) return;
+  entries = entries.filter((e) => e.id !== id);
+  renderList();
+  renderResults();
+  document.getElementById("list-msg").textContent =
+    "Removed from series.json. Commit and push it to stop the bot tracking it.";
+}
+
+async function refreshNow() {
+  const btn = document.getElementById("refresh");
+  btn.disabled = true;
+  document.getElementById("list-msg").textContent = "Checking AniList and MangaDex...";
+  entries.forEach((e) => (e.pending = true));
+  await fillLive(entries);
+  checkedAt = new Date().toISOString();
+  renderList();
+  document.getElementById("list-msg").textContent =
+    "Updated live. The daily bot is what writes state.json.";
+  btn.disabled = false;
+}
+
+// ---------- rendering: Calendar ----------
+
+// One list of calendar events: past releases, plus projected ones from each
+// series' usual gap. Quiet series are NOT projected (they are listed as overdue).
+function buildEvents() {
+  const today = startOfDay(new Date());
+  const horizon = addDays(today, 120);
+  const events = [];
+
+  for (const e of entries) {
+    for (const h of e.history || []) {
+      events.push({ date: localDay(h.date), kind: "released", id: e.id, title: e.title, label: `${e.title} ch. ${h.chapter}` });
     }
+    if (e.status !== "RELEASING" || !e.expectedNext || !e.typicalGapDays || quietDays(e)) continue;
 
-    saveList(updated);
-    renderList();
-    msg.textContent = changes.length ? `Changed: ${changes.join("; ")}` : "No status changes.";
-  } catch (err) {
-    msg.textContent = `Could not refresh: ${err.message}`;
-  } finally {
-    btn.disabled = false;
+    const gap = Math.max(1, Math.round(e.typicalGapDays));
+    let t = parseDay(e.expectedNext);
+    if (t < today) {
+      // Past its expected day but not "quiet" yet: show it as due now.
+      events.push({ date: today, kind: "late", id: e.id, title: e.title, label: `${e.title} (due now)` });
+      t = addDays(t, Math.ceil((today - t) / (gap * DAY)) * gap);
+      if (t.getTime() === today.getTime()) t = addDays(t, gap);
+    }
+    for (; t <= horizon; t = addDays(t, gap)) {
+      events.push({ date: t, kind: "expected", id: e.id, title: e.title, label: `${e.title} (expected)` });
+    }
+  }
+  return events;
+}
+
+function li(...parts) {
+  const el = document.createElement("li");
+  el.append(...parts);
+  return el;
+}
+function span(cls, text) {
+  const s = document.createElement("span");
+  s.className = cls;
+  s.textContent = text;
+  return s;
+}
+
+function renderCalendar() {
+  const events = buildEvents();
+  const today = startOfDay(new Date());
+
+  // Overdue
+  const overdue = entries.filter((e) => quietDays(e));
+  document.getElementById("overdue-block").hidden = overdue.length === 0;
+  document.getElementById("overdue").replaceChildren(
+    ...overdue.map((e) => {
+      const usual = e.typicalGapDays ? `, usually every ${Math.round(e.typicalGapDays)} days` : "";
+      return li(
+        span("when", e.title),
+        span("note", `last chapter ${e.chapter}, ${Math.floor(quietDays(e) / 7)} weeks ago${usual}`)
+      );
+    })
+  );
+
+  // Coming up
+  const end = addDays(today, 14);
+  const soon = events
+    .filter((ev) => ev.kind !== "released" && ev.date >= today && ev.date <= end)
+    .sort((a, b) => a.date - b.date);
+  const upcoming = document.getElementById("upcoming");
+  upcoming.replaceChildren(
+    ...(soon.length
+      ? soon.map((ev) =>
+          li(span("when", fmtLong(ev.date)), ev.title, " ", span("note", ev.kind === "late" ? "due now" : "expected"))
+        )
+      : [li(span("note", "Nothing expected in the next 14 days."))])
+  );
+
+  // Month grid (weeks start on Monday)
+  document.getElementById("month-title").textContent = calMonth.toLocaleDateString(undefined, {
+    month: "long",
+    year: "numeric",
+  });
+  const byDay = new Map();
+  for (const ev of events) {
+    const k = dayKey(ev.date);
+    if (!byDay.has(k)) byDay.set(k, []);
+    byDay.get(k).push(ev);
+  }
+
+  const offset = (calMonth.getDay() + 6) % 7;
+  const daysInMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 0).getDate();
+  const cells = Math.ceil((offset + daysInMonth) / 7) * 7;
+  const grid = document.getElementById("cal-grid");
+  grid.replaceChildren(
+    ...["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => span("dow", d))
+  );
+
+  for (let i = 0; i < cells; i++) {
+    const day = addDays(calMonth, i - offset);
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    if (day.getMonth() !== calMonth.getMonth()) cell.classList.add("other");
+    if (day.getTime() === today.getTime()) cell.classList.add("today");
+    cell.append(span("num", String(day.getDate())));
+
+    const list = byDay.get(dayKey(day)) || [];
+    for (const ev of list.slice(0, 3)) {
+      const p = span(`pill ${ev.kind}`, ev.title);
+      p.title = ev.label;
+      cell.append(p);
+    }
+    if (list.length > 3) cell.append(span("num", `+${list.length - 3} more`));
+    grid.append(cell);
   }
 }
 
-// ---------- Search box ----------
+// .ics file: expected releases for the next ~4 months, for Apple/Google Calendar etc.
+function downloadIcs() {
+  const pad = (n) => String(n).padStart(2, "0");
+  const ymd = (d) => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+  const esc = (s) => s.replace(/[\\;,]/g, (c) => "\\" + c);
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
 
-let lastResults = [];
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Manga Tracker//EN"];
+  for (const ev of buildEvents().filter((x) => x.kind === "expected")) {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${ev.id}-${ymd(ev.date)}@manga-tracker`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${ymd(ev.date)}`,
+      `DTEND;VALUE=DATE:${ymd(addDays(ev.date, 1))}`,
+      `SUMMARY:${esc(ev.title)} (expected chapter)`,
+      "END:VEVENT"
+    );
+  }
+  lines.push("END:VCALENDAR");
+
+  const blob = new Blob([lines.join("\r\n")], { type: "text/calendar" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "manga-calendar.ics";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ---------- wiring ----------
+
+document.querySelectorAll(".tab").forEach((btn) =>
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
+    document.getElementById("tab-list").hidden = btn.dataset.tab !== "list";
+    document.getElementById("tab-calendar").hidden = btn.dataset.tab !== "calendar";
+    if (btn.dataset.tab === "calendar") renderCalendar();
+  })
+);
+
+document.getElementById("prev-month").addEventListener("click", () => {
+  calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1);
+  renderCalendar();
+});
+document.getElementById("next-month").addEventListener("click", () => {
+  calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1);
+  renderCalendar();
+});
+document.getElementById("today-month").addEventListener("click", () => {
+  calMonth = firstOfMonth(new Date());
+  renderCalendar();
+});
+document.getElementById("ics").addEventListener("click", downloadIcs);
+document.getElementById("refresh").addEventListener("click", refreshNow);
+
 let timer;
-
-document.getElementById("search").addEventListener("input", (e) => {
+document.getElementById("search").addEventListener("input", (ev) => {
   clearTimeout(timer);
-  const text = e.target.value.trim();
+  const text = ev.target.value.trim();
   const msg = document.getElementById("search-msg");
-
   if (text.length < 2) {
     lastResults = [];
-    renderResults([]);
+    renderResults();
     msg.textContent = "";
     return;
   }
-
-  // Wait 400 ms after the last keystroke so we don't spam the API.
   timer = setTimeout(async () => {
     msg.textContent = "Searching...";
     try {
       lastResults = await searchManga(text);
       msg.textContent = lastResults.length ? "" : "No results.";
-      renderResults(lastResults);
+      renderResults();
     } catch (err) {
       msg.textContent = `Search failed: ${err.message}`;
     }
   }, 400);
 });
 
-document.getElementById("refresh").addEventListener("click", refreshStatuses);
+async function init() {
+  // Is server.py running? (On a static host this 404s and we stay read-only.)
+  try {
+    const res = await fetch("api/ping");
+    canEdit = res.ok && (await res.json()).edit === true;
+  } catch {
+    canEdit = false;
+  }
+  document.getElementById("add-section").hidden = !canEdit;
+  document.getElementById("refresh").hidden = !canEdit;
 
-// Threshold picker: how many quiet weeks before we call it "On break?".
-const breakSelect = document.getElementById("break-weeks");
-breakSelect.value = String(getBreakWeeks());
-breakSelect.addEventListener("change", () => {
-  localStorage.setItem(THRESHOLD_KEY, breakSelect.value);
+  await loadAll();
   renderList();
-});
+}
 
-renderList();
+init();

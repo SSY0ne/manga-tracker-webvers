@@ -12,32 +12,57 @@
     <p class="tagline">Never wonder if your manga is on break.</p>
   </header>
 
-  <main>
-    <section>
-      <h2>Find a manga</h2>
-      <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
-      <p id="search-msg" class="msg"></p>
-      <ul id="results" class="cards"></ul>
-    </section>
+  <nav class="tabs" role="tablist">
+    <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
+    <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
+  </nav>
 
-    <section>
+  <main>
+    <!-- ===== My list ===== -->
+    <section id="tab-list">
+      <div id="add-section" hidden>
+        <h2>Find a manga</h2>
+        <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
+        <p id="search-msg" class="msg"></p>
+        <ul id="results" class="cards"></ul>
+      </div>
+
       <div class="row">
         <h2>My list</h2>
         <div class="controls">
-          <label>On break after
-            <select id="break-weeks">
-              <option value="3">3 wks</option>
-              <option value="4">4 wks</option>
-              <option value="6">6 wks</option>
-              <option value="8">8 wks</option>
-              <option value="12">12 wks</option>
-            </select>
-          </label>
-          <button id="refresh" type="button">Refresh statuses</button>
+          <span id="checked-at" class="msg"></span>
+          <button id="refresh" type="button" hidden>Refresh now</button>
         </div>
       </div>
       <p id="list-msg" class="msg"></p>
       <ul id="mylist" class="cards"></ul>
+    </section>
+
+    <!-- ===== Calendar ===== -->
+    <section id="tab-calendar" hidden>
+      <div id="overdue-block" hidden>
+        <h2>Overdue, maybe on break</h2>
+        <ul id="overdue" class="plain"></ul>
+      </div>
+
+      <h2>Coming up (next 14 days)</h2>
+      <ul id="upcoming" class="plain"></ul>
+
+      <div class="row">
+        <h2 id="month-title">Month</h2>
+        <div class="controls">
+          <button id="prev-month" type="button" class="ghost" aria-label="Previous month">&lt;</button>
+          <button id="today-month" type="button" class="ghost">Today</button>
+          <button id="next-month" type="button" class="ghost" aria-label="Next month">&gt;</button>
+        </div>
+      </div>
+      <div id="cal-grid" class="cal"></div>
+      <p class="legend">
+        <span class="pill released">released</span>
+        <span class="pill expected">expected</span>
+        <span class="pill late">due now</span>
+      </p>
+      <button id="ics" type="button" class="ghost">Download .ics (add to your calendar app)</button>
     </section>
   </main>
 
