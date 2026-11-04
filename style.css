@@ -1,0 +1,96 @@
+:root {
+  --bg: #0f1115;
+  --card: #181b22;
+  --text: #e8eaf0;
+  --muted: #8b91a3;
+  --accent: #ffb703;
+  --green: #3ecf8e;
+  --orange: #ff9f43;
+  --grey: #6b7280;
+  --red: #ef4444;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 16px 48px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.4;
+}
+
+header, main { max-width: 760px; margin: 0 auto; }
+header { padding: 32px 0 8px; }
+h1 { margin: 0; font-size: 1.8rem; }
+h2 { margin: 28px 0 12px; font-size: 1.1rem; color: var(--muted); font-weight: 600; }
+.tagline { margin: 4px 0 0; color: var(--muted); }
+
+input[type="search"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid #2a2f3a;
+  border-radius: 10px;
+}
+input[type="search"]:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+button {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #111;
+  background: var(--accent);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.5; cursor: default; }
+button.ghost { color: var(--text); background: transparent; border: 1px solid #2a2f3a; }
+
+.row { display: flex; align-items: center; justify-content: space-between; }
+.msg { min-height: 1.2em; margin: 8px 0; color: var(--muted); font-size: 0.9rem; }
+
+.cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  background: var(--card);
+  border-radius: 12px;
+}
+.card img { width: 56px; height: 80px; object-fit: cover; border-radius: 6px; background: #222; }
+.card .info { flex: 1; min-width: 0; }
+.card .title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card .sub { color: var(--muted); font-size: 0.85rem; }
+.card .sub a { color: var(--accent); text-decoration: none; }
+.card .sub a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 999px;
+  color: #111;
+}
+.badge.RELEASING { background: var(--green); }
+.badge.HIATUS { background: var(--orange); }
+.badge.FINISHED { background: var(--grey); color: #fff; }
+.badge.QUIET { background: var(--orange); }
+.controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.controls label { color: var(--muted); font-size: 0.85rem; }
+.controls select {
+  margin-left: 4px;
+  padding: 6px 8px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid #2a2f3a;
+  border-radius: 8px;
+}
+.badge.CANCELLED { background: var(--red); color: #fff; }
+.badge.NOT_YET_RELEASED { background: #60a5fa; }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manga Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Manga Tracker</h1>
+    <p class="tagline">Never wonder if your manga is on break.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Find a manga</h2>
+      <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
+      <p id="search-msg" class="msg"></p>
+      <ul id="results" class="cards"></ul>
+    </section>
+
+    <section>
+      <div class="row">
+        <h2>My list</h2>
+        <div class="controls">
+          <label>On break after
+            <select id="break-weeks">
+              <option value="3">3 wks</option>
+              <option value="4">4 wks</option>
+              <option value="6">6 wks</option>
+              <option value="8">8 wks</option>
+              <option value="12">12 wks</option>
+            </select>
+          </label>
+          <button id="refresh" type="button">Refresh statuses</button>
+        </div>
+      </div>
+      <p id="list-msg" class="msg"></p>
+      <ul id="mylist" class="cards"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
