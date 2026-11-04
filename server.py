@@ -20,6 +20,7 @@ check.py imports chapter_info() and quiet_days() from here, so the page and the 
 bot use exactly the same rules.
 """
 
+import difflib
 import json
 import os
 import re
@@ -156,26 +157,58 @@ def mangadex_candidate(al_id, titles, year):
 
 # ---------- source 2: MangaUpdates ----------
 
+MU_MIN_SCORE = 0.85  # how similar two titles must be (1.0 = identical) when the year also fits
+
+
+def title_key(text):
+    """Lowercase, drop (bracketed bits like '(KIM Carnby)'), keep only letters and digits."""
+    return re.sub(r"[^a-z0-9]", "", re.sub(r"\([^)]*\)", "", (text or "").lower()))
+
+
+def mu_score(record, names, year):
+    """How well a MangaUpdates search result fits our series: 0 = reject, else 0..1.
+
+    Rejected outright: doujinshi, novels, and anything whose start year is more than a
+    year away from ours (that is how two different manga called 'Sweet Home' are told
+    apart). Otherwise the score is the best title similarity against any of our names.
+    No known year on either side -> only an identical title is accepted.
+    """
+    title = record["title"]
+    low = title.lower()
+    if record.get("type") in ("Doujinshi", "Novel") or " dj - " in low or low.endswith("(novel)"):
+        return 0
+    try:
+        theirs = int(record.get("year") or 0)
+    except ValueError:
+        theirs = 0
+    ours = int(year) if year else 0
+    if ours and theirs and abs(theirs - ours) > 1:
+        return 0
+    best = max((difflib.SequenceMatcher(None, title_key(n), title_key(title)).ratio() for n in names if n), default=0)
+    needed = MU_MIN_SCORE if ours and theirs else 0.999
+    return best if best >= needed else 0
+
+
 def find_mu_series(al_id, titles, year):
-    """MangaUpdates has no AniList link, so match on title AND start year (+/- 1)."""
+    """MangaUpdates has no AniList link, so match on title similarity AND start year.
+
+    Several search terms are tried (English, romaji, synonyms); the best-scoring result wins,
+    and an identical title with the same year stops the search early.
+    """
     if al_id in _mu_id_cache:
         return _mu_id_cache[al_id]
-    wanted = {norm(t) for t in titles if t}
-    found = None
-    for term in [t for t in titles if t][:3]:
+    names = [t for t in titles if t]
+    best = (0, None)  # (score, record)
+    for term in names[:4]:
         results = http_json(f"{MANGAUPDATES}/series/search", {"search": term, "perpage": 15}).get("results", [])
         for r in results:
-            x = r["record"]
-            try:
-                year_ok = not year or not x.get("year") or abs(int(x["year"]) - int(year)) <= 1
-            except ValueError:
-                year_ok = True
-            if norm(x["title"]) in wanted and year_ok:
-                found = {"id": x["series_id"], "url": x.get("url")}
-                break
-        if found:
+            score = mu_score(r["record"], names, year)
+            if score > best[0]:
+                best = (score, r["record"])
+        if best[0] >= 0.999:
             break
         time.sleep(0.3)
+    found = {"id": best[1]["series_id"], "url": best[1].get("url")} if best[1] else None
     _mu_id_cache[al_id] = found
     return found
 
@@ -184,6 +217,8 @@ def mangaupdates_candidate(al_id, titles, year):
     series = find_mu_series(al_id, titles, year)
     if not series:
         return None
+    if not series.get("url"):  # we were only given an id (manual override): ask for the link once
+        series["url"] = http_json(f"{MANGAUPDATES}/series/{series['id']}").get("url")
     rel = http_json(
         f"{MANGAUPDATES}/releases/search",
         {"search": str(series["id"]), "search_type": "series", "perpage": 40, "orderby": "date"},
@@ -250,8 +285,19 @@ def reconcile(candidates, read, status):
     return result
 
 
-def chapter_info(al_id, titles, year=None, read=None, status=None):
-    """Ask every source, then reconcile. Raises only if every source failed."""
+def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None):
+    """Ask every source, then reconcile. Raises only if every source failed.
+
+    `matches` = what we already know about which entry each source uses for this series
+    ({"MangaDex": uuid, "MangaUpdates": {"id", "url"}}), from state.json or a manual
+    override in series.json. Known matches skip the title search; the result carries the
+    (possibly new) matches back so the caller can remember them.
+    """
+    matches = matches or {}
+    if matches.get("MangaDex"):
+        _md_id_cache[al_id] = matches["MangaDex"]
+    if matches.get("MangaUpdates"):
+        _mu_id_cache[al_id] = dict(matches["MangaUpdates"])
     candidates, errors = [], []
     for name, fetch in SOURCES:
         key = (name, al_id)
@@ -269,7 +315,14 @@ def chapter_info(al_id, titles, year=None, read=None, status=None):
         time.sleep(0.3)  # be polite to the sources
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
-    return reconcile(candidates, read, status)
+    result = reconcile(candidates, read, status)
+    found = {}
+    if _md_id_cache.get(al_id):
+        found["MangaDex"] = _md_id_cache[al_id]
+    if _mu_id_cache.get(al_id):
+        found["MangaUpdates"] = _mu_id_cache[al_id]
+    result["matches"] = found
+    return result
 
 
 # ---------- the "on break" rule (shared with check.py; app.js has a copy) ----------

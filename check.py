@@ -225,8 +225,12 @@ def check(series_path, state_path, dry):
         # Ask every source (MangaDex, MangaUpdates...) and let server.reconcile() choose.
         names = [m["title"].get("english"), m["title"].get("romaji")] + (m.get("synonyms") or [])
         year = (m.get("startDate") or {}).get("year")
+        # Remembered matches skip the title search; a manual "mu" id in series.json wins.
+        matches = dict((old or {}).get("matches") or {})
+        if s.get("mu"):
+            matches["MangaUpdates"] = {"id": int(s["mu"])}
         try:
-            info = server.chapter_info(str(m["id"]), names, year, s.get("read"), m["status"])
+            info = server.chapter_info(str(m["id"]), names, year, s.get("read"), m["status"], matches)
         except Exception as err:  # every source down: keep the old info, try again tomorrow
             print(f"! {name}: lookup failed ({err}), keeping old data")
             info = dict(old or {})
@@ -240,6 +244,7 @@ def check(series_path, state_path, dry):
         quiet_for = 0 if limited else server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
         quiet = quiet_for > 0
         new_state = {
+            "matches": info.get("matches", matches),
             "agreement": info.get("agreement"),
             "source": info.get("source"),
             "sources": info.get("sources", []),

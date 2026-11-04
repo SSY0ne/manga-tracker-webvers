@@ -17,6 +17,12 @@ like it is on break.
   (each is a small "source" function in `server.py`), then `reconcile()` keeps the one
   that is coherent: not in the future, not far below what you have read, and the freshest
   when they differ. Each card says whether the sources agree, disagree or only one has data.
+- **Matching a series on each source.** MangaDex has an exact AniList link. MangaUpdates
+  does not, so a series is matched by title similarity (at least 0.85, ignoring bracketed
+  bits) AND start year within one year, which also tells two manga with the same name apart.
+  Matches are remembered in `state.json`, so later runs skip the search. If one never
+  matches, find its id with `python3 devtools.py match NAME` and add `"mu": <id>` to its
+  entry in `series.json`.
 - **Limited data**: when no source fits (licensed series lose their chapters on both),
   the series is marked "Limited data" and gets no break or new-chapter alerts instead of
   wrong ones. Alerts also only fire when the same source reports a +1 to +5 chapter step,
@@ -67,6 +73,7 @@ environment variables, never in a file you commit.
 
 ```bash
 python3 devtools.py report            # summary of state.json: agree / conflict / limited / on break
+python3 devtools.py match NAME        # why a series doesn't match on MangaUpdates (+ ids to copy)
 python3 devtools.py restart           # restart server.py on :8123
 python3 devtools.py sandbox [FILE.xml]  # full check on COPIES of your files, sends nothing
 python3 check.py --no-send            # same check on the real files: saves state, sends nothing

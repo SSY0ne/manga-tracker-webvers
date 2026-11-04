@@ -82,20 +82,15 @@ def match(needle):
         year = (data["startDate"] or {}).get("year")
         names = [data["title"]["english"], data["title"]["romaji"]] + (data["synonyms"] or [])
         names = [n for n in names if n]
-        wanted = {server.norm(n) for n in names}
-        print(f"\n== {s['title']}  (AniList {s['id']}, year {year})")
-        print("   we search with:", names[:3], "| all names:", len(names))
-        for term in names[:3]:
-            res = server.http_json(f"{server.MANGAUPDATES}/series/search", {"search": term, "perpage": 8}).get("results", [])
+        print(f"\n== {s['title']}  (AniList {s['id']}, year {year}, saved override mu={s.get('mu')})")
+        print("   we search with:", names[:4], "| all names:", len(names))
+        for term in names[:4]:
+            res = server.http_json(f"{server.MANGAUPDATES}/series/search", {"search": term, "perpage": 15}).get("results", [])
             print(f"   search '{term}' -> {len(res)} results")
             for r in res[:6]:
                 x = r["record"]
-                same_title = server.norm(x["title"]) in wanted
-                try:
-                    year_ok = abs(int(x.get("year") or 0) - int(year or 0)) <= 1
-                except ValueError:
-                    year_ok = False
-                flag = "MATCH" if same_title and year_ok else ("title ok, year off" if same_title else "")
+                score = server.mu_score(x, names, year)
+                flag = f"ACCEPTED ({score:.2f})" if score else ""
                 print(f"      {x['series_id']} | {x['title'][:48]:48} | {x.get('year')} | {flag}")
             time.sleep(0.5)
 
