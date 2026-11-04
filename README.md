@@ -63,6 +63,15 @@ email can both be on; either one alone also works.
 Webhook URLs and passwords are secrets: only ever put them in repo secrets or
 environment variables, never in a file you commit.
 
+## Dev tools
+
+```bash
+python3 devtools.py report            # summary of state.json: agree / conflict / limited / on break
+python3 devtools.py restart           # restart server.py on :8123
+python3 devtools.py sandbox [FILE.xml]  # full check on COPIES of your files, sends nothing
+python3 check.py --no-send            # same check on the real files: saves state, sends nothing
+```
+
 ## Roadmap
 
 - [x] Search and list (AniList)

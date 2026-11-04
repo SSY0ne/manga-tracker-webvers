@@ -356,6 +356,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--add", metavar="TITLE", help="search AniList and add a series")
     p.add_argument("--dry", action="store_true", help="print messages, don't send, don't save state")
+    p.add_argument("--no-send", action="store_true", help="save state and print messages, but send nothing")
     p.add_argument("--test", action="store_true", help="send a test message")
     p.add_argument("--import-mal", metavar="FILE", help="import a MyAnimeList XML export into series.json")
     p.add_argument("--mal-status", default="Reading", help='comma list, e.g. "Reading,Plan to Read"')
@@ -379,7 +380,7 @@ def main():
         print("Nothing new.")
         return
     text = "\n".join(messages)
-    if args.dry:
+    if args.dry or args.no_send:
         print("--- would send ---\n" + text)
     else:
         n = len(messages)
