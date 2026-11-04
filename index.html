@@ -25,6 +25,23 @@
         <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
         <p id="search-msg" class="msg"></p>
         <ul id="results" class="cards"></ul>
+
+        <details class="import">
+          <summary>Import your list from MyAnimeList</summary>
+          <p class="msg">
+            On MAL: Profile, then Export, then the <b>manga</b> list. You get an .xml file.
+            It is read in your browser; only titles and chapters-read are saved to series.json.
+          </p>
+          <div class="statuses">
+            <label><input type="checkbox" class="import-status" value="Reading" checked> Reading</label>
+            <label><input type="checkbox" class="import-status" value="Plan to Read"> Plan to read</label>
+            <label><input type="checkbox" class="import-status" value="On-Hold"> On hold</label>
+            <label><input type="checkbox" class="import-status" value="Completed"> Completed</label>
+            <label><input type="checkbox" class="import-status" value="Dropped"> Dropped</label>
+          </div>
+          <input id="import-file" type="file" accept=".xml,application/xml,text/xml">
+          <p id="import-msg" class="msg"></p>
+        </details>
       </div>
 
       <div class="row">

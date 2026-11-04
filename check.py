@@ -116,6 +116,65 @@ def add_series(path, text):
     print(f"Added {title_of(m)}.")
 
 
+# ---------- import from a MyAnimeList export ----------
+
+def import_mal(xml_path, series_path, statuses):
+    """Add the series of a MAL XML export (MAL > Profile > Export) to series.json.
+
+    The export has each manga's MAL id, and AniList can look a manga up by MAL id,
+    so the match is exact (no guessing from titles). Only the statuses you ask for
+    are imported; default is just "Reading". The XML file itself is never copied
+    into the repo.
+    """
+    import xml.etree.ElementTree as ET  # your own export file, so the stdlib parser is fine
+
+    rows = []
+    for m in ET.parse(xml_path).getroot().iter("manga"):
+        status = (m.findtext("my_status") or "").strip()
+        if status in statuses:
+            rows.append(
+                {
+                    "mal": int(m.findtext("manga_mangadb_id")),
+                    "title": (m.findtext("manga_title") or "").strip(),
+                    "read": int(m.findtext("my_read_chapters") or 0),
+                }
+            )
+    print(f"{len(rows)} entries with status {sorted(statuses)} in the export.")
+
+    found = {}  # MAL id -> AniList media
+    for i in range(0, len(rows), 50):
+        mal_ids = [r["mal"] for r in rows[i : i + 50]]
+        data = anilist(
+            """query ($ids: [Int]) { Page(perPage: 50) {
+                 media(idMal_in: $ids, type: MANGA) { id idMal title { romaji english } }
+            } }""",
+            {"ids": mal_ids},
+        )
+        found.update({m["idMal"]: m for m in data["Page"]["media"]})
+        time.sleep(1)
+
+    series = read_json(series_path, [])
+    by_id = {s["id"]: s for s in series}
+    added, updated, missing = 0, 0, []
+    for r in rows:
+        m = found.get(r["mal"])
+        if not m:
+            missing.append(r["title"])
+            continue
+        if m["id"] in by_id:
+            by_id[m["id"]].update({"mal": r["mal"], "read": r["read"]})
+            updated += 1
+        else:
+            entry = {"id": m["id"], "title": title_of(m), "mal": r["mal"], "read": r["read"]}
+            series.append(entry)
+            by_id[m["id"]] = entry
+            added += 1
+    write_json(series_path, series)
+    print(f"Added {added}, already in your list {updated}, not found on AniList {len(missing)}.")
+    for t in missing:
+        print(f"  - {t}")
+
+
 # ---------- the check ----------
 
 def check(series_path, state_path, dry):
@@ -130,13 +189,15 @@ def check(series_path, state_path, dry):
         return []
 
     ids = [s["id"] for s in series]
-    data = anilist(
-        """query ($ids: [Int]) { Page(perPage: 50) {
-             media(id_in: $ids, type: MANGA) { id title { romaji english } status coverImage { medium } }
-        } }""",
-        {"ids": ids},
-    )
-    by_id = {m["id"]: m for m in data["Page"]["media"]}
+    by_id = {}
+    for i in range(0, len(ids), 50):  # AniList returns at most 50 per page
+        data = anilist(
+            """query ($ids: [Int]) { Page(perPage: 50) {
+                 media(id_in: $ids, type: MANGA) { id title { romaji english } status coverImage { medium } }
+            } }""",
+            {"ids": ids[i : i + 50]},
+        )
+        by_id.update({m["id"]: m for m in data["Page"]["media"]})
 
     messages = []
     for s in series:
@@ -161,10 +222,13 @@ def check(series_path, state_path, dry):
         chapter, published, url = info.get("chapter"), info.get("publishedAt"), info.get("url")
         gap = info.get("typicalGapDays")
 
+        # MangaDex data too thin to trust (see server.is_limited)? Then no break/chapter claims.
+        limited = m["status"] == "RELEASING" and server.is_limited(chapter, s.get("read"))
         # "On break?" = way overdue compared to this series' own rhythm (see server.py).
-        quiet_for = server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
+        quiet_for = 0 if limited else server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
         quiet = quiet_for > 0
         new_state = {
+            "limited": limited,
             "title": name,
             "cover": (m.get("coverImage") or {}).get("medium"),
             "status": m["status"],
@@ -182,7 +246,9 @@ def check(series_path, state_path, dry):
             print(f"+ {name}: first check (chapter {chapter}, {STATUS_TEXT.get(m['status'])})")
         else:
             was_quiet = old.get("quiet", False)
-            if chapter and chapter != old.get("chapter"):
+            if limited:
+                pass  # MangaDex can't be trusted for this one: say nothing about chapters
+            elif chapter and chapter != old.get("chapter"):
                 link = f"\n{url}" if url else ""
                 if was_quiet:
                     messages.append(f"▶️ **{name}** is back from break: chapter **{chapter}**{link}")
@@ -222,12 +288,16 @@ def main():
     p.add_argument("--add", metavar="TITLE", help="search AniList and add a series")
     p.add_argument("--dry", action="store_true", help="print messages, don't send, don't save state")
     p.add_argument("--test", action="store_true", help="send a test message")
+    p.add_argument("--import-mal", metavar="FILE", help="import a MyAnimeList XML export into series.json")
+    p.add_argument("--mal-status", default="Reading", help='comma list, e.g. "Reading,Plan to Read"')
     p.add_argument("--series", default="series.json")
     p.add_argument("--state", default="state.json")
     args = p.parse_args()
 
     if args.add:
         return add_series(args.series, args.add)
+    if args.import_mal:
+        return import_mal(args.import_mal, args.series, {s.strip() for s in args.mal_status.split(",")})
     if args.test:
         send_discord("✅ Manga Tracker is connected. You'll get chapter and break alerts here.")
         print("Test message sent.")

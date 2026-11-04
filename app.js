@@ -68,7 +68,21 @@ function fmtLong(d) {
 // "quiet" when it is way overdue compared to ITS OWN rhythm: at least 2.5x its usual
 // gap and at least 2 weeks more. No rhythm known yet -> flat 6 weeks.
 
+// MangaDex sometimes has too little for a series (licensed titles lose chapters), e.g.
+// "latest chapter 4" when you have read 373. Same check as is_limited() in server.py.
+function thinData(e) {
+  if (e.pending) return false;
+  if (!e.chapter) return true;
+  return Boolean(e.read) && parseFloat(e.chapter) < 0.8 * e.read;
+}
+// For alerts and the calendar only Releasing series matter; for display, any series
+// with thin data hides its chapter line rather than show a wrong number.
+function isLimited(e) {
+  return e.status === "RELEASING" && thinData(e);
+}
+
 function quietDays(e) {
+  if (isLimited(e)) return 0;
   if (e.status !== "RELEASING" || !e.publishedAt) return 0;
   const days = Math.floor((Date.now() - new Date(e.publishedAt).getTime()) / DAY);
   const gap = e.typicalGapDays;
@@ -116,7 +130,7 @@ async function fetchLatest(e) {
 }
 
 // Fill entries with live data (AniList for covers/status, server.py for chapters).
-async function fillLive(list) {
+async function fillLive(list, onProgress) {
   if (list.length === 0) return;
   try {
     const data = await anilist(
@@ -129,6 +143,7 @@ async function fillLive(list) {
   } catch {
     /* offline: keep what we have */
   }
+  let done = 0;
   for (const e of list) {
     if (canEdit) {
       // chapter lookups need server.py
@@ -139,10 +154,11 @@ async function fillLive(list) {
       }
     }
     e.pending = false;
+    if (onProgress) onProgress(++done, list.length);
   }
 }
 
-async function loadAll() {
+async function loadAll(onProgress) {
   const series = (await fetchJSON("series.json")) || [];
   const raw = (await fetchJSON("state.json")) || {};
   const state = raw.series || raw; // the first version of state.json had no wrapper
@@ -152,9 +168,10 @@ async function loadAll() {
   // so the page fills it live until the bot rewrites state.json in the new format.
   entries = series.map((s) => {
     const known = state[s.id];
-    return { id: s.id, title: s.title, ...known, pending: !known || !known.history };
+    // mal / read (chapters you've read) come from series.json, not from the bot's state
+    return { id: s.id, title: s.title, ...known, mal: s.mal, read: s.read, pending: !known || !known.history };
   });
-  await fillLive(entries.filter((e) => e.pending));
+  await fillLive(entries.filter((e) => e.pending), onProgress);
 }
 
 // ---------- rendering: My list ----------
@@ -177,7 +194,7 @@ function makeCard(e, button) {
 
   const sub = document.createElement("div");
   sub.className = "sub";
-  if (e.chapter) {
+  if (e.chapter && !thinData(e)) {
     const a = document.createElement("a"); // official reader when MangaDex knows one
     a.href = e.url;
     a.target = "_blank";
@@ -191,7 +208,11 @@ function makeCard(e, button) {
 
   const badge = document.createElement("span");
   const quiet = quietDays(e);
-  if (quiet) {
+  if (isLimited(e)) {
+    badge.className = "badge LIMITED";
+    badge.textContent = "Limited data";
+    badge.title = "MangaDex has too few chapters for this series, so no break or new-chapter alerts.";
+  } else if (quiet) {
     badge.className = "badge QUIET";
     badge.textContent = `On break? ${Math.floor(quiet / 7)} wks quiet`;
     badge.title = `AniList says Releasing, but the last chapter was ${quiet} days ago.`;
@@ -201,11 +222,19 @@ function makeCard(e, button) {
   }
 
   info.append(title, sub, badge);
-  if (e.expectedNext && !quiet && e.status === "RELEASING") {
+  if (e.expectedNext && !quiet && e.status === "RELEASING" && !isLimited(e)) {
     const next = document.createElement("div");
     next.className = "sub";
     next.textContent = `Next expected around ${fmtShort(parseDay(e.expectedNext))}`;
     info.append(next);
+  }
+  if (e.read && e.chapter && !thinData(e)) {
+    // From your imported list: how far ahead the series is of you.
+    const behind = Math.floor(parseFloat(e.chapter) - e.read);
+    const prog = document.createElement("div");
+    prog.className = "sub";
+    prog.textContent = behind > 0 ? `You've read ${e.read} · ${behind} behind` : `You've read ${e.read} · caught up`;
+    info.append(prog);
   }
 
   li.append(img, info);
@@ -301,6 +330,87 @@ async function refreshNow() {
   btn.disabled = false;
 }
 
+// ---------- import a MyAnimeList export ----------
+// On MAL: Profile > Export > Manga list gives an .xml file. We read it HERE in the
+// browser; only titles, MAL ids and chapters-read are sent on to series.json.
+// AniList can look up a manga by its MAL id, so each match is exact.
+
+async function importMal(file) {
+  const msg = document.getElementById("import-msg");
+  const wanted = [...document.querySelectorAll(".import-status:checked")].map((c) => c.value);
+  if (wanted.length === 0) {
+    msg.textContent = "Tick at least one status to import.";
+    return;
+  }
+
+  msg.textContent = "Reading the file...";
+  const doc = new DOMParser().parseFromString(await file.text(), "application/xml");
+  if (doc.querySelector("parsererror") || !doc.querySelector("myanimelist")) {
+    msg.textContent = "That doesn't look like a MyAnimeList export (.xml).";
+    return;
+  }
+  const text = (m, tag) => (m.querySelector(tag)?.textContent || "").trim();
+  const rows = [...doc.querySelectorAll("manga")]
+    .map((m) => ({
+      mal: Number(text(m, "manga_mangadb_id")),
+      status: text(m, "my_status"),
+      read: Number(text(m, "my_read_chapters")) || 0,
+    }))
+    .filter((r) => r.mal && wanted.includes(r.status));
+  if (rows.length === 0) {
+    msg.textContent = "No manga with those statuses in this file (is it the manga export, not anime?).";
+    return;
+  }
+
+  // MAL id -> AniList id, 50 at a time (AniList's page limit)
+  const found = new Map();
+  try {
+    for (let i = 0; i < rows.length; i += 50) {
+      msg.textContent = `Matching ${Math.min(i + 50, rows.length)} of ${rows.length} on AniList...`;
+      const data = await anilist(
+        `query ($ids: [Int]) { Page(perPage: 50) {
+           media(idMal_in: $ids, type: MANGA) { id idMal title { romaji english } } } }`,
+        { ids: rows.slice(i, i + 50).map((r) => r.mal) }
+      );
+      data.Page.media.forEach((m) => found.set(m.idMal, m));
+    }
+  } catch (err) {
+    msg.textContent = `AniList lookup failed: ${err.message}`;
+    return;
+  }
+
+  const items = rows
+    .filter((r) => found.has(r.mal))
+    .map((r) => {
+      const m = found.get(r.mal);
+      return { id: m.id, title: m.title.english || m.title.romaji, mal: r.mal, read: r.read };
+    });
+  const res = await fetch("api/series", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(items),
+  });
+  if (!res.ok) {
+    msg.textContent = "Could not save to series.json.";
+    return;
+  }
+
+  const unmatched = rows.length - items.length;
+  msg.textContent =
+    `Imported ${items.length} series` +
+    (unmatched ? ` (${unmatched} not found on AniList)` : "") +
+    ". Loading chapter info...";
+  await loadAll((done, total) => {
+    document.getElementById("list-msg").textContent = `Loading chapter info ${done}/${total}...`;
+    renderList();
+  });
+  renderList();
+  renderResults();
+  msg.textContent = `Imported ${items.length} series${unmatched ? ` (${unmatched} not found on AniList)` : ""}.`;
+  document.getElementById("list-msg").textContent =
+    "Saved to series.json. Commit and push it so the daily bot tracks them.";
+}
+
 // ---------- rendering: Calendar ----------
 
 // One list of calendar events: past releases, plus projected ones from each
@@ -311,6 +421,7 @@ function buildEvents() {
   const events = [];
 
   for (const e of entries) {
+    if (isLimited(e)) continue; // MangaDex data can't be trusted: keep it off the calendar
     for (const h of e.history || []) {
       events.push({ date: localDay(h.date), kind: "released", id: e.id, title: e.title, label: `${e.title} ch. ${h.chapter}` });
     }
@@ -466,6 +577,11 @@ document.getElementById("today-month").addEventListener("click", () => {
   renderCalendar();
 });
 document.getElementById("ics").addEventListener("click", downloadIcs);
+document.getElementById("import-file").addEventListener("change", async (ev) => {
+  const file = ev.target.files[0];
+  if (file) await importMal(file);
+  ev.target.value = ""; // lets you pick the same file again later
+});
 document.getElementById("refresh").addEventListener("click", refreshNow);
 
 let timer;

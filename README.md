@@ -10,6 +10,12 @@ like it is on break.
 - Learns each series' **own rhythm** from its chapter history and flags **On break?**
   when it is far more overdue than usual (at least 2.5x its usual gap and 2 weeks more).
   AniList is slow to mark hiatus, and a fixed "6 weeks" would flag slow series all the time.
+- **Import from MyAnimeList**: upload the .xml export (MAL, Profile, Export, manga list)
+  on the page, or run `python3 check.py --import-mal FILE.xml`. Series are matched
+  exactly by MAL id, and your chapters-read is kept so cards show "17 behind".
+- **Limited data**: MangaDex loses the English chapters of many licensed series. When its
+  latest chapter is far below what you have read, the series is marked "Limited data" and
+  gets no break or new-chapter alerts, instead of wrong ones.
 - **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
   `.ics` download for your calendar app.
 - The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.

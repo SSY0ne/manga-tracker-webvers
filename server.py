@@ -149,6 +149,22 @@ def quiet_days(status, published_iso, typical_gap, fallback_weeks=6):
     return days if days >= limit else 0
 
 
+def is_limited(chapter, read):
+    """True when MangaDex's data for a series looks incomplete.
+
+    Licensed series often lose their English chapters on MangaDex, so the "latest"
+    one can be tiny or missing. We notice that by comparing with how far you have
+    read (from your MAL import): latest chapter far below your progress, or none.
+    For those we make no "on break" or "new chapter" claims. app.js has a copy.
+    """
+    if chapter is None:
+        return True
+    try:
+        return bool(read) and float(chapter) < 0.8 * read
+    except ValueError:
+        return False
+
+
 # ---------- series.json (local editing) ----------
 
 def read_series():
@@ -190,15 +206,29 @@ class Handler(SimpleHTTPRequestHandler):
         # browsers must ask permission first for that content type, and we never grant it.
         if self.headers.get("Content-Type", "").split(";")[0] != "application/json":
             return self.send_json(415, {"error": "send JSON"})
+        # Body: one entry {"id", "title", optional "mal", "read"} or a list of them
+        # (the MAL import sends a list). Existing series just get mal/read updated.
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
-            sid, title = int(body["id"]), str(body["title"]).strip()[:200]
-        except (ValueError, KeyError, TypeError):
+            items = body if isinstance(body, list) else [body]
+            clean = []
+            for it in items[:500]:
+                entry = {"id": int(it["id"]), "title": str(it["title"]).strip()[:200]}
+                for key in ("mal", "read"):
+                    if it.get(key) is not None:
+                        entry[key] = int(it[key])
+                clean.append(entry)
+        except (ValueError, KeyError, TypeError, AttributeError):
             return self.send_json(400, {"error": "need id (number) and title"})
         series = read_series()
-        if not any(s["id"] == sid for s in series):
-            series.append({"id": sid, "title": title})
-            write_series(series)
+        by_id = {s["id"]: s for s in series}
+        for entry in clean:
+            if entry["id"] in by_id:
+                by_id[entry["id"]].update({k: v for k, v in entry.items() if k in ("mal", "read")})
+            else:
+                series.append(entry)
+                by_id[entry["id"]] = entry
+        write_series(series)
         self.send_json(200, series)
 
     def do_DELETE(self):

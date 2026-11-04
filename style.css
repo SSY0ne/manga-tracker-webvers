@@ -102,6 +102,14 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 .badge.CANCELLED { background: var(--red); color: #fff; }
 .badge.NOT_YET_RELEASED { background: var(--blue); }
 
+.badge.LIMITED { background: transparent; color: var(--muted); border: 1px dashed var(--grey); }
+
+/* MAL import */
+.import { margin-top: 14px; padding: 10px 14px; background: var(--card); border-radius: 12px; }
+.import summary { cursor: pointer; color: var(--text); }
+.import .statuses { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0; font-size: 0.9rem; color: var(--muted); }
+.import input[type="file"] { color: var(--muted); font-size: 0.9rem; }
+
 /* calendar tab */
 .plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .plain li { padding: 8px 12px; background: var(--card); border-radius: 10px; font-size: 0.92rem; }

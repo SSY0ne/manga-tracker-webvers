@@ -1,6 +1,242 @@
 [
   {
     "id": 30013,
-    "title": "One Piece"
+    "title": "One Piece",
+    "mal": 13,
+    "read": 1180
+  },
+  {
+    "id": 30002,
+    "title": "Berserk",
+    "mal": 2,
+    "read": 376
+  },
+  {
+    "id": 86123,
+    "title": "Black Clover",
+    "mal": 86337,
+    "read": 373
+  },
+  {
+    "id": 106130,
+    "title": "Blue Lock",
+    "mal": 114745,
+    "read": 367
+  },
+  {
+    "id": 168468,
+    "title": "Boruto: Two Blue Vortex",
+    "mal": 160786,
+    "read": 14
+  },
+  {
+    "id": 114998,
+    "title": "Bungo Stray Dogs Beast",
+    "mal": 123006,
+    "read": 6
+  },
+  {
+    "id": 105778,
+    "title": "Chainsaw Man",
+    "mal": 116778,
+    "read": 112
+  },
+  {
+    "id": 44568,
+    "title": "Clover",
+    "mal": 14568,
+    "read": 0
+  },
+  {
+    "id": 132029,
+    "title": "Dandadan",
+    "mal": 135496,
+    "read": 247
+  },
+  {
+    "id": 106929,
+    "title": "Eleceed",
+    "mal": 147171,
+    "read": 422
+  },
+  {
+    "id": 87395,
+    "title": "Grand Blue Dreaming",
+    "mal": 70345,
+    "read": 112
+  },
+  {
+    "id": 30007,
+    "title": "Hajime no Ippo: Fighting Spirit!",
+    "mal": 7,
+    "read": 267
+  },
+  {
+    "id": 30936,
+    "title": "Homunculus",
+    "mal": 936,
+    "read": 0
+  },
+  {
+    "id": 30026,
+    "title": "Hunter x Hunter",
+    "mal": 26,
+    "read": 102
+  },
+  {
+    "id": 137280,
+    "title": "I’m the Max-Level Newbie",
+    "mal": 147392,
+    "read": 279
+  },
+  {
+    "id": 30375,
+    "title": "Initial D",
+    "mal": 375,
+    "read": 719
+  },
+  {
+    "id": 138072,
+    "title": "JoJo no Kimyou na Bouken: The JOJOLands",
+    "mal": 139629,
+    "read": 1
+  },
+  {
+    "id": 198372,
+    "title": "Jujutsu Kaisen Modulo",
+    "mal": 186597,
+    "read": 22
+  },
+  {
+    "id": 37375,
+    "title": "The Climber",
+    "mal": 7375,
+    "read": 65
+  },
+  {
+    "id": 141626,
+    "title": "Manager Kim",
+    "mal": 146879,
+    "read": 197
+  },
+  {
+    "id": 30028,
+    "title": "Nana",
+    "mal": 28,
+    "read": 15
+  },
+  {
+    "id": 119257,
+    "title": "Omniscient Reader",
+    "mal": 132214,
+    "read": 310
+  },
+  {
+    "id": 74347,
+    "title": "One-Punch Man",
+    "mal": 44347,
+    "read": 211
+  },
+  {
+    "id": 34632,
+    "title": "Goodnight Punpun",
+    "mal": 4632,
+    "read": 5
+  },
+  {
+    "id": 141705,
+    "title": "Reality Quest",
+    "mal": 151157,
+    "read": 227
+  },
+  {
+    "id": 144939,
+    "title": "Red Blue",
+    "mal": 143196,
+    "read": 211
+  },
+  {
+    "id": 125828,
+    "title": "Sakamoto Days",
+    "mal": 131334,
+    "read": 278
+  },
+  {
+    "id": 96223,
+    "title": "Sekai no Owari no Hajimari ni",
+    "mal": 93748,
+    "read": 4
+  },
+  {
+    "id": 30727,
+    "title": "Shamo",
+    "mal": 727,
+    "read": 0
+  },
+  {
+    "id": 130229,
+    "title": "Shotgun Boy",
+    "mal": 146751,
+    "read": 68
+  },
+  {
+    "id": 107098,
+    "title": "Record of Ragnarok",
+    "mal": 110485,
+    "read": 125
+  },
+  {
+    "id": 179444,
+    "title": "Shuumatsu no Valkyrie Kinden: Kamigami no Apocalypse",
+    "mal": 171448,
+    "read": 15
+  },
+  {
+    "id": 108556,
+    "title": "SPY x FAMILY",
+    "mal": 119161,
+    "read": 119
+  },
+  {
+    "id": 100954,
+    "title": "Sweet Home",
+    "mal": 124845,
+    "read": 140
+  },
+  {
+    "id": 140407,
+    "title": "The Greatest Estate Developer",
+    "mal": 147272,
+    "read": 210
+  },
+  {
+    "id": 85611,
+    "title": "Tokyo Ghoul:re",
+    "mal": 81117,
+    "read": 143
+  },
+  {
+    "id": 102988,
+    "title": "Tokyo Revengers",
+    "mal": 104565,
+    "read": 278
+  },
+  {
+    "id": 39982,
+    "title": "Usogui",
+    "mal": 9982,
+    "read": 0
+  },
+  {
+    "id": 30656,
+    "title": "Vagabond",
+    "mal": 656,
+    "read": 327
+  },
+  {
+    "id": 117195,
+    "title": "[Oshi no Ko]",
+    "mal": 126146,
+    "read": 126
   }
 ]
