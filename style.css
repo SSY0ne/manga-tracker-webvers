@@ -104,6 +104,10 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 
 .badge.LIMITED { background: transparent; color: var(--muted); border: 1px dashed var(--grey); }
 
+.card .src { margin-top: 2px; font-size: 0.72rem; color: var(--muted); cursor: help; }
+.card .src.agree { color: var(--green); }
+.card .src.conflict { color: var(--orange); }
+
 /* MAL import */
 .import { margin-top: 14px; padding: 10px 14px; background: var(--card); border-radius: 12px; }
 .import summary { cursor: pointer; color: var(--text); }

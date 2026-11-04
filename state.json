@@ -1,7 +1,23 @@
 {
-  "checkedAt": "2026-11-04T23:17:17+00:00",
+  "checkedAt": "2026-11-04T23:39:12+00:00",
   "series": {
     "30013": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "1197",
+          "publishedAt": "2026-11-01T15:10:56+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "1197",
+          "publishedAt": "2026-11-01T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "One Piece",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30013-BeslEMqiPhlk.jpg",
@@ -64,6 +80,22 @@
       "quiet": false
     },
     "30002": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "386",
+          "publishedAt": "2026-07-09T19:06:25+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "386",
+          "publishedAt": "2026-07-09T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Berserk",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30002-Cul4OeN7bYtn.jpg",
@@ -126,122 +158,129 @@
       "quiet": true
     },
     "86123": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "4",
+          "publishedAt": "2026-08-26T17:41:27+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "392",
+          "publishedAt": "2026-04-30T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Black Clover",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx86123-Ill8uBdtvWrR.png",
       "status": "FINISHED",
-      "chapter": "4",
-      "publishedAt": "2026-08-26T17:41:27+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1000180",
-      "typicalGapDays": null,
-      "expectedNext": null,
+      "chapter": "392",
+      "publishedAt": "2026-04-30T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/w8nq9bw/black-clover",
+      "typicalGapDays": 79,
+      "expectedNext": "2026-07-18",
       "history": [
         {
-          "chapter": "4",
-          "date": "2026-08-26T17:41:27+00:00"
-        },
-        {
           "chapter": "392",
-          "date": "2026-04-30T15:05:52+00:00"
-        },
-        {
-          "chapter": "391",
-          "date": "2026-04-30T15:05:49+00:00"
-        },
-        {
-          "chapter": "390",
-          "date": "2026-04-30T15:05:48+00:00"
+          "date": "2026-04-30T00:00:00+00:00"
         },
         {
           "chapter": "389",
-          "date": "2026-01-04T15:07:09+00:00"
+          "date": "2026-01-04T00:00:00+00:00"
         },
         {
-          "chapter": "388",
-          "date": "2026-01-04T15:07:07+00:00"
+          "chapter": "386",
+          "date": "2025-10-29T00:00:00+00:00"
         },
         {
-          "chapter": "387",
-          "date": "2026-01-04T15:06:41+00:00"
+          "chapter": "383",
+          "date": "2025-08-11T00:00:00+00:00"
         },
         {
-          "chapter": "3",
-          "date": "2019-07-25T23:30:13+00:00"
+          "chapter": "380",
+          "date": "2025-05-01T00:00:00+00:00"
         },
         {
-          "chapter": "2",
-          "date": "2019-07-25T23:29:55+00:00"
+          "chapter": "378",
+          "date": "2025-01-09T00:00:00+00:00"
         },
         {
-          "chapter": "1",
-          "date": "2019-07-25T23:29:45+00:00"
+          "chapter": "376",
+          "date": "2024-11-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "373",
+          "date": "2024-08-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "371",
+          "date": "2024-04-29T00:00:00+00:00"
+        },
+        {
+          "chapter": "369",
+          "date": "2023-12-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "368",
+          "date": "2023-08-18T00:00:00+00:00"
+        },
+        {
+          "chapter": "367",
+          "date": "2023-08-02T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "106130": {
+      "agreement": "none",
+      "source": null,
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "150",
+          "publishedAt": "2026-07-19T14:26:25+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "272",
+          "publishedAt": "2024-08-19T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
       "limited": true,
       "title": "Blue Lock",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106130-yPNeuSu75ey1.jpg",
       "status": "RELEASING",
-      "chapter": "150",
-      "publishedAt": "2026-07-19T14:26:25+00:00",
-      "url": "https://mangadex.org/chapter/02bb0664-1ec9-422d-add0-b4e3ba7ae733",
-      "typicalGapDays": 1,
-      "expectedNext": "2026-07-20",
-      "history": [
-        {
-          "chapter": "150",
-          "date": "2026-07-19T14:26:25+00:00"
-        },
-        {
-          "chapter": "177",
-          "date": "2024-09-09T08:33:28+00:00"
-        },
-        {
-          "chapter": "176",
-          "date": "2024-09-09T08:33:21+00:00"
-        },
-        {
-          "chapter": "175",
-          "date": "2024-08-31T17:17:47+00:00"
-        },
-        {
-          "chapter": "174",
-          "date": "2024-08-31T17:16:46+00:00"
-        },
-        {
-          "chapter": "173",
-          "date": "2024-08-31T17:15:45+00:00"
-        },
-        {
-          "chapter": "22",
-          "date": "2024-08-31T17:14:45+00:00"
-        },
-        {
-          "chapter": "21",
-          "date": "2024-08-31T17:12:49+00:00"
-        },
-        {
-          "chapter": "20",
-          "date": "2024-08-31T17:10:49+00:00"
-        },
-        {
-          "chapter": "19",
-          "date": "2024-08-31T17:08:48+00:00"
-        },
-        {
-          "chapter": "18",
-          "date": "2024-08-31T17:04:47+00:00"
-        },
-        {
-          "chapter": "17",
-          "date": "2024-08-31T16:59:48+00:00"
-        }
-      ],
+      "chapter": null,
+      "publishedAt": null,
+      "url": null,
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false
     },
     "168468": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "38",
+          "publishedAt": "2026-10-20T15:08:27+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "38",
+          "publishedAt": "2026-10-20T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Boruto: Two Blue Vortex",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx168468-FEo5x1ZZyWj4.png",
@@ -304,6 +343,9 @@
       "quiet": false
     },
     "114998": {
+      "agreement": "none",
+      "source": null,
+      "sources": [],
       "limited": false,
       "title": "Bungo Stray Dogs Beast",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx114998-JTCzDczl8eBD.jpg",
@@ -317,68 +359,94 @@
       "quiet": false
     },
     "105778": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "4",
+          "publishedAt": "2026-08-26T17:47:09+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "232",
+          "publishedAt": "2026-03-24T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Chainsaw Man",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx105778-euxXZEIfDY2u.png",
       "status": "FINISHED",
-      "chapter": "4",
-      "publishedAt": "2026-08-26T17:47:09+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1001252",
-      "typicalGapDays": 6,
-      "expectedNext": "2026-09-01",
+      "chapter": "232",
+      "publishedAt": "2026-03-24T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/ylx5wzn/chainsaw-man",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-03-31",
       "history": [
         {
-          "chapter": "4",
-          "date": "2026-08-26T17:47:09+00:00"
-        },
-        {
           "chapter": "232",
-          "date": "2026-03-25T01:08:29+00:00"
+          "date": "2026-03-24T00:00:00+00:00"
         },
         {
           "chapter": "231",
-          "date": "2026-03-10T15:05:23+00:00"
+          "date": "2026-03-10T00:00:00+00:00"
         },
         {
           "chapter": "230",
-          "date": "2026-02-25T01:08:34+00:00"
+          "date": "2026-02-24T00:00:00+00:00"
         },
         {
-          "chapter": "3",
-          "date": "2024-05-01T15:29:11+00:00"
+          "chapter": "229",
+          "date": "2026-02-17T00:00:00+00:00"
         },
         {
-          "chapter": "2",
-          "date": "2024-05-01T15:29:09+00:00"
+          "chapter": "228",
+          "date": "2026-02-03T00:00:00+00:00"
         },
         {
-          "chapter": "1",
-          "date": "2024-05-01T15:29:06+00:00"
+          "chapter": "227",
+          "date": "2026-01-20T00:00:00+00:00"
         },
         {
-          "chapter": "97",
-          "date": "2020-12-13T20:18:59+00:00"
+          "chapter": "226",
+          "date": "2026-01-13T00:00:00+00:00"
         },
         {
-          "chapter": "96",
-          "date": "2020-12-09T13:09:41+00:00"
+          "chapter": "225",
+          "date": "2026-01-06T00:00:00+00:00"
         },
         {
-          "chapter": "95",
-          "date": "2020-11-30T16:00:49+00:00"
+          "chapter": "224",
+          "date": "2025-12-23T00:00:00+00:00"
         },
         {
-          "chapter": "94",
-          "date": "2020-11-23T21:21:45+00:00"
+          "chapter": "223",
+          "date": "2025-12-16T00:00:00+00:00"
         },
         {
-          "chapter": "93",
-          "date": "2020-11-17T02:39:52+00:00"
+          "chapter": "222",
+          "date": "2025-12-02T00:00:00+00:00"
+        },
+        {
+          "chapter": "221",
+          "date": "2025-11-25T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "44568": {
+      "agreement": "single",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "1",
+          "publishedAt": "2019-12-21T21:58:42+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Clover",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx44568-5TSVZlJLcfab.png",
@@ -441,6 +509,22 @@
       "quiet": false
     },
     "132029": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "251",
+          "publishedAt": "2026-11-02T15:07:52+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "251",
+          "publishedAt": "2026-11-02T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Dandadan",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx132029-prGF4gePdSKv.jpg",
@@ -503,182 +587,241 @@
       "quiet": false
     },
     "106929": {
+      "agreement": "conflict",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "390",
+          "publishedAt": "2026-06-24T22:02:33+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "425",
+          "publishedAt": "2026-11-03T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Eleceed",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106929-flAUvHZDUz5v.jpg",
       "status": "RELEASING",
-      "chapter": "390",
-      "publishedAt": "2026-06-24T22:02:33+00:00",
-      "url": "https://mangadex.org/chapter/2709e6d2-0f9c-4baf-add6-fc20efacb4ce",
-      "typicalGapDays": null,
-      "expectedNext": null,
+      "chapter": "425",
+      "publishedAt": "2026-11-03T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-11-10",
       "history": [
         {
-          "chapter": "390",
-          "date": "2026-06-24T22:02:33+00:00"
+          "chapter": "425",
+          "date": "2026-11-03T00:00:00+00:00"
         },
         {
-          "chapter": "247",
-          "date": "2023-05-30T15:37:24+00:00"
+          "chapter": "424",
+          "date": "2026-10-27T00:00:00+00:00"
         },
         {
-          "chapter": "246",
-          "date": "2023-05-30T15:37:02+00:00"
+          "chapter": "423",
+          "date": "2026-10-20T00:00:00+00:00"
         },
         {
-          "chapter": "245",
-          "date": "2023-05-30T15:36:42+00:00"
+          "chapter": "422",
+          "date": "2026-10-13T00:00:00+00:00"
         },
         {
-          "chapter": "244",
-          "date": "2023-05-30T15:36:22+00:00"
+          "chapter": "421",
+          "date": "2026-10-06T00:00:00+00:00"
         },
         {
-          "chapter": "243",
-          "date": "2023-05-30T15:35:57+00:00"
+          "chapter": "406",
+          "date": "2026-10-06T00:00:00+00:00"
         },
         {
-          "chapter": "242",
-          "date": "2023-05-30T15:34:19+00:00"
+          "chapter": "420",
+          "date": "2026-09-29T00:00:00+00:00"
         },
         {
-          "chapter": "241",
-          "date": "2023-05-30T15:34:01+00:00"
+          "chapter": "405",
+          "date": "2026-09-29T00:00:00+00:00"
         },
         {
-          "chapter": "240",
-          "date": "2023-05-30T15:33:39+00:00"
+          "chapter": "419",
+          "date": "2026-09-22T00:00:00+00:00"
         },
         {
-          "chapter": "239",
-          "date": "2023-05-30T15:33:14+00:00"
+          "chapter": "404",
+          "date": "2026-09-22T00:00:00+00:00"
         },
         {
-          "chapter": "238",
-          "date": "2023-05-30T15:32:53+00:00"
+          "chapter": "418",
+          "date": "2026-09-15T00:00:00+00:00"
         },
         {
-          "chapter": "237",
-          "date": "2023-05-30T15:32:29+00:00"
-        }
-      ],
-      "quiet": true
-    },
-    "87395": {
-      "limited": true,
-      "title": "Grand Blue Dreaming",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx87395-axsA49kSZp72.jpg",
-      "status": "RELEASING",
-      "chapter": "79",
-      "publishedAt": "2024-09-09T08:43:29+00:00",
-      "url": "https://kmanga.kodansha.com/title/10058/episode/318762",
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [
-        {
-          "chapter": "79",
-          "date": "2024-09-09T08:43:29+00:00"
-        },
-        {
-          "chapter": "78.2",
-          "date": "2024-08-31T17:03:47+00:00"
-        },
-        {
-          "chapter": "78.1",
-          "date": "2024-08-31T16:58:48+00:00"
-        },
-        {
-          "chapter": "3",
-          "date": "2024-08-31T16:49:47+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2024-08-31T16:32:46+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2023-12-24T19:23:44+00:00"
+          "chapter": "403",
+          "date": "2026-09-15T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
+    "87395": {
+      "agreement": "none",
+      "source": null,
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "79",
+          "publishedAt": "2024-09-09T08:43:29+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "84",
+          "publishedAt": "2023-06-09T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
+      "limited": true,
+      "title": "Grand Blue Dreaming",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx87395-axsA49kSZp72.jpg",
+      "status": "RELEASING",
+      "chapter": null,
+      "publishedAt": null,
+      "url": null,
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
+      "quiet": false
+    },
     "30007": {
+      "agreement": "conflict",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "1493",
+          "publishedAt": "2025-05-27T17:06:38+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "1515",
+          "publishedAt": "2026-03-03T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Hajime no Ippo: Fighting Spirit!",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/nx30007-jVUNk721L0Uz.jpg",
       "status": "RELEASING",
-      "chapter": "1493",
-      "publishedAt": "2025-05-27T17:06:38+00:00",
-      "url": "https://mangadex.org/chapter/fb7c4202-75d9-4414-8e4b-25e718c066b7",
-      "typicalGapDays": 7,
-      "expectedNext": "2025-06-03",
+      "chapter": "1515",
+      "publishedAt": "2026-03-03T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/9ft0dv5/hajime-no-ippo",
+      "typicalGapDays": 8,
+      "expectedNext": "2026-03-11",
       "history": [
         {
-          "chapter": "1493",
-          "date": "2025-05-27T17:06:38+00:00"
+          "chapter": "1515",
+          "date": "2026-03-03T00:00:00+00:00"
         },
         {
-          "chapter": "1492",
-          "date": "2025-05-06T17:37:45+00:00"
+          "chapter": "1514",
+          "date": "2026-02-17T00:00:00+00:00"
         },
         {
-          "chapter": "1491",
-          "date": "2025-04-22T23:30:54+00:00"
+          "chapter": "1513",
+          "date": "2026-02-09T00:00:00+00:00"
         },
         {
-          "chapter": "1490",
-          "date": "2025-04-15T16:51:06+00:00"
+          "chapter": "1512",
+          "date": "2026-01-27T00:00:00+00:00"
         },
         {
-          "chapter": "1489",
-          "date": "2025-04-08T18:25:42+00:00"
+          "chapter": "1511",
+          "date": "2025-12-24T00:00:00+00:00"
         },
         {
-          "chapter": "1488",
-          "date": "2025-04-01T18:33:04+00:00"
+          "chapter": "1510",
+          "date": "2025-12-09T00:00:00+00:00"
         },
         {
-          "chapter": "3",
-          "date": "2024-09-09T08:48:53+00:00"
+          "chapter": "1509",
+          "date": "2025-11-18T00:00:00+00:00"
         },
         {
-          "chapter": "2",
-          "date": "2024-09-09T08:48:47+00:00"
+          "chapter": "1508",
+          "date": "2025-11-12T00:00:00+00:00"
         },
         {
-          "chapter": "1",
-          "date": "2024-09-09T08:48:42+00:00"
+          "chapter": "1507",
+          "date": "2025-11-04T00:00:00+00:00"
+        },
+        {
+          "chapter": "1506",
+          "date": "2025-10-22T00:00:00+00:00"
+        },
+        {
+          "chapter": "1505",
+          "date": "2025-10-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "1504",
+          "date": "2025-10-08T00:00:00+00:00"
         }
       ],
       "quiet": true
     },
     "30936": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "3",
+          "publishedAt": "2018-02-10T02:14:23+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "106",
+          "publishedAt": "2009-08-16T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Homunculus",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30936-P55KMUW1sgLN.jpg",
       "status": "FINISHED",
-      "chapter": "3",
-      "publishedAt": "2018-02-10T02:14:23+00:00",
-      "url": "https://mangadex.org/chapter/d5c8c5bc-11b6-40c5-9553-6c15c69700ff",
+      "chapter": "106",
+      "publishedAt": "2009-08-16T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/7fpp2m1/homunculus",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [
         {
-          "chapter": "3",
-          "date": "2018-02-10T02:14:23+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2018-02-10T02:07:01+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2018-02-10T02:06:48+00:00"
+          "chapter": "106",
+          "date": "2009-08-16T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "30026": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "420",
+          "publishedAt": "2026-09-06T15:20:29+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "420",
+          "publishedAt": "2026-09-06T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Hunter x Hunter",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30026-uCvXMudMzmwI.jpg",
@@ -741,10 +884,98 @@
       "quiet": true
     },
     "137280": {
-      "limited": true,
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaUpdates",
+          "chapter": "283",
+          "publishedAt": "2026-10-29T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
+      "limited": false,
       "title": "I’m the Max-Level Newbie",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx137280-juUL79K7f9s7.png",
       "status": "RELEASING",
+      "chapter": "283",
+      "publishedAt": "2026-10-29T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/upay4jv/i-m-the-max-level-newbie",
+      "typicalGapDays": 6,
+      "expectedNext": "2026-11-04",
+      "history": [
+        {
+          "chapter": "283",
+          "date": "2026-10-29T00:00:00+00:00"
+        },
+        {
+          "chapter": "282",
+          "date": "2026-10-23T00:00:00+00:00"
+        },
+        {
+          "chapter": "281",
+          "date": "2026-10-15T00:00:00+00:00"
+        },
+        {
+          "chapter": "280",
+          "date": "2026-10-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "279",
+          "date": "2026-10-01T00:00:00+00:00"
+        },
+        {
+          "chapter": "278",
+          "date": "2026-09-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "277",
+          "date": "2026-09-18T00:00:00+00:00"
+        },
+        {
+          "chapter": "276",
+          "date": "2026-09-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "275",
+          "date": "2026-09-03T00:00:00+00:00"
+        },
+        {
+          "chapter": "274",
+          "date": "2026-08-27T00:00:00+00:00"
+        },
+        {
+          "chapter": "273",
+          "date": "2026-08-20T00:00:00+00:00"
+        },
+        {
+          "chapter": "272",
+          "date": "2026-08-13T00:00:00+00:00"
+        }
+      ],
+      "quiet": false
+    },
+    "30375": {
+      "agreement": "none",
+      "source": null,
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "183",
+          "publishedAt": "2024-09-09T08:54:16+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "4",
+          "publishedAt": "2021-03-03T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
+      "limited": false,
+      "title": "Initial D",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/nx30375-YFIIOwp5kSqW.jpg",
+      "status": "FINISHED",
       "chapter": null,
       "publishedAt": null,
       "url": null,
@@ -753,69 +984,17 @@
       "history": [],
       "quiet": false
     },
-    "30375": {
-      "limited": false,
-      "title": "Initial D",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/nx30375-YFIIOwp5kSqW.jpg",
-      "status": "FINISHED",
-      "chapter": "183",
-      "publishedAt": "2024-09-09T08:54:16+00:00",
-      "url": "https://kmanga.kodansha.com/title/10189/episode/321279",
-      "typicalGapDays": 7,
-      "expectedNext": "2024-09-16",
-      "history": [
+    "138072": {
+      "agreement": "single",
+      "source": "MangaDex",
+      "sources": [
         {
-          "chapter": "183",
-          "date": "2024-09-09T08:54:16+00:00"
-        },
-        {
-          "chapter": "181",
-          "date": "2024-08-31T10:11:45+00:00"
-        },
-        {
-          "chapter": "180",
-          "date": "2024-08-31T09:19:48+00:00"
-        },
-        {
-          "chapter": "4",
-          "date": "2021-03-04T03:52:55+00:00"
-        },
-        {
-          "chapter": "3",
-          "date": "2020-02-21T02:59:46+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2020-02-19T20:12:14+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2020-02-12T07:33:53+00:00"
-        },
-        {
-          "chapter": "75",
-          "date": "2018-08-16T15:51:39+00:00"
-        },
-        {
-          "chapter": "454",
-          "date": "2018-08-16T11:35:32+00:00"
-        },
-        {
-          "chapter": "453",
-          "date": "2018-08-16T11:35:20+00:00"
-        },
-        {
-          "chapter": "452",
-          "date": "2018-08-16T11:35:13+00:00"
-        },
-        {
-          "chapter": "451",
-          "date": "2018-08-16T11:35:04+00:00"
+          "name": "MangaDex",
+          "chapter": "41",
+          "publishedAt": "2026-10-18T14:56:32+00:00",
+          "plausible": true
         }
       ],
-      "quiet": false
-    },
-    "138072": {
       "limited": false,
       "title": "JoJo no Kimyou na Bouken: The JOJOLands",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx138072-G9PrTnqb8CRI.jpg",
@@ -878,48 +1057,100 @@
       "quiet": false
     },
     "198372": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "4",
+          "publishedAt": "2026-08-26T19:34:58+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "25",
+          "publishedAt": "2026-03-08T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Jujutsu Kaisen Modulo",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx198372-uSHMdqSTQ3xo.jpg",
       "status": "FINISHED",
-      "chapter": "4",
-      "publishedAt": "2026-08-26T19:34:58+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1026617",
-      "typicalGapDays": 6,
-      "expectedNext": "2026-09-01",
+      "chapter": "25",
+      "publishedAt": "2026-03-08T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/du3m917/jujutsu-kaisen-modulo",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-03-15",
       "history": [
         {
-          "chapter": "4",
-          "date": "2026-08-26T19:34:58+00:00"
-        },
-        {
           "chapter": "25",
-          "date": "2026-03-08T15:09:37+00:00"
+          "date": "2026-03-08T00:00:00+00:00"
         },
         {
           "chapter": "24",
-          "date": "2026-03-01T15:10:20+00:00"
+          "date": "2026-03-01T00:00:00+00:00"
         },
         {
           "chapter": "23",
-          "date": "2026-02-23T01:04:09+00:00"
+          "date": "2026-02-22T00:00:00+00:00"
         },
         {
-          "chapter": "3",
-          "date": "2025-09-21T15:08:03+00:00"
+          "chapter": "22",
+          "date": "2026-02-15T00:00:00+00:00"
         },
         {
-          "chapter": "2",
-          "date": "2025-09-14T15:08:24+00:00"
+          "chapter": "21",
+          "date": "2026-02-08T00:00:00+00:00"
         },
         {
-          "chapter": "1",
-          "date": "2025-09-13T01:04:23+00:00"
+          "chapter": "20",
+          "date": "2026-02-01T00:00:00+00:00"
+        },
+        {
+          "chapter": "19",
+          "date": "2026-01-25T00:00:00+00:00"
+        },
+        {
+          "chapter": "18",
+          "date": "2026-01-18T00:00:00+00:00"
+        },
+        {
+          "chapter": "17",
+          "date": "2026-01-04T00:00:00+00:00"
+        },
+        {
+          "chapter": "16",
+          "date": "2025-12-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "15",
+          "date": "2025-12-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "14",
+          "date": "2025-12-07T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "37375": {
+      "agreement": "conflict",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "170",
+          "publishedAt": "2024-12-30T01:19:36+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "122",
+          "publishedAt": "2024-12-14T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "The Climber",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx37375-wkgev4kXhamw.png",
@@ -982,184 +1213,478 @@
       "quiet": false
     },
     "141626": {
+      "agreement": "conflict",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "238",
+          "publishedAt": "2026-04-14T07:31:02+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "266",
+          "publishedAt": "2026-11-04T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Manager Kim",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141626-2AQM2uUYS8wC.jpg",
       "status": "RELEASING",
-      "chapter": "238",
-      "publishedAt": "2026-04-14T07:31:02+00:00",
-      "url": "https://mangadex.org/chapter/076c28b1-7795-4858-8e52-04c40311cdb4",
-      "typicalGapDays": 4,
-      "expectedNext": "2026-04-18",
+      "chapter": "266",
+      "publishedAt": "2026-11-04T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/gsoa99l/manager-kim",
+      "typicalGapDays": 5,
+      "expectedNext": "2026-11-09",
       "history": [
         {
-          "chapter": "238",
-          "date": "2026-04-14T07:31:02+00:00"
+          "chapter": "266",
+          "date": "2026-11-04T00:00:00+00:00"
         },
         {
-          "chapter": "233",
-          "date": "2026-03-11T01:42:15+00:00"
+          "chapter": "265",
+          "date": "2026-10-30T00:00:00+00:00"
         },
         {
-          "chapter": "232",
-          "date": "2026-03-04T05:46:11+00:00"
+          "chapter": "248",
+          "date": "2026-10-24T00:00:00+00:00"
         },
         {
-          "chapter": "231",
-          "date": "2026-02-24T03:24:06+00:00"
+          "chapter": "264",
+          "date": "2026-10-19T00:00:00+00:00"
         },
         {
-          "chapter": "230",
-          "date": "2026-02-20T22:31:59+00:00"
+          "chapter": "263",
+          "date": "2026-10-13T00:00:00+00:00"
         },
         {
-          "chapter": "227",
-          "date": "2026-01-26T23:16:56+00:00"
+          "chapter": "262",
+          "date": "2026-10-05T00:00:00+00:00"
         },
         {
-          "chapter": "226",
-          "date": "2026-01-25T20:08:24+00:00"
+          "chapter": "261",
+          "date": "2026-09-28T00:00:00+00:00"
         },
         {
-          "chapter": "225",
-          "date": "2026-01-25T14:18:12+00:00"
+          "chapter": "260",
+          "date": "2026-09-21T00:00:00+00:00"
         },
         {
-          "chapter": "195",
-          "date": "2025-06-17T08:25:54+00:00"
-        }
-      ],
-      "quiet": true
-    },
-    "30028": {
-      "limited": true,
-      "title": "Nana",
-      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30028-VJqBC1ar6AxE.png",
-      "status": "RELEASING",
-      "chapter": "0.3",
-      "publishedAt": "2024-05-01T15:46:35+00:00",
-      "url": "https://viz.com/vizmanga/-/chapter/30512",
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [
-        {
-          "chapter": "0.3",
-          "date": "2024-05-01T15:46:35+00:00"
+          "chapter": "259",
+          "date": "2026-09-14T00:00:00+00:00"
         },
         {
-          "chapter": "0.2",
-          "date": "2024-05-01T15:46:33+00:00"
+          "chapter": "242",
+          "date": "2026-09-12T00:00:00+00:00"
         },
         {
-          "chapter": "0.1",
-          "date": "2024-05-01T15:46:31+00:00"
+          "chapter": "258",
+          "date": "2026-09-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "241",
+          "date": "2026-09-05T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
+    "30028": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "0.3",
+          "publishedAt": "2024-05-01T15:46:35+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "84",
+          "publishedAt": "2009-05-26T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
+      "limited": false,
+      "title": "Nana",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30028-VJqBC1ar6AxE.png",
+      "status": "RELEASING",
+      "chapter": "84",
+      "publishedAt": "2009-05-26T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/ov4rpc8/nana",
+      "typicalGapDays": 28,
+      "expectedNext": "2009-06-23",
+      "history": [
+        {
+          "chapter": "84",
+          "date": "2009-05-26T00:00:00+00:00"
+        },
+        {
+          "chapter": "83",
+          "date": "2009-04-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "82",
+          "date": "2009-04-13T00:00:00+00:00"
+        },
+        {
+          "chapter": "81",
+          "date": "2009-03-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "80",
+          "date": "2009-01-05T00:00:00+00:00"
+        },
+        {
+          "chapter": "79",
+          "date": "2008-11-30T00:00:00+00:00"
+        },
+        {
+          "chapter": "78",
+          "date": "2008-09-30T00:00:00+00:00"
+        },
+        {
+          "chapter": "77",
+          "date": "2008-08-19T00:00:00+00:00"
+        },
+        {
+          "chapter": "76",
+          "date": "2008-07-06T00:00:00+00:00"
+        },
+        {
+          "chapter": "75",
+          "date": "2008-06-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "74",
+          "date": "2008-04-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "73",
+          "date": "2008-03-01T00:00:00+00:00"
+        }
+      ],
+      "quiet": true
+    },
     "119257": {
+      "agreement": "conflict",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "262",
+          "publishedAt": "2025-05-14T02:09:05+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "311",
+          "publishedAt": "2026-05-19T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Omniscient Reader",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx119257-Pi21aq3ey9GG.jpg",
       "status": "RELEASING",
-      "chapter": "262",
-      "publishedAt": "2025-05-14T02:09:05+00:00",
-      "url": "https://mangadex.org/chapter/55aee379-7ceb-48d3-bec0-67d7cc7e3675",
-      "typicalGapDays": null,
-      "expectedNext": null,
+      "chapter": "311",
+      "publishedAt": "2026-05-19T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader",
+      "typicalGapDays": 6,
+      "expectedNext": "2026-05-25",
       "history": [
         {
-          "chapter": "262",
-          "date": "2025-05-14T02:09:05+00:00"
+          "chapter": "311",
+          "date": "2026-05-19T00:00:00+00:00"
         },
         {
-          "chapter": "259",
-          "date": "2025-04-23T00:19:25+00:00"
+          "chapter": "310",
+          "date": "2026-05-12T00:00:00+00:00"
         },
         {
-          "chapter": "256",
-          "date": "2025-04-06T22:10:45+00:00"
+          "chapter": "309",
+          "date": "2026-04-28T00:00:00+00:00"
         },
         {
-          "chapter": "255",
-          "date": "2025-03-30T23:58:20+00:00"
+          "chapter": "308",
+          "date": "2026-04-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "307",
+          "date": "2026-04-15T00:00:00+00:00"
+        },
+        {
+          "chapter": "306",
+          "date": "2026-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "299",
+          "date": "2026-03-31T00:00:00+00:00"
+        },
+        {
+          "chapter": "305",
+          "date": "2026-03-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "298",
+          "date": "2026-03-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "297",
+          "date": "2026-03-17T00:00:00+00:00"
+        },
+        {
+          "chapter": "304",
+          "date": "2026-03-11T00:00:00+00:00"
+        },
+        {
+          "chapter": "296",
+          "date": "2026-03-10T00:00:00+00:00"
         }
       ],
       "quiet": true
     },
     "74347": {
-      "limited": true,
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaUpdates",
+          "chapter": "240",
+          "publishedAt": "2026-10-28T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
+      "limited": false,
       "title": "One-Punch Man",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx74347-sZpmNJ5xLwRK.jpg",
       "status": "RELEASING",
-      "chapter": null,
-      "publishedAt": null,
-      "url": null,
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "chapter": "240",
+      "publishedAt": "2026-10-28T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/e1096mh/one-punch-man",
+      "typicalGapDays": 14,
+      "expectedNext": "2026-11-11",
+      "history": [
+        {
+          "chapter": "240",
+          "date": "2026-10-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "239",
+          "date": "2026-10-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "238",
+          "date": "2026-09-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "237",
+          "date": "2026-09-16T00:00:00+00:00"
+        },
+        {
+          "chapter": "236",
+          "date": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "chapter": "235",
+          "date": "2026-08-19T00:00:00+00:00"
+        },
+        {
+          "chapter": "234",
+          "date": "2026-08-05T00:00:00+00:00"
+        },
+        {
+          "chapter": "233",
+          "date": "2026-07-22T00:00:00+00:00"
+        },
+        {
+          "chapter": "232",
+          "date": "2026-07-08T00:00:00+00:00"
+        },
+        {
+          "chapter": "231",
+          "date": "2026-06-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "230",
+          "date": "2026-06-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "229",
+          "date": "2026-06-03T00:00:00+00:00"
+        }
+      ],
       "quiet": false
     },
     "34632": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaUpdates",
+          "chapter": "147",
+          "publishedAt": "2014-01-28T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Goodnight Punpun",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx34632-5xMDkx3pXsEh.png",
       "status": "FINISHED",
-      "chapter": null,
-      "publishedAt": null,
-      "url": null,
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "chapter": "147",
+      "publishedAt": "2014-01-28T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/a2xc67o/oyasumi-punpun",
+      "typicalGapDays": 1,
+      "expectedNext": "2014-01-29",
+      "history": [
+        {
+          "chapter": "147",
+          "date": "2014-01-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "134",
+          "date": "2013-08-03T00:00:00+00:00"
+        },
+        {
+          "chapter": "121",
+          "date": "2012-12-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "110",
+          "date": "2012-05-18T00:00:00+00:00"
+        },
+        {
+          "chapter": "99",
+          "date": "2011-11-27T00:00:00+00:00"
+        },
+        {
+          "chapter": "96",
+          "date": "2011-11-26T00:00:00+00:00"
+        },
+        {
+          "chapter": "90",
+          "date": "2011-11-25T00:00:00+00:00"
+        },
+        {
+          "chapter": "89",
+          "date": "2011-04-13T00:00:00+00:00"
+        },
+        {
+          "chapter": "84",
+          "date": "2011-04-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "80",
+          "date": "2011-04-08T00:00:00+00:00"
+        },
+        {
+          "chapter": "79",
+          "date": "2011-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "78",
+          "date": "2011-04-04T00:00:00+00:00"
+        }
+      ],
       "quiet": false
     },
     "141705": {
+      "agreement": "conflict",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "196",
+          "publishedAt": "2026-06-24T21:58:31+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "228",
+          "publishedAt": "2026-10-30T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Reality Quest",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141705-2OMBDYY5Tguc.jpg",
       "status": "RELEASING",
-      "chapter": "196",
-      "publishedAt": "2026-06-24T21:58:31+00:00",
-      "url": "https://mangadex.org/chapter/374c7acc-0706-49da-83b3-97a2ba870a95",
-      "typicalGapDays": 7,
-      "expectedNext": "2026-07-01",
+      "chapter": "228",
+      "publishedAt": "2026-10-30T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/oug0awj/reality-quest",
+      "typicalGapDays": 4,
+      "expectedNext": "2026-11-03",
       "history": [
         {
-          "chapter": "196",
-          "date": "2026-06-24T21:58:31+00:00"
+          "chapter": "228",
+          "date": "2026-10-30T00:00:00+00:00"
         },
         {
-          "chapter": "194",
-          "date": "2026-06-24T21:57:55+00:00"
+          "chapter": "227",
+          "date": "2026-10-21T00:00:00+00:00"
         },
         {
-          "chapter": "193",
-          "date": "2026-06-24T21:57:26+00:00"
+          "chapter": "226",
+          "date": "2026-10-14T00:00:00+00:00"
         },
         {
-          "chapter": "163",
-          "date": "2025-05-12T03:18:34+00:00"
+          "chapter": "213",
+          "date": "2026-10-10T00:00:00+00:00"
         },
         {
-          "chapter": "161",
-          "date": "2025-04-24T03:41:47+00:00"
+          "chapter": "225",
+          "date": "2026-10-07T00:00:00+00:00"
         },
         {
-          "chapter": "160",
-          "date": "2025-04-11T21:41:51+00:00"
+          "chapter": "224",
+          "date": "2026-10-01T00:00:00+00:00"
         },
         {
-          "chapter": "159",
-          "date": "2025-04-06T21:57:16+00:00"
+          "chapter": "223",
+          "date": "2026-09-23T00:00:00+00:00"
         },
         {
-          "chapter": "158",
-          "date": "2025-03-30T23:44:21+00:00"
+          "chapter": "222",
+          "date": "2026-09-16T00:00:00+00:00"
+        },
+        {
+          "chapter": "221",
+          "date": "2026-09-09T00:00:00+00:00"
+        },
+        {
+          "chapter": "220",
+          "date": "2026-09-02T00:00:00+00:00"
+        },
+        {
+          "chapter": "211",
+          "date": "2026-09-01T00:00:00+00:00"
+        },
+        {
+          "chapter": "210",
+          "date": "2026-08-31T00:00:00+00:00"
         }
       ],
-      "quiet": true
+      "quiet": false
     },
     "144939": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "213",
+          "publishedAt": "2026-11-03T17:21:27+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "213",
+          "publishedAt": "2026-11-03T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Red Blue",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx144939-znZFKewRGtqE.jpg",
@@ -1222,6 +1747,22 @@
       "quiet": false
     },
     "125828": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "281",
+          "publishedAt": "2026-11-01T15:11:51+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "281",
+          "publishedAt": "2026-11-01T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Sakamoto Days",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx125828-p78Z8SflkfmO.jpg",
@@ -1284,6 +1825,9 @@
       "quiet": false
     },
     "96223": {
+      "agreement": "none",
+      "source": null,
+      "sources": [],
       "limited": false,
       "title": "Sekai no Owari no Hajimari ni",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx96223-RPHPXWy4RMP1.jpg",
@@ -1297,81 +1841,172 @@
       "quiet": false
     },
     "30727": {
+      "agreement": "agree",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "134",
+          "publishedAt": "2018-03-02T23:04:48+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "134",
+          "publishedAt": "2020-07-23T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Shamo",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/b30727-w8kVrUSI5ecE.png",
       "status": "FINISHED",
       "chapter": "134",
-      "publishedAt": "2018-03-02T23:04:48+00:00",
-      "url": "https://mangadex.org/chapter/ddc59cd3-661b-494b-ac3d-d491b65a10aa",
-      "typicalGapDays": null,
-      "expectedNext": null,
+      "publishedAt": "2020-07-23T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/61a7yql/shamo",
+      "typicalGapDays": 41,
+      "expectedNext": "2020-09-02",
       "history": [
         {
           "chapter": "134",
-          "date": "2018-03-02T23:04:48+00:00"
-        },
-        {
-          "chapter": "133",
-          "date": "2018-03-02T23:03:56+00:00"
-        },
-        {
-          "chapter": "132",
-          "date": "2018-03-02T23:02:43+00:00"
-        },
-        {
-          "chapter": "131",
-          "date": "2018-03-02T23:01:24+00:00"
-        },
-        {
-          "chapter": "130",
-          "date": "2018-03-02T22:59:59+00:00"
-        },
-        {
-          "chapter": "129",
-          "date": "2018-03-02T22:58:58+00:00"
-        },
-        {
-          "chapter": "128",
-          "date": "2018-03-02T22:57:29+00:00"
-        },
-        {
-          "chapter": "127",
-          "date": "2018-03-02T22:55:55+00:00"
-        },
-        {
-          "chapter": "126",
-          "date": "2018-03-02T22:54:24+00:00"
+          "date": "2020-07-23T00:00:00+00:00"
         },
         {
           "chapter": "125",
-          "date": "2018-03-02T22:51:03+00:00"
+          "date": "2020-06-12T00:00:00+00:00"
         },
         {
-          "chapter": "124",
-          "date": "2018-03-02T22:49:05+00:00"
+          "chapter": "116",
+          "date": "2015-03-29T00:00:00+00:00"
         },
         {
-          "chapter": "123",
-          "date": "2018-03-02T22:47:24+00:00"
+          "chapter": "107",
+          "date": "2014-07-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "98",
+          "date": "2013-10-13T00:00:00+00:00"
+        },
+        {
+          "chapter": "89",
+          "date": "2013-08-16T00:00:00+00:00"
+        },
+        {
+          "chapter": "80",
+          "date": "2012-12-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "71",
+          "date": "2012-08-02T00:00:00+00:00"
+        },
+        {
+          "chapter": "63",
+          "date": "2011-08-27T00:00:00+00:00"
+        },
+        {
+          "chapter": "62",
+          "date": "2011-08-20T00:00:00+00:00"
+        },
+        {
+          "chapter": "61",
+          "date": "2011-08-18T00:00:00+00:00"
+        },
+        {
+          "chapter": "60",
+          "date": "2011-08-14T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "130229": {
+      "agreement": "single",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaUpdates",
+          "chapter": "67",
+          "publishedAt": "2022-07-21T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Shotgun Boy",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx130229-w8eYyQnAaPh8.jpg",
       "status": "FINISHED",
-      "chapter": null,
-      "publishedAt": null,
-      "url": null,
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "chapter": "67",
+      "publishedAt": "2022-07-21T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/h96si2z/shotgun-boy",
+      "typicalGapDays": 7,
+      "expectedNext": "2022-07-28",
+      "history": [
+        {
+          "chapter": "67",
+          "date": "2022-07-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "66",
+          "date": "2022-07-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "65",
+          "date": "2022-07-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "64",
+          "date": "2022-06-30T00:00:00+00:00"
+        },
+        {
+          "chapter": "63",
+          "date": "2022-06-23T00:00:00+00:00"
+        },
+        {
+          "chapter": "62",
+          "date": "2022-05-12T00:00:00+00:00"
+        },
+        {
+          "chapter": "61",
+          "date": "2022-05-05T00:00:00+00:00"
+        },
+        {
+          "chapter": "60",
+          "date": "2022-04-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "59",
+          "date": "2022-04-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "58",
+          "date": "2022-04-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "57",
+          "date": "2022-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "56",
+          "date": "2022-03-31T00:00:00+00:00"
+        }
+      ],
       "quiet": false
     },
     "107098": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "126",
+          "publishedAt": "2026-10-29T18:19:09+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "126",
+          "publishedAt": "2026-10-29T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Record of Ragnarok",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/nx107098-zjO64Bc3Nrm5.jpg",
@@ -1434,6 +2069,16 @@
       "quiet": false
     },
     "179444": {
+      "agreement": "single",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "32",
+          "publishedAt": "2026-10-29T18:32:55+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Shuumatsu no Valkyrie Kinden: Kamigami no Apocalypse",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx179444-wue3vC2eTPGm.jpg",
@@ -1496,6 +2141,22 @@
       "quiet": false
     },
     "108556": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "142",
+          "publishedAt": "2026-10-25T15:10:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "142",
+          "publishedAt": "2026-10-25T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "SPY x FAMILY",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx108556-NHjkz0BNJhLx.jpg",
@@ -1558,6 +2219,9 @@
       "quiet": false
     },
     "100954": {
+      "agreement": "none",
+      "source": null,
+      "sources": [],
       "limited": false,
       "title": "Sweet Home",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx100954-xY0Vw2sRRo8t.png",
@@ -1571,6 +2235,22 @@
       "quiet": false
     },
     "140407": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "223.9",
+          "publishedAt": "2026-04-01T11:17:34+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "223",
+          "publishedAt": "2026-03-18T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "The Greatest Estate Developer",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx140407-fJQr0fmqq1IO.png",
@@ -1597,6 +2277,16 @@
       "quiet": false
     },
     "85611": {
+      "agreement": "single",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "179",
+          "publishedAt": "2026-08-26T18:41:30+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Tokyo Ghoul:re",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx85611-Asb0BNP23NsJ.png",
@@ -1659,94 +2349,129 @@
       "quiet": false
     },
     "102988": {
+      "agreement": "none",
+      "source": null,
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "3",
+          "publishedAt": "2024-09-09T08:39:57+00:00",
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "157",
+          "publishedAt": "2023-09-13T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
       "limited": false,
       "title": "Tokyo Revengers",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx102988-OoVJxQCH6fbR.jpg",
       "status": "FINISHED",
-      "chapter": "3",
-      "publishedAt": "2024-09-09T08:39:57+00:00",
-      "url": "https://kmanga.kodansha.com/title/10075/episode/311607",
+      "chapter": null,
+      "publishedAt": null,
+      "url": null,
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [
-        {
-          "chapter": "3",
-          "date": "2024-09-09T08:39:57+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2024-09-09T08:39:48+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2024-09-09T08:39:41+00:00"
-        }
-      ],
+      "history": [],
       "quiet": false
     },
     "39982": {
+      "agreement": "agree",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "3",
+          "publishedAt": "2025-03-22T06:26:27+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "4",
+          "publishedAt": "2025-04-05T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Usogui",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx39982-68LS2Z9075Kw.jpg",
       "status": "FINISHED",
-      "chapter": "3",
-      "publishedAt": "2025-03-22T06:26:27+00:00",
-      "url": "https://mangadex.org/chapter/9d24f234-c9b5-48f5-9662-d908c64e3e69",
+      "chapter": "4",
+      "publishedAt": "2025-04-05T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/ekvmelp/usogui",
       "typicalGapDays": 5,
-      "expectedNext": "2025-03-27",
+      "expectedNext": "2025-04-10",
       "history": [
         {
-          "chapter": "3",
-          "date": "2025-03-22T06:26:27+00:00"
+          "chapter": "4",
+          "date": "2025-04-05T00:00:00+00:00"
         },
         {
-          "chapter": "2",
-          "date": "2025-03-21T15:06:55+00:00"
+          "chapter": "3",
+          "date": "2025-03-21T00:00:00+00:00"
         },
         {
           "chapter": "1",
-          "date": "2025-03-16T19:52:38+00:00"
+          "date": "2025-03-16T00:00:00+00:00"
         },
         {
           "chapter": "79",
-          "date": "2024-05-24T14:12:27+00:00"
+          "date": "2024-05-24T00:00:00+00:00"
         },
         {
           "chapter": "78",
-          "date": "2024-04-23T07:01:29+00:00"
+          "date": "2024-04-23T00:00:00+00:00"
         },
         {
           "chapter": "77",
-          "date": "2024-03-24T09:01:32+00:00"
+          "date": "2024-03-24T00:00:00+00:00"
         },
         {
           "chapter": "76",
-          "date": "2024-02-23T14:04:41+00:00"
+          "date": "2024-02-23T00:00:00+00:00"
         },
         {
           "chapter": "75",
-          "date": "2023-11-27T08:45:58+00:00"
+          "date": "2023-11-27T00:00:00+00:00"
         },
         {
           "chapter": "74",
-          "date": "2023-11-20T02:18:54+00:00"
+          "date": "2023-11-19T00:00:00+00:00"
         },
         {
           "chapter": "73",
-          "date": "2023-11-18T15:01:42+00:00"
+          "date": "2023-11-18T00:00:00+00:00"
         },
         {
           "chapter": "72",
-          "date": "2023-11-13T11:56:32+00:00"
+          "date": "2023-11-13T00:00:00+00:00"
         },
         {
           "chapter": "71",
-          "date": "2023-09-15T13:11:14+00:00"
+          "date": "2023-09-15T00:00:00+00:00"
         }
       ],
       "quiet": false
     },
     "30656": {
+      "agreement": "single",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "303",
+          "publishedAt": "2020-06-30T07:40:34+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "2",
+          "publishedAt": "2020-11-08T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
       "limited": false,
       "title": "Vagabond",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30656-9mW113O7rDnA.png",
@@ -1809,6 +2534,22 @@
       "quiet": true
     },
     "117195": {
+      "agreement": "agree",
+      "source": "MangaDex",
+      "sources": [
+        {
+          "name": "MangaDex",
+          "chapter": "166",
+          "publishedAt": "2026-08-26T18:44:14+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "chapter": "166.5",
+          "publishedAt": "2024-12-22T00:00:00+00:00",
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "[Oshi no Ko]",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx117195-r3kf8eF0xkDJ.png",

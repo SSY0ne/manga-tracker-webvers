@@ -10,7 +10,7 @@
 
 const ANILIST = "https://graphql.anilist.co";
 const DAY = 24 * 60 * 60 * 1000;
-const FIELDS = `id title { romaji english } status coverImage { medium }`;
+const FIELDS = `id title { romaji english } synonyms startDate { year } status coverImage { medium }`;
 
 const STATUS_LABEL = {
   RELEASING: "Releasing",
@@ -68,17 +68,35 @@ function fmtLong(d) {
 // "quiet" when it is way overdue compared to ITS OWN rhythm: at least 2.5x its usual
 // gap and at least 2 weeks more. No rhythm known yet -> flat 6 weeks.
 
-// MangaDex sometimes has too little for a series (licensed titles lose chapters), e.g.
-// "latest chapter 4" when you have read 373. Same check as is_limited() in server.py.
-function thinData(e) {
-  if (e.pending) return false;
-  if (!e.chapter) return true;
-  return Boolean(e.read) && parseFloat(e.chapter) < 0.8 * e.read;
-}
-// For alerts and the calendar only Releasing series matter; for display, any series
-// with thin data hides its chapter line rather than show a wrong number.
+// "Limited data" = no source has chapter data that makes sense (see reconcile() in
+// server.py, which decides). The bot stores the verdict in state.json.
 function isLimited(e) {
-  return e.status === "RELEASING" && thinData(e);
+  return e.limited === true;
+}
+
+// How the sources compare, as a short line plus a tooltip with each source's answer.
+function sourcesLine(e) {
+  const list = e.sources || [];
+  if (list.length === 0 || e.pending) return null;
+  const names = list.filter((s) => s.plausible).map((s) => s.name);
+  const used = e.source;
+  const text =
+    e.agreement === "agree"
+      ? `Sources agree (${names.join(" + ")})`
+      : e.agreement === "conflict"
+        ? `Sources disagree, using ${used} (fresher)`
+        : e.agreement === "single"
+          ? `1 source: ${used}`
+          : "No reliable source";
+  const detail = list
+    .map((s) => `${s.name}: ch. ${s.chapter} (${fmtShort(new Date(s.publishedAt))})${s.plausible ? "" : " ✗ doesn't fit"}`)
+    .join(" · ");
+  return { text, detail, kind: e.agreement };
+}
+
+function fmtQuiet(days) {
+  const weeks = Math.floor(days / 7);
+  return weeks >= 104 ? `over ${Math.floor(weeks / 52)} years` : `${weeks} wks`;
 }
 
 function quietDays(e) {
@@ -110,6 +128,9 @@ function fromAniList(m) {
     title: m.title.english || m.title.romaji,
     cover: m.coverImage?.medium || null,
     status: m.status,
+    // Used to match the series on the other chapter sources (title variants + start year)
+    names: [m.title.english, m.title.romaji, ...(m.synonyms || [])].filter(Boolean),
+    year: m.startDate?.year || null,
   };
 }
 
@@ -122,11 +143,15 @@ async function searchManga(text) {
   return data.Page.media.map(fromAniList);
 }
 
-// Latest chapter + rhythm from MangaDex, through server.py (MangaDex blocks browsers).
+// Chapter info through server.py, which asks every source (MangaDex, MangaUpdates...)
+// and reconciles them. Browsers can't call those APIs directly.
 async function fetchLatest(e) {
-  const params = new URLSearchParams({ al: e.id, title: e.title });
-  const data = await fetchJSON(`api/latest?${params}`);
-  return data && data.found ? data : null;
+  const params = new URLSearchParams({ al: e.id });
+  (e.names || [e.title]).slice(0, 4).forEach((n) => params.append("title", n));
+  if (e.year) params.set("year", e.year);
+  if (e.read) params.set("read", e.read);
+  if (e.status) params.set("status", e.status);
+  return await fetchJSON(`api/latest?${params}`);
 }
 
 // Fill entries with live data (AniList for covers/status, server.py for chapters).
@@ -149,8 +174,13 @@ async function fillLive(list, onProgress) {
       // chapter lookups need server.py
       const info = await fetchLatest(e);
       if (info) {
+        // Replace everything chapter-related, so an old wrong value can't linger.
         const { found, ...rest } = info;
-        Object.assign(e, rest);
+        Object.assign(
+          e,
+          { chapter: null, publishedAt: null, url: null, typicalGapDays: null, expectedNext: null, history: [], limited: false },
+          rest
+        );
       }
     }
     e.pending = false;
@@ -194,7 +224,7 @@ function makeCard(e, button) {
 
   const sub = document.createElement("div");
   sub.className = "sub";
-  if (e.chapter && !thinData(e)) {
+  if (e.chapter) {
     const a = document.createElement("a"); // official reader when MangaDex knows one
     a.href = e.url;
     a.target = "_blank";
@@ -211,10 +241,10 @@ function makeCard(e, button) {
   if (isLimited(e)) {
     badge.className = "badge LIMITED";
     badge.textContent = "Limited data";
-    badge.title = "MangaDex has too few chapters for this series, so no break or new-chapter alerts.";
+    badge.title = "No source has chapter data that fits what you've read, so no break or new-chapter alerts.";
   } else if (quiet) {
     badge.className = "badge QUIET";
-    badge.textContent = `On break? ${Math.floor(quiet / 7)} wks quiet`;
+    badge.textContent = `On break? ${fmtQuiet(quiet)} quiet`;
     badge.title = `AniList says Releasing, but the last chapter was ${quiet} days ago.`;
   } else {
     badge.className = `badge ${e.status}`;
@@ -228,13 +258,21 @@ function makeCard(e, button) {
     next.textContent = `Next expected around ${fmtShort(parseDay(e.expectedNext))}`;
     info.append(next);
   }
-  if (e.read && e.chapter && !thinData(e)) {
+  if (e.read && e.chapter) {
     // From your imported list: how far ahead the series is of you.
     const behind = Math.floor(parseFloat(e.chapter) - e.read);
     const prog = document.createElement("div");
     prog.className = "sub";
     prog.textContent = behind > 0 ? `You've read ${e.read} · ${behind} behind` : `You've read ${e.read} · caught up`;
     info.append(prog);
+  }
+  const src = sourcesLine(e);
+  if (src) {
+    const line = document.createElement("div");
+    line.className = `src ${src.kind}`;
+    line.textContent = src.text;
+    line.title = src.detail;
+    info.append(line);
   }
 
   li.append(img, info);
@@ -466,7 +504,7 @@ function renderCalendar() {
       const usual = e.typicalGapDays ? `, usually every ${Math.round(e.typicalGapDays)} days` : "";
       return li(
         span("when", e.title),
-        span("note", `last chapter ${e.chapter}, ${Math.floor(quietDays(e) / 7)} weeks ago${usual}`)
+        span("note", `last chapter ${e.chapter}, ${fmtQuiet(quietDays(e))} ago${usual}`)
       );
     })
   );

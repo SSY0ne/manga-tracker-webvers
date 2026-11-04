@@ -5,21 +5,28 @@
 
 It does three jobs:
   1. Serves the page files (index.html, series.json, state.json ...).
-  2. Proxies MangaDex, because MangaDex blocks calls made straight from a web page:
-       GET /api/latest?al=<AniList id>&title=<title>&alt=<other title>
+  2. Looks up chapters for the page (browsers can't call MangaDex directly):
+       GET /api/latest?al=<AniList id>&title=<name>&title=<other name>&year=<y>&read=<n>&status=<s>
   3. Lets the page edit series.json (local use only):
        GET /api/ping, POST /api/series, DELETE /api/series?id=<AniList id>
 
-check.py also imports latest_chapter() and quiet_days() from here, so the page and
-the daily bot use exactly the same rules.
+How chapter data is decided (the "sources" design):
+  * Each SOURCE (MangaDex, MangaUpdates) is asked separately and returns a candidate:
+    its latest chapter, when, a short history and the series' usual rhythm.
+  * reconcile() then compares the candidates and keeps the one that is coherent.
+    Adding a source later = one more function that returns a candidate.
+
+check.py imports chapter_info() and quiet_days() from here, so the page and the daily
+bot use exactly the same rules.
 """
 
 import json
 import os
+import re
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -27,76 +34,72 @@ PORT = 8123
 HERE = os.path.dirname(os.path.abspath(__file__))
 SERIES_FILE = os.path.join(HERE, "series.json")
 MANGADEX = "https://api.mangadex.org"
+MANGAUPDATES = "https://api.mangaupdates.com/v1"
 USER_AGENT = "manga-tracker-learning-project/0.1"
-CACHE_SECONDS = 15 * 60  # don't hit MangaDex more than once per series per 15 min
+CACHE_SECONDS = 15 * 60  # don't hit a source more than once per series per 15 min
 
-_cache = {}  # AniList id -> (timestamp, result)
-_id_cache = {}  # AniList id -> MangaDex id (or None)
-
-
-# ---------- MangaDex ----------
-
-def md_get(path, params):
-    """GET from MangaDex. `params` is a list of (key, value) pairs."""
-    url = f"{MANGADEX}{path}?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=15) as res:
-        return json.load(res)
+_cache = {}  # (source, AniList id) -> (timestamp, candidate or None)
+_md_id_cache = {}  # AniList id -> MangaDex id (or None)
+_mu_id_cache = {}  # AniList id -> {"id", "url"} on MangaUpdates (or None)
 
 
-def find_mangadex_id(al_id, titles):
-    """Match an AniList manga to a MangaDex manga using MangaDex's 'al' link."""
-    if al_id in _id_cache:
-        return _id_cache[al_id]
-    for title in titles:
-        if not title:
-            continue
-        data = md_get("/manga", [("title", title), ("limit", 10)])
-        for m in data.get("data", []):
-            links = m["attributes"].get("links") or {}
-            if links.get("al") == al_id:
-                _id_cache[al_id] = m["id"]
-                return m["id"]
-    _id_cache[al_id] = None
-    return None
-
+# ---------- small helpers ----------
 
 def parse_time(iso):
     return datetime.fromisoformat(iso)
 
 
-def analyse_chapters(chapters):
-    """Turn MangaDex's chapter feed into: latest chapter, history, usual gap.
+def norm(text):
+    return re.sub(r"[^a-z0-9]", "", (text or "").lower())
 
-    The same chapter is often uploaded several times, so for each chapter number we
-    keep the EARLIEST publish time. The usual gap is the lower quartile of the days
-    between release days, which ignores breaks and batch uploads.
+
+def chapter_number(text):
+    """'392' -> 392.0, '390-392' -> 392.0, '222 + Afterword (end)' -> 222.0, 'Epilogue' -> None."""
+    nums = re.findall(r"\d+(?:\.\d+)?", str(text or ""))
+    return max(float(n) for n in nums) if nums else None
+
+
+def fmt_num(x):
+    return str(int(x)) if x == int(x) else str(x)
+
+
+def http_json(url, body=None):
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    data = None
+    if body is not None:
+        data = json.dumps(body).encode()
+        headers["Content-Type"] = "application/json"
+    req = urllib.request.Request(url, data=data, headers=headers)
+    with urllib.request.urlopen(req, timeout=15) as res:
+        return json.load(res)
+
+
+def build_candidate(source, pairs, series_url):
+    """Turn (chapter text, ISO time, link or None) rows from ONE source into a candidate.
+
+    The same chapter is often listed several times (several uploaders or groups), so
+    per chapter number we keep the EARLIEST time. The usual gap is a gap that really
+    happened: the lower quartile of the days between release days over the last 10
+    gaps. Breaks only ever make a gap LONGER, so the short gaps show the real rhythm
+    (a weekly series that skips weeks still says 7).
     """
-    first = {}  # chapter number -> (publishAt, chapter object)
-    for c in chapters:
-        a = c["attributes"]
-        num = a.get("chapter")
-        if num is None or not a.get("publishAt"):
+    first = {}  # chapter number -> (time, link)
+    for text, when, link in pairs:
+        num = chapter_number(text)
+        if num is None or not when:
             continue
-        if num not in first or a["publishAt"] < first[num][0]:
-            first[num] = (a["publishAt"], c)
-
-    ordered = sorted(first.items(), key=lambda kv: kv[1][0], reverse=True)  # newest first
-    if not ordered:
+        if num not in first or when < first[num][0]:
+            first[num] = (when, link)
+    if not first:
         return None
 
-    num, (published, c) = ordered[0]
-    history = [{"chapter": n, "date": t} for n, (t, _) in ordered[:12]]
+    ordered = sorted(first.items(), key=lambda kv: (kv[1][0], kv[0]), reverse=True)  # newest first
+    num, (published, link) = ordered[0]
 
     days = sorted({parse_time(t).date() for _, (t, _) in ordered})
     gaps = [(b - a).days for a, b in zip(days, days[1:])]
-    # Lower quartile of the last 10 gaps. Breaks only ever make a gap LONGER, so the
-    # short gaps show the real rhythm (a weekly series that skips weeks still says 7).
-    # We take a gap that really happened (not an average of two), so a weekly series
-    # says exactly 7 and its projected dates stay on the same weekday.
     recent = sorted(gaps[-10:])
     typical = recent[(len(recent) - 1) // 4] if len(gaps) >= 4 else None
-
     expected = None
     if typical:
         expected = datetime.fromtimestamp(
@@ -104,32 +107,169 @@ def analyse_chapters(chapters):
         ).date().isoformat()
 
     return {
-        "found": True,
-        "chapter": num,
+        "source": source,
+        "chapter": fmt_num(num),
+        "chapterNum": num,
         "publishedAt": published,
-        # Official publisher link when there is one, else the MangaDex page.
-        "url": c["attributes"].get("externalUrl") or f"https://mangadex.org/chapter/{c['id']}",
+        "url": link or series_url,
         "typicalGapDays": typical,
         "expectedNext": expected,
-        "history": history,
+        "history": [{"chapter": fmt_num(n), "date": t} for n, (t, _) in ordered[:12]],
     }
 
 
-def latest_chapter(al_id, titles):
-    hit = _cache.get(al_id)
-    if hit and time.time() - hit[0] < CACHE_SECONDS:
-        return hit[1]
+# ---------- source 1: MangaDex ----------
 
+def md_get(path, params):
+    return http_json(f"{MANGADEX}{path}?{urllib.parse.urlencode(params)}")
+
+
+def find_mangadex_id(al_id, titles):
+    """Match an AniList manga to MangaDex using MangaDex's own 'al' link (exact)."""
+    if al_id in _md_id_cache:
+        return _md_id_cache[al_id]
+    for title in [t for t in titles if t][:3]:
+        for m in md_get("/manga", [("title", title), ("limit", 10)]).get("data", []):
+            if (m["attributes"].get("links") or {}).get("al") == al_id:
+                _md_id_cache[al_id] = m["id"]
+                return m["id"]
+    _md_id_cache[al_id] = None
+    return None
+
+
+def mangadex_candidate(al_id, titles, year):
     md_id = find_mangadex_id(al_id, titles)
-    result = {"found": False}
-    if md_id:
-        feed = md_get(
-            f"/manga/{md_id}/feed",
-            [("translatedLanguage[]", "en"), ("order[publishAt]", "desc"), ("limit", 40)],
-        )
-        result = analyse_chapters(feed.get("data", [])) or {"found": False}
-    _cache[al_id] = (time.time(), result)
+    if not md_id:
+        return None
+    feed = md_get(
+        f"/manga/{md_id}/feed",
+        [("translatedLanguage[]", "en"), ("order[publishAt]", "desc"), ("limit", 40)],
+    )
+    pairs = []
+    for c in feed.get("data", []):
+        a = c["attributes"]
+        # Official publisher link when there is one, else the MangaDex page.
+        link = a.get("externalUrl") or f"https://mangadex.org/chapter/{c['id']}"
+        pairs.append((a.get("chapter"), a.get("publishAt"), link))
+    return build_candidate("MangaDex", pairs, f"https://mangadex.org/title/{md_id}")
+
+
+# ---------- source 2: MangaUpdates ----------
+
+def find_mu_series(al_id, titles, year):
+    """MangaUpdates has no AniList link, so match on title AND start year (+/- 1)."""
+    if al_id in _mu_id_cache:
+        return _mu_id_cache[al_id]
+    wanted = {norm(t) for t in titles if t}
+    found = None
+    for term in [t for t in titles if t][:3]:
+        results = http_json(f"{MANGAUPDATES}/series/search", {"search": term, "perpage": 15}).get("results", [])
+        for r in results:
+            x = r["record"]
+            try:
+                year_ok = not year or not x.get("year") or abs(int(x["year"]) - int(year)) <= 1
+            except ValueError:
+                year_ok = True
+            if norm(x["title"]) in wanted and year_ok:
+                found = {"id": x["series_id"], "url": x.get("url")}
+                break
+        if found:
+            break
+        time.sleep(0.3)
+    _mu_id_cache[al_id] = found
+    return found
+
+
+def mangaupdates_candidate(al_id, titles, year):
+    series = find_mu_series(al_id, titles, year)
+    if not series:
+        return None
+    rel = http_json(
+        f"{MANGAUPDATES}/releases/search",
+        {"search": str(series["id"]), "search_type": "series", "perpage": 40, "orderby": "date"},
+    ).get("results", [])
+    pairs = [
+        (r["record"].get("chapter"), f"{r['record']['release_date']}T00:00:00+00:00", None)
+        for r in rel
+        if r["record"].get("chapter") and r["record"].get("release_date")
+    ]
+    return build_candidate("MangaUpdates", pairs, series["url"])
+
+
+SOURCES = [("MangaDex", mangadex_candidate), ("MangaUpdates", mangaupdates_candidate)]
+PRIORITY = {"MangaDex": 1, "MangaUpdates": 0}  # tie-break only (MangaDex links the official reader)
+
+
+# ---------- compare the sources and choose ----------
+
+def reconcile(candidates, read, status):
+    """Pick the coherent candidate and say how sure we are.
+
+    A candidate is implausible when: its date is in the future, OR its chapter is far
+    below what you have read (under 80%), OR it is under half of the highest chapter any
+    source reports (stale data, or side-story numbering).
+    Among the plausible ones we keep the FRESHEST (a stale source has an old date); ties go
+    to the higher chapter, then to MangaDex.
+      agreement: "agree"    two or more plausible sources within 3 chapters of each other
+                 "conflict" plausible sources far apart (we still use the freshest)
+                 "single"   only one plausible source
+                 "none"     no coherent source -> "limited data": we claim nothing
+    """
+    candidates = [c for c in candidates if c]
+    top = max((c["chapterNum"] for c in candidates), default=0)
+    horizon = datetime.now(timezone.utc) + timedelta(days=1)
+
+    def plausible(c):
+        if parse_time(c["publishedAt"]) > horizon:
+            return False
+        if read and c["chapterNum"] < 0.8 * read:
+            return False
+        return c["chapterNum"] >= 0.5 * top
+
+    good = [c for c in candidates if plausible(c)]
+    summary = [
+        {"name": c["source"], "chapter": c["chapter"], "publishedAt": c["publishedAt"], "plausible": plausible(c)}
+        for c in candidates
+    ]
+    if not good:
+        return {"found": False, "agreement": "none", "limited": status == "RELEASING", "sources": summary}
+
+    best = max(
+        good,
+        key=lambda c: (parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)),
+    )
+    if len(good) == 1:
+        agreement = "single"
+    elif all(abs(c["chapterNum"] - best["chapterNum"]) <= 3 for c in good):
+        agreement = "agree"
+    else:
+        agreement = "conflict"
+
+    result = {k: v for k, v in best.items() if k not in ("chapterNum", "source")}
+    result.update({"found": True, "limited": False, "agreement": agreement, "source": best["source"], "sources": summary})
     return result
+
+
+def chapter_info(al_id, titles, year=None, read=None, status=None):
+    """Ask every source, then reconcile. Raises only if every source failed."""
+    candidates, errors = [], []
+    for name, fetch in SOURCES:
+        key = (name, al_id)
+        hit = _cache.get(key)
+        if hit and time.time() - hit[0] < CACHE_SECONDS:
+            candidates.append(hit[1])
+            continue
+        try:
+            candidate = fetch(al_id, titles, year)
+        except Exception as err:  # one source being down must not break the others
+            errors.append(f"{name}: {err}")
+            continue
+        _cache[key] = (time.time(), candidate)
+        candidates.append(candidate)
+        time.sleep(0.3)  # be polite to the sources
+    if errors and not any(candidates):
+        raise RuntimeError("; ".join(errors))
+    return reconcile(candidates, read, status)
 
 
 # ---------- the "on break" rule (shared with check.py; app.js has a copy) ----------
@@ -147,22 +287,6 @@ def quiet_days(status, published_iso, typical_gap, fallback_weeks=6):
     days = (datetime.now(timezone.utc) - parse_time(published_iso)).days
     limit = max(2.5 * typical_gap, typical_gap + 14) if typical_gap else fallback_weeks * 7
     return days if days >= limit else 0
-
-
-def is_limited(chapter, read):
-    """True when MangaDex's data for a series looks incomplete.
-
-    Licensed series often lose their English chapters on MangaDex, so the "latest"
-    one can be tiny or missing. We notice that by comparing with how far you have
-    read (from your MAL import): latest chapter far below your progress, or none.
-    For those we make no "on break" or "new chapter" claims. app.js has a copy.
-    """
-    if chapter is None:
-        return True
-    try:
-        return bool(read) and float(chapter) < 0.8 * read
-    except ValueError:
-        return False
 
 
 # ---------- series.json (local editing) ----------
@@ -191,12 +315,22 @@ class Handler(SimpleHTTPRequestHandler):
 
         q = urllib.parse.parse_qs(parsed.query)
         al_id = (q.get("al") or [""])[0]
-        titles = (q.get("title") or []) + (q.get("alt") or [])
         if not al_id.isdigit():
             return self.send_json(400, {"error": "al must be a number"})
+        year = (q.get("year") or [""])[0]
+        read = (q.get("read") or [""])[0]
         try:
-            self.send_json(200, latest_chapter(al_id, titles))
-        except Exception as err:  # network error, MangaDex down, rate limit...
+            self.send_json(
+                200,
+                chapter_info(
+                    al_id,
+                    q.get("title", []),
+                    int(year) if year.isdigit() else None,
+                    int(read) if read.isdigit() else None,
+                    (q.get("status") or [None])[0],
+                ),
+            )
+        except Exception as err:  # every source failed
             self.send_json(502, {"error": str(err)})
 
     def do_POST(self):

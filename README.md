@@ -13,9 +13,14 @@ like it is on break.
 - **Import from MyAnimeList**: upload the .xml export (MAL, Profile, Export, manga list)
   on the page, or run `python3 check.py --import-mal FILE.xml`. Series are matched
   exactly by MAL id, and your chapters-read is kept so cards show "17 behind".
-- **Limited data**: MangaDex loses the English chapters of many licensed series. When its
-  latest chapter is far below what you have read, the series is marked "Limited data" and
-  gets no break or new-chapter alerts, instead of wrong ones.
+- **Several chapter sources, compared.** MangaDex and MangaUpdates are asked separately
+  (each is a small "source" function in `server.py`), then `reconcile()` keeps the one
+  that is coherent: not in the future, not far below what you have read, and the freshest
+  when they differ. Each card says whether the sources agree, disagree or only one has data.
+- **Limited data**: when no source fits (licensed series lose their chapters on both),
+  the series is marked "Limited data" and gets no break or new-chapter alerts instead of
+  wrong ones. Alerts also only fire when the same source reports a +1 to +5 chapter step,
+  so switching sources never causes a fake "new chapter".
 - **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
   `.ics` download for your calendar app.
 - The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.
@@ -70,5 +75,5 @@ environment variables, never in a file you commit.
 ## Data sources
 
 [AniList](https://anilist.gg/) GraphQL API for titles, covers and status;
-[MangaDex](https://api.mangadex.org/docs/) API for chapter dates. Only metadata and
+[MangaDex](https://api.mangadex.org/docs/) and [MangaUpdates](https://api.mangaupdates.com/) APIs for chapters and dates. Only metadata and
 links to official sources are used.

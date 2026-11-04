@@ -181,6 +181,14 @@ def import_mal(xml_path, series_path, statuses):
 
 # ---------- the check ----------
 
+def chapter_delta(old, new):
+    """How many chapters ahead `new` is of `old` (None if either is missing or not a number)."""
+    try:
+        return float(new) - float(old)
+    except (TypeError, ValueError):
+        return None
+
+
 def check(series_path, state_path, dry):
     series = read_json(series_path, [])
     raw = read_json(state_path, {})
@@ -197,7 +205,9 @@ def check(series_path, state_path, dry):
     for i in range(0, len(ids), 50):  # AniList returns at most 50 per page
         data = anilist(
             """query ($ids: [Int]) { Page(perPage: 50) {
-                 media(id_in: $ids, type: MANGA) { id title { romaji english } status coverImage { medium } }
+                 media(id_in: $ids, type: MANGA) {
+                   id title { romaji english } synonyms startDate { year } status coverImage { medium }
+                 }
             } }""",
             {"ids": ids[i : i + 50]},
         )
@@ -212,26 +222,27 @@ def check(series_path, state_path, dry):
         name = title_of(m)
         old = old_state.get(str(m["id"]))
 
+        # Ask every source (MangaDex, MangaUpdates...) and let server.reconcile() choose.
+        names = [m["title"].get("english"), m["title"].get("romaji")] + (m.get("synonyms") or [])
+        year = (m.get("startDate") or {}).get("year")
         try:
-            latest = server.latest_chapter(str(m["id"]), [m["title"].get("english"), m["title"].get("romaji")])
-        except Exception as err:  # MangaDex hiccup: keep the old info, try again tomorrow
-            print(f"! {name}: MangaDex lookup failed ({err}), keeping old data")
-            latest = None
-        time.sleep(0.4)  # be polite to MangaDex
-
-        if latest and latest.get("found") and latest.get("chapter"):
-            info = latest
-        else:
-            info = old or {}  # lookup failed or unknown: keep what we knew
+            info = server.chapter_info(str(m["id"]), names, year, s.get("read"), m["status"])
+        except Exception as err:  # every source down: keep the old info, try again tomorrow
+            print(f"! {name}: lookup failed ({err}), keeping old data")
+            info = dict(old or {})
+            info.setdefault("limited", False)
         chapter, published, url = info.get("chapter"), info.get("publishedAt"), info.get("url")
         gap = info.get("typicalGapDays")
 
-        # MangaDex data too thin to trust (see server.is_limited)? Then no break/chapter claims.
-        limited = m["status"] == "RELEASING" and server.is_limited(chapter, s.get("read"))
+        # No source is coherent (see server.reconcile)? "Limited data": claim nothing.
+        limited = bool(info.get("limited"))
         # "On break?" = way overdue compared to this series' own rhythm (see server.py).
         quiet_for = 0 if limited else server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
         quiet = quiet_for > 0
         new_state = {
+            "agreement": info.get("agreement"),
+            "source": info.get("source"),
+            "sources": info.get("sources", []),
             "limited": limited,
             "title": name,
             "cover": (m.get("coverImage") or {}).get("medium"),
@@ -250,9 +261,15 @@ def check(series_path, state_path, dry):
             print(f"+ {name}: first check (chapter {chapter}, {STATUS_TEXT.get(m['status'])})")
         else:
             was_quiet = old.get("quiet", False)
-            if limited:
-                pass  # MangaDex can't be trusted for this one: say nothing about chapters
-            elif chapter and chapter != old.get("chapter"):
+            delta = chapter_delta(old.get("chapter"), chapter)
+            # Only compare like with like: the same source as last time, and a series
+            # that is actually running. Switching sources is a data correction.
+            comparable = old.get("source") == info.get("source") and m["status"] in ("RELEASING", "HIATUS")
+            if limited or not comparable:
+                pass  # no source can be trusted (or we changed source): say nothing about chapters
+            elif delta is not None and 0 < delta <= 5:
+                # A real new chapter. (A drop or a big jump is just us switching to a
+                # better source, a data correction, so it never triggers an alert.)
                 link = f"\n{url}" if url else ""
                 if was_quiet:
                     messages.append(f"▶️ **{name}** is back from break: chapter **{chapter}**{link}")
@@ -260,8 +277,10 @@ def check(series_path, state_path, dry):
                     messages.append(f"📖 **{name}**: new chapter **{chapter}**{link}")
             elif quiet and not was_quiet:
                 usual = f", usually every {round(gap)} days" if gap else ""
+                weeks = quiet_for // 7
+                how_long = f"over {weeks // 52} years" if weeks >= 104 else f"{weeks} weeks"
                 messages.append(
-                    f"⏸️ **{name}**: no new chapter for {quiet_for // 7} weeks{usual}, maybe on break "
+                    f"⏸️ **{name}**: no new chapter for {how_long}{usual}, maybe on break "
                     f"(last was {chapter})"
                 )
             if m["status"] != old.get("status"):
