@@ -2,6 +2,7 @@
 """Dev helpers for Manga Tracker: the things we kept doing by hand.
 
     python3 devtools.py report            summarize state.json: sources agree / conflict / limited / on break
+    python3 devtools.py match NAME        why a series (title contains NAME) fails to match on MangaUpdates
     python3 devtools.py restart           stop whatever listens on :8123 and start server.py again
     python3 devtools.py sandbox           run the full check on COPIES of series.json/state.json
     python3 devtools.py sandbox FILE.xml  ...after importing a MyAnimeList export into the copy first
@@ -58,6 +59,47 @@ def report(state_path=None):
                 print(f"  {v['title'][:34]:34} used={v.get('source') or '-':12} {sources_text(v)}")
 
 
+def match(needle):
+    """Why does a series (title contains NEEDLE) not match on MangaUpdates?
+
+    Prints the names and year we search with, then what MangaUpdates answers for each
+    name, marking the results that pass our rule (same normalized title + year +/- 1).
+    """
+    sys.path.insert(0, HERE)
+    import server
+
+    series = [s for s in json.load(open(os.path.join(HERE, "series.json"))) if needle.lower() in s["title"].lower()]
+    if not series:
+        sys.exit(f"nothing in series.json contains '{needle}'")
+    for s in series:
+        data = server.http_json(
+            "https://graphql.anilist.co",
+            {
+                "query": "query($id:Int){Media(id:$id,type:MANGA){title{romaji english native} synonyms startDate{year}}}",
+                "variables": {"id": s["id"]},
+            },
+        )["data"]["Media"]
+        year = (data["startDate"] or {}).get("year")
+        names = [data["title"]["english"], data["title"]["romaji"]] + (data["synonyms"] or [])
+        names = [n for n in names if n]
+        wanted = {server.norm(n) for n in names}
+        print(f"\n== {s['title']}  (AniList {s['id']}, year {year})")
+        print("   we search with:", names[:3], "| all names:", len(names))
+        for term in names[:3]:
+            res = server.http_json(f"{server.MANGAUPDATES}/series/search", {"search": term, "perpage": 8}).get("results", [])
+            print(f"   search '{term}' -> {len(res)} results")
+            for r in res[:6]:
+                x = r["record"]
+                same_title = server.norm(x["title"]) in wanted
+                try:
+                    year_ok = abs(int(x.get("year") or 0) - int(year or 0)) <= 1
+                except ValueError:
+                    year_ok = False
+                flag = "MATCH" if same_title and year_ok else ("title ok, year off" if same_title else "")
+                print(f"      {x['series_id']} | {x['title'][:48]:48} | {x.get('year')} | {flag}")
+            time.sleep(0.5)
+
+
 def restart():
     pids = subprocess.run(
         ["lsof", "-ti", f":{PORT}", "-sTCP:LISTEN"], capture_output=True, text=True
@@ -102,6 +144,8 @@ if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "report":
         report()
+    elif cmd == "match" and len(sys.argv) > 2:
+        match(sys.argv[2])
     elif cmd == "restart":
         restart()
     elif cmd == "sandbox":
