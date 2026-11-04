@@ -27,12 +27,28 @@ Open http://127.0.0.1:8123.
 `server.py` serves the page and proxies one request to MangaDex, because MangaDex
 blocks calls made directly from a browser page (CORS).
 
+## Discord alerts
+
+`check.py` compares your series (`series.json`) with what it saw last time
+(`state.json`) and posts to a Discord channel when there is a new chapter, a series
+goes quiet (maybe on break), comes back from break, or AniList changes its status.
+A GitHub Actions workflow (`.github/workflows/check.yml`) runs it every day.
+
+```bash
+python3 check.py --add "one piece"   # add a series
+python3 check.py --dry               # see what would be sent
+python3 check.py --test              # needs DISCORD_WEBHOOK_URL
+```
+
+The webhook URL is a secret: set it as a repo secret named `DISCORD_WEBHOOK_URL`,
+never commit it.
+
 ## Roadmap
 
 - [x] Search and list (AniList)
 - [x] Latest chapter (MangaDex)
 - [x] "On break?" detection
-- [ ] Daily check with Discord or email alerts (GitHub Actions)
+- [x] Daily check with Discord alerts (GitHub Actions)
 - [ ] Deploy (GitHub Pages plus a small hosted function)
 
 ## Data sources
