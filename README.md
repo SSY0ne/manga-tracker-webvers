@@ -40,6 +40,15 @@ like it is on break.
   `server.py` is running).
 - **Why it's on break, on the cover**: a series on break says so under its title ("Ch. 386 ·
   16 wks quiet" or "listed as hiatus") instead of an old date.
+- **Two modes**. With `server.py` running you are the **owner**: add, import, edit settings, and see your
+  own reading progress ("+N behind", progress bars, the "to catch up" chip). On a read-only host (the
+  published site) a **visitor** sees none of that: just the library, an about box with the GitHub link,
+  and a legend for the labels. Nothing personal is shown to visitors.
+- **Looks right when shared**: page description, Open Graph and Twitter tags, a web manifest, app icons and a
+  1200x630 preview image (`python3 make_assets.py` draws them, with no manga art).
+- **Never blank**: grey placeholders while loading, and a clear red message if `series.json` can't be read.
+- **Accessible**: tabs follow the ARIA tab pattern with arrow-key navigation, covers are real buttons, and
+  no text is under 12px (the phone calendar uses dots instead of tiny text).
 - **Safe to click**: removing a series asks first and then offers an Undo; changing your reading
   progress offers an Undo too. "+N behind" and the "to catch up" chip only count series that are
   still running (not on break, not finished), so one stale MAL number can't dominate the grid. The
@@ -145,6 +154,7 @@ python3 devtools.py history [NAME]    # newest events of the history log (option
 python3 devtools.py backfill          # one-time: fill the log from chapter dates already in state.json
 python3 devtools.py match NAME        # why a series doesn't match on MangaUpdates (+ ids to copy)
 python3 devtools.py restart           # restart server.py on :8123
+python3 make_assets.py                # redraw the icons and the link-preview image (needs skia-python)
 python3 devtools.py sandbox [FILE.xml]  # full check on COPIES of your files, sends nothing
 python3 check.py --no-send            # same check on the real files: saves state, sends nothing
 ```

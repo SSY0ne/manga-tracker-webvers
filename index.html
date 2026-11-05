@@ -4,14 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090b10">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%23ff6b9d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M9 9.5h6.2c1.2 0 2.3.5 2.8 1.4.5-.9 1.6-1.4 2.8-1.4H23v13h-2.9c-1.1 0-2.1.4-2.6 1.1h-3c-.5-.7-1.5-1.1-2.6-1.1H9z' fill='none' stroke='white' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <title>Manga Tracker</title>
+  <title>Manga Tracker: know when your manga is on break</title>
+  <meta name="description" content="Tracks the manga you read across four sources and tells you when a new chapter is out, and when a series looks like it is on break. A daily bot, a calendar and a health check. Open source.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Manga Tracker">
+  <meta property="og:title" content="Manga Tracker: know when your manga is on break">
+  <meta property="og:description" content="Tracks the manga you read across four sources and tells you when a new chapter is out, and when a series looks like it is on break. A daily bot, a calendar and a health check. Open source.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/SSY0ne/manga-tracker-webvers/main/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Manga Tracker: never wonder if your manga is on break">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Manga Tracker: know when your manga is on break">
+  <meta name="twitter:description" content="Tracks the manga you read across four sources and tells you when a new chapter is out, and when a series looks like it is on break. A daily bot, a calendar and a health check. Open source.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/SSY0ne/manga-tracker-webvers/main/assets/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <noscript><p class="msg" style="padding:20px">This page needs JavaScript to show the library.</p></noscript>
   <div class="wrap">
     <header class="top">
       <div class="brand">
@@ -36,18 +52,28 @@
       </div>
     </header>
 
+    <aside id="about" class="about" hidden>
+      <p><strong>A tracker that tells you when your manga is on break.</strong> It compares four sources
+      (MangaDex, MangaUpdates, MangaBaka and Webtoon), learns each series' own release rhythm, and a daily
+      bot posts the news. Open source, with tests.</p>
+      <p class="about-links">
+        <a href="https://github.com/SSY0ne/manga-tracker-webvers" target="_blank" rel="noopener noreferrer">View the code on GitHub</a>
+        <a href="https://github.com/SSY0ne/manga-tracker-webvers#readme" target="_blank" rel="noopener noreferrer">How it works</a>
+      </p>
+    </aside>
+
     <div id="stats" class="stats" aria-label="Quick filters"></div>
 
-    <nav class="tabs" role="tablist">
-      <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
-      <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
-      <button type="button" role="tab" data-tab="activity" class="tab">Activity</button>
-      <button type="button" role="tab" data-tab="health" class="tab" id="health-tab">Health</button>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" id="tabbtn-list" aria-selected="true" aria-controls="tab-list" data-tab="list" class="tab active">Library</button>
+      <button type="button" role="tab" id="tabbtn-calendar" aria-selected="false" aria-controls="tab-calendar" tabindex="-1" data-tab="calendar" class="tab">Calendar</button>
+      <button type="button" role="tab" id="tabbtn-activity" aria-selected="false" aria-controls="tab-activity" tabindex="-1" data-tab="activity" class="tab">Activity</button>
+      <button type="button" role="tab" id="tabbtn-health" aria-selected="false" aria-controls="tab-health" tabindex="-1" data-tab="health" class="tab">Health</button>
     </nav>
 
     <main>
       <!-- ===== My list ===== -->
-      <section id="tab-list">
+      <section id="tab-list" role="tabpanel" aria-labelledby="tabbtn-list">
         <!-- Add / import (only with server.py running) -->
         <div id="add-section" hidden>
           <h2 class="section-title">Add a manga</h2>
@@ -76,20 +102,36 @@
               <option value="releasing">Releasing</option>
               <option value="onbreak">On break</option>
               <option value="new">New this week</option>
-              <option value="behind">To catch up</option>
+              <option value="behind" data-owner>To catch up</option>
               <option value="disagree">Sources disagree</option>
               <option value="count">Count only (no date)</option>
               <option value="finished">Finished</option>
             </select>
             <select id="sort-by" aria-label="Sort by">
               <option value="title">Sort: title A to Z</option>
-              <option value="behind">Most chapters behind</option>
+              <option value="behind" data-owner>Most chapters behind</option>
               <option value="newest">Newest chapter</option>
               <option value="next">Next chapter soonest</option>
               <option value="onbreak">On break first</option>
             </select>
           </div>
         </div>
+        <div id="load-error" class="banner bad" role="alert" hidden></div>
+        <details class="legend-box">
+          <summary>What do the labels mean?</summary>
+          <dl>
+            <dt><span class="chip new">New</span></dt>
+            <dd>A chapter came out in the last 7 days.</dd>
+            <dt><span class="chip break">On break</span></dt>
+            <dd>Much longer than usual without a chapter, measured against this series' own rhythm, or listed as on hiatus.</dd>
+            <dt><span class="chip finished">Finished</span></dt>
+            <dd>The series has ended.</dd>
+            <dt><span class="chip limited">Limited data</span></dt>
+            <dd>No source has data that makes sense for it, so nothing is claimed.</dd>
+            <dt class="owner-only"><span class="behind-pill">+12</span></dt>
+            <dd class="owner-only">Chapters you still have to read (from your own reading progress).</dd>
+          </dl>
+        </details>
         <p id="list-count" class="msg"></p>
         <p id="list-msg" class="msg"></p>
         <ul id="mylist" class="grid"></ul>
@@ -116,7 +158,7 @@
       </section>
 
       <!-- ===== Calendar ===== -->
-      <section id="tab-calendar" hidden>
+      <section id="tab-calendar" role="tabpanel" aria-labelledby="tabbtn-calendar" hidden>
         <div id="overdue-block" hidden>
           <h2 class="section-title">Overdue, maybe on break</h2>
           <ul id="overdue" class="plain"></ul>
@@ -143,7 +185,7 @@
       </section>
 
       <!-- ===== Activity (history log) ===== -->
-      <section id="tab-activity" hidden>
+      <section id="tab-activity" role="tabpanel" aria-labelledby="tabbtn-activity" hidden>
         <h2 class="section-title">What happened lately</h2>
         <p id="activity-summary" class="msg"></p>
         <ul id="activity" class="plain"></ul>
@@ -151,7 +193,7 @@
       </section>
 
       <!-- ===== Health (can I trust what I see?) ===== -->
-      <section id="tab-health" hidden>
+      <section id="tab-health" role="tabpanel" aria-labelledby="tabbtn-health" hidden>
         <div id="health-banner" class="banner" hidden></div>
         <h2 class="section-title">Last run of the daily bot</h2>
         <p id="health-summary" class="msg"></p>
@@ -162,6 +204,11 @@
         <ul id="health-runs" class="plain"></ul>
       </section>
     </main>
+
+    <footer class="foot">
+      <span>Data from AniList, MangaDex, MangaUpdates, MangaBaka and Webtoon. Covers belong to their publishers.</span>
+      <a href="https://github.com/SSY0ne/manga-tracker-webvers" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </footer>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>

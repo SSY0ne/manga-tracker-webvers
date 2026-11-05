@@ -173,7 +173,7 @@ input[type="search"]:focus, input[type="number"]:focus, select:focus { outline: 
   left: 9px;
   z-index: 1;
   padding: 3px 9px;
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -244,7 +244,7 @@ dialog#detail::backdrop { background: rgba(3, 4, 8, 0.66); backdrop-filter: blur
 .close-btn { position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px; padding: 0; display: grid; place-items: center; font-size: 1rem; background: rgba(9, 11, 16, 0.6); backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px var(--line-strong); border-radius: 50%; }
 .d-body { padding: 4px 22px 28px; }
 .d-section { margin-top: 20px; }
-.d-section h3 { margin: 0 0 10px; color: var(--muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.d-section h3 { margin: 0 0 10px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 .fact { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
 .fact span:first-child { color: var(--muted); }
 .fact a { color: var(--accent); font-weight: 600; text-decoration: none; }
@@ -306,12 +306,12 @@ dialog#detail::backdrop { background: rgba(3, 4, 8, 0.66); backdrop-filter: blur
 .plain li .line2 { margin-top: 3px; font-size: 0.84rem; color: var(--muted); }
 
 .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 8px; }
-.cal .dow { padding: 4px 0; text-align: center; font-size: 0.74rem; color: var(--muted); }
+.cal .dow { padding: 4px 0; text-align: center; font-size: 0.78rem; color: var(--muted); }
 .cal .cell { min-height: 84px; padding: 5px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
 .cal .cell.other { opacity: 0.35; }
 .cal .cell.today { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(139, 123, 255, 0.25); }
-.cal .num { font-size: 0.74rem; color: var(--muted); }
-.pill { display: block; margin-top: 3px; padding: 1px 6px; overflow: hidden; font-size: 0.68rem; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; border-radius: 6px; }
+.cal .num { font-size: 0.78rem; color: var(--muted); }
+.pill { display: block; margin-top: 3px; padding: 1px 6px; overflow: hidden; font-size: 0.75rem; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; border-radius: 6px; }
 .pill.released { color: #0c1a13; background: var(--green); }
 .pill.expected { color: var(--accent); border: 1px dashed rgba(139, 123, 255, 0.7); }
 .pill.late { color: #1a1206; background: var(--orange); }
@@ -346,12 +346,14 @@ dialog#detail::backdrop { background: rgba(3, 4, 8, 0.66); backdrop-filter: blur
   .grid { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 18px 10px; }
   .strip .tile { flex-basis: 104px; }
   .toolbar select { flex: 1 1 42%; min-width: 0; }
-  .chip { top: 7px; left: 7px; padding: 2px 7px; font-size: 0.6rem; }
+  .chip { top: 7px; left: 7px; padding: 2px 7px; }
   .list-head { align-items: stretch; }
   .tabs { display: flex; width: 100%; }
   .tab { flex: 1; padding: 8px 6px; font-size: 0.9rem; }
   .cal .cell { min-height: 60px; padding: 3px; }
-  .pill { font-size: 0.6rem; padding: 0 3px; }
+  /* 7 narrow columns: tiny text is unreadable, so the calendar uses dots here (the lists carry the names) */
+  .cal .pill { display: inline-block; width: 9px; height: 9px; margin: 3px 3px 0 0; padding: 0; font-size: 0; border-radius: 50%; }
+  .cal .pill.expected { background: transparent; border: 1.5px solid var(--accent); }
   dialog#detail { width: 100%; height: auto; max-height: 92dvh; margin: auto 0 0 0; border-left: 0; border-radius: 22px 22px 0 0; }
   dialog#detail[open] { animation: slide-up 0.25s ease; }
   .d-cover { width: 104px; }
@@ -365,3 +367,36 @@ dialog#detail::backdrop { background: rgba(3, 4, 8, 0.66); backdrop-filter: blur
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .tile:hover { transform: none; }
 }
+
+/* ---------- tiles are real buttons: undo the global button look ---------- */
+.tile-open { display: block; width: 100%; margin: 0; padding: 0; font: inherit; text-align: left; color: inherit; background: none; border-radius: var(--radius); box-shadow: none; cursor: pointer; }
+.tile-open:hover { filter: none; }
+.tile-open:active { transform: none; }
+.tile-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.cover, .meta, .meta .s, .bar { display: block; } /* they are <span>s, because a <button> may only hold phrasing content */
+
+/* ---------- loading placeholders ---------- */
+.tile.skeleton { cursor: default; pointer-events: none; }
+.skeleton .cover { background: linear-gradient(110deg, var(--surface) 8%, var(--surface-2) 18%, var(--surface) 33%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; box-shadow: inset 0 0 0 1px var(--line); }
+.skeleton .meta .t, .skeleton .meta .s { display: block; height: 12px; width: 80%; margin-top: 10px; background: var(--surface); border-radius: 6px; }
+.skeleton .meta .s { width: 50%; height: 10px; }
+@keyframes shimmer { to { background-position-x: -200%; } }
+#load-error { margin: 12px 0 0; }
+
+/* ---------- for visitors of the published site ---------- */
+.about { margin: 16px 0 2px; padding: 16px 18px; font-size: 0.95rem; background: linear-gradient(135deg, rgba(122, 104, 255, 0.14), rgba(255, 107, 157, 0.08)); border: 1px solid var(--line-strong); border-radius: 16px; }
+.about p { margin: 0 0 8px; }
+.about p:last-child { margin: 0; }
+.about-links { display: flex; flex-wrap: wrap; gap: 18px; }
+.about a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.about a:hover { text-decoration: underline; }
+
+.legend-box { margin: 4px 0 8px; font-size: 0.9rem; color: var(--muted); }
+.legend-box summary { width: fit-content; cursor: pointer; }
+.legend-box dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; margin: 12px 0 4px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.legend-box dt, .legend-box dd { margin: 0; }
+.legend-box dd { color: var(--text); }
+.legend-box .chip, .legend-box .behind-pill { position: static; display: inline-block; }
+
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 48px; padding-top: 18px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); }
+.foot a { color: var(--text); }

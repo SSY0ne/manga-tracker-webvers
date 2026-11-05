@@ -202,17 +202,29 @@ async function fillLive(list, onProgress) {
   }
 }
 
+// What went wrong while loading, if anything: shown as a banner instead of a silent empty page.
+let loadProblem = null;
+
 async function loadAll(onProgress) {
-  const series = (await fetchJSON("series.json")) || [];
-  const raw = (await fetchJSON("state.json")) || {};
+  loadProblem = null;
+  const seriesFile = await fetchJSON("series.json");
+  const stateFile = await fetchJSON("state.json");
+  if (seriesFile === null) {
+    loadProblem = {
+      level: "bad",
+      text: "Couldn't load the list (series.json). If you opened index.html straight from a folder, start python3 server.py and open http://127.0.0.1:8123 instead.",
+    };
+  } else if (stateFile === null && seriesFile.length) {
+    loadProblem = { level: "warn", text: "No bot data yet (state.json is missing): chapters appear after the daily bot has run." };
+  }
+  const series = seriesFile || [];
+  const raw = stateFile || {};
   const state = raw.series || raw; // the first version of state.json had no wrapper
   checkedAt = raw.checkedAt || null;
   health = raw.health || null; // how the last bot run went (see the Health tab)
 
   // An entry from the OLD state.json format has no history/cover: treat it as pending too,
   // so the page fills it live until the bot rewrites state.json in the new format.
-  // On a read-only host, progress you set in this browser wins over series.json.
-  const overrides = canEdit ? {} : loadReadOverrides();
   entries = series.map((s) => {
     const known = state[s.id];
     // mal / read (chapters you've read) come from series.json, not from the bot's state
@@ -221,7 +233,7 @@ async function loadAll(onProgress) {
       title: s.title,
       ...known,
       mal: s.mal,
-      read: overrides[s.id] ?? s.read,
+      read: s.read,
       alerts: s.alerts, // per-series settings from series.json (see the panel)
       gapDays: s.gapDays,
       pending: !known || !known.history,
@@ -233,37 +245,18 @@ async function loadAll(onProgress) {
 // ---------- rendering: My list ----------
 
 // ---------- reading progress: "I'm up to date" / "I'm actually at chapter N" ----------
-// With server.py running, the new number is written to series.json (the bot reads it too).
-// On a read-only host it is kept in THIS browser only (localStorage) and applied on load.
-
-const READ_KEY = "manga-tracker:read";
-
-function loadReadOverrides() {
-  try {
-    return JSON.parse(localStorage.getItem(READ_KEY) || "{}");
-  } catch {
-    return {};
-  }
-}
+// Reading progress is the OWNER's: it is only shown and editable when server.py is running, and
+// saved to series.json (the bot reads it too). A visitor to the published site never sees it.
 
 async function setRead(e, n) {
   n = Math.max(0, Math.floor(n));
-  if (canEdit) {
-    const res = await fetch("api/series", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: e.id, title: e.title, read: n }),
-    });
-    if (!res.ok) return false;
-  } else {
-    try {
-      const overrides = loadReadOverrides();
-      overrides[e.id] = n;
-      localStorage.setItem(READ_KEY, JSON.stringify(overrides));
-    } catch {
-      return false; // private mode: can't remember it
-    }
-  }
+  if (!canEdit) return false;
+  const res = await fetch("api/series", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: e.id, title: e.title, read: n }),
+  });
+  if (!res.ok) return false;
   e.read = n;
   return true;
 }
@@ -366,7 +359,7 @@ function coverUrl(e, size = "medium") {
 }
 
 function tileChip(e) {
-  if (isLimited(e)) return { cls: "limited", text: "Limited data" };
+  if (isLimited(e)) return { cls: "limited", text: "Limited" };
   if (isOnBreak(e)) return { cls: "break", text: "On break" };
   if (isNew(e)) return { cls: "new", text: "New" };
   if (e.status === "FINISHED") return { cls: "finished", text: "Finished" };
@@ -390,7 +383,7 @@ function makeTile(e, opts = {}) {
   const li = document.createElement("li");
   li.className = "tile" + (opts.button ? " static" : "");
 
-  const cover = document.createElement("div");
+  const cover = document.createElement("span");
   cover.className = "cover";
   const img = document.createElement("img");
   img.src = coverUrl(e);
@@ -415,9 +408,9 @@ function makeTile(e, opts = {}) {
       p.title = `${behind} chapters behind`;
       cover.append(p);
     }
-    if (e.read && e.chapter) {
+    if (canEdit && e.read && e.chapter) {
       const pct = Math.max(0, Math.min(100, Math.round((100 * e.read) / parseFloat(e.chapter))));
-      const bar = document.createElement("div");
+      const bar = document.createElement("span");
       bar.className = "bar";
       bar.innerHTML = "<i></i>"; // static markup, no user text
       bar.firstChild.style.width = `${pct}%`;
@@ -429,28 +422,26 @@ function makeTile(e, opts = {}) {
     cover.append(opts.button);
   }
 
-  const meta = document.createElement("div");
+  const meta = document.createElement("span");
   meta.className = "meta";
-  const t = document.createElement("div");
+  const t = document.createElement("span");
   t.className = "t";
   t.textContent = e.title;
-  const s = document.createElement("div");
+  const s = document.createElement("span");
   s.className = "s";
   s.textContent = tileSubtitle(e);
   meta.append(t, s);
-  li.append(cover, meta);
-
-  if (!opts.button) {
-    li.tabIndex = 0;
-    li.setAttribute("role", "button");
-    li.setAttribute("aria-label", `Open ${e.title}`);
-    li.addEventListener("click", () => openDetail(e));
-    li.addEventListener("keydown", (ev) => {
-      if (ev.key === "Enter" || ev.key === " ") {
-        ev.preventDefault();
-        openDetail(e);
-      }
-    });
+  if (opts.button) {
+    li.append(cover, meta); // a search result: the Add button is inside the cover
+  } else {
+    // A real <button> (not a clickable list item): keyboard and screen readers get it for free.
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "tile-open";
+    open.setAttribute("aria-haspopup", "dialog");
+    open.append(cover, meta);
+    open.addEventListener("click", () => openDetail(e));
+    li.append(open);
   }
   return li;
 }
@@ -613,22 +604,13 @@ function renderDetail(e) {
   else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
   main.append(facts);
 
-  // Your progress (the editor from before)
-  const prog = el("div", "d-section");
-  prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
-  prog.lastChild.id = "detail-msg";
-  main.append(prog);
-
-  // Alerts and rhythm: settings for THIS series, saved in series.json (so only with server.py)
-  const mine = [];
-  if (e.alerts) mine.push(e.alerts === "off" ? "muted" : "break alerts only");
-  if (e.gapDays) mine.push(`rhythm set to every ${e.gapDays} days`);
+  // Your progress and this series' alert settings belong to the OWNER: a visitor to the published
+  // site never sees them (they appear only while server.py is running).
   if (canEdit) {
-    main.append(settingsSection(e));
-  } else if (mine.length) {
-    const sec = el("div", "d-section");
-    sec.append(el("h3", "", "Alerts and rhythm"), el("p", "msg", `This series: ${mine.join(", ")}.`));
-    main.append(sec);
+    const prog = el("div", "d-section");
+    prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
+    prog.lastChild.id = "detail-msg";
+    main.append(prog, settingsSection(e));
   }
 
   // What each source said
@@ -708,7 +690,7 @@ function isRunning(e) {
   return e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e);
 }
 function behindShown(e) {
-  return isRunning(e) ? behindBy(e) : 0;
+  return canEdit && isRunning(e) ? behindBy(e) : 0;
 }
 function isOnBreak(e) {
   return quietDays(e) > 0 || onHiatus(e);
@@ -772,8 +754,12 @@ function restoreView() {
   try {
     const v = JSON.parse(localStorage.getItem(VIEW_KEY) || "{}");
     if (v.text) document.getElementById("filter-text").value = v.text;
-    if (SHOW[v.show]) document.getElementById("filter-show").value = v.show;
-    if (SORT[v.sort]) document.getElementById("sort-by").value = v.sort;
+    const setIfOption = (id, value) => {
+      const select = document.getElementById(id);
+      if ([...select.options].some((o) => o.value === value)) select.value = value;
+    };
+    if (SHOW[v.show]) setIfOption("filter-show", v.show);
+    if (SORT[v.sort]) setIfOption("sort-by", v.sort);
   } catch {
     /* ignore */
   }
@@ -781,12 +767,16 @@ function restoreView() {
 
 // The quick-filter chips under the header: a count you can click to filter the grid.
 function renderStats() {
+  if (loadProblem?.level === "bad") {
+    document.getElementById("stats").replaceChildren(); // "0 tracked" would be a lie when loading failed
+    return;
+  }
   const defs = [
     { key: "all", label: "tracked", n: entries.length, cls: "" },
     { key: "new", label: "new this week", n: entries.filter(isNew).length, cls: "fresh" },
     { key: "onbreak", label: "on break", n: entries.filter(isOnBreak).length, cls: "warm" },
-    { key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" },
   ];
+  if (canEdit) defs.push({ key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" });
   const current = document.getElementById("filter-show").value;
   document.getElementById("stats").replaceChildren(
     ...defs.map((d) => {
@@ -808,11 +798,19 @@ function renderStats() {
 
 function renderList() {
   const msg = document.getElementById("list-msg");
-  msg.textContent = entries.length
-    ? ""
-    : canEdit
-      ? "Nothing here yet. Search a manga below and press Add."
-      : "series.json is empty.";
+  const problem = document.getElementById("load-error");
+  problem.hidden = !loadProblem;
+  if (loadProblem) {
+    problem.className = `banner ${loadProblem.level}`;
+    problem.textContent = loadProblem.text;
+  }
+  document.getElementById("mylist").removeAttribute("aria-busy");
+  msg.textContent =
+    entries.length || loadProblem?.level === "bad"
+      ? ""
+      : canEdit
+        ? "Nothing here yet. Search a manga above and press Add."
+        : "This library is empty.";
   document.getElementById("checked-at").textContent = checkedAt
     ? `Bot checked ${new Date(checkedAt).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`
     : "";
@@ -1110,7 +1108,7 @@ function healthState() {
 }
 
 function updateHealthDot() {
-  const tab = document.getElementById("health-tab");
+  const tab = document.getElementById("tabbtn-health");
   tab.classList.remove("warn", "bad");
   const state = healthState();
   if (state === "warn" || state === "bad") tab.classList.add(state);
@@ -1369,18 +1367,35 @@ function downloadIcs() {
 
 // ---------- wiring ----------
 
-document.querySelectorAll(".tab").forEach((btn) =>
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
-    document.getElementById("tab-list").hidden = btn.dataset.tab !== "list";
-    document.getElementById("tab-calendar").hidden = btn.dataset.tab !== "calendar";
-    document.getElementById("tab-activity").hidden = btn.dataset.tab !== "activity";
-    document.getElementById("tab-health").hidden = btn.dataset.tab !== "health";
-    if (btn.dataset.tab === "calendar") renderCalendar();
-    if (btn.dataset.tab === "activity") renderActivity();
-    if (btn.dataset.tab === "health") renderHealth();
-  })
-);
+const TAB_ORDER = ["list", "calendar", "activity", "health"];
+
+function selectTab(name, focus = false) {
+  TAB_ORDER.forEach((t) => {
+    const btn = document.getElementById(`tabbtn-${t}`);
+    const on = t === name;
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-selected", String(on));
+    btn.tabIndex = on ? 0 : -1; // only the open tab is in the tab order; arrow keys move between them
+    document.getElementById(`tab-${t}`).hidden = !on;
+    if (on && focus) btn.focus();
+  });
+  if (name === "calendar") renderCalendar();
+  if (name === "activity") renderActivity();
+  if (name === "health") renderHealth();
+}
+
+TAB_ORDER.forEach((t, i) => {
+  const btn = document.getElementById(`tabbtn-${t}`);
+  btn.addEventListener("click", () => selectTab(t));
+  btn.addEventListener("keydown", (ev) => {
+    const n = TAB_ORDER.length;
+    const next = { ArrowRight: (i + 1) % n, ArrowLeft: (i + n - 1) % n, Home: 0, End: n - 1 }[ev.key];
+    if (next !== undefined) {
+      ev.preventDefault();
+      selectTab(TAB_ORDER[next], true);
+    }
+  });
+});
 
 document.getElementById("prev-month").addEventListener("click", () => {
   calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1);
@@ -1439,18 +1454,38 @@ for (const id of ["filter-text", "filter-show", "sort-by"]) {
   });
 }
 
+// Grey placeholder tiles while the data loads, so the page is never blank.
+function showSkeleton() {
+  const grid = document.getElementById("mylist");
+  grid.setAttribute("aria-busy", "true");
+  grid.replaceChildren(
+    ...Array.from({ length: 12 }, () => {
+      const li = el("li", "tile skeleton");
+      li.append(el("span", "cover"), el("span", "meta"));
+      li.lastChild.append(el("span", "t"), el("span", "s"));
+      return li;
+    })
+  );
+}
+
 async function init() {
-  restoreView();
-  // Is server.py running? (On a static host this 404s and we stay read-only.)
+  showSkeleton();
+  // Is server.py running? (On a static host this 404s and we are a read-only VISITOR view.)
   try {
     const res = await fetch("api/ping");
     canEdit = res.ok && (await res.json()).edit === true;
   } catch {
     canEdit = false;
   }
+  // Owner mode (server.py) can add, import, edit settings and see its own reading progress.
+  // Visitor mode (the published site) shows the library, an about box and nothing personal.
   document.getElementById("add-section").hidden = !canEdit;
   document.getElementById("import-section").hidden = !canEdit; // the import lives at the bottom of the list
   document.getElementById("refresh").hidden = !canEdit;
+  document.getElementById("about").hidden = canEdit;
+  document.querySelectorAll(".owner-only").forEach((n) => (n.hidden = !canEdit));
+  if (!canEdit) document.querySelectorAll("option[data-owner]").forEach((o) => o.remove());
+  restoreView(); // after the options above, so a saved choice that no longer exists is ignored
 
   await loadAll();
   renderList();
