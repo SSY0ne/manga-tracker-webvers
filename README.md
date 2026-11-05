@@ -35,6 +35,10 @@ like it is on break.
   break, new this week, you're behind, sources disagree, count only, or finished; sort by
   title, most chapters behind, newest chapter, next chapter soonest, or on break first.
   The view is remembered in your browser.
+- **History log** (`history.jsonl`, one JSON event per line, append-only). The bot adds an event
+  whenever something changes: `first_seen`, `chapter`, `break_start`, `break_end`, `status`,
+  and `source_change` (a data correction, so a jump in numbers is explained). The **Activity
+  tab** shows the newest events and a 7-day summary.
 - **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
   `.ics` download for your calendar app.
 - The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.
@@ -81,6 +85,8 @@ environment variables, never in a file you commit.
 
 ```bash
 python3 devtools.py report            # summary of state.json: agree / conflict / limited / on break
+python3 devtools.py history [NAME]    # newest events of the history log (optionally one series)
+python3 devtools.py backfill          # one-time: fill the log from chapter dates already in state.json
 python3 devtools.py match NAME        # why a series doesn't match on MangaUpdates (+ ids to copy)
 python3 devtools.py restart           # restart server.py on :8123
 python3 devtools.py sandbox [FILE.xml]  # full check on COPIES of your files, sends nothing

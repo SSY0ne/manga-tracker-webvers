@@ -26,12 +26,13 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: python3 check.py
 
-      - name: Save state
+      - name: Save state and history
         run: |
-          if [ -n "$(git status --porcelain state.json)" ]; then
+          touch history.jsonl
+          if [ -n "$(git status --porcelain state.json history.jsonl)" ]; then
             git config user.name "manga-tracker-bot"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add state.json
+            git add state.json history.jsonl
             git commit -m "Update state"
             git push
           fi

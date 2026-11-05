@@ -131,6 +131,7 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 .plain li { padding: 8px 12px; background: var(--card); border-radius: 10px; font-size: 0.92rem; }
 .plain .when { color: var(--accent); font-weight: 600; margin-right: 6px; }
 .plain .note { color: var(--muted); }
+.plain li.muted { opacity: 0.65; }
 
 .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
 .cal .dow { text-align: center; font-size: 0.75rem; color: var(--muted); padding: 4px 0; }

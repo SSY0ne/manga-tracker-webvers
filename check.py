@@ -198,7 +198,7 @@ def check(series_path, state_path, dry):
     new_state_map = {}  # only series still in series.json are kept
     if not series:
         print("series.json is empty. Add one with: python3 check.py --add \"title\"")
-        return []
+        return [], []
 
     ids = [s["id"] for s in series]
     by_id = {}
@@ -214,6 +214,8 @@ def check(series_path, state_path, dry):
         by_id.update({m["id"]: m for m in data["Page"]["media"]})
 
     messages = []
+    events = []  # what changed this run; appended to history.jsonl (see log_events)
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     for s in series:
         m = by_id.get(s["id"])
         if not m:
@@ -221,6 +223,9 @@ def check(series_path, state_path, dry):
             continue
         name = title_of(m)
         old = old_state.get(str(m["id"]))
+
+        def event(kind, **details):
+            events.append({"t": now, "id": m["id"], "title": name, "type": kind, **details})
 
         # Ask every source (MangaDex, MangaUpdates...) and let server.reconcile() choose.
         names = [m["title"].get("english"), m["title"].get("romaji")] + (m.get("synonyms") or [])
@@ -268,6 +273,7 @@ def check(series_path, state_path, dry):
         if old is None:
             # First time we see this series: remember it, don't spam.
             print(f"+ {name}: first check (chapter {chapter}, {STATUS_TEXT.get(m['status'])})")
+            event("first_seen", chapter=chapter, source=info.get("source"), status=m["status"])
         else:
             was_quiet = old.get("quiet", False)
             delta = chapter_delta(old.get("chapter"), chapter)
@@ -299,14 +305,39 @@ def check(series_path, state_path, dry):
                 messages.append(
                     f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList"
                 )
+
+            # ---- the same facts, for the history log (alerts are a subset of these) ----
+            if not limited and comparable and delta is not None and 0 < delta <= 5:
+                event("chapter", chapter=chapter, previous=old.get("chapter"), source=info.get("source"), publishedAt=published)
+            elif old.get("source") and info.get("source") and old["source"] != info["source"] and chapter != old.get("chapter"):
+                # We switched to a better source: a data correction, kept so the log explains the jump.
+                event("source_change", chapter=chapter, previous=old.get("chapter"), source=info["source"], previousSource=old["source"])
+            if quiet and not was_quiet:
+                event("break_start", reason="dates" if quiet_for else "hiatus", quietDays=quiet_for or None, chapter=chapter)
+            elif was_quiet and not quiet:
+                event("break_end", chapter=chapter)
+            if m["status"] != old.get("status"):
+                event("status", previous=old.get("status"), status=m["status"])
         new_state_map[str(m["id"])] = new_state
 
     if not dry:
-        write_json(
-            state_path,
-            {"checkedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "series": new_state_map},
-        )
-    return messages
+        write_json(state_path, {"checkedAt": now, "series": new_state_map})
+        log_events(history_path_for(state_path), events)
+    return messages, events
+
+
+def history_path_for(state_path):
+    """history.jsonl sits next to state.json (so a sandbox copy never touches the real log)."""
+    return os.path.join(os.path.dirname(os.path.abspath(state_path)), "history.jsonl")
+
+
+def log_events(path, events):
+    """Append one JSON object per line. An append-only log: past lines are never rewritten."""
+    if not events:
+        return
+    with open(path, "a") as f:
+        for e in events:
+            f.write(json.dumps(e, ensure_ascii=False) + "\n")
 
 
 def discord_configured():
@@ -387,7 +418,9 @@ def main():
         )
         return
 
-    messages = check(args.series, args.state, args.dry)
+    messages, events = check(args.series, args.state, args.dry)
+    if events:
+        print(f"{len(events)} event(s) {'would be ' if args.dry else ''}logged to history.jsonl")
     if not messages:
         print("Nothing new.")
         return

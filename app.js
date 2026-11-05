@@ -546,6 +546,74 @@ async function importMal(file) {
     "Saved to series.json. Commit and push it so the daily bot tracks them.";
 }
 
+// ---------- Activity tab (the bot's history log) ----------
+// history.jsonl = one JSON event per line, appended by check.py whenever something changes.
+
+let historyEvents = [];
+
+async function loadHistory() {
+  try {
+    const res = await fetch("history.jsonl");
+    if (!res.ok) return;
+    historyEvents = (await res.text())
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          return null; // skip a damaged line instead of failing the whole tab
+        }
+      })
+      .filter(Boolean);
+  } catch {
+    historyEvents = [];
+  }
+}
+
+function describeEvent(ev) {
+  const status = (s) => STATUS_LABEL[s] || s;
+  switch (ev.type) {
+    case "chapter":
+      return { icon: "📖", text: `${ev.title}: chapter ${ev.chapter}`, note: ev.backfilled ? "" : "new, seen by the bot" };
+    case "first_seen":
+      return { icon: "✨", text: `Started tracking ${ev.title} at chapter ${ev.chapter ?? "?"}`, note: "" };
+    case "break_start":
+      return { icon: "⏸️", text: `${ev.title} looks on break`, note: ev.reason === "hiatus" ? "listed as hiatus" : `${Math.floor((ev.quietDays || 0) / 7)} weeks quiet` };
+    case "break_end":
+      return { icon: "▶️", text: `${ev.title} is back`, note: "" };
+    case "status":
+      return { icon: "ℹ️", text: `${ev.title}: ${status(ev.previous)} to ${status(ev.status)}`, note: "AniList status" };
+    case "source_change":
+      return { icon: "🔁", text: `${ev.title}: now using ${ev.source} (ch. ${ev.previous} to ${ev.chapter})`, note: "data correction, not a new chapter", muted: true };
+    default:
+      return { icon: "•", text: `${ev.title}: ${ev.type}`, note: "", muted: true };
+  }
+}
+
+function renderActivity() {
+  const events = [...historyEvents].sort((a, b) => b.t.localeCompare(a.t));
+  const weekAgo = Date.now() - 7 * DAY;
+  const recent = events.filter((e) => new Date(e.t).getTime() >= weekAgo);
+  const count = (type) => recent.filter((e) => e.type === type).length;
+  document.getElementById("activity-summary").textContent = events.length
+    ? `Last 7 days: ${count("chapter")} chapters, ${count("break_start")} series started a break, ${count("break_end")} came back.`
+    : "No history yet. The daily bot writes history.jsonl; run devtools.py backfill once for older chapters.";
+
+  const shown = events.slice(0, 60);
+  document.getElementById("activity").replaceChildren(
+    ...shown.map((ev) => {
+      const d = describeEvent(ev);
+      const when = fmtShort(new Date(ev.publishedAt || ev.t));
+      const item = li(span("when", when), `${d.icon} ${d.text}`, " ", span("note", d.note));
+      if (d.muted) item.classList.add("muted");
+      return item;
+    })
+  );
+  document.getElementById("activity-more").textContent =
+    events.length > shown.length ? `Showing the newest ${shown.length} of ${events.length} events.` : "";
+}
+
 // ---------- rendering: Calendar ----------
 
 // One list of calendar events: past releases, plus projected ones from each
@@ -696,7 +764,9 @@ document.querySelectorAll(".tab").forEach((btn) =>
     document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
     document.getElementById("tab-list").hidden = btn.dataset.tab !== "list";
     document.getElementById("tab-calendar").hidden = btn.dataset.tab !== "calendar";
+    document.getElementById("tab-activity").hidden = btn.dataset.tab !== "activity";
     if (btn.dataset.tab === "calendar") renderCalendar();
+    if (btn.dataset.tab === "activity") renderActivity();
   })
 );
 
@@ -764,6 +834,7 @@ async function init() {
 
   await loadAll();
   renderList();
+  await loadHistory();
 }
 
 init();

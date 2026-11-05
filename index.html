@@ -15,6 +15,7 @@
   <nav class="tabs" role="tablist">
     <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
     <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
+    <button type="button" role="tab" data-tab="activity" class="tab">Activity</button>
   </nav>
 
   <main>
@@ -101,6 +102,14 @@
         <span class="pill late">due now</span>
       </p>
       <button id="ics" type="button" class="ghost">Download .ics (add to your calendar app)</button>
+    </section>
+
+    <!-- ===== Activity (history log) ===== -->
+    <section id="tab-activity" hidden>
+      <h2>What happened lately</h2>
+      <p id="activity-summary" class="msg"></p>
+      <ul id="activity" class="plain"></ul>
+      <p id="activity-more" class="msg"></p>
     </section>
   </main>
 

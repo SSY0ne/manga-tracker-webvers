@@ -2,6 +2,8 @@
 """Dev helpers for Manga Tracker: the things we kept doing by hand.
 
     python3 devtools.py report            summarize state.json: sources agree / conflict / limited / on break
+    python3 devtools.py history [NAME]    newest events of history.jsonl (optionally one series)
+    python3 devtools.py backfill          one-time: fill history.jsonl from the chapter dates in state.json
     python3 devtools.py match NAME        why a series (title contains NAME) fails to match on MangaUpdates
     python3 devtools.py restart           stop whatever listens on :8123 and start server.py again
     python3 devtools.py sandbox           run the full check on COPIES of series.json/state.json
@@ -57,6 +59,44 @@ def report(state_path=None):
             print(f"\n{label}:")
             for v in rows:
                 print(f"  {v['title'][:34]:34} used={v.get('source') or '-':12} {sources_text(v)}")
+
+
+def history(needle=None, limit=30):
+    """Show the newest events of history.jsonl (optionally only for series whose title has NEEDLE)."""
+    path = os.path.join(HERE, "history.jsonl")
+    if not os.path.exists(path):
+        sys.exit("no history.jsonl yet (the bot creates it; or run: python3 devtools.py backfill)")
+    events = [json.loads(line) for line in open(path) if line.strip()]
+    if needle:
+        events = [e for e in events if needle.lower() in e["title"].lower()]
+    counts = {}
+    for e in events:
+        counts[e["type"]] = counts.get(e["type"], 0) + 1
+    print(f"{len(events)} events:", ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
+    for e in sorted(events, key=lambda e: e["t"], reverse=True)[:limit]:
+        extra = {k: v for k, v in e.items() if k not in ("t", "id", "title", "type")}
+        print(f"  {e['t'][:16]}  {e['type']:13} {e['title'][:30]:30} {extra}")
+
+
+def backfill():
+    """One-time: turn the chapter dates already stored in state.json into history events, so the
+    log (and the page's Activity tab) isn't empty on day one. Marked backfilled=true."""
+    path = os.path.join(HERE, "history.jsonl")
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        sys.exit("history.jsonl already has content; not backfilling again")
+    series = json.load(open(os.path.join(HERE, "state.json"))).get("series", {})
+    events = []
+    for sid, v in series.items():
+        for h in v.get("history", []):
+            events.append(
+                {"t": h["date"], "id": int(sid), "title": v["title"], "type": "chapter",
+                 "chapter": h["chapter"], "source": v.get("source"), "backfilled": True}
+            )
+    events.sort(key=lambda e: e["t"])
+    with open(path, "w") as f:
+        for e in events:
+            f.write(json.dumps(e, ensure_ascii=False) + "\n")
+    print(f"wrote {len(events)} backfilled chapter events to history.jsonl")
 
 
 def match(needle):
@@ -139,6 +179,10 @@ if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "report":
         report()
+    elif cmd == "history":
+        history(sys.argv[2] if len(sys.argv) > 2 else None)
+    elif cmd == "backfill":
+        backfill()
     elif cmd == "match" and len(sys.argv) > 2:
         match(sys.argv[2])
     elif cmd == "restart":
