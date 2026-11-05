@@ -31,6 +31,12 @@ like it is on break.
   the series is marked "Limited data" and gets no break or new-chapter alerts instead of
   wrong ones. Alerts also only fire when the same source reports a +1 to +5 chapter step,
   so switching sources never causes a fake "new chapter".
+- **A cover-first design**: your library is a grid of covers, each with one label (NEW, ON BREAK,
+  FINISHED), a "+N behind" badge and a thin progress bar. A "new this week" row sits on top, and
+  the stat chips under the header (tracked / new / on break / behind) are click-to-filter. Click a
+  cover to open a detail panel (a side panel on desktop, a bottom sheet on phones) with the
+  chapter facts, your progress editor and what every source said. The search to add a manga is
+  at the top (when `server.py` is running).
 - **Your reading progress**: every card has an "update" link next to "You've read N · M behind".
   Type the chapter you are really on, or press "I'm up to date" to jump to the latest known
   chapter. With `server.py` it is saved to `series.json` (commit it so the bot knows); on a

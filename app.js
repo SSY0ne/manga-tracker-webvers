@@ -302,12 +302,16 @@ function progressRow(e) {
   async function commit(n) {
     [save, upToDate, cancel].forEach((b) => (b.disabled = true));
     const ok = await setRead(e, n);
-    renderList(); // filters, sorts and "behind" counts all follow the new number
-    document.getElementById("list-msg").textContent = !ok
-      ? "Could not save your progress."
-      : canEdit
-        ? "Saved to series.json. Commit and push it so the daily bot knows your new progress."
-        : "Saved in this browser only.";
+    renderList(); // the grid, chips and "behind" counts all follow the new number
+    if (detailEntry === e) renderDetail(e); // refresh the open panel
+    const note = document.getElementById("detail-msg");
+    if (note) {
+      note.textContent = !ok
+        ? "Could not save your progress."
+        : canEdit
+          ? "Saved to series.json. Commit and push it so the daily bot knows your new progress."
+          : "Saved in this browser only.";
+    }
   }
   edit.addEventListener("click", () => {
     form.hidden = !form.hidden;
@@ -326,73 +330,98 @@ function progressRow(e) {
   return wrap;
 }
 
-function makeCard(e, button, withProgress = false) {
-  const li = document.createElement("li");
-  li.className = "card";
+// ---------- cover tiles ----------
+// The list is a grid of covers. A tile shows only what is worth a glance: one label
+// (NEW / ON BREAK / FINISHED / LIMITED), how many chapters you're behind, and a thin
+// progress bar. Everything else lives in the detail panel that opens on click.
 
+// AniList serves the same cover in several sizes at the same address: we store the small
+// one, the grid uses "medium" and the detail panel "large".
+function coverUrl(e, size = "medium") {
+  return e.cover ? e.cover.replace(/\/cover\/(small|medium|large)\//, `/cover/${size}/`) : "";
+}
+
+function tileChip(e) {
+  if (isLimited(e)) return { cls: "limited", text: "Limited data" };
+  if (isOnBreak(e)) return { cls: "break", text: "On break" };
+  if (isNew(e)) return { cls: "new", text: "New" };
+  if (e.status === "FINISHED") return { cls: "finished", text: "Finished" };
+  return null;
+}
+
+function tileSubtitle(e) {
+  if (e.chapter) return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
+  return e.pending ? "Checking..." : STATUS_LABEL[e.status] || "";
+}
+
+// opts.button = a search result with an Add button (not clickable);
+// opts.compact = the small "new this week" strip.
+function makeTile(e, opts = {}) {
+  const li = document.createElement("li");
+  li.className = "tile" + (opts.button ? " static" : "");
+
+  const cover = document.createElement("div");
+  cover.className = "cover";
   const img = document.createElement("img");
-  img.src = e.cover || "";
+  img.src = coverUrl(e);
   img.alt = "";
   img.loading = "lazy";
+  img.decoding = "async";
+  cover.append(img);
 
-  const info = document.createElement("div");
-  info.className = "info";
-
-  const title = document.createElement("div");
-  title.className = "title";
-  title.textContent = e.title;
-
-  const sub = document.createElement("div");
-  sub.className = "sub";
-  if (e.chapter) {
-    const a = document.createElement("a"); // official reader when MangaDex knows one
-    a.href = e.url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = `Ch. ${e.chapter}`;
-    // A count-only source (MangaBaka) has no release date.
-    sub.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · count only, no date");
-    if (e.typicalGapDays) sub.append(` · about every ${Math.round(e.typicalGapDays)} days`);
-  } else if (e.pending) {
-    sub.textContent = "Waiting for the first check";
+  if (!opts.button && !opts.compact) {
+    const chip = tileChip(e);
+    if (chip) {
+      const c = document.createElement("span");
+      c.className = `chip ${chip.cls}`;
+      c.textContent = chip.text;
+      cover.append(c);
+    }
+    const behind = behindBy(e);
+    if (behind > 0) {
+      const p = document.createElement("span");
+      p.className = "behind-pill";
+      p.textContent = `+${behind}`;
+      p.title = `${behind} chapters behind`;
+      cover.append(p);
+    }
+    if (e.read && e.chapter) {
+      const pct = Math.max(0, Math.min(100, Math.round((100 * e.read) / parseFloat(e.chapter))));
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      bar.innerHTML = "<i></i>"; // static markup, no user text
+      bar.firstChild.style.width = `${pct}%`;
+      cover.append(bar);
+    }
+  }
+  if (opts.button) {
+    opts.button.classList.add("add-btn");
+    cover.append(opts.button);
   }
 
-  const badge = document.createElement("span");
-  const quiet = quietDays(e);
-  if (isLimited(e)) {
-    badge.className = "badge LIMITED";
-    badge.textContent = "Limited data";
-    badge.title = "No source has chapter data that fits what you've read, so no break or new-chapter alerts.";
-  } else if (quiet || onHiatus(e)) {
-    badge.className = "badge QUIET";
-    badge.textContent = quiet ? `On break? ${fmtQuiet(quiet)} quiet` : "On break? listed as hiatus";
-    badge.title = quiet
-      ? `AniList says Releasing, but the last chapter was ${quiet} days ago.`
-      : "MangaBaka lists this series as on hiatus.";
-  } else {
-    badge.className = `badge ${e.status}`;
-    badge.textContent = STATUS_LABEL[e.status] || e.status || "";
-  }
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  const t = document.createElement("div");
+  t.className = "t";
+  t.textContent = e.title;
+  const s = document.createElement("div");
+  s.className = "s";
+  s.textContent = tileSubtitle(e);
+  meta.append(t, s);
+  li.append(cover, meta);
 
-  info.append(title, sub, badge);
-  if (e.expectedNext && !quiet && e.status === "RELEASING" && !isLimited(e)) {
-    const next = document.createElement("div");
-    next.className = "sub";
-    next.textContent = `Next expected around ${fmtShort(parseDay(e.expectedNext))}`;
-    info.append(next);
+  if (!opts.button) {
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    li.setAttribute("aria-label", `Open ${e.title}`);
+    li.addEventListener("click", () => openDetail(e));
+    li.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        openDetail(e);
+      }
+    });
   }
-  if (withProgress) info.append(progressRow(e)); // your progress + the editor (list cards only)
-  const src = sourcesLine(e);
-  if (src) {
-    const line = document.createElement("div");
-    line.className = `src ${src.kind}`;
-    line.textContent = src.text;
-    line.title = src.detail;
-    info.append(line);
-  }
-
-  li.append(img, info);
-  if (button) li.append(button);
   return li;
 }
 
@@ -406,9 +435,138 @@ function renderResults() {
       btn.textContent = saved.has(m.id) ? "Added" : "Add";
       btn.disabled = saved.has(m.id);
       btn.addEventListener("click", () => addSeries(m, btn));
-      return makeCard(m, btn);
+      return makeTile(m, { button: btn });
     })
   );
+}
+
+// ---------- detail panel (opens when you click a cover) ----------
+
+let detailEntry = null;
+
+function openDetail(e) {
+  detailEntry = e;
+  renderDetail(e);
+  const dlg = document.getElementById("detail");
+  if (!dlg.open) dlg.showModal();
+}
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function fact(label, value) {
+  const row = el("div", "fact");
+  row.append(el("span", "", label));
+  if (value instanceof Node) row.append(value);
+  else row.append(el("span", "", value));
+  return row;
+}
+
+function renderDetail(e) {
+  const body = document.getElementById("detail-body");
+  const quiet = quietDays(e);
+
+  // Hero: blurred cover as the backdrop, sharp cover + title + labels on top
+  const hero = el("div", "d-hero");
+  hero.style.setProperty("--cover", `url("${coverUrl(e, "large").replace(/"/g, "%22")}")`);
+  const img = el("img", "d-cover");
+  img.src = coverUrl(e, "large");
+  img.alt = `Cover of ${e.title}`;
+  const head = el("div", "d-head");
+  const h = el("h2", "d-title", e.title);
+  h.id = "detail-title";
+  const chips = el("div", "chips");
+  const lead = tileChip(e);
+  if (lead && lead.cls !== "finished") chips.append(el("span", `chip ${lead.cls}`, lead.text));
+  if (e.status) chips.append(el("span", "chip status", STATUS_LABEL[e.status] || e.status));
+  head.append(h, chips);
+  const close = el("button", "close-btn", "✕");
+  close.type = "button";
+  close.setAttribute("aria-label", "Close");
+  close.addEventListener("click", () => document.getElementById("detail").close());
+  hero.append(img, head, close);
+
+  const main = el("div", "d-body");
+
+  // The facts
+  const facts = el("div", "d-section");
+  facts.append(el("h3", "", "Chapters"));
+  if (e.chapter) {
+    const a = el("a", "", `Ch. ${e.chapter}`);
+    a.href = e.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    const latest = el("span");
+    latest.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · count only, no date");
+    facts.append(fact("Latest", latest));
+  } else {
+    facts.append(fact("Latest", e.pending ? "Checking..." : "No reliable chapter data"));
+  }
+  if (e.typicalGapDays) facts.append(fact("Usually every", `${Math.round(e.typicalGapDays)} days`));
+  if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
+    facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
+  }
+  if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
+  else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
+  main.append(facts);
+
+  // Your progress (the editor from before)
+  const prog = el("div", "d-section");
+  prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
+  prog.lastChild.id = "detail-msg";
+  main.append(prog);
+
+  // What each source said
+  const list = e.sources || [];
+  if (list.length && !e.pending) {
+    const src = sourcesLine(e);
+    const sec = el("div", "d-section");
+    sec.append(el("h3", "", "Sources"));
+    if (src) sec.append(el("div", `src-line ${src.kind === "agree" ? "src-agree" : src.kind === "conflict" ? "src-conflict" : ""}`, src.text));
+    list.forEach((s) => {
+      const row = el("div", "src-row" + (s.plausible ? "" : " bad"));
+      const dot = el("span", `dot ${s.plausible ? (s.name === e.source ? "ok" : "") : "bad"}`);
+      const kind = s.kind === "count" ? "count" : "dated";
+      row.append(
+        dot,
+        el("span", "nm", s.name),
+        el("span", "ch", `ch. ${s.chapter ?? "?"} · ${s.publishedAt ? fmtShort(new Date(s.publishedAt)) : kind}`),
+        el("span", "note", s.plausible ? (s.name === e.source ? "used" : "also fits") : "doesn't fit")
+      );
+      sec.append(row);
+    });
+    main.append(sec);
+  }
+
+  // Actions + links
+  const actions = el("div", "d-actions");
+  if (canEdit) {
+    const rm = el("button", "btn danger", "Remove from my list");
+    rm.type = "button";
+    rm.addEventListener("click", async () => {
+      await removeSeries(e.id);
+      document.getElementById("detail").close();
+    });
+    actions.append(rm);
+  }
+  const links = el("div", "d-links");
+  const link = (href, label) => {
+    const a = el("a", "", label);
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    links.append(a);
+  };
+  link(`https://anilist.co/manga/${e.id}`, "AniList");
+  if (e.mal) link(`https://myanimelist.net/manga/${e.mal}`, "MyAnimeList");
+  if (actions.children.length) main.append(actions);
+  main.append(links);
+
+  body.replaceChildren(hero, main);
 }
 
 // ---------- filter + sort (all in the browser) ----------
@@ -489,36 +647,57 @@ function restoreView() {
   }
 }
 
+// The quick-filter chips under the header: a count you can click to filter the grid.
+function renderStats() {
+  const defs = [
+    { key: "all", label: "tracked", n: entries.length, cls: "" },
+    { key: "new", label: "new this week", n: entries.filter(isNew).length, cls: "fresh" },
+    { key: "onbreak", label: "on break", n: entries.filter(isOnBreak).length, cls: "warm" },
+    { key: "behind", label: "behind", n: entries.filter((e) => behindBy(e) > 0).length, cls: "" },
+  ];
+  const current = document.getElementById("filter-show").value;
+  document.getElementById("stats").replaceChildren(
+    ...defs.map((d) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = `stat ${d.cls}${current === d.key ? " active" : ""}`;
+      b.setAttribute("aria-pressed", String(current === d.key));
+      b.append(el("b", "", String(d.n)), el("span", "", d.label));
+      b.addEventListener("click", () => {
+        // Clicking the active chip again goes back to showing everything.
+        document.getElementById("filter-show").value = current === d.key ? "all" : d.key;
+        saveView();
+        renderList();
+      });
+      return b;
+    })
+  );
+}
+
 function renderList() {
   const msg = document.getElementById("list-msg");
   msg.textContent = entries.length
     ? ""
     : canEdit
-      ? "Nothing here yet. Search a manga above and press Add."
+      ? "Nothing here yet. Search a manga below and press Add."
       : "series.json is empty.";
   document.getElementById("checked-at").textContent = checkedAt
-    ? `Bot last checked ${new Date(checkedAt).toLocaleString()}`
+    ? `Bot checked ${new Date(checkedAt).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`
     : "";
+
+  renderStats();
+
+  // "New this week": the freshest chapters as a row of covers
+  const fresh = entries.filter(isNew).sort((a, b) => newestTime(b) - newestTime(a)).slice(0, 14);
+  document.getElementById("fresh-block").hidden = fresh.length === 0;
+  document.getElementById("fresh").replaceChildren(...fresh.map((e) => makeTile(e, { compact: true })));
 
   const visible = visibleEntries();
   document.getElementById("list-count").textContent =
     entries.length && visible.length !== entries.length
       ? `Showing ${visible.length} of ${entries.length}` + (visible.length ? "" : ": nothing matches this filter")
       : "";
-
-  document.getElementById("mylist").replaceChildren(
-    ...visible.map((e) => {
-      let btn = null;
-      if (canEdit) {
-        btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "ghost";
-        btn.textContent = "Remove";
-        btn.addEventListener("click", () => removeSeries(e.id));
-      }
-      return makeCard(e, btn, true);
-    })
-  );
+  document.getElementById("mylist").replaceChildren(...visible.map((e) => makeTile(e)));
 }
 
 // ---------- actions (only with server.py) ----------
@@ -1073,6 +1252,13 @@ document.getElementById("search").addEventListener("input", (ev) => {
     }
   }, 400);
 });
+
+// Detail panel: close on a click on the dimmed backdrop; forget the open entry when it closes.
+const detailDialog = document.getElementById("detail");
+detailDialog.addEventListener("click", (ev) => {
+  if (ev.target === detailDialog) detailDialog.close();
+});
+detailDialog.addEventListener("close", () => (detailEntry = null));
 
 for (const id of ["filter-text", "filter-show", "sort-by"]) {
   document.getElementById(id).addEventListener(id === "filter-text" ? "input" : "change", () => {

@@ -3,128 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%23ff6b9d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M9 9.5h6.2c1.2 0 2.3.5 2.8 1.4.5-.9 1.6-1.4 2.8-1.4H23v13h-2.9c-1.1 0-2.1.4-2.6 1.1h-3c-.5-.7-1.5-1.1-2.6-1.1H9z' fill='none' stroke='white' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
   <title>Manga Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Manga Tracker</h1>
-    <p class="tagline">Never wonder if your manga is on break.</p>
-  </header>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#ff6b9d"/>
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="9" fill="url(#lg)"/>
+          <path d="M9 9.5h6.2c1.2 0 2.3.5 2.8 1.4.5-.9 1.6-1.4 2.8-1.4H23v13h-2.9c-1.1 0-2.1.4-2.6 1.1h-3c-.5-.7-1.5-1.1-2.6-1.1H9z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M16 11v12.5" stroke="#fff" stroke-width="1.8"/>
+        </svg>
+        <div>
+          <h1>Manga Tracker</h1>
+          <p class="tagline">Never wonder if your manga is on break.</p>
+        </div>
+      </div>
+      <div class="top-right">
+        <span id="checked-at" class="muted-text"></span>
+        <button id="refresh" type="button" class="btn" hidden>Refresh now</button>
+      </div>
+    </header>
 
-  <nav class="tabs" role="tablist">
-    <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
-    <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
-    <button type="button" role="tab" data-tab="activity" class="tab">Activity</button>
-    <button type="button" role="tab" data-tab="health" class="tab" id="health-tab">Health</button>
-  </nav>
+    <div id="stats" class="stats" aria-label="Quick filters"></div>
 
-  <main>
-    <!-- ===== My list ===== -->
-    <section id="tab-list">
-      <div id="add-section" hidden>
-        <h2>Find a manga</h2>
-        <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
-        <p id="search-msg" class="msg"></p>
-        <ul id="results" class="cards"></ul>
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
+      <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
+      <button type="button" role="tab" data-tab="activity" class="tab">Activity</button>
+      <button type="button" role="tab" data-tab="health" class="tab" id="health-tab">Health</button>
+    </nav>
 
-        <details class="import">
-          <summary>Import your list from MyAnimeList</summary>
-          <p class="msg">
-            On MAL: Profile, then Export, then the <b>manga</b> list. You get an .xml file.
-            It is read in your browser; only titles and chapters-read are saved to series.json.
-          </p>
-          <div class="statuses">
-            <label><input type="checkbox" class="import-status" value="Reading" checked> Reading</label>
-            <label><input type="checkbox" class="import-status" value="Plan to Read"> Plan to read</label>
-            <label><input type="checkbox" class="import-status" value="On-Hold"> On hold</label>
-            <label><input type="checkbox" class="import-status" value="Completed"> Completed</label>
-            <label><input type="checkbox" class="import-status" value="Dropped"> Dropped</label>
+    <main>
+      <!-- ===== My list ===== -->
+      <section id="tab-list">
+        <!-- Add / import (only with server.py running) -->
+        <div id="add-section" hidden>
+          <h2 class="section-title">Add a manga</h2>
+          <label class="search-box wide">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="search" type="search" placeholder="Search a title, e.g. One Piece" autocomplete="off">
+          </label>
+          <p id="search-msg" class="msg"></p>
+          <ul id="results" class="grid"></ul>
+
+          <details class="import">
+            <summary>Import your list from MyAnimeList</summary>
+            <p class="msg">
+              On MAL: Profile, then Export, then the <b>manga</b> list. You get an .xml file.
+              It is read in your browser; only titles and chapters-read are saved to series.json.
+            </p>
+            <div class="statuses">
+              <label><input type="checkbox" class="import-status" value="Reading" checked> Reading</label>
+              <label><input type="checkbox" class="import-status" value="Plan to Read"> Plan to read</label>
+              <label><input type="checkbox" class="import-status" value="On-Hold"> On hold</label>
+              <label><input type="checkbox" class="import-status" value="Completed"> Completed</label>
+              <label><input type="checkbox" class="import-status" value="Dropped"> Dropped</label>
+            </div>
+            <input id="import-file" type="file" accept=".xml,application/xml,text/xml">
+            <p id="import-msg" class="msg"></p>
+          </details>
+        </div>
+
+        <div id="fresh-block" hidden>
+          <h2 class="section-title">New this week</h2>
+          <ul id="fresh" class="strip"></ul>
+        </div>
+
+        <div class="list-head">
+          <h2 class="section-title">Your library</h2>
+          <div class="toolbar">
+            <label class="search-box">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <input id="filter-text" type="search" placeholder="Filter by title" autocomplete="off">
+            </label>
+            <select id="filter-show" aria-label="Show">
+              <option value="all">Show: all</option>
+              <option value="releasing">Releasing</option>
+              <option value="onbreak">On break</option>
+              <option value="new">New this week</option>
+              <option value="behind">You're behind</option>
+              <option value="disagree">Sources disagree</option>
+              <option value="count">Count only (no date)</option>
+              <option value="finished">Finished</option>
+            </select>
+            <select id="sort-by" aria-label="Sort by">
+              <option value="title">Sort: title A to Z</option>
+              <option value="behind">Most chapters behind</option>
+              <option value="newest">Newest chapter</option>
+              <option value="next">Next chapter soonest</option>
+              <option value="onbreak">On break first</option>
+            </select>
           </div>
-          <input id="import-file" type="file" accept=".xml,application/xml,text/xml">
-          <p id="import-msg" class="msg"></p>
-        </details>
-      </div>
-
-      <div class="row">
-        <h2>My list</h2>
-        <div class="controls">
-          <span id="checked-at" class="msg"></span>
-          <button id="refresh" type="button" hidden>Refresh now</button>
         </div>
-      </div>
-      <div class="toolbar">
-        <input id="filter-text" type="search" placeholder="Filter your list by title" autocomplete="off">
-        <select id="filter-show" aria-label="Show">
-          <option value="all">Show: all</option>
-          <option value="releasing">Releasing</option>
-          <option value="onbreak">On break</option>
-          <option value="new">New this week</option>
-          <option value="behind">You're behind</option>
-          <option value="disagree">Sources disagree</option>
-          <option value="count">Count only (no date)</option>
-          <option value="finished">Finished</option>
-        </select>
-        <select id="sort-by" aria-label="Sort by">
-          <option value="title">Sort: title A to Z</option>
-          <option value="behind">Most chapters behind</option>
-          <option value="newest">Newest chapter</option>
-          <option value="next">Next chapter soonest</option>
-          <option value="onbreak">On break first</option>
-        </select>
-      </div>
-      <p id="list-count" class="msg"></p>
-      <p id="list-msg" class="msg"></p>
-      <ul id="mylist" class="cards"></ul>
-    </section>
+        <p id="list-count" class="msg"></p>
+        <p id="list-msg" class="msg"></p>
+        <ul id="mylist" class="grid"></ul>
+      </section>
 
-    <!-- ===== Calendar ===== -->
-    <section id="tab-calendar" hidden>
-      <div id="overdue-block" hidden>
-        <h2>Overdue, maybe on break</h2>
-        <ul id="overdue" class="plain"></ul>
-      </div>
-
-      <h2>Coming up (next 14 days)</h2>
-      <ul id="upcoming" class="plain"></ul>
-
-      <div class="row">
-        <h2 id="month-title">Month</h2>
-        <div class="controls">
-          <button id="prev-month" type="button" class="ghost" aria-label="Previous month">&lt;</button>
-          <button id="today-month" type="button" class="ghost">Today</button>
-          <button id="next-month" type="button" class="ghost" aria-label="Next month">&gt;</button>
+      <!-- ===== Calendar ===== -->
+      <section id="tab-calendar" hidden>
+        <div id="overdue-block" hidden>
+          <h2 class="section-title">Overdue, maybe on break</h2>
+          <ul id="overdue" class="plain"></ul>
         </div>
-      </div>
-      <div id="cal-grid" class="cal"></div>
-      <p class="legend">
-        <span class="pill released">released</span>
-        <span class="pill expected">expected</span>
-        <span class="pill late">due now</span>
-      </p>
-      <button id="ics" type="button" class="ghost">Download .ics (add to your calendar app)</button>
-    </section>
 
-    <!-- ===== Activity (history log) ===== -->
-    <section id="tab-activity" hidden>
-      <h2>What happened lately</h2>
-      <p id="activity-summary" class="msg"></p>
-      <ul id="activity" class="plain"></ul>
-      <p id="activity-more" class="msg"></p>
-    </section>
+        <h2 class="section-title">Coming up (next 14 days)</h2>
+        <ul id="upcoming" class="plain"></ul>
 
-    <!-- ===== Health (can I trust what I see?) ===== -->
-    <section id="tab-health" hidden>
-      <div id="health-banner" class="banner" hidden></div>
-      <h2>Last run of the daily bot</h2>
-      <p id="health-summary" class="msg"></p>
-      <ul id="health-sources" class="plain"></ul>
-      <h2>Coverage</h2>
-      <ul id="health-coverage" class="plain"></ul>
-      <h2>Recent runs</h2>
-      <ul id="health-runs" class="plain"></ul>
-    </section>
-  </main>
+        <div class="row">
+          <h2 id="month-title" class="section-title">Month</h2>
+          <div class="controls">
+            <button id="prev-month" type="button" class="btn ghost" aria-label="Previous month">&lt;</button>
+            <button id="today-month" type="button" class="btn ghost">Today</button>
+            <button id="next-month" type="button" class="btn ghost" aria-label="Next month">&gt;</button>
+          </div>
+        </div>
+        <div id="cal-grid" class="cal"></div>
+        <p class="legend">
+          <span class="pill released">released</span>
+          <span class="pill expected">expected</span>
+          <span class="pill late">due now</span>
+        </p>
+        <button id="ics" type="button" class="btn ghost">Download .ics (add to your calendar app)</button>
+      </section>
+
+      <!-- ===== Activity (history log) ===== -->
+      <section id="tab-activity" hidden>
+        <h2 class="section-title">What happened lately</h2>
+        <p id="activity-summary" class="msg"></p>
+        <ul id="activity" class="plain"></ul>
+        <p id="activity-more" class="msg"></p>
+      </section>
+
+      <!-- ===== Health (can I trust what I see?) ===== -->
+      <section id="tab-health" hidden>
+        <div id="health-banner" class="banner" hidden></div>
+        <h2 class="section-title">Last run of the daily bot</h2>
+        <p id="health-summary" class="msg"></p>
+        <ul id="health-sources" class="plain"></ul>
+        <h2 class="section-title">Coverage</h2>
+        <ul id="health-coverage" class="plain"></ul>
+        <h2 class="section-title">Recent runs</h2>
+        <ul id="health-runs" class="plain"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Detail panel: opens when you click a cover -->
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div id="detail-body"></div>
+  </dialog>
 
   <script src="app.js"></script>
 </body>
