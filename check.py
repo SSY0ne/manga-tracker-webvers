@@ -216,6 +216,9 @@ def check(series_path, state_path, dry):
     messages = []
     events = []  # what changed this run; appended to history.jsonl (see log_events)
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    server.reset_stats()  # per-source counters for the Health tab
+    started = time.time()
+    lookup_failed = 0  # series where EVERY source failed
     for s in series:
         m = by_id.get(s["id"])
         if not m:
@@ -238,6 +241,7 @@ def check(series_path, state_path, dry):
             info = server.chapter_info(str(m["id"]), names, year, s.get("read"), m["status"], matches)
         except Exception as err:  # every source down: keep the old info, try again tomorrow
             print(f"! {name}: lookup failed ({err}), keeping old data")
+            lookup_failed += 1
             info = dict(old or {})
             info.setdefault("limited", False)
         chapter, published, url = info.get("chapter"), info.get("publishedAt"), info.get("url")
@@ -321,7 +325,25 @@ def check(series_path, state_path, dry):
         new_state_map[str(m["id"])] = new_state
 
     if not dry:
-        write_json(state_path, {"checkedAt": now, "series": new_state_map})
+        finished = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        sources = {k: {**v, "seconds": round(v["seconds"], 1)} for k, v in server.STATS.items()}
+        health = {
+            "startedAt": now,
+            "finishedAt": finished,
+            "durationSec": round(time.time() - started),
+            "series": len(new_state_map),
+            "lookupFailed": lookup_failed,
+            "sources": sources,
+        }
+        # One compact "run" line per run, so the Health tab can show a trend.
+        events.append(
+            {
+                "t": finished, "id": 0, "title": "(daily check)", "type": "run",
+                "durationSec": health["durationSec"], "series": health["series"], "lookupFailed": lookup_failed,
+                "sources": {k: {f: v[f] for f in ("ok", "none", "failed", "rateLimited")} for k, v in sources.items()},
+            }
+        )
+        write_json(state_path, {"checkedAt": now, "series": new_state_map, "health": health})
         log_events(history_path_for(state_path), events)
     return messages, events
 

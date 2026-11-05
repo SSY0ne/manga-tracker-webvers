@@ -16,6 +16,7 @@
     <button type="button" role="tab" data-tab="list" class="tab active">My list</button>
     <button type="button" role="tab" data-tab="calendar" class="tab">Calendar</button>
     <button type="button" role="tab" data-tab="activity" class="tab">Activity</button>
+    <button type="button" role="tab" data-tab="health" class="tab" id="health-tab">Health</button>
   </nav>
 
   <main>
@@ -110,6 +111,18 @@
       <p id="activity-summary" class="msg"></p>
       <ul id="activity" class="plain"></ul>
       <p id="activity-more" class="msg"></p>
+    </section>
+
+    <!-- ===== Health (can I trust what I see?) ===== -->
+    <section id="tab-health" hidden>
+      <div id="health-banner" class="banner" hidden></div>
+      <h2>Last run of the daily bot</h2>
+      <p id="health-summary" class="msg"></p>
+      <ul id="health-sources" class="plain"></ul>
+      <h2>Coverage</h2>
+      <ul id="health-coverage" class="plain"></ul>
+      <h2>Recent runs</h2>
+      <ul id="health-runs" class="plain"></ul>
     </section>
   </main>
 

@@ -39,6 +39,11 @@ like it is on break.
   whenever something changes: `first_seen`, `chapter`, `break_start`, `break_end`, `status`,
   and `source_change` (a data correction, so a jump in numbers is explained). The **Activity
   tab** shows the newest events and a 7-day summary.
+- **Health tab** ("can I trust what I see?"): the bot records how each source behaved on its
+  last run (answered / no entry / failed / rate-limited / seconds / error messages, saved in
+  `state.json`) plus a short `run` line per day in the log. The tab shows a red or orange banner
+  (and a dot on the tab) when a source was down or the bot hasn't run for 36 hours, the per-source
+  numbers, how many series rest on a single source, and the last 14 runs.
 - **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
   `.ics` download for your calendar app.
 - The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.

@@ -53,6 +53,32 @@ _mb_cache = {}  # AniList id -> (timestamp, MangaBaka record or None)
 _wt_cache = {}  # AniList id -> Webtoon RSS url (or False = not on Webtoon)
 
 
+# ---------- run statistics (for the Health tab) ----------
+# Every source call is counted here, per source: ok (gave a candidate), none (no match or no
+# data: normal for Webtoon, which only covers webtoons), failed (error), cached, rateLimited,
+# seconds spent, and the first few error messages. check.py resets this at the start of a run
+# and saves it into state.json when done.
+
+STATS = {}
+
+
+def reset_stats():
+    STATS.clear()
+
+
+def stat(source, key, amount=1):
+    s = STATS.setdefault(
+        source, {"ok": 0, "none": 0, "failed": 0, "cached": 0, "rateLimited": 0, "seconds": 0.0, "errors": []}
+    )
+    s[key] += amount
+
+
+def stat_error(source, message):
+    stat(source, "failed", 0)  # makes sure the entry exists
+    if len(STATS[source]["errors"]) < 5:
+        STATS[source]["errors"].append(str(message)[:160])
+
+
 # ---------- small helpers ----------
 
 def parse_time(iso):
@@ -139,9 +165,11 @@ def mb_get(path, params=None):
         try:
             return http_json(url)
         except urllib.error.HTTPError as err:
-            if err.code == 429 and attempt == 0:  # too many requests: wait, try once more
-                time.sleep(10)
-                continue
+            if err.code == 429:
+                stat("MangaBaka", "rateLimited")
+                if attempt == 0:  # too many requests: wait, try once more
+                    time.sleep(10)
+                    continue
             raise
 
 
@@ -488,12 +516,19 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None)
         hit = _cache.get(key)
         if hit and time.time() - hit[0] < CACHE_SECONDS:
             candidates.append(hit[1])
+            stat(name, "cached")
             continue
+        started = time.time()
         try:
             candidate = fetch(al_id, titles, year)
         except Exception as err:  # one source being down must not break the others
+            stat(name, "seconds", time.time() - started)
+            stat(name, "failed")
+            stat_error(name, f"{type(err).__name__}: {err}")
             errors.append(f"{name}: {err}")
             continue
+        stat(name, "seconds", time.time() - started)
+        stat(name, "ok" if candidate else "none")
         _cache[key] = (time.time(), candidate)
         candidates.append(candidate)
         if name != "MangaBaka":

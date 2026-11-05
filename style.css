@@ -133,6 +133,19 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 .plain .note { color: var(--muted); }
 .plain li.muted { opacity: 0.65; }
 
+/* health tab */
+.banner { padding: 10px 14px; margin: 14px 0 0; border-radius: 10px; font-size: 0.92rem; }
+.banner.warn { background: rgba(255, 159, 67, 0.14); border: 1px solid var(--orange); }
+.banner.bad { background: rgba(239, 68, 68, 0.14); border: 1px solid var(--red); }
+.dot { display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--grey); }
+.dot.ok { background: var(--green); }
+.dot.warn { background: var(--orange); }
+.dot.bad { background: var(--red); }
+.plain li .line2 { margin-top: 2px; font-size: 0.85rem; color: var(--muted); }
+.tab.warn::after, .tab.bad::after { content: " \25CF"; font-size: 0.7em; }
+.tab.warn::after { color: var(--orange); }
+.tab.bad::after { color: var(--red); }
+
 .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
 .cal .dow { text-align: center; font-size: 0.75rem; color: var(--muted); padding: 4px 0; }
 .cal .cell {

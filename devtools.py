@@ -39,6 +39,15 @@ def report(state_path=None):
         key = v.get("agreement") or "old format"
         counts[key] = counts.get(key, 0) + 1
     print(f"{len(series)} series, checked {raw.get('checkedAt', '?')}")
+    h = raw.get("health")
+    if h:
+        print(f"last run: {h['durationSec']}s, {h['lookupFailed']} series with no answer from any source")
+        for name, s in h["sources"].items():
+            flag = "  <-- PROBLEM" if s["failed"] or s["rateLimited"] else ""
+            print(
+                f"  {name:13} ok {s['ok']:3}  no-entry {s['none']:3}  failed {s['failed']:3}  "
+                f"rate-limited {s['rateLimited']:2}  {s['seconds']}s{flag}"
+            )
     print("agreement:", ", ".join(f"{k} {n}" for k, n in sorted(counts.items())))
 
     short = {"MangaDex": "MD", "MangaUpdates": "MU", "MangaBaka": "MB", "Webtoon": "WT"}  # new: first 4 letters

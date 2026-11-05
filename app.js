@@ -23,6 +23,7 @@ const STATUS_LABEL = {
 let canEdit = false; // true only when server.py is running
 let entries = []; // what we show (one per series)
 let checkedAt = null;
+let health = null;
 let lastResults = [];
 let calMonth = firstOfMonth(new Date());
 
@@ -203,6 +204,7 @@ async function loadAll(onProgress) {
   const raw = (await fetchJSON("state.json")) || {};
   const state = raw.series || raw; // the first version of state.json had no wrapper
   checkedAt = raw.checkedAt || null;
+  health = raw.health || null; // how the last bot run went (see the Health tab)
 
   // An entry from the OLD state.json format has no history/cover: treat it as pending too,
   // so the page fills it live until the bot rewrites state.json in the new format.
@@ -592,7 +594,8 @@ function describeEvent(ev) {
 }
 
 function renderActivity() {
-  const events = [...historyEvents].sort((a, b) => b.t.localeCompare(a.t));
+  // "run" lines are bookkeeping for the Health tab, not news
+  const events = historyEvents.filter((e) => e.type !== "run").sort((a, b) => b.t.localeCompare(a.t));
   const weekAgo = Date.now() - 7 * DAY;
   const recent = events.filter((e) => new Date(e.t).getTime() >= weekAgo);
   const count = (type) => recent.filter((e) => e.type === type).length;
@@ -612,6 +615,161 @@ function renderActivity() {
   );
   document.getElementById("activity-more").textContent =
     events.length > shown.length ? `Showing the newest ${shown.length} of ${events.length} events.` : "";
+}
+
+// ---------- Health tab: can I trust what I see? ----------
+// The bot saves how each source behaved on its last run (state.json "health") and one
+// "run" line per day in history.jsonl. This tab turns that into: is the bot alive, did
+// the sources answer, and which series rest on a single source.
+
+const SOURCE_ROLE = {
+  MangaDex: "chapters + dates",
+  MangaUpdates: "chapters + dates",
+  MangaBaka: "chapter count + hiatus + ids",
+  Webtoon: "official episodes + dates",
+};
+const STALE_HOURS = 36; // the bot runs daily; more than this = something is wrong
+
+function fmtDuration(sec) {
+  return sec >= 60 ? `${Math.floor(sec / 60)}m ${sec % 60}s` : `${sec}s`;
+}
+
+// ok / warn / bad for one source's counters from a run
+function sourceState(s) {
+  const total = s.ok + s.none + s.failed;
+  if (s.failed && total && s.failed / total >= 0.5) return "bad";
+  return s.failed || s.rateLimited ? "warn" : "ok";
+}
+
+function botAgeHours() {
+  return checkedAt ? (Date.now() - new Date(checkedAt).getTime()) / 3600000 : null;
+}
+
+// Overall state, also used for the dot on the tab.
+function healthState() {
+  const age = botAgeHours();
+  if (age === null) return "unknown";
+  if (age > STALE_HOURS) return "bad";
+  if (!health) return "ok";
+  const states = Object.values(health.sources).map(sourceState);
+  if (states.includes("bad")) return "bad";
+  if (states.includes("warn") || health.lookupFailed > 0) return "warn";
+  return "ok";
+}
+
+function updateHealthDot() {
+  const tab = document.getElementById("health-tab");
+  tab.classList.remove("warn", "bad");
+  const state = healthState();
+  if (state === "warn" || state === "bad") tab.classList.add(state);
+}
+
+function renderHealth() {
+  // Banner: the loudest problem first
+  const banner = document.getElementById("health-banner");
+  const age = botAgeHours();
+  const state = healthState();
+  if (age !== null && age > STALE_HOURS) {
+    banner.className = "banner bad";
+    banner.textContent = `The daily bot hasn't run for ${Math.floor(age)} hours (last: ${new Date(checkedAt).toLocaleString()}). What you see may be out of date.`;
+    banner.hidden = false;
+  } else if (state === "bad" || state === "warn") {
+    const down = Object.entries(health.sources)
+      .filter(([, s]) => sourceState(s) === "bad")
+      .map(([name]) => name);
+    banner.className = `banner ${state}`;
+    banner.textContent =
+      state === "bad"
+        ? `${down.join(" and ")} ${down.length > 1 ? "were" : "was"} mostly down on the last run. Results that depend on ${down.length > 1 ? "them" : "it"} may be stale.`
+        : "Some requests failed or were rate-limited on the last run. See the sources below.";
+    banner.hidden = false;
+  } else {
+    banner.hidden = true;
+  }
+
+  // Last run + per-source cards
+  const summary = document.getElementById("health-summary");
+  const list = document.getElementById("health-sources");
+  if (!health) {
+    summary.textContent = checkedAt
+      ? "No health data yet. The next daily run records it."
+      : "No bot run found (state.json is missing).";
+    list.replaceChildren();
+  } else {
+    summary.textContent =
+      `Finished ${new Date(health.finishedAt).toLocaleString()}, took ${fmtDuration(health.durationSec)}, ` +
+      `${health.series} series` +
+      (health.lookupFailed ? `, ${health.lookupFailed} with no answer from any source` : "");
+    list.replaceChildren(
+      ...Object.entries(health.sources).map(([name, s]) => {
+        const total = s.ok + s.none + s.failed;
+        const item = document.createElement("li");
+        const dot = span(`dot ${sourceState(s)}`, "");
+        const head = document.createElement("div");
+        head.append(dot, span("when", name), span("note", SOURCE_ROLE[name] || ""));
+        const stats =
+          `answered ${s.ok} of ${total || health.series}` +
+          (s.none ? ` · no entry for ${s.none}` : "") +
+          (s.failed ? ` · FAILED ${s.failed}` : "") +
+          (s.rateLimited ? ` · rate-limited ${s.rateLimited}x` : "") +
+          (s.cached ? ` · cached ${s.cached}` : "") +
+          ` · ${s.seconds}s`;
+        const line = document.createElement("div");
+        line.className = "line2";
+        line.textContent = stats;
+        item.append(head, line);
+        (s.errors || []).slice(0, 3).forEach((msg) => {
+          const err = document.createElement("div");
+          err.className = "line2";
+          err.textContent = `error: ${msg}`;
+          item.append(err);
+        });
+        return item;
+      })
+    );
+  }
+
+  // Coverage: how many sources back each series (from the data on the page)
+  const usable = (e) => (e.sources || []).filter((s) => s.plausible).length;
+  const known = entries.filter((e) => (e.sources || []).length > 0);
+  const bucket = (test) => known.filter((e) => test(usable(e)));
+  const rows = [
+    ["3 or more usable sources", bucket((n) => n >= 3).length],
+    ["2 usable sources", bucket((n) => n === 2).length],
+    ["1 usable source", bucket((n) => n === 1).length],
+    ["No usable source", bucket((n) => n === 0).length],
+  ];
+  const single = bucket((n) => n === 1).map((e) => e.title);
+  document.getElementById("health-coverage").replaceChildren(
+    ...(known.length
+      ? [
+          ...rows.map(([label, n]) => li(span("when", String(n)), label)),
+          li(
+            span("note", single.length
+              ? `Resting on a single source (most fragile): ${single.slice(0, 10).join(", ")}${single.length > 10 ? ` and ${single.length - 10} more` : ""}`
+              : "No series rests on a single source.")
+          ),
+        ]
+      : [li(span("note", "No source data yet."))])
+  );
+
+  // Recent runs from the history log
+  const runs = historyEvents.filter((e) => e.type === "run").sort((a, b) => b.t.localeCompare(a.t)).slice(0, 14);
+  document.getElementById("health-runs").replaceChildren(
+    ...(runs.length
+      ? runs.map((r) => {
+          const bad = Object.entries(r.sources || {}).filter(([, v]) => v.failed || v.rateLimited);
+          const problems = bad.length
+            ? bad.map(([n, v]) => `${n}: ${v.failed ? v.failed + " failed" : ""}${v.failed && v.rateLimited ? ", " : ""}${v.rateLimited ? v.rateLimited + " rate-limited" : ""}`).join("; ")
+            : "all sources ok";
+          return li(
+            span("when", fmtShort(new Date(r.t))),
+            `${r.series} series, ${fmtDuration(r.durationSec)} · `,
+            span("note", problems)
+          );
+        })
+      : [li(span("note", "No runs recorded yet. The next daily run adds the first one."))])
+  );
 }
 
 // ---------- rendering: Calendar ----------
@@ -765,8 +923,10 @@ document.querySelectorAll(".tab").forEach((btn) =>
     document.getElementById("tab-list").hidden = btn.dataset.tab !== "list";
     document.getElementById("tab-calendar").hidden = btn.dataset.tab !== "calendar";
     document.getElementById("tab-activity").hidden = btn.dataset.tab !== "activity";
+    document.getElementById("tab-health").hidden = btn.dataset.tab !== "health";
     if (btn.dataset.tab === "calendar") renderCalendar();
     if (btn.dataset.tab === "activity") renderActivity();
+    if (btn.dataset.tab === "health") renderHealth();
   })
 );
 
@@ -835,6 +995,7 @@ async function init() {
   await loadAll();
   renderList();
   await loadHistory();
+  updateHealthDot();
 }
 
 init();
