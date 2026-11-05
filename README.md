@@ -36,7 +36,8 @@ like it is on break.
   the stat chips under the header (tracked / new / on break / behind) are click-to-filter. Click a
   cover to open a detail panel (a side panel on desktop, a bottom sheet on phones) with the
   chapter facts, your progress editor and what every source said. The search to add a manga is
-  at the top (when `server.py` is running).
+  at the top and the MyAnimeList import is at the very bottom of the list (both only when
+  `server.py` is running).
 - **Your reading progress**: every card has an "update" link next to "You've read N · M behind".
   Type the chapter you are really on, or press "I'm up to date" to jump to the latest known
   chapter. With `server.py` it is saved to `series.json` (commit it so the bot knows); on a

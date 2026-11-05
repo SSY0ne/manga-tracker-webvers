@@ -1277,6 +1277,7 @@ async function init() {
     canEdit = false;
   }
   document.getElementById("add-section").hidden = !canEdit;
+  document.getElementById("import-section").hidden = !canEdit; // the import lives at the bottom of the list
   document.getElementById("refresh").hidden = !canEdit;
 
   await loadAll();

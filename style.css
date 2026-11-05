@@ -301,6 +301,8 @@ dialog#detail::backdrop { background: rgba(3, 4, 8, 0.66); backdrop-filter: blur
 #add-section { margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 #add-section .section-title { margin-top: 22px; }
 
+#import-section { margin-top: 40px; }
+
 /* import panel */
 .import { margin-top: 18px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .import summary { cursor: pointer; font-weight: 600; }
