@@ -64,10 +64,10 @@ function fmtLong(d) {
   return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 }
 
-// ---------- the "on break" rule ----------
-// Same rule as quiet_days() in server.py (the bot uses that one). A Releasing series is
-// "quiet" when it is way overdue compared to ITS OWN rhythm: at least 2.5x its usual
-// gap and at least 2 weeks more. No rhythm known yet -> flat 6 weeks.
+// ---------- the "on break" verdict ----------
+// The rule itself lives in ONE place: quiet_days() in server.py. The daily bot saves its
+// verdict (quietDays) in state.json and the live refresh gets it from the same code, so this
+// page only reads it. It never recomputes the rule.
 
 // "Limited data" = no source has chapter data that makes sense (see reconcile() in
 // server.py, which decides). The bot stores the verdict in state.json.
@@ -110,13 +110,12 @@ function fmtQuiet(days) {
   return weeks >= 104 ? `over ${Math.floor(weeks / 52)} years` : `${weeks} wks`;
 }
 
+// Days without a chapter if the series looks on break, else 0.
 function quietDays(e) {
   if (isLimited(e)) return 0;
-  if (e.status !== "RELEASING" || !e.publishedAt) return 0;
-  const days = Math.floor((Date.now() - new Date(e.publishedAt).getTime()) / DAY);
-  const gap = e.typicalGapDays;
-  const limit = gap ? Math.max(2.5 * gap, gap + 14) : 6 * 7;
-  return days >= limit ? days : 0;
+  if (e.quietDays !== undefined) return e.quietDays || 0;
+  // A state.json saved before the verdict existed only has the bot's yes/no (`quiet`).
+  return e.quiet && e.publishedAt ? Math.floor((Date.now() - new Date(e.publishedAt).getTime()) / DAY) : 0;
 }
 
 // ---------- data: AniList + our server ----------
@@ -189,7 +188,7 @@ async function fillLive(list, onProgress) {
         const { found, ...rest } = info;
         Object.assign(
           e,
-          { chapter: null, publishedAt: null, url: null, typicalGapDays: null, expectedNext: null, history: [], limited: false },
+          { chapter: null, publishedAt: null, url: null, typicalGapDays: null, expectedNext: null, history: [], limited: false, quietDays: 0, hiatus: false, countOnly: false },
           rest
         );
       }
@@ -301,16 +300,28 @@ function progressRow(e) {
 
   async function commit(n) {
     [save, upToDate, cancel].forEach((b) => (b.disabled = true));
+    const before = e.read; // kept so "Undo" can put it back
     const ok = await setRead(e, n);
     renderList(); // the grid, chips and "behind" counts all follow the new number
     if (detailEntry === e) renderDetail(e); // refresh the open panel
     const note = document.getElementById("detail-msg");
-    if (note) {
-      note.textContent = !ok
-        ? "Could not save your progress."
-        : canEdit
-          ? "Saved to series.json. Commit and push it so the daily bot knows your new progress."
-          : "Saved in this browser only.";
+    if (!note) return;
+    note.textContent = !ok
+      ? "Could not save your progress."
+      : canEdit
+        ? "Saved to series.json. Commit and push it so the daily bot knows your new progress."
+        : "Saved in this browser only.";
+    if (ok) {
+      const undo = el("button", "link-btn", "Undo");
+      undo.type = "button";
+      undo.addEventListener("click", async () => {
+        await setRead(e, before || 0);
+        renderList();
+        if (detailEntry === e) renderDetail(e);
+        const again = document.getElementById("detail-msg");
+        if (again) again.textContent = "Back to what it was.";
+      });
+      note.append(" ", undo);
     }
   }
   edit.addEventListener("click", () => {
@@ -377,7 +388,7 @@ function makeTile(e, opts = {}) {
       c.textContent = chip.text;
       cover.append(c);
     }
-    const behind = behindBy(e);
+    const behind = behindShown(e);
     if (behind > 0) {
       const p = document.createElement("span");
       p.className = "behind-pill";
@@ -547,9 +558,21 @@ function renderDetail(e) {
   if (canEdit) {
     const rm = el("button", "btn danger", "Remove from my list");
     rm.type = "button";
-    rm.addEventListener("click", async () => {
-      await removeSeries(e.id);
-      document.getElementById("detail").close();
+    rm.addEventListener("click", () => {
+      // Removing edits series.json, so ask first. The toast afterwards offers an Undo.
+      const ask = el("div", "confirm", `Remove ${e.title} from your list?`);
+      const yes = el("button", "btn danger", "Yes, remove");
+      yes.type = "button";
+      const no = el("button", "btn ghost", "Cancel");
+      no.type = "button";
+      no.addEventListener("click", () => actions.replaceChildren(rm));
+      yes.addEventListener("click", async () => {
+        const removed = await removeSeries(e.id);
+        document.getElementById("detail").close();
+        if (removed) toast(`Removed ${removed.title}`, () => restoreSeries(removed));
+      });
+      actions.replaceChildren(ask, yes, no);
+      no.focus(); // the safe choice is the one under your thumb
     });
     actions.append(rm);
   }
@@ -578,6 +601,15 @@ function behindBy(e) {
   const b = Math.floor(parseFloat(e.chapter) - e.read);
   return b > 0 ? b : 0;
 }
+// "+N behind" on a cover, the chip, the filter and the sort only mean something for a series
+// that is still running: one that is on break, finished or has no usable data has nothing new
+// to catch up on. (The detail panel still shows your exact numbers for every series.)
+function isRunning(e) {
+  return e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e);
+}
+function behindShown(e) {
+  return isRunning(e) ? behindBy(e) : 0;
+}
 function isOnBreak(e) {
   return quietDays(e) > 0 || onHiatus(e);
 }
@@ -598,7 +630,7 @@ const SHOW = {
   releasing: (e) => e.status === "RELEASING",
   onbreak: isOnBreak,
   new: isNew,
-  behind: (e) => behindBy(e) > 0,
+  behind: (e) => behindShown(e) > 0,
   disagree: (e) => e.agreement === "conflict",
   count: (e) => e.countOnly === true,
   finished: (e) => e.status === "FINISHED",
@@ -608,7 +640,7 @@ const sortKey = (e) => e.title.replace(/^[^a-z0-9]+/i, "");
 const byTitle = (a, b) => sortKey(a).localeCompare(sortKey(b));
 const SORT = {
   title: byTitle,
-  behind: (a, b) => behindBy(b) - behindBy(a) || byTitle(a, b),
+  behind: (a, b) => behindShown(b) - behindShown(a) || byTitle(a, b),
   newest: (a, b) => newestTime(b) - newestTime(a) || byTitle(a, b),
   next: (a, b) => nextTime(a) - nextTime(b) || byTitle(a, b),
   onbreak: (a, b) => Number(isOnBreak(b)) - Number(isOnBreak(a)) || byTitle(a, b),
@@ -653,7 +685,7 @@ function renderStats() {
     { key: "all", label: "tracked", n: entries.length, cls: "" },
     { key: "new", label: "new this week", n: entries.filter(isNew).length, cls: "fresh" },
     { key: "onbreak", label: "on break", n: entries.filter(isOnBreak).length, cls: "warm" },
-    { key: "behind", label: "behind", n: entries.filter((e) => behindBy(e) > 0).length, cls: "" },
+    { key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" },
   ];
   const current = document.getElementById("filter-show").value;
   document.getElementById("stats").replaceChildren(
@@ -724,14 +756,54 @@ async function addSeries(m, btn) {
     "Saved to series.json. Commit and push it so the daily bot tracks it too.";
 }
 
+// Returns the removed entry (so it can be restored), or null if it failed.
 async function removeSeries(id) {
+  const removed = entries.find((e) => e.id === id) || null;
   const res = await fetch(`api/series?id=${id}`, { method: "DELETE" });
-  if (!res.ok) return;
+  if (!res.ok) return null;
   entries = entries.filter((e) => e.id !== id);
   renderList();
   renderResults();
   document.getElementById("list-msg").textContent =
     "Removed from series.json. Commit and push it to stop the bot tracking it.";
+  return removed;
+}
+
+// "Undo" for a removal: write the entry back to series.json and to the page.
+async function restoreSeries(entry) {
+  const body = { id: entry.id, title: entry.title };
+  if (entry.mal != null) body.mal = entry.mal;
+  if (entry.read != null) body.read = entry.read;
+  const res = await fetch("api/series", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) return toast("Could not restore it.");
+  entries.push(entry);
+  renderList();
+  renderResults();
+  document.getElementById("list-msg").textContent = `Restored ${entry.title}.`;
+}
+
+// A small message at the bottom of the screen, with an optional Undo, gone after 8 seconds.
+let toastTimer;
+function toast(message, undo) {
+  const box = document.getElementById("toast");
+  box.replaceChildren(el("span", "", message));
+  if (undo) {
+    const b = el("button", "link-btn", "Undo");
+    b.type = "button";
+    b.addEventListener("click", async () => {
+      clearTimeout(toastTimer);
+      box.hidden = true;
+      await undo();
+    });
+    box.append(b);
+  }
+  box.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => (box.hidden = true), 8000);
 }
 
 async function refreshNow() {

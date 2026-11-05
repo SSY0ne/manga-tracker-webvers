@@ -38,6 +38,10 @@ like it is on break.
   chapter facts, your progress editor and what every source said. The search to add a manga is
   at the top and the MyAnimeList import is at the very bottom of the list (both only when
   `server.py` is running).
+- **Safe to click**: removing a series asks first and then offers an Undo; changing your reading
+  progress offers an Undo too. "+N behind" and the "to catch up" chip only count series that are
+  still running (not on break, not finished), so one stale MAL number can't dominate the grid. The
+  detail panel always shows your exact numbers.
 - **Your reading progress**: every card has an "update" link next to "You've read N · M behind".
   Type the chapter you are really on, or press "I'm up to date" to jump to the latest known
   chapter. With `server.py` it is saved to `series.json` (commit it so the bot knows); on a
@@ -96,6 +100,22 @@ email can both be on; either one alone also works.
 
 Webhook URLs and passwords are secrets: only ever put them in repo secrets or
 environment variables, never in a file you commit.
+
+## Tests
+
+The rules that decide what the tracker tells you (`reconcile`, `quiet_days`, the rhythm statistic,
+the title matching, the chapter parsing) are covered by tests that need no network and no installs:
+
+```bash
+python3 -m unittest -v test_rules
+```
+
+They also run on GitHub whenever Python files change. To check the tests themselves, I changed 15
+thresholds one at a time in a scratch copy (0.8 to 0.1, 2.5x to 5x, and so on) and every change made
+at least one test fail.
+
+The "on break" verdict is computed in one place only (`quiet_days()` in `server.py`). The bot saves it
+as `quietDays` in `state.json` and the page just displays it.
 
 ## Dev tools
 

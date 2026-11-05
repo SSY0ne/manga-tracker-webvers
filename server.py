@@ -19,8 +19,9 @@ How chapter data is decided (the "sources" design):
   * reconcile() compares the candidates and keeps the coherent one. Adding a source later
     = one more function that returns a candidate.
 
-check.py imports chapter_info() and quiet_days() from here, so the page and the daily
-bot use exactly the same rules.
+check.py imports chapter_info() from here. chapter_info() also returns `quietDays` (the "on
+break" verdict), so the daily bot, the page's live refresh and the saved state.json all
+come from the same code: the page never recomputes the rule.
 """
 
 import difflib
@@ -536,6 +537,11 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None)
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
     result = reconcile(candidates, read, status)
+    # The ONE place the "on break" rule runs. The bot saves this number in state.json and the
+    # page only displays it; nothing else recomputes it.
+    result["quietDays"] = (
+        0 if result.get("limited") else quiet_days(status, result.get("publishedAt"), result.get("typicalGapDays"))
+    )
 
     found = {}
     if _mb_id_cache.get(al_id):
@@ -550,9 +556,12 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None)
     return result
 
 
-# ---------- the "on break" rule (shared with check.py; app.js has a copy) ----------
+# ---------- the "on break" rule (the only copy) ----------
 
-def quiet_days(status, published_iso, typical_gap, fallback_weeks=6):
+FALLBACK_WEEKS = int(os.environ.get("BREAK_WEEKS", "6"))  # used only when a series has too little history
+
+
+def quiet_days(status, published_iso, typical_gap, fallback_weeks=FALLBACK_WEEKS):
     """How many days it has been quiet, or 0 if it doesn't look on break.
 
     A Releasing series is "quiet" when it is way overdue compared to ITS OWN rhythm:

@@ -29,7 +29,6 @@ from email.message import EmailMessage
 import server  # reuses the MangaDex lookup (latest_chapter) from server.py
 
 ANILIST = "https://graphql.anilist.co"
-BREAK_WEEKS = int(os.environ.get("BREAK_WEEKS", "6"))
 UA = "manga-tracker-learning-project/0.1"  # Discord and AniList reject empty/default agents
 
 STATUS_TEXT = {
@@ -250,7 +249,7 @@ def check(series_path, state_path, dry):
         # No source is coherent (see server.reconcile)? "Limited data": claim nothing.
         limited = bool(info.get("limited"))
         # "On break?" = way overdue compared to this series' own rhythm (see server.py).
-        quiet_for = 0 if limited else server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
+        quiet_for = 0 if limited else info.get("quietDays", 0)  # decided in server.chapter_info
         # A second opinion on breaks: MangaBaka lists the series as "hiatus".
         hiatus = bool(info.get("hiatus")) and m["status"] == "RELEASING" and not limited
         quiet = quiet_for > 0 or hiatus
@@ -272,6 +271,7 @@ def check(series_path, state_path, dry):
             "expectedNext": info.get("expectedNext"),
             "history": info.get("history", []),
             "quiet": quiet,
+            "quietDays": quiet_for,
         }
 
         if old is None:
