@@ -46,4 +46,5 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: python3 check.py --alert "The daily manga check failed. Details: $RUN_URL"
+        run: |
+          python3 check.py --alert "The daily manga check failed. Details: $RUN_URL"
