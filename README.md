@@ -31,6 +31,10 @@ like it is on break.
   the series is marked "Limited data" and gets no break or new-chapter alerts instead of
   wrong ones. Alerts also only fire when the same source reports a +1 to +5 chapter step,
   so switching sources never causes a fake "new chapter".
+- **Your reading progress**: every card has an "update" link next to "You've read N · M behind".
+  Type the chapter you are really on, or press "I'm up to date" to jump to the latest known
+  chapter. With `server.py` it is saved to `series.json` (commit it so the bot knows); on a
+  read-only host it is kept in your browser only. Filters, sorts and the "behind" count follow.
 - **Search, filter and sort** your list: type to filter by title; show only releasing, on
   break, new this week, you're behind, sources disagree, count only, or finished; sort by
   title, most chapters behind, newest chapter, next chapter soonest, or on break first.

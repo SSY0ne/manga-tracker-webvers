@@ -102,6 +102,21 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 .badge.CANCELLED { background: var(--red); color: #fff; }
 .badge.NOT_YET_RELEASED { background: var(--blue); }
 
+/* reading progress editor */
+.progress { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 0.85rem; color: var(--muted); }
+.link-btn { padding: 0; font-size: 0.85rem; color: var(--accent); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+.progress-form { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.progress-form input {
+  width: 84px;
+  padding: 6px 8px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.progress-form button { padding: 6px 10px; font-size: 0.82rem; }
+
 /* list toolbar */
 .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; }
 .toolbar input[type="search"] { flex: 1 1 180px; width: auto; padding: 9px 12px; font-size: 0.95rem; }

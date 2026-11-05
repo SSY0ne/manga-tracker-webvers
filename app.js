@@ -208,17 +208,125 @@ async function loadAll(onProgress) {
 
   // An entry from the OLD state.json format has no history/cover: treat it as pending too,
   // so the page fills it live until the bot rewrites state.json in the new format.
+  // On a read-only host, progress you set in this browser wins over series.json.
+  const overrides = canEdit ? {} : loadReadOverrides();
   entries = series.map((s) => {
     const known = state[s.id];
     // mal / read (chapters you've read) come from series.json, not from the bot's state
-    return { id: s.id, title: s.title, ...known, mal: s.mal, read: s.read, pending: !known || !known.history };
+    return { id: s.id, title: s.title, ...known, mal: s.mal, read: overrides[s.id] ?? s.read, pending: !known || !known.history };
   });
   await fillLive(entries.filter((e) => e.pending), onProgress);
 }
 
 // ---------- rendering: My list ----------
 
-function makeCard(e, button) {
+// ---------- reading progress: "I'm up to date" / "I'm actually at chapter N" ----------
+// With server.py running, the new number is written to series.json (the bot reads it too).
+// On a read-only host it is kept in THIS browser only (localStorage) and applied on load.
+
+const READ_KEY = "manga-tracker:read";
+
+function loadReadOverrides() {
+  try {
+    return JSON.parse(localStorage.getItem(READ_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+async function setRead(e, n) {
+  n = Math.max(0, Math.floor(n));
+  if (canEdit) {
+    const res = await fetch("api/series", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: e.id, title: e.title, read: n }),
+    });
+    if (!res.ok) return false;
+  } else {
+    try {
+      const overrides = loadReadOverrides();
+      overrides[e.id] = n;
+      localStorage.setItem(READ_KEY, JSON.stringify(overrides));
+    } catch {
+      return false; // private mode: can't remember it
+    }
+  }
+  e.read = n;
+  return true;
+}
+
+function progressRow(e) {
+  const wrap = document.createElement("div");
+  const row = document.createElement("div");
+  row.className = "progress";
+
+  const behind = behindBy(e);
+  const text = document.createElement("span");
+  text.textContent = !e.read
+    ? "Reading progress not set"
+    : behind > 0
+      ? `You've read ${e.read} · ${behind} behind`
+      : e.chapter
+        ? `You've read ${e.read} · caught up`
+        : `You've read ${e.read}`;
+  const edit = document.createElement("button");
+  edit.type = "button";
+  edit.className = "link-btn";
+  edit.textContent = e.read ? "update" : "set";
+  row.append(text, edit);
+
+  const form = document.createElement("div");
+  form.className = "progress-form";
+  form.hidden = true;
+  const input = document.createElement("input");
+  input.type = "number";
+  input.min = "0";
+  input.step = "1";
+  input.value = e.read || "";
+  input.placeholder = "chapter";
+  input.setAttribute("aria-label", "Chapter you have read up to");
+  const mk = (label, ghost) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    if (ghost) b.className = "ghost";
+    return b;
+  };
+  const save = mk("Save");
+  const upToDate = mk("I'm up to date", true);
+  upToDate.hidden = !e.chapter; // needs a known latest chapter to mean anything
+  const cancel = mk("Cancel", true);
+  form.append(input, save, upToDate, cancel);
+
+  async function commit(n) {
+    [save, upToDate, cancel].forEach((b) => (b.disabled = true));
+    const ok = await setRead(e, n);
+    renderList(); // filters, sorts and "behind" counts all follow the new number
+    document.getElementById("list-msg").textContent = !ok
+      ? "Could not save your progress."
+      : canEdit
+        ? "Saved to series.json. Commit and push it so the daily bot knows your new progress."
+        : "Saved in this browser only.";
+  }
+  edit.addEventListener("click", () => {
+    form.hidden = !form.hidden;
+    if (!form.hidden) input.focus();
+  });
+  cancel.addEventListener("click", () => (form.hidden = true));
+  save.addEventListener("click", () => {
+    const n = parseInt(input.value, 10);
+    if (Number.isNaN(n) || n < 0) return input.focus();
+    commit(n);
+  });
+  upToDate.addEventListener("click", () => commit(Math.max(Math.floor(parseFloat(e.chapter)), e.read || 0)));
+  input.addEventListener("keydown", (ev) => ev.key === "Enter" && save.click());
+
+  wrap.append(row, form);
+  return wrap;
+}
+
+function makeCard(e, button, withProgress = false) {
   const li = document.createElement("li");
   li.className = "card";
 
@@ -273,14 +381,7 @@ function makeCard(e, button) {
     next.textContent = `Next expected around ${fmtShort(parseDay(e.expectedNext))}`;
     info.append(next);
   }
-  if (e.read && e.chapter) {
-    // From your imported list: how far ahead the series is of you.
-    const behind = Math.floor(parseFloat(e.chapter) - e.read);
-    const prog = document.createElement("div");
-    prog.className = "sub";
-    prog.textContent = behind > 0 ? `You've read ${e.read} · ${behind} behind` : `You've read ${e.read} · caught up`;
-    info.append(prog);
-  }
+  if (withProgress) info.append(progressRow(e)); // your progress + the editor (list cards only)
   const src = sourcesLine(e);
   if (src) {
     const line = document.createElement("div");
@@ -415,7 +516,7 @@ function renderList() {
         btn.textContent = "Remove";
         btn.addEventListener("click", () => removeSeries(e.id));
       }
-      return makeCard(e, btn);
+      return makeCard(e, btn, true);
     })
   );
 }
