@@ -74,6 +74,11 @@ function isLimited(e) {
   return e.limited === true;
 }
 
+// MangaBaka lists a series as "hiatus": a second opinion next to our date rule.
+function onHiatus(e) {
+  return e.hiatus === true && e.status === "RELEASING" && !isLimited(e);
+}
+
 // How the sources compare, as a short line plus a tooltip with each source's answer.
 function sourcesLine(e) {
   const list = e.sources || [];
@@ -87,9 +92,14 @@ function sourcesLine(e) {
         ? `Sources disagree, using ${used} (fresher)`
         : e.agreement === "single"
           ? `1 source: ${used}`
-          : "No reliable source";
+          : e.agreement === "count"
+            ? `Count only (${used}): no release feed fits`
+            : "No reliable source";
   const detail = list
-    .map((s) => `${s.name}: ch. ${s.chapter} (${fmtShort(new Date(s.publishedAt))})${s.plausible ? "" : " ✗ doesn't fit"}`)
+    .map((s) => {
+      const when = s.publishedAt ? fmtShort(new Date(s.publishedAt)) : "count";
+      return `${s.name}: ch. ${s.chapter ?? "?"} (${when})${s.plausible ? "" : " ✗ doesn't fit"}`;
+    })
     .join(" · ");
   return { text, detail, kind: e.agreement };
 }
@@ -230,7 +240,8 @@ function makeCard(e, button) {
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     a.textContent = `Ch. ${e.chapter}`;
-    sub.append(a, ` · ${fmtShort(new Date(e.publishedAt))}`);
+    // A count-only source (MangaBaka) has no release date.
+    sub.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · count only, no date");
     if (e.typicalGapDays) sub.append(` · about every ${Math.round(e.typicalGapDays)} days`);
   } else if (e.pending) {
     sub.textContent = "Waiting for the first check";
@@ -242,10 +253,12 @@ function makeCard(e, button) {
     badge.className = "badge LIMITED";
     badge.textContent = "Limited data";
     badge.title = "No source has chapter data that fits what you've read, so no break or new-chapter alerts.";
-  } else if (quiet) {
+  } else if (quiet || onHiatus(e)) {
     badge.className = "badge QUIET";
-    badge.textContent = `On break? ${fmtQuiet(quiet)} quiet`;
-    badge.title = `AniList says Releasing, but the last chapter was ${quiet} days ago.`;
+    badge.textContent = quiet ? `On break? ${fmtQuiet(quiet)} quiet` : "On break? listed as hiatus";
+    badge.title = quiet
+      ? `AniList says Releasing, but the last chapter was ${quiet} days ago.`
+      : "MangaBaka lists this series as on hiatus.";
   } else {
     badge.className = `badge ${e.status}`;
     badge.textContent = STATUS_LABEL[e.status] || e.status || "";
@@ -459,11 +472,11 @@ function buildEvents() {
   const events = [];
 
   for (const e of entries) {
-    if (isLimited(e)) continue; // MangaDex data can't be trusted: keep it off the calendar
+    if (isLimited(e)) continue; // no source can be trusted: keep it off the calendar
     for (const h of e.history || []) {
       events.push({ date: localDay(h.date), kind: "released", id: e.id, title: e.title, label: `${e.title} ch. ${h.chapter}` });
     }
-    if (e.status !== "RELEASING" || !e.expectedNext || !e.typicalGapDays || quietDays(e)) continue;
+    if (e.status !== "RELEASING" || !e.expectedNext || !e.typicalGapDays || quietDays(e) || onHiatus(e)) continue;
 
     const gap = Math.max(1, Math.round(e.typicalGapDays));
     let t = parseDay(e.expectedNext);
@@ -497,14 +510,15 @@ function renderCalendar() {
   const today = startOfDay(new Date());
 
   // Overdue
-  const overdue = entries.filter((e) => quietDays(e));
+  const overdue = entries.filter((e) => quietDays(e) || onHiatus(e));
   document.getElementById("overdue-block").hidden = overdue.length === 0;
   document.getElementById("overdue").replaceChildren(
     ...overdue.map((e) => {
       const usual = e.typicalGapDays ? `, usually every ${Math.round(e.typicalGapDays)} days` : "";
+      const q = quietDays(e);
       return li(
         span("when", e.title),
-        span("note", `last chapter ${e.chapter}, ${fmtQuiet(quietDays(e))} ago${usual}`)
+        span("note", q ? `last chapter ${e.chapter}, ${fmtQuiet(q)} ago${usual}` : `listed as on hiatus (last chapter ${e.chapter})`)
       );
     })
   );

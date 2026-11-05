@@ -242,8 +242,12 @@ def check(series_path, state_path, dry):
         limited = bool(info.get("limited"))
         # "On break?" = way overdue compared to this series' own rhythm (see server.py).
         quiet_for = 0 if limited else server.quiet_days(m["status"], published, gap, BREAK_WEEKS)
-        quiet = quiet_for > 0
+        # A second opinion on breaks: MangaBaka lists the series as "hiatus".
+        hiatus = bool(info.get("hiatus")) and m["status"] == "RELEASING" and not limited
+        quiet = quiet_for > 0 or hiatus
         new_state = {
+            "hiatus": hiatus,
+            "countOnly": bool(info.get("countOnly")),
             "matches": info.get("matches", matches),
             "agreement": info.get("agreement"),
             "source": info.get("source"),
@@ -281,13 +285,16 @@ def check(series_path, state_path, dry):
                 else:
                     messages.append(f"📖 **{name}**: new chapter **{chapter}**{link}")
             elif quiet and not was_quiet:
-                usual = f", usually every {round(gap)} days" if gap else ""
-                weeks = quiet_for // 7
-                how_long = f"over {weeks // 52} years" if weeks >= 104 else f"{weeks} weeks"
-                messages.append(
-                    f"⏸️ **{name}**: no new chapter for {how_long}{usual}, maybe on break "
-                    f"(last was {chapter})"
-                )
+                if quiet_for:
+                    usual = f", usually every {round(gap)} days" if gap else ""
+                    weeks = quiet_for // 7
+                    how_long = f"over {weeks // 52} years" if weeks >= 104 else f"{weeks} weeks"
+                    messages.append(
+                        f"⏸️ **{name}**: no new chapter for {how_long}{usual}, maybe on break "
+                        f"(last was {chapter})"
+                    )
+                else:  # only the hiatus listing says so
+                    messages.append(f"⏸️ **{name}** is listed as on hiatus (last chapter {chapter})")
             if m["status"] != old.get("status"):
                 messages.append(
                     f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList"

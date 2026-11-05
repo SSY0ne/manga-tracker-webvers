@@ -39,11 +39,11 @@ def report(state_path=None):
     print(f"{len(series)} series, checked {raw.get('checkedAt', '?')}")
     print("agreement:", ", ".join(f"{k} {n}" for k, n in sorted(counts.items())))
 
-    short = {"MangaDex": "MD", "MangaUpdates": "MU"}  # new sources: first 4 letters
+    short = {"MangaDex": "MD", "MangaUpdates": "MU", "MangaBaka": "MB", "Webtoon": "WT"}  # new: first 4 letters
 
     def sources_text(v):
         return " | ".join(
-            f"{short.get(s['name'], s['name'][:4])} {s['chapter']} ({s['publishedAt'][:7]})"
+            f"{short.get(s['name'], s['name'][:4])} {s['chapter']} ({(s['publishedAt'] or 'count')[:7]})"
             f"{'' if s['plausible'] else ' x'}"
             for s in v.get("sources", [])
         )

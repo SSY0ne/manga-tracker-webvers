@@ -5,26 +5,31 @@
 
 It does three jobs:
   1. Serves the page files (index.html, series.json, state.json ...).
-  2. Looks up chapters for the page (browsers can't call MangaDex directly):
+  2. Looks up chapters for the page (browsers can't call those APIs directly):
        GET /api/latest?al=<AniList id>&title=<name>&title=<other name>&year=<y>&read=<n>&status=<s>
   3. Lets the page edit series.json (local use only):
        GET /api/ping, POST /api/series, DELETE /api/series?id=<AniList id>
 
 How chapter data is decided (the "sources" design):
-  * Each SOURCE (MangaDex, MangaUpdates) is asked separately and returns a candidate:
-    its latest chapter, when, a short history and the series' usual rhythm.
-  * reconcile() then compares the candidates and keeps the one that is coherent.
-    Adding a source later = one more function that returns a candidate.
+  * Each SOURCE is asked separately and returns a candidate. There are two kinds:
+      release  chapter + DATE + a short history: MangaDex, MangaUpdates, Webtoon (official RSS)
+      count    just the chapter count + status (incl. hiatus), no date: MangaBaka
+  * MangaBaka also knows the ids of the same series on other sites, so it is asked first and
+    its exact ids replace title guessing for MangaUpdates, MangaDex and Webtoon.
+  * reconcile() compares the candidates and keeps the coherent one. Adding a source later
+    = one more function that returns a candidate.
 
 check.py imports chapter_info() and quiet_days() from here, so the page and the daily
 bot use exactly the same rules.
 """
 
 import difflib
+import email.utils
 import json
 import os
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -36,22 +41,22 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SERIES_FILE = os.path.join(HERE, "series.json")
 MANGADEX = "https://api.mangadex.org"
 MANGAUPDATES = "https://api.mangaupdates.com/v1"
+MANGABAKA = "https://api.mangabaka.org/v1"
 USER_AGENT = "manga-tracker-learning-project/0.1"
 CACHE_SECONDS = 15 * 60  # don't hit a source more than once per series per 15 min
 
 _cache = {}  # (source, AniList id) -> (timestamp, candidate or None)
 _md_id_cache = {}  # AniList id -> MangaDex id (or None)
 _mu_id_cache = {}  # AniList id -> {"id", "url"} on MangaUpdates (or None)
+_mb_id_cache = {}  # AniList id -> MangaBaka id
+_mb_cache = {}  # AniList id -> (timestamp, MangaBaka record or None)
+_wt_cache = {}  # AniList id -> Webtoon RSS url (or False = not on Webtoon)
 
 
 # ---------- small helpers ----------
 
 def parse_time(iso):
     return datetime.fromisoformat(iso)
-
-
-def norm(text):
-    return re.sub(r"[^a-z0-9]", "", (text or "").lower())
 
 
 def chapter_number(text):
@@ -75,14 +80,15 @@ def http_json(url, body=None):
         return json.load(res)
 
 
-def build_candidate(source, pairs, series_url):
-    """Turn (chapter text, ISO time, link or None) rows from ONE source into a candidate.
+def build_candidate(source, pairs, series_url, official=False):
+    """Turn (chapter text, ISO time, link or None) rows from ONE release source into a candidate.
 
     The same chapter is often listed several times (several uploaders or groups), so
     per chapter number we keep the EARLIEST time. The usual gap is a gap that really
     happened: the lower quartile of the days between release days over the last 10
     gaps. Breaks only ever make a gap LONGER, so the short gaps show the real rhythm
     (a weekly series that skips weeks still says 7).
+    `official` = the link goes to the publisher's own reader.
     """
     first = {}  # chapter number -> (time, link)
     for text, when, link in pairs:
@@ -108,7 +114,9 @@ def build_candidate(source, pairs, series_url):
         ).date().isoformat()
 
     return {
+        "kind": "release",
         "source": source,
+        "official": official,
         "chapter": fmt_num(num),
         "chapterNum": num,
         "publishedAt": published,
@@ -119,7 +127,84 @@ def build_candidate(source, pairs, series_url):
     }
 
 
-# ---------- source 1: MangaDex ----------
+# ---------- source: MangaBaka (count + status + exact ids for the others) ----------
+
+MB_MIN_GAP = 1.0  # seconds between calls: MangaBaka rate-limits harder than the others
+
+
+def mb_get(path, params=None):
+    url = f"{MANGABAKA}{path}" + (f"?{urllib.parse.urlencode(params)}" if params else "")
+    for attempt in (0, 1):
+        time.sleep(MB_MIN_GAP)
+        try:
+            return http_json(url)
+        except urllib.error.HTTPError as err:
+            if err.code == 429 and attempt == 0:  # too many requests: wait, try once more
+                time.sleep(10)
+                continue
+            raise
+
+
+def seed_from_mangabaka(al_id, record):
+    """MangaBaka lists the same series' ids on other sites: use them instead of guessing titles."""
+    mu = (record.get("source", {}).get("manga_updates") or {}).get("id")
+    if mu and not _mu_id_cache.get(al_id):
+        try:  # MangaUpdates URLs use the id in base 36 ("/series/4mnd0g3/...")
+            _mu_id_cache[al_id] = {"id": int(str(mu), 36), "url": None}
+        except ValueError:
+            pass
+    for link in record.get("links") or []:
+        m = re.search(r"mangadex\.org/title/([0-9a-f-]{36})", link)
+        if m and not _md_id_cache.get(al_id):
+            _md_id_cache[al_id] = m.group(1)
+            break
+
+
+def mb_data(al_id, titles):
+    """The MangaBaka record for this series (matched EXACTLY by AniList id), or None."""
+    hit = _mb_cache.get(al_id)
+    if hit and time.time() - hit[0] < CACHE_SECONDS:
+        return hit[1]
+    record = None
+    if _mb_id_cache.get(al_id):
+        payload = mb_get(f"/series/{_mb_id_cache[al_id]}")
+        record = payload.get("data", payload)
+    else:
+        for term in [t for t in titles if t][:3]:
+            found = mb_get("/series/search", {"q": term, "limit": 10}).get("data", [])
+            record = next(
+                (d for d in found if (d.get("source", {}).get("anilist") or {}).get("id") == int(al_id)), None
+            )
+            if record:
+                break
+    if record:
+        _mb_id_cache[al_id] = record["id"]
+        seed_from_mangabaka(al_id, record)
+    _mb_cache[al_id] = (time.time(), record)
+    return record
+
+
+def mangabaka_candidate(al_id, titles, year):
+    d = mb_data(al_id, titles)
+    if not d:
+        return None
+    total = chapter_number(d.get("total_chapters"))  # None for some ongoing series
+    return {
+        "kind": "count",
+        "source": "MangaBaka",
+        "official": False,
+        "chapter": fmt_num(total) if total else None,
+        "chapterNum": total,
+        "publishedAt": None,  # a count has no date
+        "status": d.get("status"),  # releasing / hiatus / completed / cancelled
+        "url": d.get("canonical_url"),
+        "typicalGapDays": None,
+        "expectedNext": None,
+        "history": [],
+    }
+
+
+# ---------- source: MangaDex ----------
 
 def md_get(path, params):
     return http_json(f"{MANGADEX}{path}?{urllib.parse.urlencode(params)}")
@@ -127,7 +212,7 @@ def md_get(path, params):
 
 def find_mangadex_id(al_id, titles):
     """Match an AniList manga to MangaDex using MangaDex's own 'al' link (exact)."""
-    if al_id in _md_id_cache:
+    if _md_id_cache.get(al_id):
         return _md_id_cache[al_id]
     for title in [t for t in titles if t][:3]:
         for m in md_get("/manga", [("title", title), ("limit", 10)]).get("data", []):
@@ -152,10 +237,13 @@ def mangadex_candidate(al_id, titles, year):
         # Official publisher link when there is one, else the MangaDex page.
         link = a.get("externalUrl") or f"https://mangadex.org/chapter/{c['id']}"
         pairs.append((a.get("chapter"), a.get("publishAt"), link))
-    return build_candidate("MangaDex", pairs, f"https://mangadex.org/title/{md_id}")
+    cand = build_candidate("MangaDex", pairs, f"https://mangadex.org/title/{md_id}")
+    if cand:
+        cand["official"] = not cand["url"].startswith("https://mangadex.org")
+    return cand
 
 
-# ---------- source 2: MangaUpdates ----------
+# ---------- source: MangaUpdates ----------
 
 MU_MIN_SCORE = 0.85  # how similar two titles must be (1.0 = identical) when the year also fits
 
@@ -190,12 +278,12 @@ def mu_score(record, names, year):
 
 
 def find_mu_series(al_id, titles, year):
-    """MangaUpdates has no AniList link, so match on title similarity AND start year.
+    """Fallback when MangaBaka has no MangaUpdates id: match on title similarity AND start year.
 
     Several search terms are tried (English, romaji, synonyms); the best-scoring result wins,
     and an identical title with the same year stops the search early.
     """
-    if al_id in _mu_id_cache:
+    if _mu_id_cache.get(al_id):
         return _mu_id_cache[al_id]
     names = [t for t in titles if t]
     best = (0, None)  # (score, record)
@@ -217,7 +305,7 @@ def mangaupdates_candidate(al_id, titles, year):
     series = find_mu_series(al_id, titles, year)
     if not series:
         return None
-    if not series.get("url"):  # we were only given an id (manual override): ask for the link once
+    if not series.get("url"):  # we only have an id (from MangaBaka or an override): ask for the link once
         series["url"] = http_json(f"{MANGAUPDATES}/series/{series['id']}").get("url")
     rel = http_json(
         f"{MANGAUPDATES}/releases/search",
@@ -231,73 +319,169 @@ def mangaupdates_candidate(al_id, titles, year):
     return build_candidate("MangaUpdates", pairs, series["url"])
 
 
-SOURCES = [("MangaDex", mangadex_candidate), ("MangaUpdates", mangaupdates_candidate)]
-PRIORITY = {"MangaDex": 1, "MangaUpdates": 0}  # tie-break only (MangaDex links the official reader)
+# ---------- source: Webtoon (official RSS, for series that are on Webtoon) ----------
+
+def webtoon_rss_url(al_id, titles):
+    """MangaBaka lists the English Webtoon page; it redirects to the full address that the RSS needs."""
+    if al_id in _wt_cache:
+        return _wt_cache[al_id] or None
+    d = mb_data(al_id, titles)
+    link = next((l for l in (d or {}).get("links") or [] if re.search(r"webtoons\.com/en/.*title_no=\d+", l)), None)
+    if not link:
+        _wt_cache[al_id] = False
+        return None
+    req = urllib.request.Request(link, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=15) as res:
+        final = res.geturl()  # e.g. https://www.webtoons.com/en/action/eleceed/list?title_no=1571
+    rss = final.replace("/list?", "/rss?") if "/list?" in final else None
+    _wt_cache[al_id] = rss or False
+    return rss
+
+
+def webtoon_candidate(al_id, titles, year):
+    rss = webtoon_rss_url(al_id, titles)
+    if not rss:
+        return None
+    req = urllib.request.Request(rss, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=15) as res:
+        body = res.read().decode("utf-8", "replace")
+    pairs = []
+    for item in re.findall(r"<item>(.*?)</item>", body, re.S)[:40]:
+        title = re.search(r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", item, re.S)
+        when = re.search(r"<pubDate>(.*?)</pubDate>", item)
+        link = re.search(r"<link>(.*?)</link>", item)
+        if not (title and when):
+            continue
+        num = re.search(r"(?:episode|ep\.?)\s*#?(\d+)", title.group(1), re.I)
+        try:
+            iso = email.utils.parsedate_to_datetime(when.group(1)).astimezone(timezone.utc).isoformat()
+        except (TypeError, ValueError):
+            continue
+        pairs.append((num.group(1) if num else title.group(1), iso, link.group(1).replace("&amp;", "&") if link else None))
+    return build_candidate("Webtoon", pairs, rss.replace("/rss?", "/list?"), official=True)
+
+
+# MangaBaka first: it seeds the exact ids the others use. PRIORITY is only a tie-break.
+SOURCES = [
+    ("MangaBaka", mangabaka_candidate),
+    ("MangaDex", mangadex_candidate),
+    ("MangaUpdates", mangaupdates_candidate),
+    ("Webtoon", webtoon_candidate),
+]
+PRIORITY = {"Webtoon": 2, "MangaDex": 1, "MangaUpdates": 0, "MangaBaka": -1}
 
 
 # ---------- compare the sources and choose ----------
 
-def reconcile(candidates, read, status):
-    """Pick the coherent candidate and say how sure we are.
+def close(a, b):
+    """Do two candidates tell the same story? Chapters within 3, or release dates within 3 days
+    (Webtoon numbers its episodes differently from the manga chapters, so dates count too)."""
+    if a["chapterNum"] is not None and b["chapterNum"] is not None and abs(a["chapterNum"] - b["chapterNum"]) <= 3:
+        return True
+    if a.get("publishedAt") and b.get("publishedAt"):
+        return abs((parse_time(a["publishedAt"]) - parse_time(b["publishedAt"])).days) <= 3
+    return False
 
-    A candidate is implausible when: its date is in the future, OR its chapter is far
-    below what you have read (under 80%), OR it is under half of the highest chapter any
-    source reports (stale data, or side-story numbering).
-    Among the plausible ones we keep the FRESHEST (a stale source has an old date); ties go
-    to the higher chapter, then to MangaDex.
-      agreement: "agree"    two or more plausible sources within 3 chapters of each other
-                 "conflict" plausible sources far apart (we still use the freshest)
+
+def reconcile(candidates, read, status):
+    """Pick the coherent answer and say how sure we are.
+
+    A candidate is implausible when: its date is in the future, OR its chapter is far below
+    what you have read (under 80%), OR under half of the highest chapter any source reports,
+    OR it is a release feed far behind the MangaBaka count (stale). Webtoon is exempt from
+    the count rule because its episode numbers differ from manga chapters.
+    Among plausible RELEASE candidates we keep the FRESHEST (a stale source has an old date);
+    ties go to the higher chapter, then by PRIORITY.
+      agreement: "agree"    all plausible sources tell the same story (see close())
+                 "conflict" they differ (we still use the freshest release)
                  "single"   only one plausible source
-                 "none"     no coherent source -> "limited data": we claim nothing
+                 "count"    no release feed fits, so we use MangaBaka's count (no date)
+                 "none"     nothing coherent -> "limited data": we claim nothing
+    hiatus = MangaBaka lists the series as on hiatus (a status vote besides our date rule).
     """
     candidates = [c for c in candidates if c]
-    top = max((c["chapterNum"] for c in candidates), default=0)
+    counts = [c for c in candidates if c["kind"] == "count"]
+    count = max((c["chapterNum"] for c in counts if c["chapterNum"]), default=0)
+    top = max((c["chapterNum"] for c in candidates if c["chapterNum"]), default=0)
     horizon = datetime.now(timezone.utc) + timedelta(days=1)
+    hiatus = any(c.get("status") == "hiatus" for c in counts)
 
     def plausible(c):
-        if parse_time(c["publishedAt"]) > horizon:
+        if c["chapterNum"] is None:
+            return False
+        if c["kind"] == "release" and parse_time(c["publishedAt"]) > horizon:
             return False
         if read and c["chapterNum"] < 0.8 * read:
             return False
-        return c["chapterNum"] >= 0.5 * top
+        if c["chapterNum"] < 0.5 * top:
+            return False
+        if c["kind"] == "release" and c["source"] != "Webtoon" and count and c["chapterNum"] < 0.8 * count:
+            return False
+        return True
 
     good = [c for c in candidates if plausible(c)]
     summary = [
-        {"name": c["source"], "chapter": c["chapter"], "publishedAt": c["publishedAt"], "plausible": plausible(c)}
+        {
+            "name": c["source"],
+            "kind": c["kind"],
+            "chapter": c["chapter"],
+            "publishedAt": c["publishedAt"],
+            "plausible": plausible(c),
+        }
         for c in candidates
     ]
-    if not good:
-        return {"found": False, "agreement": "none", "limited": status == "RELEASING", "sources": summary}
+    base = {"hiatus": hiatus, "sources": summary}
+    releases = [c for c in good if c["kind"] == "release"]
 
-    best = max(
-        good,
-        key=lambda c: (parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)),
-    )
-    if len(good) == 1:
-        agreement = "single"
-    elif all(abs(c["chapterNum"] - best["chapterNum"]) <= 3 for c in good):
-        agreement = "agree"
-    else:
-        agreement = "conflict"
+    if releases:
+        best = max(
+            releases,
+            key=lambda c: (parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)),
+        )
+        if len(good) == 1:
+            agreement = "single"
+        elif all(close(best, c) for c in good if c is not best):
+            agreement = "agree"
+        else:
+            agreement = "conflict"
+        result = {k: v for k, v in best.items() if k not in ("chapterNum", "kind", "official")}
+        # Prefer a link to the publisher's own reader when a source that agrees on the date has one.
+        if not best["official"]:
+            for c in releases:
+                if c["official"] and abs((parse_time(c["publishedAt"]) - parse_time(best["publishedAt"])).days) <= 3:
+                    result["url"] = c["url"]
+                    break
+        result.update({"found": True, "limited": False, "agreement": agreement, "source": best["source"]})
+        return {**result, **base}
 
-    result = {k: v for k, v in best.items() if k not in ("chapterNum", "source")}
-    result.update({"found": True, "limited": False, "agreement": agreement, "source": best["source"], "sources": summary})
-    return result
+    if good:  # only a count survives: chapter number but no date, rhythm or calendar
+        c = max(good, key=lambda c: c["chapterNum"])
+        return {
+            "found": True, "limited": False, "agreement": "count", "source": c["source"], "countOnly": True,
+            "chapter": c["chapter"], "publishedAt": None, "url": c["url"], "typicalGapDays": None,
+            "expectedNext": None, "history": [], **base,
+        }
+    return {"found": False, "agreement": "none", "limited": status == "RELEASING", **base}
 
 
 def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None):
     """Ask every source, then reconcile. Raises only if every source failed.
 
     `matches` = what we already know about which entry each source uses for this series
-    ({"MangaDex": uuid, "MangaUpdates": {"id", "url"}}), from state.json or a manual
-    override in series.json. Known matches skip the title search; the result carries the
-    (possibly new) matches back so the caller can remember them.
+    ({"MangaBaka": id, "MangaDex": uuid, "MangaUpdates": {"id", "url"}, "Webtoon": rss url}),
+    from state.json or a manual override in series.json. Known matches skip the search; the
+    result carries the (possibly new) matches back so the caller can remember them.
     """
     matches = matches or {}
+    if matches.get("MangaBaka"):
+        _mb_id_cache[al_id] = matches["MangaBaka"]
     if matches.get("MangaDex"):
         _md_id_cache[al_id] = matches["MangaDex"]
     if matches.get("MangaUpdates"):
         _mu_id_cache[al_id] = dict(matches["MangaUpdates"])
+    if matches.get("Webtoon"):
+        _wt_cache[al_id] = matches["Webtoon"]
+
     candidates, errors = [], []
     for name, fetch in SOURCES:
         key = (name, al_id)
@@ -312,15 +496,21 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None)
             continue
         _cache[key] = (time.time(), candidate)
         candidates.append(candidate)
-        time.sleep(0.3)  # be polite to the sources
+        if name != "MangaBaka":
+            time.sleep(0.3)  # be polite to the sources (MangaBaka sleeps inside mb_get)
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
     result = reconcile(candidates, read, status)
+
     found = {}
+    if _mb_id_cache.get(al_id):
+        found["MangaBaka"] = _mb_id_cache[al_id]
     if _md_id_cache.get(al_id):
         found["MangaDex"] = _md_id_cache[al_id]
     if _mu_id_cache.get(al_id):
         found["MangaUpdates"] = _mu_id_cache[al_id]
+    if _wt_cache.get(al_id):
+        found["Webtoon"] = _wt_cache[al_id]
     result["matches"] = found
     return result
 

@@ -13,10 +13,14 @@ like it is on break.
 - **Import from MyAnimeList**: upload the .xml export (MAL, Profile, Export, manga list)
   on the page, or run `python3 check.py --import-mal FILE.xml`. Series are matched
   exactly by MAL id, and your chapters-read is kept so cards show "17 behind".
-- **Several chapter sources, compared.** MangaDex and MangaUpdates are asked separately
-  (each is a small "source" function in `server.py`), then `reconcile()` keeps the one
-  that is coherent: not in the future, not far below what you have read, and the freshest
-  when they differ. Each card says whether the sources agree, disagree or only one has data.
+- **Several chapter sources, compared.** Four sources, each a small function in
+  `server.py`: **MangaDex**, **MangaUpdates** and **Webtoon RSS** give chapters with dates;
+  **MangaBaka** gives the chapter count and a hiatus status, and also lists the series' ids on
+  the other sites, so those are matched exactly instead of by title. `reconcile()` keeps the
+  answer that is coherent: not in the future, not far below what you have read or below the
+  MangaBaka count, and the freshest when they differ. If no dated source fits, the MangaBaka
+  count is used ("count only", no date). Each card says whether the sources agree, disagree
+  or only one has data.
 - **Matching a series on each source.** MangaDex has an exact AniList link. MangaUpdates
   does not, so a series is matched by title similarity (at least 0.85, ignoring bracketed
   bits) AND start year within one year, which also tells two manga with the same name apart.
@@ -91,5 +95,5 @@ python3 check.py --no-send            # same check on the real files: saves stat
 ## Data sources
 
 [AniList](https://anilist.gg/) GraphQL API for titles, covers and status;
-[MangaDex](https://api.mangadex.org/docs/) and [MangaUpdates](https://api.mangaupdates.com/) APIs for chapters and dates. Only metadata and
+[MangaDex](https://api.mangadex.org/docs/), [MangaUpdates](https://api.mangaupdates.com/) and [MangaBaka](https://mangabaka.org/) APIs and Webtoon's public RSS feeds for chapters and dates. Only metadata and
 links to official sources are used.
