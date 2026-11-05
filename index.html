@@ -51,6 +51,27 @@
           <button id="refresh" type="button" hidden>Refresh now</button>
         </div>
       </div>
+      <div class="toolbar">
+        <input id="filter-text" type="search" placeholder="Filter your list by title" autocomplete="off">
+        <select id="filter-show" aria-label="Show">
+          <option value="all">Show: all</option>
+          <option value="releasing">Releasing</option>
+          <option value="onbreak">On break</option>
+          <option value="new">New this week</option>
+          <option value="behind">You're behind</option>
+          <option value="disagree">Sources disagree</option>
+          <option value="count">Count only (no date)</option>
+          <option value="finished">Finished</option>
+        </select>
+        <select id="sort-by" aria-label="Sort by">
+          <option value="title">Sort: title A to Z</option>
+          <option value="behind">Most chapters behind</option>
+          <option value="newest">Newest chapter</option>
+          <option value="next">Next chapter soonest</option>
+          <option value="onbreak">On break first</option>
+        </select>
+      </div>
+      <p id="list-count" class="msg"></p>
       <p id="list-msg" class="msg"></p>
       <ul id="mylist" class="cards"></ul>
     </section>

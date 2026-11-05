@@ -308,6 +308,84 @@ function renderResults() {
   );
 }
 
+// ---------- filter + sort (all in the browser) ----------
+
+const VIEW_KEY = "manga-tracker:view";
+
+function behindBy(e) {
+  if (!e.read || !e.chapter) return 0;
+  const b = Math.floor(parseFloat(e.chapter) - e.read);
+  return b > 0 ? b : 0;
+}
+function isOnBreak(e) {
+  return quietDays(e) > 0 || onHiatus(e);
+}
+function isNew(e) {
+  return Boolean(e.publishedAt) && Date.now() - new Date(e.publishedAt).getTime() < 7 * DAY;
+}
+function nextTime(e) {
+  // Only series that are really running have a "next chapter" to sort by.
+  if (!e.expectedNext || e.status !== "RELEASING" || isOnBreak(e) || isLimited(e)) return Infinity;
+  return parseDay(e.expectedNext).getTime();
+}
+function newestTime(e) {
+  return e.publishedAt ? new Date(e.publishedAt).getTime() : -Infinity;
+}
+
+const SHOW = {
+  all: () => true,
+  releasing: (e) => e.status === "RELEASING",
+  onbreak: isOnBreak,
+  new: isNew,
+  behind: (e) => behindBy(e) > 0,
+  disagree: (e) => e.agreement === "conflict",
+  count: (e) => e.countOnly === true,
+  finished: (e) => e.status === "FINISHED",
+};
+// "[Oshi no Ko]" should sort under O, so leading symbols are ignored.
+const sortKey = (e) => e.title.replace(/^[^a-z0-9]+/i, "");
+const byTitle = (a, b) => sortKey(a).localeCompare(sortKey(b));
+const SORT = {
+  title: byTitle,
+  behind: (a, b) => behindBy(b) - behindBy(a) || byTitle(a, b),
+  newest: (a, b) => newestTime(b) - newestTime(a) || byTitle(a, b),
+  next: (a, b) => nextTime(a) - nextTime(b) || byTitle(a, b),
+  onbreak: (a, b) => Number(isOnBreak(b)) - Number(isOnBreak(a)) || byTitle(a, b),
+};
+
+function visibleEntries() {
+  const text = document.getElementById("filter-text").value.trim().toLowerCase();
+  const show = SHOW[document.getElementById("filter-show").value] || SHOW.all;
+  const sort = SORT[document.getElementById("sort-by").value] || SORT.title;
+  return entries.filter((e) => show(e) && (!text || e.title.toLowerCase().includes(text))).sort(sort);
+}
+
+function saveView() {
+  try {
+    localStorage.setItem(
+      VIEW_KEY,
+      JSON.stringify({
+        text: document.getElementById("filter-text").value,
+        show: document.getElementById("filter-show").value,
+        sort: document.getElementById("sort-by").value,
+      })
+    );
+  } catch {
+    /* private mode: the page works without remembering */
+  }
+}
+
+function restoreView() {
+  try {
+    const v = JSON.parse(localStorage.getItem(VIEW_KEY) || "{}");
+    if (v.text) document.getElementById("filter-text").value = v.text;
+    if (SHOW[v.show]) document.getElementById("filter-show").value = v.show;
+    if (SORT[v.sort]) document.getElementById("sort-by").value = v.sort;
+  } catch {
+    /* ignore */
+  }
+}
+
 function renderList() {
   const msg = document.getElementById("list-msg");
   msg.textContent = entries.length
@@ -319,8 +397,14 @@ function renderList() {
     ? `Bot last checked ${new Date(checkedAt).toLocaleString()}`
     : "";
 
+  const visible = visibleEntries();
+  document.getElementById("list-count").textContent =
+    entries.length && visible.length !== entries.length
+      ? `Showing ${visible.length} of ${entries.length}` + (visible.length ? "" : ": nothing matches this filter")
+      : "";
+
   document.getElementById("mylist").replaceChildren(
-    ...entries.map((e) => {
+    ...visible.map((e) => {
       let btn = null;
       if (canEdit) {
         btn = document.createElement("button");
@@ -659,7 +743,15 @@ document.getElementById("search").addEventListener("input", (ev) => {
   }, 400);
 });
 
+for (const id of ["filter-text", "filter-show", "sort-by"]) {
+  document.getElementById(id).addEventListener(id === "filter-text" ? "input" : "change", () => {
+    saveView();
+    renderList();
+  });
+}
+
 async function init() {
+  restoreView();
   // Is server.py running? (On a static host this 404s and we stay read-only.)
   try {
     const res = await fetch("api/ping");

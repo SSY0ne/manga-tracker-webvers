@@ -102,6 +102,18 @@ button.ghost { color: var(--text); background: transparent; border: 1px solid va
 .badge.CANCELLED { background: var(--red); color: #fff; }
 .badge.NOT_YET_RELEASED { background: var(--blue); }
 
+/* list toolbar */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; }
+.toolbar input[type="search"] { flex: 1 1 180px; width: auto; padding: 9px 12px; font-size: 0.95rem; }
+.toolbar select {
+  flex: 0 1 auto;
+  padding: 9px 10px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
 .badge.LIMITED { background: transparent; color: var(--muted); border: 1px dashed var(--grey); }
 
 .card .src { margin-top: 2px; font-size: 0.72rem; color: var(--muted); cursor: help; }

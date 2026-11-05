@@ -31,6 +31,10 @@ like it is on break.
   the series is marked "Limited data" and gets no break or new-chapter alerts instead of
   wrong ones. Alerts also only fire when the same source reports a +1 to +5 chapter step,
   so switching sources never causes a fake "new chapter".
+- **Search, filter and sort** your list: type to filter by title; show only releasing, on
+  break, new this week, you're behind, sources disagree, count only, or finished; sort by
+  title, most chapters behind, newest chapter, next chapter soonest, or on break first.
+  The view is remembered in your browser.
 - **Calendar tab**: released chapters, expected next chapters, an overdue list, and a
   `.ics` download for your calendar app.
 - The page is a dashboard for the daily bot: it reads `series.json` and `state.json`.
