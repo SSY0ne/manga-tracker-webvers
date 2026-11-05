@@ -287,5 +287,116 @@ class ChapterDelta(unittest.TestCase):
         self.assertIsNone(check.chapter_delta("a", "5"))
 
 
+class ShouldAlert(unittest.TestCase):
+    def test_default_and_all_send_everything(self):
+        for kind in ("chapter", "back", "break", "status"):
+            self.assertTrue(check.should_alert(kind, None))
+            self.assertTrue(check.should_alert(kind, "all"))
+
+    def test_breaks_only_sends_break_news(self):
+        self.assertTrue(check.should_alert("break", "breaks"))
+        self.assertTrue(check.should_alert("back", "breaks"))
+        self.assertFalse(check.should_alert("chapter", "breaks"))
+        self.assertFalse(check.should_alert("status", "breaks"))
+
+    def test_off_sends_nothing(self):
+        for kind in ("chapter", "back", "break", "status"):
+            self.assertFalse(check.should_alert(kind, "off"))
+
+
+class BuildDigest(unittest.TestCase):
+    WHEN = datetime(2026, 11, 5, 7, 0, tzinfo=timezone.utc)
+
+    def test_nothing_to_say_sends_nothing(self):
+        self.assertEqual(check.build_digest([], [], self.WHEN, 40, 6), "")
+
+    def test_always_sends_an_all_quiet_message(self):
+        text = check.build_digest([], [], self.WHEN, 40, 6, always=True)
+        self.assertIn("Nothing new today.", text)
+        self.assertIn("Tracking 40 series · 6 on break", text)
+
+    def test_sections_are_grouped_counted_and_ordered(self):
+        items = [
+            ("break", "⏸️ **Berserk** quiet"),
+            ("chapter", "📖 **One Piece** 1198"),
+            ("chapter", "📖 **Dandadan** 252"),
+            ("back", "▶️ **Nana** is back"),
+            ("status", "ℹ️ **X** is now finished"),
+        ]
+        text = check.build_digest(items, [], self.WHEN, 40, 6)
+        self.assertTrue(text.startswith("📚 **Manga Tracker** · Thu Nov 5"))
+        order = [text.index(h) for h in ("**New chapters (2)**", "**Back from break (1)**", "**Maybe on break (1)**", "**Status changes (1)**")]
+        self.assertEqual(order, sorted(order))
+        self.assertLess(text.index("One Piece"), text.index("Dandadan"))  # keeps the order found
+
+    def test_heads_ups_alone_still_send_a_digest(self):
+        text = check.build_digest([], ["⚠️ Webtoon failed for 40 of 40 lookups"], self.WHEN, 40, 6)
+        self.assertIn("**Heads up**", text)
+        self.assertNotIn("Nothing new today.", text)
+
+    def test_no_italic_marks_that_would_show_up_in_email(self):
+        self.assertNotIn("_", check.build_digest([("chapter", "x")], [], self.WHEN, 3, 1).split("\n")[-1])
+
+
+class ChunkLines(unittest.TestCase):
+    def test_short_text_is_one_piece(self):
+        self.assertEqual(check.chunk_lines("a\nb", 100), ["a\nb"])
+
+    def test_splits_at_line_ends_and_respects_the_limit(self):
+        text = "\n".join(["x" * 40] * 10)
+        chunks = check.chunk_lines(text, 100)
+        self.assertTrue(all(len(c) <= 100 for c in chunks))
+        self.assertEqual("\n".join(chunks), text)  # nothing lost or cut in half
+        self.assertTrue(all(len(line) == 40 for c in chunks for line in c.split("\n")))
+
+    def test_a_single_huge_line_is_cut_hard(self):
+        chunks = check.chunk_lines("y" * 250, 100)
+        self.assertEqual([len(c) for c in chunks], [100, 100, 50])
+
+
+class HealthNotes(unittest.TestCase):
+    def stats(self, **kw):
+        base = {"ok": 0, "none": 0, "failed": 0, "cached": 0, "rateLimited": 0, "seconds": 0.0, "errors": []}
+        return {name: {**base, **vals} for name, vals in kw.items()}
+
+    def test_healthy_run_has_no_notes(self):
+        self.assertEqual(check.health_notes(self.stats(MangaDex={"ok": 38, "none": 2}), 40, 0), [])
+
+    def test_a_source_that_mostly_failed_is_reported(self):
+        notes = check.health_notes(self.stats(Webtoon={"failed": 20, "ok": 2, "none": 18}), 40, 0)
+        self.assertEqual(len(notes), 1)
+        self.assertIn("Webtoon", notes[0])
+
+    def test_one_in_four_failing_is_not_yet_a_problem(self):
+        self.assertEqual(check.health_notes(self.stats(MangaDex={"failed": 9, "ok": 31}), 40, 0), [])
+
+    def test_many_series_with_no_answer_at_all_is_reported(self):
+        self.assertEqual(len(check.health_notes(self.stats(), 40, 10)), 1)
+        self.assertEqual(check.health_notes(self.stats(), 40, 2), [])  # just two bad lookups is noise
+
+
+class GapOverride(unittest.TestCase):
+    """series.json "gapDays": a rhythm you know replaces the measured one."""
+
+    def info(self, gap_override):
+        sources = [("S0", lambda *a: rel("MangaDex", 100, 40))]  # last chapter 40 days ago, measured rhythm 7
+        server._cache.clear()
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server.time, "sleep"):
+            return server.chapter_info("1", ["x"], None, None, "RELEASING", gap_override=gap_override)
+
+    def test_without_an_override_the_series_looks_on_break(self):
+        self.assertEqual(self.info(None)["quietDays"], 40)
+
+    def test_a_monthly_override_makes_40_days_perfectly_normal(self):
+        r = self.info(30)
+        self.assertEqual(r["typicalGapDays"], 30)
+        self.assertEqual(r["quietDays"], 0)  # limit for a 30-day rhythm is 75 days
+        self.assertTrue(r["gapOverride"])
+
+    def test_next_chapter_follows_the_override(self):
+        published = datetime.fromisoformat(day(40))
+        self.assertEqual(self.info(30)["expectedNext"], (published + timedelta(days=30)).date().isoformat())
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

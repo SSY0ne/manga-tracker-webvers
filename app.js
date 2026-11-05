@@ -161,7 +161,20 @@ async function fetchLatest(e) {
   if (e.year) params.set("year", e.year);
   if (e.read) params.set("read", e.read);
   if (e.status) params.set("status", e.status);
+  if (e.gapDays) params.set("gap", e.gapDays); // a rhythm you set by hand
   return await fetchJSON(`api/latest?${params}`);
+}
+
+// Put a fresh answer from server.py on an entry. It replaces everything chapter-related, so an
+// old wrong value can't linger.
+function applyLatest(e, info) {
+  if (!info) return;
+  const { found, ...rest } = info;
+  Object.assign(
+    e,
+    { chapter: null, publishedAt: null, url: null, typicalGapDays: null, expectedNext: null, history: [], limited: false, quietDays: 0, hiatus: false, countOnly: false, gapOverride: false },
+    rest
+  );
 }
 
 // Fill entries with live data (AniList for covers/status, server.py for chapters).
@@ -182,16 +195,7 @@ async function fillLive(list, onProgress) {
   for (const e of list) {
     if (canEdit) {
       // chapter lookups need server.py
-      const info = await fetchLatest(e);
-      if (info) {
-        // Replace everything chapter-related, so an old wrong value can't linger.
-        const { found, ...rest } = info;
-        Object.assign(
-          e,
-          { chapter: null, publishedAt: null, url: null, typicalGapDays: null, expectedNext: null, history: [], limited: false, quietDays: 0, hiatus: false, countOnly: false },
-          rest
-        );
-      }
+      applyLatest(e, await fetchLatest(e));
     }
     e.pending = false;
     if (onProgress) onProgress(++done, list.length);
@@ -212,7 +216,16 @@ async function loadAll(onProgress) {
   entries = series.map((s) => {
     const known = state[s.id];
     // mal / read (chapters you've read) come from series.json, not from the bot's state
-    return { id: s.id, title: s.title, ...known, mal: s.mal, read: overrides[s.id] ?? s.read, pending: !known || !known.history };
+    return {
+      id: s.id,
+      title: s.title,
+      ...known,
+      mal: s.mal,
+      read: overrides[s.id] ?? s.read,
+      alerts: s.alerts, // per-series settings from series.json (see the panel)
+      gapDays: s.gapDays,
+      pending: !known || !known.history,
+    };
   });
   await fillLive(entries.filter((e) => e.pending), onProgress);
 }
@@ -361,7 +374,13 @@ function tileChip(e) {
 }
 
 function tileSubtitle(e) {
-  if (e.chapter) return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
+  if (e.chapter) {
+    // For a series on break the date is old news: say WHY it is flagged instead.
+    const q = quietDays(e);
+    const why = q ? `${fmtQuiet(q)} quiet` : onHiatus(e) ? "listed as hiatus" : null;
+    if (why) return `Ch. ${e.chapter} · ${why}`;
+    return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
+  }
   return e.pending ? "Checking..." : STATUS_LABEL[e.status] || "";
 }
 
@@ -477,6 +496,75 @@ function fact(label, value) {
   return row;
 }
 
+// Save per-series settings to series.json, then ask server.py again so a new rhythm
+// changes the next-chapter date and the "on break" verdict straight away.
+async function saveSettings(e, alerts, gapDays) {
+  const res = await fetch("api/series", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: e.id, title: e.title, alerts: alerts === "all" ? null : alerts, gapDays: gapDays || null }),
+  });
+  if (!res.ok) return false;
+  e.alerts = alerts === "all" ? undefined : alerts;
+  e.gapDays = gapDays || undefined;
+  applyLatest(e, await fetchLatest(e));
+  return true;
+}
+
+function settingsSection(e) {
+  const sec = el("div", "d-section");
+  sec.append(el("h3", "", "Alerts and rhythm"));
+
+  const alertsRow = el("div", "setting-row");
+  const sel = el("select");
+  sel.setAttribute("aria-label", "Which alerts to send for this series");
+  [
+    ["all", "All alerts"],
+    ["breaks", "Only breaks and comebacks"],
+    ["off", "Muted (still tracked)"],
+  ].forEach(([value, label]) => {
+    const o = el("option", "", label);
+    o.value = value;
+    sel.append(o);
+  });
+  sel.value = e.alerts || "all";
+  alertsRow.append(el("label", "", "Discord / email"), sel);
+
+  const gapRow = el("div", "setting-row");
+  const gap = el("input");
+  gap.type = "number";
+  gap.min = "1";
+  gap.max = "730";
+  gap.step = "1";
+  gap.value = e.gapDays || "";
+  gap.placeholder = e.typicalGapDays && !e.gapDays ? `auto: ${Math.round(e.typicalGapDays)}` : "auto";
+  gap.setAttribute("aria-label", "Days between chapters, if you know it");
+  gapRow.append(el("label", "", "New chapter every"), gap, el("span", "note", "days"));
+  const hint = el("p", "msg", "Leave it empty to let the tool measure it. Set it for irregular series, so a long gap isn't called a break.");
+
+  const save = el("button", "", "Save");
+  save.type = "button";
+  const msg = el("p", "msg");
+  msg.id = "settings-msg";
+  save.addEventListener("click", async () => {
+    const days = gap.value === "" ? null : parseInt(gap.value, 10);
+    if (days !== null && (Number.isNaN(days) || days < 1 || days > 730)) {
+      msg.textContent = "Days must be a number from 1 to 730.";
+      return gap.focus();
+    }
+    save.disabled = true;
+    save.textContent = "Saving...";
+    msg.textContent = "Saving, then re-checking this series on every source (a few seconds)...";
+    const ok = await saveSettings(e, sel.value, days);
+    renderList();
+    if (detailEntry === e) renderDetail(e);
+    const note = document.getElementById("settings-msg");
+    if (note) note.textContent = ok ? "Saved to series.json. Commit and push it so the daily bot uses it." : "Could not save.";
+  });
+  sec.append(alertsRow, gapRow, hint, save, msg);
+  return sec;
+}
+
 function renderDetail(e) {
   const body = document.getElementById("detail-body");
   const quiet = quietDays(e);
@@ -530,6 +618,18 @@ function renderDetail(e) {
   prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
   prog.lastChild.id = "detail-msg";
   main.append(prog);
+
+  // Alerts and rhythm: settings for THIS series, saved in series.json (so only with server.py)
+  const mine = [];
+  if (e.alerts) mine.push(e.alerts === "off" ? "muted" : "break alerts only");
+  if (e.gapDays) mine.push(`rhythm set to every ${e.gapDays} days`);
+  if (canEdit) {
+    main.append(settingsSection(e));
+  } else if (mine.length) {
+    const sec = el("div", "d-section");
+    sec.append(el("h3", "", "Alerts and rhythm"), el("p", "msg", `This series: ${mine.join(", ")}.`));
+    main.append(sec);
+  }
 
   // What each source said
   const list = e.sources || [];

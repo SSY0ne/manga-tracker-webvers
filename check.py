@@ -4,7 +4,13 @@
     python3 check.py --add "one piece"   add a series to series.json (pick from results)
     python3 check.py --dry               check, print what would be sent, change nothing
     python3 check.py --test              send a test message to Discord
+    python3 check.py --alert "text"      send an urgent message (used when a daily run fails)
     python3 check.py                     real run (this is what GitHub Actions does)
+
+Each run sends ONE digest: sections for new chapters / back from break / maybe on break /
+status changes, heads-ups when a source failed, and a one-line summary. Nothing new = no
+message (set DIGEST_ALWAYS=1 to also get an "all quiet" message). Per series, series.json can set
+"alerts": "breaks" (only break news) or "off" (muted), and "gapDays": N (you know its rhythm).
 
 Notifications go to every channel that is set up (env vars, never in files; on GitHub
 they are repo secrets):
@@ -178,6 +184,84 @@ def import_mal(xml_path, series_path, statuses):
         print(f"  - {t}")
 
 
+# ---------- the digest: what we actually send ----------
+# Messages are collected as (kind, text) pairs during the run. Kinds: chapter, back, break, status.
+
+DIGEST_SECTIONS = [
+    ("chapter", "New chapters"),
+    ("back", "Back from break"),
+    ("break", "Maybe on break"),
+    ("status", "Status changes"),
+]
+
+
+def should_alert(kind, setting):
+    """Per-series alert setting from series.json: "all" (default), "breaks" or "off"."""
+    setting = setting or "all"
+    if setting == "off":
+        return False
+    if setting == "breaks":
+        return kind in ("break", "back")
+    return True
+
+
+def build_digest(items, notes=(), when=None, tracked=0, on_break=0, always=False):
+    """One tidy message per run: grouped sections, then heads-ups, then a one-line summary.
+
+    Returns "" when there is nothing to say (no news, no heads-ups), unless always=True, which
+    sends a short "all quiet" message (set the repo variable DIGEST_ALWAYS=1 for that).
+    """
+    if not items and not notes and not always:
+        return ""
+    when = when or datetime.now(timezone.utc)
+    lines = [f"📚 **Manga Tracker** · {when:%a %b} {when.day}"]
+    for kind, label in DIGEST_SECTIONS:
+        texts = [t for k, t in items if k == kind]
+        if texts:
+            lines += ["", f"**{label} ({len(texts)})**", *texts]
+    if notes:
+        lines += ["", "**Heads up**", *notes]
+    if not items and not notes:
+        lines += ["", "Nothing new today."]
+    # Plain text on purpose: the same message goes out by email, where Discord's italics would show up as _ marks
+    lines += ["", f"Tracking {tracked} series · {on_break} on break"]
+    return "\n".join(lines)
+
+
+def chunk_lines(text, limit=1900):
+    """Split text into pieces of at most `limit` characters, breaking at line ends
+    (Discord refuses messages over 2000 characters). A single huge line is cut hard."""
+    chunks, current = [], ""
+    for line in text.split("\n"):
+        while len(line) > limit:  # a line longer than a whole message
+            if current:
+                chunks.append(current)
+                current = ""
+            chunks.append(line[:limit])
+            line = line[limit:]
+        candidate = f"{current}\n{line}" if current else line
+        if len(candidate) > limit:
+            chunks.append(current)
+            current = line
+        else:
+            current = candidate
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def health_notes(stats, total_series, lookup_failed):
+    """Heads-ups about the run itself: a source that mostly failed, or series nobody answered for."""
+    notes = []
+    for name, s in stats.items():
+        attempts = s["ok"] + s["none"] + s["failed"]
+        if attempts and s["failed"] / attempts >= 0.5:
+            notes.append(f"⚠️ {name} failed for {s['failed']} of {attempts} lookups, so its data may be stale")
+    if total_series and lookup_failed >= max(3, total_series // 4):
+        notes.append(f"⚠️ {lookup_failed} of {total_series} series got no answer from any source")
+    return notes
+
+
 # ---------- the check ----------
 
 def chapter_delta(old, new):
@@ -197,7 +281,7 @@ def check(series_path, state_path, dry):
     new_state_map = {}  # only series still in series.json are kept
     if not series:
         print("series.json is empty. Add one with: python3 check.py --add \"title\"")
-        return [], []
+        return {"messages": [], "events": [], "notes": [], "tracked": 0, "on_break": 0}
 
     ids = [s["id"] for s in series]
     by_id = {}
@@ -229,6 +313,10 @@ def check(series_path, state_path, dry):
         def event(kind, **details):
             events.append({"t": now, "id": m["id"], "title": name, "type": kind, **details})
 
+        def say(kind, text):  # an alert, if this series' own setting (all / breaks / off) allows it
+            if should_alert(kind, s.get("alerts")):
+                messages.append((kind, text))
+
         # Ask every source (MangaDex, MangaUpdates...) and let server.reconcile() choose.
         names = [m["title"].get("english"), m["title"].get("romaji")] + (m.get("synonyms") or [])
         year = (m.get("startDate") or {}).get("year")
@@ -237,7 +325,9 @@ def check(series_path, state_path, dry):
         if s.get("mu"):
             matches["MangaUpdates"] = {"id": int(s["mu"])}
         try:
-            info = server.chapter_info(str(m["id"]), names, year, s.get("read"), m["status"], matches)
+            info = server.chapter_info(
+                str(m["id"]), names, year, s.get("read"), m["status"], matches, gap_override=s.get("gapDays")
+            )
         except Exception as err:  # every source down: keep the old info, try again tomorrow
             print(f"! {name}: lookup failed ({err}), keeping old data")
             lookup_failed += 1
@@ -291,24 +381,23 @@ def check(series_path, state_path, dry):
                 # better source, a data correction, so it never triggers an alert.)
                 link = f"\n{url}" if url else ""
                 if was_quiet:
-                    messages.append(f"▶️ **{name}** is back from break: chapter **{chapter}**{link}")
+                    say("back", f"▶️ **{name}** is back from break: chapter **{chapter}**{link}")
                 else:
-                    messages.append(f"📖 **{name}**: new chapter **{chapter}**{link}")
+                    say("chapter", f"📖 **{name}**: new chapter **{chapter}**{link}")
             elif quiet and not was_quiet:
                 if quiet_for:
                     usual = f", usually every {round(gap)} days" if gap else ""
                     weeks = quiet_for // 7
                     how_long = f"over {weeks // 52} years" if weeks >= 104 else f"{weeks} weeks"
-                    messages.append(
+                    say(
+                        "break",
                         f"⏸️ **{name}**: no new chapter for {how_long}{usual}, maybe on break "
-                        f"(last was {chapter})"
+                        f"(last was {chapter})",
                     )
                 else:  # only the hiatus listing says so
-                    messages.append(f"⏸️ **{name}** is listed as on hiatus (last chapter {chapter})")
+                    say("break", f"⏸️ **{name}** is listed as on hiatus (last chapter {chapter})")
             if m["status"] != old.get("status"):
-                messages.append(
-                    f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList"
-                )
+                say("status", f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList")
 
             # ---- the same facts, for the history log (alerts are a subset of these) ----
             if not limited and comparable and delta is not None and 0 < delta <= 5:
@@ -345,7 +434,13 @@ def check(series_path, state_path, dry):
         )
         write_json(state_path, {"checkedAt": now, "series": new_state_map, "health": health})
         log_events(history_path_for(state_path), events)
-    return messages, events
+    return {
+        "messages": messages,
+        "events": events,
+        "notes": health_notes(server.STATS, len(series), lookup_failed),
+        "tracked": len(new_state_map),
+        "on_break": sum(1 for v in new_state_map.values() if v["quiet"]),
+    }
 
 
 def history_path_for(state_path):
@@ -371,9 +466,9 @@ def email_configured():
 
 
 def send_discord(text):
-    # Discord messages max out at 2000 characters.
-    for i in range(0, len(text), 1900):
-        post_json(os.environ["DISCORD_WEBHOOK_URL"], {"content": text[i : i + 1900]})
+    # Discord messages max out at 2000 characters: split at line ends so no entry is cut in half.
+    for piece in chunk_lines(text, 1900):
+        post_json(os.environ["DISCORD_WEBHOOK_URL"], {"content": piece})
 
 
 def send_email(subject, text):
@@ -423,6 +518,7 @@ def main():
     p.add_argument("--dry", action="store_true", help="print messages, don't send, don't save state")
     p.add_argument("--no-send", action="store_true", help="save state and print messages, but send nothing")
     p.add_argument("--test", action="store_true", help="send a test message")
+    p.add_argument("--alert", metavar="MESSAGE", help="send an urgent message (the workflow uses it when a run fails)")
     p.add_argument("--import-mal", metavar="FILE", help="import a MyAnimeList XML export into series.json")
     p.add_argument("--mal-status", default="Reading", help='comma list, e.g. "Reading,Plan to Read"')
     p.add_argument("--series", default="series.json")
@@ -433,6 +529,9 @@ def main():
         return add_series(args.series, args.add)
     if args.import_mal:
         return import_mal(args.import_mal, args.series, {s.strip() for s in args.mal_status.split(",")})
+    if args.alert:
+        notify(f"⚠️ {args.alert}", "Manga Tracker: the daily check failed")
+        return
     if args.test:
         notify(
             "✅ Manga Tracker is connected. You'll get chapter and break alerts here.",
@@ -440,19 +539,24 @@ def main():
         )
         return
 
-    messages, events = check(args.series, args.state, args.dry)
-    if events:
-        print(f"{len(events)} event(s) {'would be ' if args.dry else ''}logged to history.jsonl")
-    if not messages:
+    result = check(args.series, args.state, args.dry)
+    if result["events"]:
+        print(f"{len(result['events'])} event(s) {'would be ' if args.dry else ''}logged to history.jsonl")
+    items, notes = result["messages"], result["notes"]
+    digest = build_digest(
+        items, notes, tracked=result["tracked"], on_break=result["on_break"],
+        always=os.environ.get("DIGEST_ALWAYS") == "1",  # a repo variable: also send an "all quiet" day
+    )
+    if not digest:
         print("Nothing new.")
         return
-    text = "\n".join(messages)
     if args.dry or args.no_send:
-        print("--- would send ---\n" + text)
+        print("--- would send ---\n" + digest)
     else:
-        n = len(messages)
-        notify(text, f"Manga Tracker: {n} update{'s' if n != 1 else ''}")
-        print(f"{n} notification(s).")
+        n = len(items)
+        subject = f"Manga Tracker: {n} update{'s' if n != 1 else ''}" if n else "Manga Tracker: heads up"
+        notify(digest, subject)
+        print(f"Digest sent ({n} update(s), {len(notes)} heads-up(s)).")
 
 
 if __name__ == "__main__":

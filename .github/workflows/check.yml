@@ -24,6 +24,7 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          DIGEST_ALWAYS: ${{ vars.DIGEST_ALWAYS }}   # optional repo variable: set to 1 for a daily "all quiet" message
         run: python3 check.py
 
       - name: Save state and history
@@ -36,3 +37,13 @@ jobs:
             git commit -m "Update state"
             git push
           fi
+
+      - name: Tell me if the run failed
+        if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 check.py --alert "The daily manga check failed. Details: $RUN_URL"

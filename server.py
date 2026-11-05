@@ -493,13 +493,17 @@ def reconcile(candidates, read, status):
     return {"found": False, "agreement": "none", "limited": status == "RELEASING", **base}
 
 
-def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None):
+def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None, gap_override=None):
     """Ask every source, then reconcile. Raises only if every source failed.
 
     `matches` = what we already know about which entry each source uses for this series
     ({"MangaBaka": id, "MangaDex": uuid, "MangaUpdates": {"id", "url"}, "Webtoon": rss url}),
     from state.json or a manual override in series.json. Known matches skip the search; the
     result carries the (possibly new) matches back so the caller can remember them.
+
+    `gap_override` = days between chapters that YOU know (series.json "gapDays"), for series whose
+    rhythm the statistics get wrong. It replaces the measured rhythm, so the next-chapter date and
+    the "on break" verdict follow it.
     """
     matches = matches or {}
     if matches.get("MangaBaka"):
@@ -537,6 +541,13 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None)
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
     result = reconcile(candidates, read, status)
+    if gap_override and result.get("found") and result.get("publishedAt"):
+        gap = int(gap_override)
+        result["typicalGapDays"] = gap
+        result["expectedNext"] = datetime.fromtimestamp(
+            parse_time(result["publishedAt"]).timestamp() + gap * 86400, tz=timezone.utc
+        ).date().isoformat()
+        result["gapOverride"] = True
     # The ONE place the "on break" rule runs. The bot saves this number in state.json and the
     # page only displays it; nothing else recomputes it.
     result["quietDays"] = (
@@ -606,6 +617,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_json(400, {"error": "al must be a number"})
         year = (q.get("year") or [""])[0]
         read = (q.get("read") or [""])[0]
+        gap = (q.get("gap") or [""])[0]
         try:
             self.send_json(
                 200,
@@ -615,6 +627,7 @@ class Handler(SimpleHTTPRequestHandler):
                     int(year) if year.isdigit() else None,
                     int(read) if read.isdigit() else None,
                     (q.get("status") or [None])[0],
+                    gap_override=int(gap) if gap.isdigit() else None,
                 ),
             )
         except Exception as err:  # every source failed
@@ -638,17 +651,36 @@ class Handler(SimpleHTTPRequestHandler):
                 for key in ("mal", "read"):
                     if it.get(key) is not None:
                         entry[key] = int(it[key])
+                # Per-series settings. An explicit null CLEARS the setting (back to the default).
+                if "alerts" in it:
+                    if it["alerts"] not in (None, "all", "breaks", "off"):
+                        raise ValueError("alerts must be all, breaks or off")
+                    entry["alerts"] = it["alerts"]
+                if "gapDays" in it:
+                    gap = None if it["gapDays"] is None else int(it["gapDays"])
+                    if gap is not None and not 1 <= gap <= 730:
+                        raise ValueError("gapDays must be 1 to 730")
+                    entry["gapDays"] = gap
                 clean.append(entry)
         except (ValueError, KeyError, TypeError, AttributeError):
-            return self.send_json(400, {"error": "need id (number) and title"})
+            return self.send_json(400, {"error": "need id (number) and title; alerts all/breaks/off; gapDays 1-730"})
         series = read_series()
         by_id = {s["id"]: s for s in series}
         for entry in clean:
-            if entry["id"] in by_id:
-                by_id[entry["id"]].update({k: v for k, v in entry.items() if k in ("mal", "read")})
-            else:
-                series.append(entry)
-                by_id[entry["id"]] = entry
+            target = by_id.get(entry["id"])
+            if target is None:
+                target = {"id": entry["id"], "title": entry["title"]}
+                series.append(target)
+                by_id[entry["id"]] = target
+            for key, value in entry.items():
+                if key in ("mal", "read"):
+                    target[key] = value
+                elif key in ("alerts", "gapDays"):
+                    # the default ("all alerts", measured rhythm) is simply not stored
+                    if value is None or value == "all":
+                        target.pop(key, None)
+                    else:
+                        target[key] = value
         write_series(series)
         self.send_json(200, series)
 

@@ -38,6 +38,8 @@ like it is on break.
   chapter facts, your progress editor and what every source said. The search to add a manga is
   at the top and the MyAnimeList import is at the very bottom of the list (both only when
   `server.py` is running).
+- **Why it's on break, on the cover**: a series on break says so under its title ("Ch. 386 ·
+  16 wks quiet" or "listed as hiatus") instead of an old date.
 - **Safe to click**: removing a series asks first and then offers an Undo; changing your reading
   progress offers an Undo too. "+N behind" and the "to catch up" chip only count series that are
   still running (not on break, not finished), so one stale MAL number can't dominate the grid. The
@@ -90,6 +92,24 @@ python3 check.py --add "one piece"   # add a series
 python3 check.py --dry               # see what would be sent
 python3 check.py --test              # needs DISCORD_WEBHOOK_URL
 ```
+
+### One digest, not a ping per event
+
+Each run sends **one** message: sections for *New chapters*, *Back from break*, *Maybe on break*
+and *Status changes*, a *Heads up* block when a source mostly failed (for example "Webtoon failed
+for 40 of 40 lookups"), and a one-line summary. Nothing new means no message. To also get a daily
+"all quiet" message, add a repo variable `DIGEST_ALWAYS` = `1` (Settings, Secrets and variables,
+Actions, Variables). If the daily run itself crashes, the workflow sends a **failure alert** with a
+link to the run.
+
+### Per-series settings
+
+In the detail panel (with `server.py` running), "Alerts and rhythm" sets, for one series:
+- **Alerts**: all (default), only breaks and comebacks, or muted (still tracked and shown).
+- **New chapter every N days**: for irregular series, so a long gap isn't called a break (Berserk).
+
+They are saved in `series.json` as `"alerts": "breaks" | "off"` and `"gapDays": 30`; the default
+values are simply not stored. Commit and push `series.json` so the daily bot uses them.
 
 ## Email alerts (Gmail)
 
