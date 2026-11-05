@@ -1,18 +1,37 @@
 {
-  "checkedAt": "2026-11-04T23:39:12+00:00",
+  "checkedAt": "2026-11-05T00:20:19+00:00",
   "series": {
     "30013": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 377,
+        "MangaDex": "a1c7c817-4e59-43b7-9365-09675a149a6f",
+        "MangaUpdates": {
+          "id": 55099564912,
+          "url": "https://www.mangaupdates.com/series/pb8uwds/one-piece"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "1197",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "1197",
           "publishedAt": "2026-11-01T15:10:56+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "1197",
           "publishedAt": "2026-11-01T00:00:00+00:00",
           "plausible": true
@@ -80,17 +99,36 @@
       "quiet": false
     },
     "30002": {
-      "agreement": "agree",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1692,
+        "MangaDex": "801513ba-a712-498c-8f57-cae55b38cc92",
+        "MangaUpdates": {
+          "id": 51239621230,
+          "url": "https://www.mangaupdates.com/series/njeqwry/berserk"
+        }
+      },
+      "agreement": "conflict",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "401",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "386",
           "publishedAt": "2026-07-09T19:06:25+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "386",
           "publishedAt": "2026-07-09T00:00:00+00:00",
           "plausible": true
@@ -158,17 +196,36 @@
       "quiet": true
     },
     "86123": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1915,
+        "MangaDex": "e7eabe96-aa17-476f-b431-2497d5e9d060",
+        "MangaUpdates": {
+          "id": 70180620476,
+          "url": "https://www.mangaupdates.com/series/w8nq9bw/black-clover"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "392",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "4",
           "publishedAt": "2026-08-26T17:41:27+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "392",
           "publishedAt": "2026-04-30T00:00:00+00:00",
           "plausible": true
@@ -236,46 +293,84 @@
       "quiet": false
     },
     "106130": {
-      "agreement": "none",
-      "source": null,
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 83,
+        "MangaDex": "4141c5dc-c525-4df5-afd7-cc7d192a832f",
+        "MangaUpdates": {
+          "id": 42866050067,
+          "url": "https://www.mangaupdates.com/series/joxc7wz/blue-lock"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "366",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "150",
           "publishedAt": "2026-07-19T14:26:25+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "272",
           "publishedAt": "2024-08-19T00:00:00+00:00",
           "plausible": false
         }
       ],
-      "limited": true,
+      "limited": false,
       "title": "Blue Lock",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106130-yPNeuSu75ey1.jpg",
       "status": "RELEASING",
-      "chapter": null,
+      "chapter": "366",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/83/Blue-Lock",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "168468": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 381,
+        "MangaDex": "0b094aab-0cfb-4837-a49b-7267bdb86bec",
+        "MangaUpdates": {
+          "id": 7116013078,
+          "url": "https://www.mangaupdates.com/series/39oouty/boruto-two-blue-vortex"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "38",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "38",
           "publishedAt": "2026-10-20T15:08:27+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "38",
           "publishedAt": "2026-10-20T00:00:00+00:00",
           "plausible": true
@@ -343,33 +438,76 @@
       "quiet": false
     },
     "114998": {
-      "agreement": "none",
-      "source": null,
-      "sources": [],
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 37135,
+        "MangaUpdates": {
+          "id": 5739026211,
+          "url": "https://www.mangaupdates.com/series/2mwv8yr/bungou-stray-dogs-beast"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
+      "sources": [
+        {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "22",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "16",
+          "publishedAt": "2022-04-18T00:00:00+00:00",
+          "plausible": false
+        }
+      ],
       "limited": false,
       "title": "Bungo Stray Dogs Beast",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx114998-JTCzDczl8eBD.jpg",
       "status": "FINISHED",
-      "chapter": null,
+      "chapter": "22",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/37135/Bungo-Stray-Dogs-Beast",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "105778": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1677,
+        "MangaDex": "a77742b1-befd-49a4-bff5-1ad4e6b0ef7b",
+        "MangaUpdates": {
+          "id": 75336092483,
+          "url": "https://www.mangaupdates.com/series/ylx5wzn/chainsaw-man"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "232",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "4",
           "publishedAt": "2026-08-26T17:47:09+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "232",
           "publishedAt": "2026-03-24T00:00:00+00:00",
           "plausible": true
@@ -437,89 +575,84 @@
       "quiet": false
     },
     "44568": {
-      "agreement": "single",
-      "source": "MangaDex",
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 13228,
+        "MangaDex": "f0c7ac83-5bad-4ec2-958c-418016009ee3",
+        "MangaUpdates": {
+          "id": 78103631378,
+          "url": "https://www.mangaupdates.com/series/zvovvo2/clover-tetsuhiro-hirakawa"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "487",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "1",
           "publishedAt": "2019-12-21T21:58:42+00:00",
-          "plausible": true
+          "plausible": false
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "1",
+          "publishedAt": "2019-12-21T00:00:00+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
       "title": "Clover",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx44568-5TSVZlJLcfab.png",
       "status": "FINISHED",
-      "chapter": "1",
-      "publishedAt": "2019-12-21T21:58:42+00:00",
-      "url": "https://mangadex.org/chapter/d6dc088a-c048-4b23-b720-ee047c29a3ae",
+      "chapter": "487",
+      "publishedAt": null,
+      "url": "https://mangabaka.org/manga/13228/Clover",
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [
-        {
-          "chapter": "1",
-          "date": "2019-12-21T21:58:42+00:00"
-        },
-        {
-          "chapter": "401.5",
-          "date": "2018-02-08T13:24:08+00:00"
-        },
-        {
-          "chapter": "401",
-          "date": "2018-02-08T13:23:55+00:00"
-        },
-        {
-          "chapter": "400",
-          "date": "2018-02-08T13:23:45+00:00"
-        },
-        {
-          "chapter": "399",
-          "date": "2018-02-08T13:23:41+00:00"
-        },
-        {
-          "chapter": "398",
-          "date": "2018-02-08T13:23:36+00:00"
-        },
-        {
-          "chapter": "397",
-          "date": "2018-02-08T13:23:31+00:00"
-        },
-        {
-          "chapter": "396",
-          "date": "2018-02-08T13:23:28+00:00"
-        },
-        {
-          "chapter": "395",
-          "date": "2018-02-08T13:23:19+00:00"
-        },
-        {
-          "chapter": "394",
-          "date": "2018-02-08T13:23:13+00:00"
-        },
-        {
-          "chapter": "393",
-          "date": "2018-02-08T13:23:08+00:00"
-        },
-        {
-          "chapter": "392",
-          "date": "2018-02-08T13:23:04+00:00"
-        }
-      ],
+      "history": [],
       "quiet": false
     },
     "132029": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 4627,
+        "MangaDex": "68112dc1-2b80-4f20-beb8-2f2a8716a430",
+        "MangaUpdates": {
+          "id": 64884662872,
+          "url": "https://www.mangaupdates.com/series/tt2niag/dandadan"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "251",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "251",
           "publishedAt": "2026-11-02T15:07:52+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "251",
           "publishedAt": "2026-11-02T00:00:00+00:00",
           "plausible": true
@@ -587,19 +720,46 @@
       "quiet": false
     },
     "106929": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 57,
+        "MangaDex": "7e544761-7d3d-4fce-8137-719814d7d138",
+        "MangaUpdates": {
+          "id": 10076623491,
+          "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed"
+        },
+        "Webtoon": "https://www.webtoons.com/en/action/eleceed/rss?title_no=1571"
+      },
       "agreement": "conflict",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "425",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "390",
           "publishedAt": "2026-06-24T22:02:33+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "425",
           "publishedAt": "2026-11-03T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "410",
+          "publishedAt": "2026-11-03T02:00:12+00:00",
           "plausible": true
         }
       ],
@@ -609,7 +769,7 @@
       "status": "RELEASING",
       "chapter": "425",
       "publishedAt": "2026-11-03T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed",
+      "url": "https://www.webtoons.com/en/action/eleceed/episode-410/viewer?title_no=1571&episode_no=410",
       "typicalGapDays": 7,
       "expectedNext": "2026-11-10",
       "history": [
@@ -665,46 +825,84 @@
       "quiet": false
     },
     "87395": {
-      "agreement": "none",
-      "source": null,
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 1264,
+        "MangaDex": "fffbfac3-b7ad-41ee-9581-b4d90ecec941",
+        "MangaUpdates": {
+          "id": 65672018770,
+          "url": "https://www.mangaupdates.com/series/u63f9zm/grand-blue"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "112",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "79",
           "publishedAt": "2024-09-09T08:43:29+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "84",
           "publishedAt": "2023-06-09T00:00:00+00:00",
           "plausible": false
         }
       ],
-      "limited": true,
+      "limited": false,
       "title": "Grand Blue Dreaming",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx87395-axsA49kSZp72.jpg",
       "status": "RELEASING",
-      "chapter": null,
+      "chapter": "112",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/1264/Grand-Blue-Dreaming",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "30007": {
+      "hiatus": true,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 206,
+        "MangaDex": "f7888782-0727-49b0-95ec-a3530c70f83b",
+        "MangaUpdates": {
+          "id": 20546760497,
+          "url": "https://www.mangaupdates.com/series/9ft0dv5/hajime-no-ippo"
+        }
+      },
       "agreement": "conflict",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "1515",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "1493",
           "publishedAt": "2025-05-27T17:06:38+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "1515",
           "publishedAt": "2026-03-03T00:00:00+00:00",
           "plausible": true
@@ -772,51 +970,84 @@
       "quiet": true
     },
     "30936": {
-      "agreement": "single",
-      "source": "MangaUpdates",
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 9706,
+        "MangaDex": "231d5196-1f41-4eba-af8d-841d40bc548d",
+        "MangaUpdates": {
+          "id": 16187629177,
+          "url": "https://www.mangaupdates.com/series/7fpp2m1/homunculus"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "166",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "3",
           "publishedAt": "2018-02-10T02:14:23+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "106",
           "publishedAt": "2009-08-16T00:00:00+00:00",
-          "plausible": true
+          "plausible": false
         }
       ],
       "limited": false,
       "title": "Homunculus",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30936-P55KMUW1sgLN.jpg",
       "status": "FINISHED",
-      "chapter": "106",
-      "publishedAt": "2009-08-16T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/7fpp2m1/homunculus",
+      "chapter": "166",
+      "publishedAt": null,
+      "url": "https://mangabaka.org/manga/9706/Homunculus",
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [
-        {
-          "chapter": "106",
-          "date": "2009-08-16T00:00:00+00:00"
-        }
-      ],
+      "history": [],
       "quiet": false
     },
     "30026": {
+      "hiatus": true,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 677,
+        "MangaDex": "db692d58-4b13-4174-ae8c-30c515c0689c",
+        "MangaUpdates": {
+          "id": 49449837876,
+          "url": "https://www.mangaupdates.com/series/mpt5n3o/hunter-x-hunter"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "420",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "420",
           "publishedAt": "2026-09-06T15:20:29+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "420",
           "publishedAt": "2026-09-06T00:00:00+00:00",
           "plausible": true
@@ -884,14 +1115,40 @@
       "quiet": true
     },
     "137280": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1291,
+        "MangaDex": "a253e13a-2b41-4f7d-915e-1e31a3f5d31d",
+        "MangaUpdates": {
+          "id": 66833512843,
+          "url": "https://www.mangaupdates.com/series/upay4jv/i-m-the-max-level-newbie"
+        },
+        "Webtoon": "https://www.webtoons.com/en/action/im-the-max-level-newbie/rss?title_no=3915"
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "283",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "283",
           "publishedAt": "2026-10-29T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "3",
+          "publishedAt": "2022-02-26T01:00:41+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
@@ -956,17 +1213,36 @@
       "quiet": false
     },
     "30375": {
-      "agreement": "none",
-      "source": null,
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 5527,
+        "MangaDex": "21f54bc1-aefd-4be1-8284-5858b1df0e55",
+        "MangaUpdates": {
+          "id": 75048134667,
+          "url": "https://www.mangaupdates.com/series/yh5pzbf/initial-d"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "725",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "183",
           "publishedAt": "2024-09-09T08:54:16+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "4",
           "publishedAt": "2021-03-03T00:00:00+00:00",
           "plausible": false
@@ -976,22 +1252,47 @@
       "title": "Initial D",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/nx30375-YFIIOwp5kSqW.jpg",
       "status": "FINISHED",
-      "chapter": null,
+      "chapter": "725",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/5527/Initial-D",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "138072": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 408,
+        "MangaDex": "ab8cbb82-d0ed-45a7-8ffe-4bfa6d43d79c",
+        "MangaUpdates": {
+          "id": 39475021878,
+          "url": "https://www.mangaupdates.com/series/i4uepti/jojo-no-kimyou-na-bouken-part-9-the-jojolands"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "41",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "41",
           "publishedAt": "2026-10-18T14:56:32+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "41",
+          "publishedAt": "2026-10-18T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -1057,17 +1358,36 @@
       "quiet": false
     },
     "198372": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 410304,
+        "MangaDex": "f3f59f12-351a-4de7-bd51-696d0764d64e",
+        "MangaUpdates": {
+          "id": 30118232635,
+          "url": "https://www.mangaupdates.com/series/du3m917/jujutsu-kaisen-modulo"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "26",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "4",
           "publishedAt": "2026-08-26T19:34:58+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "25",
           "publishedAt": "2026-03-08T00:00:00+00:00",
           "plausible": true
@@ -1135,20 +1455,39 @@
       "quiet": false
     },
     "37375": {
-      "agreement": "conflict",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1307,
+        "MangaDex": "bb8310e4-6050-4a43-984e-f7bbdfce23b1",
+        "MangaUpdates": {
+          "id": 29777637784,
+          "url": "https://www.mangaupdates.com/series/dogu4d4/kokou-no-hito"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "170",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "170",
           "publishedAt": "2024-12-30T01:19:36+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "122",
           "publishedAt": "2024-12-14T00:00:00+00:00",
-          "plausible": true
+          "plausible": false
         }
       ],
       "limited": false,
@@ -1213,19 +1552,46 @@
       "quiet": false
     },
     "141626": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 3036,
+        "MangaDex": "a3c09565-47aa-410c-a137-a3a6e6bfa8a8",
+        "MangaUpdates": {
+          "id": 36562359657,
+          "url": "https://www.mangaupdates.com/series/gsoa99l/manager-kim"
+        },
+        "Webtoon": "https://www.webtoons.com/en/action/manager-kim/rss?title_no=3917"
+      },
       "agreement": "conflict",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "266",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "238",
           "publishedAt": "2026-04-14T07:31:02+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "266",
           "publishedAt": "2026-11-04T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "249",
+          "publishedAt": "2026-10-31T01:00:29+00:00",
           "plausible": true
         }
       ],
@@ -1291,17 +1657,36 @@
       "quiet": false
     },
     "30028": {
-      "agreement": "single",
+      "hiatus": true,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 11530,
+        "MangaDex": "7e2ddc4c-c07c-4163-bf48-2b7c45f7b7fb",
+        "MangaUpdates": {
+          "id": 54125238536,
+          "url": "https://www.mangaupdates.com/series/ov4rpc8/nana"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "84",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "0.3",
           "publishedAt": "2024-05-01T15:46:35+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "84",
           "publishedAt": "2009-05-26T00:00:00+00:00",
           "plausible": true
@@ -1369,19 +1754,46 @@
       "quiet": true
     },
     "119257": {
+      "hiatus": true,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 2060,
+        "MangaDex": "9a414441-bbad-43f1-a3a7-dc262ca790a3",
+        "MangaUpdates": {
+          "id": 50369844984,
+          "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader"
+        },
+        "Webtoon": "https://www.webtoons.com/en/action/omniscient-reader/rss?title_no=2154"
+      },
       "agreement": "conflict",
-      "source": "MangaUpdates",
+      "source": "Webtoon",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "311",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "262",
           "publishedAt": "2025-05-14T02:09:05+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "311",
           "publishedAt": "2026-05-19T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "308",
+          "publishedAt": "2026-06-02T01:00:36+00:00",
           "plausible": true
         }
       ],
@@ -1389,69 +1801,87 @@
       "title": "Omniscient Reader",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx119257-Pi21aq3ey9GG.jpg",
       "status": "RELEASING",
-      "chapter": "311",
-      "publishedAt": "2026-05-19T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader",
-      "typicalGapDays": 6,
-      "expectedNext": "2026-05-25",
+      "chapter": "308",
+      "publishedAt": "2026-06-02T01:00:36+00:00",
+      "url": "https://www.webtoons.com/en/action/omniscient-reader/episode-308/viewer?title_no=2154&episode_no=309",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-06-09",
       "history": [
         {
-          "chapter": "311",
-          "date": "2026-05-19T00:00:00+00:00"
-        },
-        {
-          "chapter": "310",
-          "date": "2026-05-12T00:00:00+00:00"
-        },
-        {
-          "chapter": "309",
-          "date": "2026-04-28T00:00:00+00:00"
-        },
-        {
           "chapter": "308",
-          "date": "2026-04-21T00:00:00+00:00"
+          "date": "2026-06-02T01:00:36+00:00"
         },
         {
           "chapter": "307",
-          "date": "2026-04-15T00:00:00+00:00"
+          "date": "2026-05-26T01:00:32+00:00"
         },
         {
           "chapter": "306",
-          "date": "2026-04-07T00:00:00+00:00"
-        },
-        {
-          "chapter": "299",
-          "date": "2026-03-31T00:00:00+00:00"
+          "date": "2026-05-19T01:00:33+00:00"
         },
         {
           "chapter": "305",
-          "date": "2026-03-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "298",
-          "date": "2026-03-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "297",
-          "date": "2026-03-17T00:00:00+00:00"
+          "date": "2026-05-12T01:00:33+00:00"
         },
         {
           "chapter": "304",
-          "date": "2026-03-11T00:00:00+00:00"
+          "date": "2026-05-05T01:00:35+00:00"
         },
         {
-          "chapter": "296",
-          "date": "2026-03-10T00:00:00+00:00"
+          "chapter": "303",
+          "date": "2026-04-28T01:00:40+00:00"
+        },
+        {
+          "chapter": "302",
+          "date": "2026-04-21T01:00:36+00:00"
+        },
+        {
+          "chapter": "301",
+          "date": "2026-04-14T01:00:37+00:00"
+        },
+        {
+          "chapter": "300",
+          "date": "2026-04-07T01:00:37+00:00"
+        },
+        {
+          "chapter": "299",
+          "date": "2026-03-31T01:00:38+00:00"
+        },
+        {
+          "chapter": "298",
+          "date": "2026-03-24T01:00:37+00:00"
+        },
+        {
+          "chapter": "297",
+          "date": "2026-03-17T01:00:38+00:00"
         }
       ],
       "quiet": true
     },
     "74347": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 725,
+        "MangaDex": "d8a959f7-648e-4c8d-8f23-f1f3f8e129f3",
+        "MangaUpdates": {
+          "id": 30535847369,
+          "url": "https://www.mangaupdates.com/series/e1096mh/one-punch-man"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "240",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "240",
           "publishedAt": "2026-10-28T00:00:00+00:00",
           "plausible": true
@@ -1519,11 +1949,29 @@
       "quiet": false
     },
     "34632": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1357,
+        "MangaDex": "4301d363-ee02-43f4-ae24-4cbf29a74830",
+        "MangaUpdates": {
+          "id": 21944750964,
+          "url": "https://www.mangaupdates.com/series/a2xc67o/oyasumi-punpun"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "147",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "147",
           "publishedAt": "2014-01-28T00:00:00+00:00",
           "plausible": true
@@ -1591,20 +2039,47 @@
       "quiet": false
     },
     "141705": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1524,
+        "MangaDex": "d3de0128-f60b-4fd2-acc6-fa4735659a34",
+        "MangaUpdates": {
+          "id": 54083649331,
+          "url": "https://www.mangaupdates.com/series/oug0awj/reality-quest"
+        },
+        "Webtoon": "https://www.webtoons.com/en/action/reality-quest/rss?title_no=4697"
+      },
       "agreement": "conflict",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "228",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "196",
           "publishedAt": "2026-06-24T21:58:31+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "228",
           "publishedAt": "2026-10-30T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "5",
+          "publishedAt": "2022-11-21T03:01:28+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
@@ -1669,17 +2144,36 @@
       "quiet": false
     },
     "144939": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 2119,
+        "MangaDex": "96ae166c-d8e1-4e9e-88cb-805b65154d7e",
+        "MangaUpdates": {
+          "id": 24262295637,
+          "url": "https://www.mangaupdates.com/series/b59574l/red-blue"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "213",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "213",
           "publishedAt": "2026-11-03T17:21:27+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "213",
           "publishedAt": "2026-11-03T00:00:00+00:00",
           "plausible": true
@@ -1747,17 +2241,36 @@
       "quiet": false
     },
     "125828": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 247,
+        "MangaDex": "9d9b04ad-9a83-49f4-8ae4-a9a3780fe9c0",
+        "MangaUpdates": {
+          "id": 55469435605,
+          "url": "https://www.mangaupdates.com/series/phd2ifp/sakamoto-days"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "281",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "281",
           "publishedAt": "2026-11-01T15:11:51+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "281",
           "publishedAt": "2026-11-01T00:00:00+00:00",
           "plausible": true
@@ -1825,108 +2338,121 @@
       "quiet": false
     },
     "96223": {
-      "agreement": "none",
-      "source": null,
-      "sources": [],
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 118430,
+        "MangaUpdates": {
+          "id": 13102701241,
+          "url": "https://www.mangaupdates.com/series/60p0czd/sekai-no-owari-no-hajimari-ni"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
+      "sources": [
+        {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "4",
+          "publishedAt": null,
+          "plausible": true
+        }
+      ],
       "limited": false,
       "title": "Sekai no Owari no Hajimari ni",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx96223-RPHPXWy4RMP1.jpg",
       "status": "FINISHED",
-      "chapter": null,
+      "chapter": "4",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/118430/In-the-beginning-of-the-end-of-the-world",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "30727": {
-      "agreement": "agree",
-      "source": "MangaUpdates",
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 10658,
+        "MangaDex": "a81e63a3-83f1-4da5-95a4-ba431e830ce9",
+        "MangaUpdates": {
+          "id": 13138327965,
+          "url": "https://www.mangaupdates.com/series/61a7yql/shamo"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
-          "name": "MangaDex",
-          "chapter": "134",
-          "publishedAt": "2018-03-02T23:04:48+00:00",
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "338",
+          "publishedAt": null,
           "plausible": true
         },
         {
+          "name": "MangaDex",
+          "kind": "release",
+          "chapter": "134",
+          "publishedAt": "2018-03-02T23:04:48+00:00",
+          "plausible": false
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "134",
           "publishedAt": "2020-07-23T00:00:00+00:00",
-          "plausible": true
+          "plausible": false
         }
       ],
       "limited": false,
       "title": "Shamo",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/b30727-w8kVrUSI5ecE.png",
       "status": "FINISHED",
-      "chapter": "134",
-      "publishedAt": "2020-07-23T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/61a7yql/shamo",
-      "typicalGapDays": 41,
-      "expectedNext": "2020-09-02",
-      "history": [
-        {
-          "chapter": "134",
-          "date": "2020-07-23T00:00:00+00:00"
-        },
-        {
-          "chapter": "125",
-          "date": "2020-06-12T00:00:00+00:00"
-        },
-        {
-          "chapter": "116",
-          "date": "2015-03-29T00:00:00+00:00"
-        },
-        {
-          "chapter": "107",
-          "date": "2014-07-10T00:00:00+00:00"
-        },
-        {
-          "chapter": "98",
-          "date": "2013-10-13T00:00:00+00:00"
-        },
-        {
-          "chapter": "89",
-          "date": "2013-08-16T00:00:00+00:00"
-        },
-        {
-          "chapter": "80",
-          "date": "2012-12-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "71",
-          "date": "2012-08-02T00:00:00+00:00"
-        },
-        {
-          "chapter": "63",
-          "date": "2011-08-27T00:00:00+00:00"
-        },
-        {
-          "chapter": "62",
-          "date": "2011-08-20T00:00:00+00:00"
-        },
-        {
-          "chapter": "61",
-          "date": "2011-08-18T00:00:00+00:00"
-        },
-        {
-          "chapter": "60",
-          "date": "2011-08-14T00:00:00+00:00"
-        }
-      ],
+      "chapter": "338",
+      "publishedAt": null,
+      "url": "https://mangabaka.org/manga/10658/Shamo",
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false
     },
     "130229": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 47590,
+        "MangaDex": "e8c8bc87-0b71-4893-9940-3fbd4bfd386b",
+        "MangaUpdates": {
+          "id": 37560902795,
+          "url": "https://www.mangaupdates.com/series/h96si2z/shotgun-boy"
+        },
+        "Webtoon": "https://www.webtoons.com/en/thriller/shotgun-boy/rss?title_no=2534"
+      },
+      "agreement": "agree",
       "source": "MangaUpdates",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "69",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "67",
           "publishedAt": "2022-07-21T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "6",
+          "publishedAt": "2021-04-15T01:00:58+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
@@ -1991,17 +2517,36 @@
       "quiet": false
     },
     "107098": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 21,
+        "MangaDex": "b5b21ca1-bba5-4b9a-8cd1-6248f731650b",
+        "MangaUpdates": {
+          "id": 67808789330,
+          "url": "https://www.mangaupdates.com/series/v5flope/shuumatsu-no-valkyrie"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "126",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "126",
           "publishedAt": "2026-10-29T18:19:09+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "126",
           "publishedAt": "2026-10-29T00:00:00+00:00",
           "plausible": true
@@ -2069,13 +2614,38 @@
       "quiet": false
     },
     "179444": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 3544,
+        "MangaDex": "6676aef9-cf30-4950-9a20-e0382b5e7447",
+        "MangaUpdates": {
+          "id": 62332549794,
+          "url": "https://www.mangaupdates.com/series/smv6v8i/shuumatsu-no-valkyrie-kamigami-no-apocalypse"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "32",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "32",
           "publishedAt": "2026-10-29T18:32:55+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "32",
+          "publishedAt": "2026-10-29T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2141,17 +2711,36 @@
       "quiet": false
     },
     "108556": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1288,
+        "MangaDex": "6b958848-c885-4735-9201-12ee77abcb3c",
+        "MangaUpdates": {
+          "id": 67814124606,
+          "url": "https://www.mangaupdates.com/series/v5is1fi/spy-x-family"
+        }
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "142",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "142",
           "publishedAt": "2026-10-25T15:10:00+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "142",
           "publishedAt": "2026-10-25T00:00:00+00:00",
           "plausible": true
@@ -2219,36 +2808,145 @@
       "quiet": false
     },
     "100954": {
-      "agreement": "none",
-      "source": null,
-      "sources": [],
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 26401,
+        "MangaDex": "7cc37898-6669-407f-b7a6-f23a2859bc0b",
+        "MangaUpdates": {
+          "id": 65988109643,
+          "url": "https://www.mangaupdates.com/series/ubbm79n/sweet-home-kim-carnby"
+        },
+        "Webtoon": "https://www.webtoons.com/en/thriller/sweethome/rss?title_no=1285"
+      },
+      "agreement": "agree",
+      "source": "MangaUpdates",
+      "sources": [
+        {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "141",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "140",
+          "publishedAt": "2020-08-31T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "14",
+          "publishedAt": "2018-04-02T04:00:18+00:00",
+          "plausible": false
+        }
+      ],
       "limited": false,
       "title": "Sweet Home",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx100954-xY0Vw2sRRo8t.png",
       "status": "FINISHED",
-      "chapter": null,
-      "publishedAt": null,
-      "url": null,
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "chapter": "140",
+      "publishedAt": "2020-08-31T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/ubbm79n/sweet-home-kim-carnby",
+      "typicalGapDays": 7,
+      "expectedNext": "2020-09-07",
+      "history": [
+        {
+          "chapter": "140",
+          "date": "2020-08-31T00:00:00+00:00"
+        },
+        {
+          "chapter": "139",
+          "date": "2020-08-24T00:00:00+00:00"
+        },
+        {
+          "chapter": "138",
+          "date": "2020-08-17T00:00:00+00:00"
+        },
+        {
+          "chapter": "137",
+          "date": "2020-08-10T00:00:00+00:00"
+        },
+        {
+          "chapter": "136",
+          "date": "2020-08-03T00:00:00+00:00"
+        },
+        {
+          "chapter": "135",
+          "date": "2020-07-27T00:00:00+00:00"
+        },
+        {
+          "chapter": "134",
+          "date": "2020-07-20T00:00:00+00:00"
+        },
+        {
+          "chapter": "133",
+          "date": "2020-07-13T00:00:00+00:00"
+        },
+        {
+          "chapter": "132",
+          "date": "2020-07-06T00:00:00+00:00"
+        },
+        {
+          "chapter": "131",
+          "date": "2020-06-29T00:00:00+00:00"
+        },
+        {
+          "chapter": "130",
+          "date": "2020-06-22T00:00:00+00:00"
+        },
+        {
+          "chapter": "129",
+          "date": "2020-06-15T00:00:00+00:00"
+        }
+      ],
       "quiet": false
     },
     "140407": {
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 3391,
+        "MangaDex": "d7f56ace-cd30-48b9-8b64-afeca0077fca",
+        "MangaUpdates": {
+          "id": 27180626786,
+          "url": "https://www.mangaupdates.com/series/chin5uq/the-greatest-estate-developer"
+        },
+        "Webtoon": "https://www.webtoons.com/en/fantasy/the-greatest-estate-developer/rss?title_no=3596"
+      },
       "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "222",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "223.9",
           "publishedAt": "2026-04-01T11:17:34+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "223",
           "publishedAt": "2026-03-18T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Webtoon",
+          "kind": "release",
+          "chapter": "7",
+          "publishedAt": "2021-12-19T02:00:37+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
@@ -2277,14 +2975,39 @@
       "quiet": false
     },
     "85611": {
-      "agreement": "single",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 8297,
+        "MangaDex": "59f47645-66a9-443e-8228-788313c3ae3c",
+        "MangaUpdates": {
+          "id": 45405144027,
+          "url": "https://www.mangaupdates.com/series/kux1tcr/toukyou-ghoul-re"
+        }
+      },
+      "agreement": "agree",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "181",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "179",
           "publishedAt": "2026-08-26T18:41:30+00:00",
           "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "91",
+          "publishedAt": "2023-09-28T00:00:00+00:00",
+          "plausible": false
         }
       ],
       "limited": false,
@@ -2349,17 +3072,36 @@
       "quiet": false
     },
     "102988": {
-      "agreement": "none",
-      "source": null,
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 5391,
+        "MangaDex": "59b36734-f2d6-46d7-97c0-06cfd2380852",
+        "MangaUpdates": {
+          "id": 22666849312,
+          "url": "https://www.mangaupdates.com/series/aev98v4/toukyou-revengers"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "279",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "3",
           "publishedAt": "2024-09-09T08:39:57+00:00",
           "plausible": false
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "157",
           "publishedAt": "2023-09-13T00:00:00+00:00",
           "plausible": false
@@ -2369,104 +3111,93 @@
       "title": "Tokyo Revengers",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx102988-OoVJxQCH6fbR.jpg",
       "status": "FINISHED",
-      "chapter": null,
+      "chapter": "279",
       "publishedAt": null,
-      "url": null,
+      "url": "https://mangabaka.org/manga/5391/Tokyo-Revengers",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
       "quiet": false
     },
     "39982": {
-      "agreement": "agree",
-      "source": "MangaUpdates",
+      "hiatus": false,
+      "countOnly": true,
+      "matches": {
+        "MangaBaka": 1518,
+        "MangaDex": "a07320a4-afcd-413a-a451-d69a448d0c28",
+        "MangaUpdates": {
+          "id": 31737389677,
+          "url": "https://www.mangaupdates.com/series/ekvmelp/usogui"
+        }
+      },
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
-          "name": "MangaDex",
-          "chapter": "3",
-          "publishedAt": "2025-03-22T06:26:27+00:00",
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "541",
+          "publishedAt": null,
           "plausible": true
         },
         {
+          "name": "MangaDex",
+          "kind": "release",
+          "chapter": "3",
+          "publishedAt": "2025-03-22T06:26:27+00:00",
+          "plausible": false
+        },
+        {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "4",
           "publishedAt": "2025-04-05T00:00:00+00:00",
-          "plausible": true
+          "plausible": false
         }
       ],
       "limited": false,
       "title": "Usogui",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx39982-68LS2Z9075Kw.jpg",
       "status": "FINISHED",
-      "chapter": "4",
-      "publishedAt": "2025-04-05T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/ekvmelp/usogui",
-      "typicalGapDays": 5,
-      "expectedNext": "2025-04-10",
-      "history": [
-        {
-          "chapter": "4",
-          "date": "2025-04-05T00:00:00+00:00"
-        },
-        {
-          "chapter": "3",
-          "date": "2025-03-21T00:00:00+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2025-03-16T00:00:00+00:00"
-        },
-        {
-          "chapter": "79",
-          "date": "2024-05-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "78",
-          "date": "2024-04-23T00:00:00+00:00"
-        },
-        {
-          "chapter": "77",
-          "date": "2024-03-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "76",
-          "date": "2024-02-23T00:00:00+00:00"
-        },
-        {
-          "chapter": "75",
-          "date": "2023-11-27T00:00:00+00:00"
-        },
-        {
-          "chapter": "74",
-          "date": "2023-11-19T00:00:00+00:00"
-        },
-        {
-          "chapter": "73",
-          "date": "2023-11-18T00:00:00+00:00"
-        },
-        {
-          "chapter": "72",
-          "date": "2023-11-13T00:00:00+00:00"
-        },
-        {
-          "chapter": "71",
-          "date": "2023-09-15T00:00:00+00:00"
-        }
-      ],
+      "chapter": "541",
+      "publishedAt": null,
+      "url": "https://mangabaka.org/manga/1518/Usogui",
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false
     },
     "30656": {
-      "agreement": "single",
+      "hiatus": true,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 1566,
+        "MangaDex": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
+        "MangaUpdates": {
+          "id": 62774509478,
+          "url": "https://www.mangaupdates.com/series/su6blie/vagabond"
+        }
+      },
+      "agreement": "conflict",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "327",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "303",
           "publishedAt": "2020-06-30T07:40:34+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "2",
           "publishedAt": "2020-11-08T00:00:00+00:00",
           "plausible": false
@@ -2534,17 +3265,36 @@
       "quiet": true
     },
     "117195": {
-      "agreement": "agree",
+      "hiatus": false,
+      "countOnly": false,
+      "matches": {
+        "MangaBaka": 593,
+        "MangaDex": "296cbc31-af1a-4b5b-a34b-fee2b4cad542",
+        "MangaUpdates": {
+          "id": 17997087747,
+          "url": "https://www.mangaupdates.com/series/89n01s3/oshi-no-ko"
+        }
+      },
+      "agreement": "conflict",
       "source": "MangaDex",
       "sources": [
         {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "171",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
           "name": "MangaDex",
+          "kind": "release",
           "chapter": "166",
           "publishedAt": "2026-08-26T18:44:14+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
+          "kind": "release",
           "chapter": "166.5",
           "publishedAt": "2024-12-22T00:00:00+00:00",
           "plausible": true

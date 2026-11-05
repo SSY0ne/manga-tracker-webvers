@@ -374,3 +374,8 @@
 {"t": "2026-11-03T00:00:00+00:00", "id": 106929, "title": "Eleceed", "type": "chapter", "chapter": "425", "source": "MangaUpdates", "backfilled": true}
 {"t": "2026-11-03T17:21:27+00:00", "id": 144939, "title": "Red Blue", "type": "chapter", "chapter": "213", "source": "MangaDex", "backfilled": true}
 {"t": "2026-11-04T00:00:00+00:00", "id": 141626, "title": "Manager Kim", "type": "chapter", "chapter": "266", "source": "MangaUpdates", "backfilled": true}
+{"t": "2026-11-05T00:20:19+00:00", "id": 44568, "title": "Clover", "type": "source_change", "chapter": "487", "previous": "1", "source": "MangaBaka", "previousSource": "MangaDex"}
+{"t": "2026-11-05T00:20:19+00:00", "id": 30936, "title": "Homunculus", "type": "source_change", "chapter": "166", "previous": "106", "source": "MangaBaka", "previousSource": "MangaUpdates"}
+{"t": "2026-11-05T00:20:19+00:00", "id": 119257, "title": "Omniscient Reader", "type": "source_change", "chapter": "308", "previous": "311", "source": "Webtoon", "previousSource": "MangaUpdates"}
+{"t": "2026-11-05T00:20:19+00:00", "id": 30727, "title": "Shamo", "type": "source_change", "chapter": "338", "previous": "134", "source": "MangaBaka", "previousSource": "MangaUpdates"}
+{"t": "2026-11-05T00:20:19+00:00", "id": 39982, "title": "Usogui", "type": "source_change", "chapter": "541", "previous": "4", "source": "MangaBaka", "previousSource": "MangaUpdates"}
