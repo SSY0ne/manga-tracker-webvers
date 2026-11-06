@@ -10,7 +10,8 @@ on:
       - "reference_counts.json"
       - "index.html"
       - "fixtures/**"
-      - ".github/workflows/tests.yml"
+      - ".github/workflows/*.yml"
+      - ".github/dependabot.yml"
   pull_request:
 
 jobs:
@@ -24,4 +25,4 @@ jobs:
           python-version: "3.12"
 
       - name: Run the rule tests, the recorded-fixture tests and the page-script checks
-        run: python3 -m unittest -v test_rules test_fixtures test_js test_reference
+        run: python3 -m unittest -v test_rules test_fixtures test_js test_reference test_bot test_workflows

@@ -167,6 +167,28 @@ In the detail panel (with `server.py` running), "Alerts and rhythm" sets, for on
 They are saved in `series.json` as `"alerts": "breaks" | "off"` and `"gapDays": 30`; the default
 values are simply not stored. Commit and push `series.json` so the daily bot uses them.
 
+## Keeping the daily bot alive
+
+What can go wrong with a once-a-day GitHub job, and what is in place for each:
+
+| Problem | What protects you |
+|---|---|
+| **The run fails** (a source is down, a bug) | The workflow's last step sends a failure alert to Discord/email with a link to the run. GitHub also emails failed runs to the repo owner by default. |
+| **The run hangs** | `timeout-minutes: 20` (a normal run takes about 3 minutes). |
+| **Two runs overlap** (a manual run during the scheduled one) | A `concurrency` group: the second waits. |
+| **The push of the new state is rejected** because someone pushed meanwhile (it happened) | The save step does `git pull --rebase` and retries 3 times. |
+| **The job never starts** (disabled, delayed, an outage) | The **page's Health tab** shows a red banner when the bot hasn't run for 36 hours, and an optional **watchdog**: set the repo secret `HEALTHCHECK_URL` to a [healthchecks.io](https://healthchecks.io) check (free). The bot pings it after each good run (and `/fail` after a bad one); if the ping stops arriving you get an email. No secret, no ping, nothing breaks. |
+| **An action gets retired** (checkout, setup-python) | Dependabot opens a weekly pull request to update them. |
+| **A workflow file is broken** (an earlier version had a stray `: ` in a plain YAML line, so GitHub could not read it and the bot silently never ran) | `test_workflows.py` parses every workflow file and checks the settings above, and any change to a workflow triggers the tests. |
+
+**Scheduled runs start late.** GitHub often delays them: the first scheduled run on this repo, set for 07:00 UTC,
+started at 14:47 UTC. Treat "daily" as "once a day, some time that day"; the 36-hour warning allows for it.
+
+**GitHub switches off scheduled workflows in a public repo after 60 days with no repository activity.** The bot
+commits its results (`state.json`) after every run, which should count as activity, but I could not confirm from
+GitHub's documentation that commits made by the workflow itself do. If the Actions tab ever shows the workflow
+as disabled, press "Enable workflow". The watchdog above notices within a day.
+
 ## Email alerts (Gmail)
 
 Same messages by email. Create a Gmail **app password** (Google Account, Security,

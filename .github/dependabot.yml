@@ -1,0 +1,8 @@
+# Keeps the actions used by the workflows (checkout, setup-python) up to date, so the daily job
+# doesn't break the day GitHub retires an old version of one of them.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

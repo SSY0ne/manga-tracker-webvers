@@ -2,15 +2,21 @@ name: Daily manga check
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # every day at 07:00 UTC
+    - cron: "0 7 * * *"   # once a day. GitHub often starts scheduled jobs late (hours), so "07:00" means "sometime that day"
   workflow_dispatch:       # lets you run it by hand from the Actions tab
 
 permissions:
   contents: write          # needed to save state.json back to the repo
 
+# Never two runs at once (a manual run during the scheduled one would fight over state.json)
+concurrency:
+  group: daily-check
+  cancel-in-progress: false
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 20    # a normal run takes about 3 minutes; a hung one must not sit there for 6 hours
     steps:
       - uses: actions/checkout@v4
 
@@ -35,7 +41,25 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add state.json history.jsonl
             git commit -m "Update state"
-            git push
+            # Someone may have pushed while the run was going (it happened): rebase on top and try again
+            for attempt in 1 2 3; do
+              if git pull --rebase origin "$GITHUB_REF_NAME" && git push; then
+                exit 0
+              fi
+              echo "push attempt $attempt failed, retrying in 5 seconds"
+              sleep 5
+            done
+            echo "Could not push the new state after 3 attempts"
+            exit 1
+          fi
+
+      - name: Tell the watchdog we are alive
+        if: success()
+        env:
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}   # optional: a dead man's switch such as healthchecks.io
+        run: |
+          if [ -n "$HEALTHCHECK_URL" ]; then
+            curl -fsS -m 15 --retry 3 "$HEALTHCHECK_URL" > /dev/null || echo "watchdog ping failed (ignored)"
           fi
 
       - name: Tell me if the run failed
@@ -45,6 +69,10 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          if [ -n "$HEALTHCHECK_URL" ]; then
+            curl -fsS -m 15 "$HEALTHCHECK_URL/fail" > /dev/null || echo "watchdog ping failed (ignored)"
+          fi
           python3 check.py --alert "The daily manga check failed. Details: $RUN_URL"
