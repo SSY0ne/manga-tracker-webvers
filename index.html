@@ -66,6 +66,7 @@
 
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button type="button" role="tab" id="tabbtn-list" aria-selected="true" aria-controls="tab-list" data-tab="list" class="tab active">Library</button>
+      <button type="button" role="tab" id="tabbtn-discover" aria-selected="false" aria-controls="tab-discover" tabindex="-1" data-tab="discover" class="tab">Discover</button>
       <button type="button" role="tab" id="tabbtn-calendar" aria-selected="false" aria-controls="tab-calendar" tabindex="-1" data-tab="calendar" class="tab">Calendar</button>
       <button type="button" role="tab" id="tabbtn-activity" aria-selected="false" aria-controls="tab-activity" tabindex="-1" data-tab="activity" class="tab">Activity</button>
       <button type="button" role="tab" id="tabbtn-health" aria-selected="false" aria-controls="tab-health" tabindex="-1" data-tab="health" class="tab">Health</button>
@@ -74,6 +75,12 @@
     <main>
       <!-- ===== My list ===== -->
       <section id="tab-list" role="tabpanel" aria-labelledby="tabbtn-list">
+        <!-- Visitors only: the owner's sample library, or a list of their own kept in this browser -->
+        <div id="mode-switch" class="seg" role="group" aria-label="Which library" hidden>
+          <button type="button" data-mode="sample" aria-pressed="true">Sample library</button>
+          <button type="button" data-mode="mine" aria-pressed="false">My list <span id="mine-count"></span></button>
+        </div>
+
         <!-- Add / import (only with server.py running) -->
         <div id="add-section" hidden>
           <h2 class="section-title">Add a manga</h2>
@@ -91,7 +98,7 @@
         </div>
 
         <div class="list-head">
-          <h2 class="section-title">Your library</h2>
+          <h2 id="library-title" class="section-title">Your library</h2>
           <div class="toolbar">
             <label class="search-box">
               <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -155,6 +162,23 @@
             <p id="import-msg" class="msg"></p>
           </details>
         </div>
+      </section>
+
+      <!-- ===== Discover: browse and search, then add ===== -->
+      <section id="tab-discover" role="tabpanel" aria-labelledby="tabbtn-discover" hidden>
+        <h2 class="section-title">Find something to read</h2>
+        <label class="search-box wide">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input id="discover-text" type="search" placeholder="Search any manga, e.g. Berserk" autocomplete="off">
+        </label>
+        <div class="discover-controls">
+          <div id="discover-sorts" class="stats" role="group" aria-label="Browse by"></div>
+          <select id="discover-genre" aria-label="Genre"><option value="">All genres</option></select>
+        </div>
+        <p id="discover-where" class="msg"></p>
+        <p id="discover-msg" class="msg"></p>
+        <ul id="discover-grid" class="grid"></ul>
+        <button id="discover-more" type="button" class="btn ghost more-btn" hidden>Show more</button>
       </section>
 
       <!-- ===== Calendar ===== -->

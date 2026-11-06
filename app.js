@@ -22,6 +22,17 @@ const STATUS_LABEL = {
 
 let canEdit = false; // true only when server.py is running
 let entries = []; // what we show (one per series)
+// A visitor of the published site can keep a personal list in their own browser ("mine"), next to
+// the sample library (the owner's list). The owner (server.py) always sees their own list.
+const MINE_KEY = "manga-tracker:mine";
+const MODE_KEY = "manga-tracker:mode";
+let viewMode = "sample"; // "sample" | "mine" (visitors only)
+let sampleEntries = [];
+let mineEntries = [];
+// Your own reading progress and the "+N behind" numbers show for the owner and in "My list".
+function personal() {
+  return canEdit || viewMode === "mine";
+}
 let checkedAt = null;
 let health = null;
 let lastResults = [];
@@ -177,20 +188,28 @@ function applyLatest(e, info) {
   );
 }
 
+// Covers, titles and status from AniList, 50 at a time.
+async function fillBasics(list) {
+  for (let i = 0; i < list.length; i += 50) {
+    const chunk = list.slice(i, i + 50);
+    try {
+      const data = await anilist(
+        `query ($ids: [Int]) { Page(perPage: 50) {
+           media(id_in: $ids, type: MANGA) { ${FIELDS} } } }`,
+        { ids: chunk.map((e) => e.id) }
+      );
+      const byId = new Map(data.Page.media.map((m) => [m.id, fromAniList(m)]));
+      for (const e of chunk) Object.assign(e, byId.get(e.id) || {});
+    } catch {
+      /* offline: keep what we have */
+    }
+  }
+}
+
 // Fill entries with live data (AniList for covers/status, server.py for chapters).
 async function fillLive(list, onProgress) {
   if (list.length === 0) return;
-  try {
-    const data = await anilist(
-      `query ($ids: [Int]) { Page(perPage: 50) {
-         media(id_in: $ids, type: MANGA) { ${FIELDS} } } }`,
-      { ids: list.map((e) => e.id) }
-    );
-    const byId = new Map(data.Page.media.map((m) => [m.id, fromAniList(m)]));
-    for (const e of list) Object.assign(e, byId.get(e.id) || {});
-  } catch {
-    /* offline: keep what we have */
-  }
+  await fillBasics(list);
   let done = 0;
   for (const e of list) {
     if (canEdit) {
@@ -250,7 +269,12 @@ async function loadAll(onProgress) {
 
 async function setRead(e, n) {
   n = Math.max(0, Math.floor(n));
-  if (!canEdit) return false;
+  if (!canEdit) {
+    if (viewMode !== "mine") return false;
+    e.read = n; // a visitor's list lives in their browser
+    saveMine();
+    return true;
+  }
   const res = await fetch("api/series", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -408,7 +432,7 @@ function makeTile(e, opts = {}) {
       p.title = `${behind} chapters behind`;
       cover.append(p);
     }
-    if (canEdit && e.read && e.chapter) {
+    if (personal() && e.read && e.chapter) {
       const pct = Math.max(0, Math.min(100, Math.round((100 * e.read) / parseFloat(e.chapter))));
       const bar = document.createElement("span");
       bar.className = "bar";
@@ -606,11 +630,17 @@ function renderDetail(e) {
 
   // Your progress and this series' alert settings belong to the OWNER: a visitor to the published
   // site never sees them (they appear only while server.py is running).
-  if (canEdit) {
+  if (personal()) {
     const prog = el("div", "d-section");
     prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
     prog.lastChild.id = "detail-msg";
-    main.append(prog, settingsSection(e));
+    main.append(prog);
+    if (canEdit) main.append(settingsSection(e));
+    else {
+      main.append(
+        el("p", "msg", "Saved in this browser only. Chapter counts come from MangaBaka. Break alerts and release dates need the daily bot, which tracks the sample library.")
+      );
+    }
   }
 
   // What each source said
@@ -637,11 +667,11 @@ function renderDetail(e) {
 
   // Actions + links
   const actions = el("div", "d-actions");
-  if (canEdit) {
+  if (personal()) {
     const rm = el("button", "btn danger", "Remove from my list");
     rm.type = "button";
     rm.addEventListener("click", () => {
-      // Removing edits series.json, so ask first. The toast afterwards offers an Undo.
+      // Removing is hard to undo by hand, so ask first. The toast afterwards offers an Undo.
       const ask = el("div", "confirm", `Remove ${e.title} from your list?`);
       const yes = el("button", "btn danger", "Yes, remove");
       yes.type = "button";
@@ -649,9 +679,9 @@ function renderDetail(e) {
       no.type = "button";
       no.addEventListener("click", () => actions.replaceChildren(rm));
       yes.addEventListener("click", async () => {
-        const removed = await removeSeries(e.id);
+        const removed = canEdit ? await removeSeries(e.id) : removeMine(e.id);
         document.getElementById("detail").close();
-        if (removed) toast(`Removed ${removed.title}`, () => restoreSeries(removed));
+        if (removed) toast(`Removed ${removed.title}`, () => (canEdit ? restoreSeries(removed) : restoreMine(removed)));
       });
       actions.replaceChildren(ask, yes, no);
       no.focus(); // the safe choice is the one under your thumb
@@ -690,7 +720,7 @@ function isRunning(e) {
   return e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e);
 }
 function behindShown(e) {
-  return canEdit && isRunning(e) ? behindBy(e) : 0;
+  return personal() && isRunning(e) ? behindBy(e) : 0;
 }
 function isOnBreak(e) {
   return quietDays(e) > 0 || onHiatus(e);
@@ -767,7 +797,7 @@ function restoreView() {
 
 // The quick-filter chips under the header: a count you can click to filter the grid.
 function renderStats() {
-  if (loadProblem?.level === "bad") {
+  if (loadProblem?.level === "bad" && viewMode === "sample") {
     document.getElementById("stats").replaceChildren(); // "0 tracked" would be a lie when loading failed
     return;
   }
@@ -776,7 +806,7 @@ function renderStats() {
     { key: "new", label: "new this week", n: entries.filter(isNew).length, cls: "fresh" },
     { key: "onbreak", label: "on break", n: entries.filter(isOnBreak).length, cls: "warm" },
   ];
-  if (canEdit) defs.push({ key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" });
+  if (personal()) defs.push({ key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" });
   const current = document.getElementById("filter-show").value;
   document.getElementById("stats").replaceChildren(
     ...defs.map((d) => {
@@ -799,18 +829,31 @@ function renderStats() {
 function renderList() {
   const msg = document.getElementById("list-msg");
   const problem = document.getElementById("load-error");
-  problem.hidden = !loadProblem;
+  problem.hidden = !loadProblem || viewMode === "mine";
   if (loadProblem) {
     problem.className = `banner ${loadProblem.level}`;
     problem.textContent = loadProblem.text;
   }
   document.getElementById("mylist").removeAttribute("aria-busy");
-  msg.textContent =
-    entries.length || loadProblem?.level === "bad"
-      ? ""
-      : canEdit
-        ? "Nothing here yet. Search a manga above and press Add."
+  msg.replaceChildren();
+  if (!entries.length && !(loadProblem?.level === "bad" && viewMode === "sample")) {
+    if (viewMode === "mine") {
+      msg.append("Your list is empty. Find manga to add in ");
+      const go = el("button", "link-btn", "Discover");
+      go.type = "button";
+      go.addEventListener("click", () => selectTab("discover", true));
+      msg.append(go, ".");
+    } else {
+      msg.textContent = canEdit
+        ? "Nothing here yet. Search a manga above, or open Discover, and press Add."
         : "This library is empty.";
+    }
+  }
+  document.getElementById("library-title").textContent = canEdit
+    ? "Your library"
+    : viewMode === "mine"
+      ? "My list"
+      : "Sample library";
   document.getElementById("checked-at").textContent = checkedAt
     ? `Bot checked ${new Date(checkedAt).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`
     : "";
@@ -828,6 +871,268 @@ function renderList() {
       ? `Showing ${visible.length} of ${entries.length}` + (visible.length ? "" : ": nothing matches this filter")
       : "";
   document.getElementById("mylist").replaceChildren(...visible.map((e) => makeTile(e)));
+}
+
+// ---------- a visitor's own list ("My list", kept in this browser) ----------
+// A static site has no server, so a visitor's list is saved with localStorage. Chapter data comes
+// from AniList and MangaBaka, the two sources a browser may call directly (MangaDex and
+// MangaUpdates block browsers). MangaBaka only has a chapter COUNT and a hiatus flag, so My list
+// has no release dates and no rhythm-based break detection: that needs the bot.
+
+const MANGABAKA = "https://api.mangabaka.org/v1";
+const MB_FRESH_MS = 12 * 60 * 60 * 1000; // ask MangaBaka again after 12 hours
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function loadMine() {
+  try {
+    const v = JSON.parse(localStorage.getItem(MINE_KEY) || "[]");
+    return Array.isArray(v) ? v.filter((x) => x && Number.isInteger(x.id) && typeof x.title === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveMine() {
+  try {
+    const keep = ["id", "title", "read", "names", "year", "cover", "status", "chapter", "hiatus", "countOnly", "url", "mbAt"];
+    localStorage.setItem(MINE_KEY, JSON.stringify(mineEntries.map((e) => Object.fromEntries(keep.map((k) => [k, e[k]])))));
+  } catch {
+    /* private mode or full storage: the list just won't survive a reload */
+  }
+}
+
+// The MangaBaka record of a series, matched exactly by its AniList id (same rule as server.py).
+async function mangabakaFor(e) {
+  for (const term of (e.names || [e.title]).slice(0, 3)) {
+    const res = await fetch(`${MANGABAKA}/series/search?${new URLSearchParams({ q: term, limit: 10 })}`);
+    if (res.status === 429) throw new Error("rate limited");
+    if (!res.ok) continue;
+    const found = (await res.json()).data || [];
+    const hit = found.find((d) => (d.source?.anilist || {}).id === e.id);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function applyMangabaka(e, d) {
+  const total = d ? parseFloat(d.total_chapters) : NaN;
+  e.chapter = total > 0 ? String(total) : null;
+  e.countOnly = total > 0;
+  e.hiatus = d?.status === "hiatus";
+  e.url = d?.canonical_url || `https://anilist.co/manga/${e.id}`;
+}
+
+// Fill "My list" entries one by one (gently: MangaBaka rate-limits), showing each as it arrives.
+async function fillMine(list, { basics = true, force = false } = {}) {
+  if (basics) await fillBasics(list);
+  for (const e of list) {
+    if (force || !e.mbAt || Date.now() - e.mbAt > MB_FRESH_MS) {
+      try {
+        applyMangabaka(e, await mangabakaFor(e));
+        e.mbAt = Date.now();
+      } catch {
+        /* offline or rate limited: keep what we had, try again next visit */
+      }
+      await sleep(250);
+    }
+    e.pending = false;
+    if (viewMode === "mine") renderList();
+  }
+  saveMine();
+}
+
+function updateModeSwitch() {
+  document.getElementById("mine-count").textContent = mineEntries.length ? `(${mineEntries.length})` : "";
+  document.querySelectorAll("#mode-switch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === viewMode)));
+}
+
+function setMode(mode) {
+  viewMode = mode === "mine" && !canEdit ? "mine" : "sample";
+  entries = viewMode === "mine" ? mineEntries : sampleEntries;
+  try {
+    if (!canEdit) localStorage.setItem(MODE_KEY, viewMode);
+  } catch {
+    /* ignore */
+  }
+  // The "behind" options and the "+12" legend only mean something for a personal list.
+  document.querySelectorAll(".owner-only").forEach((n) => (n.hidden = !personal()));
+  document.querySelectorAll("option[data-owner]").forEach((o) => {
+    o.hidden = o.disabled = !personal();
+    if (o.disabled && o.selected) o.parentElement.value = o.parentElement.id === "sort-by" ? "title" : "all";
+  });
+  document.getElementById("about").hidden = canEdit || viewMode === "mine";
+  updateModeSwitch();
+  renderList();
+  if (viewMode === "mine") fillMine(mineEntries.filter((e) => e.pending || !e.mbAt || Date.now() - e.mbAt > MB_FRESH_MS), { basics: false });
+}
+
+// Returns the removed entry (so Undo can put it back), like removeSeries.
+function removeMine(id) {
+  const removed = mineEntries.find((e) => e.id === id) || null;
+  if (!removed) return null;
+  mineEntries = mineEntries.filter((e) => e.id !== id);
+  if (viewMode === "mine") entries = mineEntries;
+  saveMine();
+  updateModeSwitch();
+  renderList();
+  renderDiscover();
+  return removed;
+}
+
+function restoreMine(entry) {
+  if (mineEntries.some((e) => e.id === entry.id)) return;
+  mineEntries.push(entry);
+  if (viewMode === "mine") entries = mineEntries;
+  saveMine();
+  updateModeSwitch();
+  renderList();
+  renderDiscover();
+}
+
+function addToMine(m, btn) {
+  if (mineEntries.some((e) => e.id === m.id)) return;
+  const e = { ...m, read: 0, pending: true };
+  mineEntries.push(e);
+  if (viewMode === "mine") entries = mineEntries;
+  saveMine();
+  updateModeSwitch();
+  if (btn) {
+    btn.textContent = "Added";
+    btn.disabled = true;
+  }
+  toast(`Added ${m.title} to My list`, () => removeMine(m.id));
+  if (viewMode === "mine") renderList();
+  fillMine([e], { basics: false });
+}
+
+// ---------- Discover: browse and search, then add ----------
+
+const DISCOVER_SORT = {
+  popular: { label: "Popular", sort: "POPULARITY_DESC" },
+  trending: { label: "Trending", sort: "TRENDING_DESC" },
+  rated: { label: "Top rated", sort: "SCORE_DESC" },
+  newest: { label: "New releases", sort: "START_DATE_DESC" },
+};
+const GENRES = ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Mystery", "Psychological", "Romance", "Sci-Fi", "Slice of Life", "Sports", "Supernatural", "Thriller"];
+const disc = { by: "popular", genre: "", text: "", page: 0, items: [], more: false, busy: false, error: null, seq: 0 };
+
+async function discoverLoad(reset) {
+  if (disc.busy && !reset) return;
+  if (reset) {
+    disc.page = 0;
+    disc.items = [];
+  }
+  const mine = ++disc.seq; // a newer query makes an older answer irrelevant
+  disc.busy = true;
+  disc.error = null;
+  renderDiscover();
+  try {
+    const q = disc.text.trim();
+    const vars = { page: disc.page + 1, sort: q ? "SEARCH_MATCH" : DISCOVER_SORT[disc.by].sort };
+    if (q) vars.search = q;
+    if (disc.genre) vars.genre = disc.genre;
+    const data = await anilist(
+      `query ($page: Int, $sort: [MediaSort], $search: String, $genre: String) {
+         Page(page: $page, perPage: 24) {
+           pageInfo { hasNextPage }
+           media(type: MANGA, isAdult: false, format_not_in: [NOVEL], sort: $sort, search: $search, genre: $genre) { ${FIELDS} }
+         } }`,
+      vars
+    );
+    if (mine !== disc.seq) return;
+    disc.page += 1;
+    disc.items = disc.items.concat(data.Page.media.map(fromAniList));
+    disc.more = data.Page.pageInfo.hasNextPage;
+  } catch (err) {
+    if (mine !== disc.seq) return;
+    disc.error = err.message;
+  } finally {
+    if (mine === disc.seq) {
+      disc.busy = false;
+      renderDiscover();
+    }
+  }
+}
+
+function inLibrary(id) {
+  return (canEdit ? entries : mineEntries).some((e) => e.id === id);
+}
+
+function addToLibrary(m, btn) {
+  if (canEdit) addSeries(m, btn).then(renderDiscover);
+  else addToMine(m, btn);
+}
+
+function renderDiscover() {
+  const grid = document.getElementById("discover-grid");
+  if (!grid) return;
+  grid.setAttribute("aria-busy", String(disc.busy));
+  grid.replaceChildren(
+    ...disc.items.map((m) => {
+      const btn = el("button", "", inLibrary(m.id) ? "Added" : "Add");
+      btn.type = "button";
+      btn.disabled = inLibrary(m.id);
+      btn.addEventListener("click", () => addToLibrary(m, btn));
+      return makeTile(m, { button: btn });
+    })
+  );
+  const msg = document.getElementById("discover-msg");
+  msg.textContent = disc.error
+    ? `Couldn't load manga: ${disc.error}`
+    : disc.busy && !disc.items.length
+      ? "Loading..."
+      : !disc.busy && !disc.items.length && disc.page
+        ? "No results."
+        : "";
+  const more = document.getElementById("discover-more");
+  more.hidden = !disc.more || Boolean(disc.error);
+  more.disabled = disc.busy;
+  more.textContent = disc.busy ? "Loading..." : "Show more";
+  document.getElementById("discover-where").textContent = canEdit
+    ? "Adding saves to series.json, so the daily bot tracks it."
+    : "Adding saves to My list, which stays in this browser.";
+}
+
+function initDiscover() {
+  const chips = document.getElementById("discover-sorts");
+  Object.entries(DISCOVER_SORT).forEach(([key, v]) => {
+    const b = el("button", "stat", v.label);
+    b.type = "button";
+    b.dataset.by = key;
+    b.addEventListener("click", () => {
+      disc.by = key;
+      document.getElementById("discover-text").value = "";
+      disc.text = "";
+      syncDiscoverControls();
+      discoverLoad(true);
+    });
+    chips.append(b);
+  });
+  const genre = document.getElementById("discover-genre");
+  GENRES.forEach((g) => genre.append(new Option(g, g)));
+  genre.addEventListener("change", () => {
+    disc.genre = genre.value;
+    discoverLoad(true);
+  });
+  let t;
+  document.getElementById("discover-text").addEventListener("input", (ev) => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      disc.text = ev.target.value;
+      syncDiscoverControls();
+      discoverLoad(true);
+    }, 400);
+  });
+  document.getElementById("discover-more").addEventListener("click", () => discoverLoad(false));
+  syncDiscoverControls();
+}
+
+function syncDiscoverControls() {
+  document.querySelectorAll("#discover-sorts button").forEach((b) => {
+    const on = !disc.text.trim() && b.dataset.by === disc.by;
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
 }
 
 // ---------- actions (only with server.py) ----------
@@ -862,6 +1167,7 @@ async function removeSeries(id) {
   entries = entries.filter((e) => e.id !== id);
   renderList();
   renderResults();
+  renderDiscover();
   document.getElementById("list-msg").textContent =
     "Removed from series.json. Commit and push it to stop the bot tracking it.";
   return removed;
@@ -881,6 +1187,7 @@ async function restoreSeries(entry) {
   entries.push(entry);
   renderList();
   renderResults();
+  renderDiscover();
   document.getElementById("list-msg").textContent = `Restored ${entry.title}.`;
 }
 
@@ -1367,7 +1674,7 @@ function downloadIcs() {
 
 // ---------- wiring ----------
 
-const TAB_ORDER = ["list", "calendar", "activity", "health"];
+const TAB_ORDER = ["list", "discover", "calendar", "activity", "health"];
 
 function selectTab(name, focus = false) {
   TAB_ORDER.forEach((t) => {
@@ -1379,6 +1686,7 @@ function selectTab(name, focus = false) {
     document.getElementById(`tab-${t}`).hidden = !on;
     if (on && focus) btn.focus();
   });
+  if (name === "discover" && !disc.page && !disc.busy) discoverLoad(true);
   if (name === "calendar") renderCalendar();
   if (name === "activity") renderActivity();
   if (name === "health") renderHealth();
@@ -1416,6 +1724,7 @@ document.getElementById("import-file").addEventListener("change", async (ev) => 
   ev.target.value = ""; // lets you pick the same file again later
 });
 document.getElementById("refresh").addEventListener("click", refreshNow);
+document.querySelectorAll("#mode-switch button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
 
 let timer;
 document.getElementById("search").addEventListener("input", (ev) => {
@@ -1482,13 +1791,22 @@ async function init() {
   document.getElementById("add-section").hidden = !canEdit;
   document.getElementById("import-section").hidden = !canEdit; // the import lives at the bottom of the list
   document.getElementById("refresh").hidden = !canEdit;
-  document.getElementById("about").hidden = canEdit;
-  document.querySelectorAll(".owner-only").forEach((n) => (n.hidden = !canEdit));
-  if (!canEdit) document.querySelectorAll("option[data-owner]").forEach((o) => o.remove());
-  restoreView(); // after the options above, so a saved choice that no longer exists is ignored
+  document.getElementById("mode-switch").hidden = canEdit; // visitors choose: sample library or My list
+  initDiscover();
+  restoreView();
 
   await loadAll();
-  renderList();
+  sampleEntries = entries;
+  mineEntries = loadMine().map((x) => ({ ...x, pending: !x.mbAt }));
+  let mode = "sample";
+  if (!canEdit) {
+    try {
+      if (localStorage.getItem(MODE_KEY) === "mine") mode = "mine";
+    } catch {
+      /* ignore */
+    }
+  }
+  setMode(mode); // also draws the list, the legend and the options for that mode
   await loadHistory();
   updateHealthDot();
 }

@@ -42,8 +42,16 @@ like it is on break.
   16 wks quiet" or "listed as hiatus") instead of an old date.
 - **Two modes**. With `server.py` running you are the **owner**: add, import, edit settings, and see your
   own reading progress ("+N behind", progress bars, the "to catch up" chip). On a read-only host (the
-  published site) a **visitor** sees none of that: just the library, an about box with the GitHub link,
-  and a legend for the labels. Nothing personal is shown to visitors.
+  published site) a **visitor** sees the owner's list as a **sample library**, an about box with the GitHub
+  link and a legend, plus a personal **My list** (see below). Nothing of the owner's progress is shown.
+- **Discover tab** (everyone): browse Popular, Trending, Top rated and New releases, filter by genre, or
+  search any manga (AniList), then press Add. For the owner, Add saves to `series.json` (the daily bot
+  tracks it). For a visitor it saves to **My list**.
+- **My list** (visitors): a personal list kept in the browser (localStorage), with reading progress, "+N
+  behind" and Undo. A static site has no server, so chapter data comes from the two sources a browser may
+  call directly: AniList (covers, status) and MangaBaka (chapter **count** and hiatus flag). So My list has
+  no release dates, no rhythm-based break detection and no alerts: those need the daily bot, which tracks
+  the sample library. It is not synced between devices.
 - **Looks right when shared**: page description, Open Graph and Twitter tags, a web manifest, app icons and a
   1200x630 preview image (`python3 make_assets.py` draws them, with no manga art).
 - **Never blank**: grey placeholders while loading, and a clear red message if `series.json` can't be read.
