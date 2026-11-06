@@ -17,6 +17,8 @@
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
     python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
                                           sourced truth for finished series); one polite request per title
+    python3 devtools.py rules             how many recorded series each rule changes (the rule footprint), per set, and which
+                                          series the rare ones touch: a rule that fires for almost nothing is a candidate to remove
     python3 devtools.py score [SET]       how often the current rules agree with the web-checked truths, per set
                                           ("main" = the 40 series the rules were built on, "holdout" = never seen)
     python3 devtools.py mutate            break each rule on purpose, in a scratch copy, and say which tests notice
@@ -374,6 +376,29 @@ def score(set_name=None):
     print(f"\n{len(left)} recorded series have no web-checked truth yet (they count for nothing here).")
 
 
+def rules_footprint():
+    import corpus
+    import server
+
+    truth = corpus.load_truth()
+    per_rule, sets = {}, {"main": 0, "holdout": 0}
+    for fx in corpus.load_all():
+        which = (truth.get(str(fx["id"]), {}).get("set")) or ("main" if fx["id"] in {s["id"] for s in json.load(open(os.path.join(HERE, "series.json")))} else "holdout")
+        sets[which] += 1
+        _, snap = corpus.replay(fx)
+        for r in snap["rules"]:
+            per_rule.setdefault(r, {"main": [], "holdout": []})[which].append(fx["title"])
+    print(f"{sets['main']} series the rules were built on, {sets['holdout']} never seen\n")
+    print(f"{'rule':22} {'main':>5} {'holdout':>8}   what it does")
+    for r, where in sorted(per_rule.items(), key=lambda kv: -(len(kv[1]['main']) + len(kv[1]['holdout']))):
+        print(f"{r:22} {len(where['main']):5} {len(where['holdout']):8}   {server.RULE_LABELS.get(r, r)}")
+        if len(where["main"]) + len(where["holdout"]) <= 4:
+            print(f"{'':22} {', '.join(where['main'] + where['holdout'])}")
+    silent = [r for r in server.RULE_LABELS if r not in per_rule]
+    if silent:
+        print("\nnever fired on any recorded series:", ", ".join(silent))
+
+
 def mutate():
     """Mutation testing: if breaking a rule on purpose doesn't make a test fail, that rule is unprotected."""
     import glob
@@ -480,6 +505,8 @@ if __name__ == "__main__":
         record(sys.argv[2:])
     elif cmd == "wiki":
         wiki(sys.argv[2:])
+    elif cmd == "rules":
+        rules_footprint()
     elif cmd == "score":
         score(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "mutate":

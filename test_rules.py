@@ -606,6 +606,74 @@ class DormancyInTheBot(unittest.TestCase):
         self.assertNotIn("dormant", check.build_digest([("chapter", "x")], tracked=40, on_break=4).split("Tracking")[1])
 
 
+class RuleFootprint(unittest.TestCase):
+    """Every answer says which rules changed it, so a rule that suddenly fires a lot is visible."""
+
+    def rules(self, candidates, status="RELEASING", read=None):
+        return server.reconcile(candidates, read, status)["rules"]
+
+    def test_nothing_fired_when_the_sources_simply_agree(self):
+        self.assertEqual(self.rules([cnt(100), rel("MangaDex", 100, 2), rel("MangaUpdates", 100, 2)]), [])
+
+    def test_the_count_vote(self):
+        r = self.rules([cnt(487), cnt(401, source="Kitsu"), cnt(401, source="AniList")], "FINISHED")
+        self.assertIn("count_vote", r)
+        self.assertIn("count_only", r)
+
+    def test_a_feed_far_behind_the_count_is_stale(self):
+        self.assertIn("stale_feed", self.rules([cnt(366), rel("MangaDex", 150, 900), rel("MangaUpdates", 272, 900)]))
+
+    def test_a_lone_lagging_feed(self):
+        r = self.rules([cnt(327), cnt(327, source="Kitsu"), rel("MangaDex", 303, 2000)])
+        self.assertIn("lagging_feed", r)
+
+    def test_the_highest_chapter_beating_a_fresher_date(self):
+        r = self.rules([cnt(311), rel("MangaUpdates", 311, 40), rel("Webtoon", 308, 26, official=True)])
+        self.assertEqual(r, ["highest_chapter"])
+
+    def test_an_upload_date_after_the_end(self):
+        r = self.rules([cnt(181), cnt(179, source="Kitsu", ended="2018-07-05"), rel("MangaDex", 179, 70)], "FINISHED")
+        self.assertIn("upload_date_dropped", r)
+
+    def test_the_fallback_and_dormant_footprints_come_from_chapter_info(self):
+        helper = DormantRule("test_a_finished_series_is_never_dormant")
+        sources = [("MangaBaka", lambda *a: cnt(327)), ("MangaDex", lambda *a: rel("MangaDex", 303, 2000))]
+        refused = helper.info("RELEASING", sources, fallback=rel(server.ANY_LANGUAGE, 327, 2900))
+        self.assertTrue({"any_language_refused", "dormant"} <= set(refused["rules"]))
+        used = helper.info("RELEASING", [("MangaBaka", lambda *a: cnt(366)), ("MangaDex", lambda *a: rel("MangaDex", 150, 900))], fallback=rel(server.ANY_LANGUAGE, 367, 5))
+        self.assertIn("any_language", used["rules"])
+
+    def test_every_rule_has_a_label(self):
+        for rule in ("count_vote", "stale_feed", "lagging_feed", "highest_chapter", "upload_date_dropped", "any_language", "any_language_refused", "dormant", "count_only"):
+            self.assertIn(rule, server.RULE_LABELS)
+
+
+class RuleFootprintInTheBot(unittest.TestCase):
+    def test_counting_per_rule(self):
+        state = {"1": {"rules": ["count_only"]}, "2": {"rules": ["count_only", "dormant"]}, "3": {"rules": []}, "4": {}}
+        self.assertEqual(check.rule_counts(state), {"count_only": 2, "dormant": 1})
+
+    def test_no_warning_without_a_previous_run(self):
+        self.assertEqual(check.rule_notes({"count_vote": 30}, None, 40), [])
+
+    def test_a_sudden_jump_warns_and_names_the_rule(self):
+        notes = check.rule_notes({"count_vote": 9}, {"count_vote": 2}, 40)
+        self.assertEqual(len(notes), 1)
+        self.assertIn("outvoted", notes[0])
+        self.assertIn("9", notes[0])
+
+    def test_the_jump_needs_to_be_at_least_3_series_and_10_percent(self):
+        self.assertEqual(check.rule_notes({"x": 4}, {"x": 2}, 40), [])         # +2: normal movement
+        self.assertEqual(check.rule_notes({"x": 5}, {"x": 2}, 40), [])         # +3: under 10% of 40 (= 4)
+        self.assertEqual(len(check.rule_notes({"x": 6}, {"x": 2}, 40)), 1)      # +4 = 10% of 40
+        self.assertEqual(len(check.rule_notes({"x": 3}, {"x": 0}, 20)), 1)      # on a short list the floor is 3
+        self.assertEqual(check.rule_notes({"x": 14}, {"x": 11}, 100), [])       # +3 but under 10% of 100
+        self.assertEqual(len(check.rule_notes({"x": 21}, {"x": 11}, 100)), 1)   # +10 = 10% of 100
+
+    def test_a_new_rule_counts_from_zero(self):
+        self.assertEqual(len(check.rule_notes({"fresh_rule": 6}, {"count_vote": 1}, 40)), 1)
+
+
 class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
     """chapter_info() must return quietDays, because the bot and the page both trust it."""
 

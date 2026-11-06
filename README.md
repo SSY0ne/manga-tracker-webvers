@@ -185,6 +185,13 @@ python3 devtools.py record NAME        # re-record a series from the live source
 python3 devtools.py mutate             # break each rule on purpose and check the tests notice
 ```
 
+**Rule footprint**: every answer also records which rules changed it (`count_vote`, `stale_feed`,
+`lagging_feed`, `highest_chapter`, `upload_date_dropped`, `any_language`, `dormant`...). The bot saves the
+counts in `state.json`, the Health tab lists them, and the digest warns when one rule suddenly changes
+the answer for many more series than on the previous run (the data or the rule changed).
+`python3 devtools.py rules` shows the footprint on the recorded series, split into the series the rules
+were built on and the hold-out set; `python3 devtools.py score` compares answers with the web-checked truths.
+
 `fixtures/truth.json` holds what the web says (each with its source). A truth marked `enforced` fails
 the tests when the code disagrees; known misses (Initial D: 725, the web says 719) are listed but not enforced.
 

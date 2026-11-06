@@ -10,6 +10,9 @@
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
+  "rules": [
+   "count_only"
+  ],
   "source": "MangaBaka",
   "sources": [
    {

@@ -70,6 +70,12 @@
   "hiatus": true,
   "limited": false,
   "quietDays": 0,
+  "rules": [
+   "any_language_refused",
+   "count_only",
+   "dormant",
+   "lagging_feed"
+  ],
   "source": "MangaBaka",
   "sources": [
    {

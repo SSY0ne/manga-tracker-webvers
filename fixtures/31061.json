@@ -10,6 +10,7 @@
   "hiatus": false,
   "limited": false,
   "quietDays": 24,
+  "rules": [],
   "source": "MangaUpdates",
   "sources": [
    {

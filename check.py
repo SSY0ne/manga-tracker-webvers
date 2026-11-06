@@ -263,6 +263,31 @@ def chunk_lines(text, limit=1900):
     return chunks
 
 
+def rule_counts(state_map):
+    """{rule name: number of series it changed the answer for} from the per-series "rules" lists."""
+    counts = {}
+    for entry in state_map.values():
+        for rule in entry.get("rules") or []:
+            counts[rule] = counts.get(rule, 0) + 1
+    return counts
+
+
+def rule_notes(counts, previous, total_series):
+    """Heads-ups when a rule suddenly fires for many more series than on the previous run.
+
+    A rule was written for one kind of mistake in the data. If it starts changing the answer for a lot
+    more series overnight, the data (or the rule) has probably changed: worth a look. Needs a previous
+    run to compare with, and the jump must be at least 3 series and 10% of the list."""
+    notes = []
+    if not previous:
+        return notes
+    for rule, n in sorted(counts.items()):
+        was = previous.get(rule, 0)
+        if n - was >= max(3, total_series // 10):
+            notes.append(f"⚠️ rule \"{server.RULE_LABELS.get(rule, rule)}\" changed the answer for {n} series (was {was}): check the data")
+    return notes
+
+
 def health_notes(stats, total_series, lookup_failed):
     """Heads-ups about the run itself: a source that mostly failed, or series nobody answered for."""
     notes = []
@@ -381,6 +406,7 @@ def check(series_path, state_path, dry):
             "quietDays": quiet_for,
             "dormant": dormant,
             "dormantDays": dormant_for,
+            "rules": info.get("rules", []),  # which rules changed this answer (server.RULE_LABELS)
         }
 
         if old is None:
@@ -455,6 +481,8 @@ def check(series_path, state_path, dry):
             "series": len(new_state_map),
             "lookupFailed": lookup_failed,
             "sources": sources,
+            "rules": rule_counts(new_state_map),
+            "ruleLabels": {r: server.RULE_LABELS.get(r, r) for r in rule_counts(new_state_map)},  # so the page needn't copy them
         }
         # One compact "run" line per run, so the Health tab can show a trend.
         events.append(
@@ -469,7 +497,8 @@ def check(series_path, state_path, dry):
     return {
         "messages": messages,
         "events": events,
-        "notes": health_notes(server.STATS, len(series), lookup_failed),
+        "notes": health_notes(server.STATS, len(series), lookup_failed)
+        + (rule_notes(rule_counts(new_state_map), (raw.get("health") or {}).get("rules"), len(series)) if not dry else []),
         "tracked": len(new_state_map),
         "on_break": sum(1 for v in new_state_map.values() if v["quiet"]),
         "dormant": sum(1 for v in new_state_map.values() if v["dormant"]),

@@ -564,6 +564,20 @@ def close(a, b):
     return False
 
 
+# What each footprint name means (shown in the Health tab and the digest).
+RULE_LABELS = {
+    "count_vote": "a chapter count was outvoted by the others",
+    "stale_feed": "a release feed far behind the count was ignored",
+    "lagging_feed": "a lone feed that stopped early lost to the count",
+    "highest_chapter": "the highest chapter beat a fresher date",
+    "upload_date_dropped": "an upload date after the series ended was dropped",
+    "any_language": "MangaDex in any language was used",
+    "any_language_refused": "the any-language answer was refused (too old or too high)",
+    "dormant": "marked dormant (years without a chapter)",
+    "count_only": "no release feed fits: count only",
+}
+
+
 def lower_median(values):
     """The middle value (the lower one when there are two): one wrong count can't pull it far."""
     values = sorted(values)
@@ -604,22 +618,29 @@ def reconcile(candidates, read, status):
     horizon = datetime.now(timezone.utc) + timedelta(days=1)
     hiatus = any(c.get("status") == "hiatus" for c in counts)
 
-    def plausible(c):
+    def verdict(c):
+        """None if the candidate fits, else why it does not (the rule that refused it)."""
         if c["chapterNum"] is None:
-            return False
+            return "no_number"
         if c["kind"] == "release" and parse_time(c["publishedAt"]) > horizon:
-            return False
+            return "future_date"
         if read and c["chapterNum"] < 0.8 * read:
-            return False
+            return "below_read"
         if c["chapterNum"] < 0.5 * top:
-            return False
+            return "below_half_of_top"
         if c["kind"] == "count" and count and abs(c["chapterNum"] - count) > 0.05 * count:
-            return False  # outvoted by the other counts
+            return "count_vote"  # outvoted by the other counts
         if c["kind"] == "release" and c["source"] != "Webtoon" and count and c["chapterNum"] < 0.8 * count:
-            return False
-        return True
+            return "stale_feed"
+        return None
+
+    def plausible(c):
+        return verdict(c) is None
 
     good = [c for c in candidates if plausible(c)]
+    # Which rules changed this answer (see RULE_LABELS): recorded so a rule that suddenly fires on many
+    # series, or never fires, shows up in the Health tab and the digest.
+    rules = sorted({v for v in (verdict(c) for c in candidates) if v in ("count_vote", "stale_feed")})
     summary = [
         {
             "name": c["source"],
@@ -630,7 +651,7 @@ def reconcile(candidates, read, status):
         }
         for c in candidates
     ]
-    base = {"hiatus": hiatus, "sources": summary}
+    base = {"hiatus": hiatus, "sources": summary, "rules": rules}
     releases = [c for c in good if c["kind"] == "release"]
     good_counts = [c for c in good if c["kind"] == "count"]
 
@@ -644,8 +665,12 @@ def reconcile(candidates, read, status):
         if (count and best["source"] != "Webtoon" and not backed
                 and best["chapterNum"] < 0.95 * count and count - best["chapterNum"] > 5):
             best = None  # a lone feed that stopped long before the count: stale, use the count
+            rules.append("lagging_feed")
 
     if best is not None:
+        freshest = max(releases, key=lambda c: (parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)))
+        if freshest is not best and best["chapterNum"] > freshest["chapterNum"]:
+            rules.append("highest_chapter")  # the highest chapter beat a fresher date
         if len(good) == 1:
             agreement = "single"
         elif all(close(best, c) for c in good if c is not best):
@@ -667,9 +692,11 @@ def reconcile(candidates, read, status):
         )
         if status == "FINISHED" and ended and ended[:4].isdigit() and parse_time(best["publishedAt"]).year > int(ended[:4]):
             result.update({"publishedAt": None, "typicalGapDays": None, "expectedNext": None, "history": [], "dateDropped": True})
+            rules.append("upload_date_dropped")
         return {**result, **base}
 
     if good_counts:  # only a count survives: chapter number but no date, rhythm or calendar
+        rules.append("count_only")
         c = max(good_counts, key=lambda c: (c["chapterNum"] == count, PRIORITY.get(c["source"], 0)))
         return {
             "found": True, "limited": False, "agreement": "count", "source": c["source"], "countOnly": True,
@@ -748,8 +775,11 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
         stat(ANY_LANGUAGE, "seconds", time.time() - started)
         if extra:
             result = reconcile(candidates + [extra], read, status)
+            result["rules"] = sorted(set(result["rules"]) | {"any_language"})
         else:
             last_evidence = last_upload_evidence(candidates, fetched.get("c"))
+            if fetched.get("c"):
+                result["rules"] = sorted(set(result["rules"]) | {"any_language_refused"})
     if gap_override and result.get("found") and result.get("publishedAt"):
         gap = int(gap_override)
         result["typicalGapDays"] = gap
@@ -766,6 +796,8 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     # Dormant: so long without a chapter that the author has probably stopped (see dormant_days).
     result["dormantDays"] = 0 if result.get("limited") else dormant_days(status, result.get("publishedAt") or last_evidence)
     result["dormant"] = result["dormantDays"] > 0
+    if result["dormant"]:
+        result["rules"] = sorted(set(result["rules"]) | {"dormant"})
 
     found = {}
     if _mb_id_cache.get(al_id):

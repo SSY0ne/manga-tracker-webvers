@@ -70,6 +70,9 @@
   "hiatus": true,
   "limited": false,
   "quietDays": 6373,
+  "rules": [
+   "dormant"
+  ],
   "source": "MangaUpdates",
   "sources": [
    {

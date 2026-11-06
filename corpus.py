@@ -51,7 +51,7 @@ def frozen_datetime(when_iso):
 
 # ---------- replay ----------
 
-GOLDEN_KEYS = ("chapter", "agreement", "source", "countOnly", "hiatus", "dormant", "limited", "quietDays", "typicalGapDays")
+GOLDEN_KEYS = ("chapter", "agreement", "source", "countOnly", "hiatus", "dormant", "limited", "quietDays", "typicalGapDays", "rules")
 
 
 def snapshot(result):

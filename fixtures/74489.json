@@ -10,6 +10,11 @@
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
+  "rules": [
+   "count_vote",
+   "lagging_feed",
+   "count_only"
+  ],
   "source": "MangaBaka",
   "sources": [
    {

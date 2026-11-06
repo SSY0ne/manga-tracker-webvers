@@ -1647,6 +1647,19 @@ function renderHealth() {
     );
   }
 
+  // Rules that changed an answer on the last run (the bot saves the counts and their labels)
+  const ruleList = document.getElementById("health-rules");
+  if (!health || !health.rules) {
+    ruleList.replaceChildren(li(span("note", "Recorded from the next daily run.")));
+  } else {
+    const rules = Object.entries(health.rules).sort((a, b) => b[1] - a[1]);
+    ruleList.replaceChildren(
+      ...(rules.length
+        ? rules.map(([name, n]) => li(span("when", String(n)), ` ${(health.ruleLabels || {})[name] || name}`))
+        : [li(span("note", "No rule changed an answer."))])
+    );
+  }
+
   // Coverage: how many sources back each series (from the data on the page)
   const usable = (e) => (e.sources || []).filter((s) => s.plausible).length;
   const known = botEntries().filter((e) => (e.sources || []).length > 0);

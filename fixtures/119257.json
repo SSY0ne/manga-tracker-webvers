@@ -70,6 +70,9 @@
   "hiatus": true,
   "limited": false,
   "quietDays": 171,
+  "rules": [
+   "highest_chapter"
+  ],
   "source": "MangaUpdates",
   "sources": [
    {

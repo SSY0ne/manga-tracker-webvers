@@ -10,6 +10,9 @@
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
+  "rules": [
+   "upload_date_dropped"
+  ],
   "source": "MangaDex",
   "sources": [
    {
