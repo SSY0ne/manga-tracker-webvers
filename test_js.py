@@ -33,11 +33,13 @@ def syntax_error(path):
 
 
 class PageScript(unittest.TestCase):
-    def test_app_js_parses(self):
-        err = syntax_error(os.path.join(HERE, "app.js"))
-        if err == "skip":
-            self.skipTest("no JavaScript engine (node or jsc) to check the syntax with")
-        self.assertIsNone(err, f"app.js does not parse, so the published page would be blank: {err}")
+    def test_the_page_scripts_parse(self):
+        for name in ("app.js", "mylist.js"):
+            with self.subTest(name):
+                err = syntax_error(os.path.join(HERE, name))
+                if err == "skip":
+                    self.skipTest("no JavaScript engine (node or jsc) to check the syntax with")
+                self.assertIsNone(err, f"{name} does not parse, so the published page would be blank: {err}")
 
     def test_the_checker_really_catches_the_bug_that_shipped(self):
         broken = os.path.join(HERE, "fixtures", "_broken_example.js.txt")
@@ -47,7 +49,7 @@ class PageScript(unittest.TestCase):
         self.assertIsNotNone(err, "the syntax check let a known-broken script through")
 
     def test_every_element_the_script_asks_for_exists(self):
-        js = open(os.path.join(HERE, "app.js"), encoding="utf-8").read()
+        js = open(os.path.join(HERE, "app.js"), encoding="utf-8").read() + open(os.path.join(HERE, "mylist.js"), encoding="utf-8").read()
         html = open(os.path.join(HERE, "index.html"), encoding="utf-8").read()
         asked = set(re.findall(r'getElementById\("([^"$]+)"\)', js))
         in_page = set(re.findall(r'\bid="([^"]+)"', html))

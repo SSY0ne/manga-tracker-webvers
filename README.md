@@ -21,7 +21,8 @@ the news to Discord.
 - **Compares seven sources** (MangaDex, MangaUpdates, MangaBaka, Webtoon, Kitsu, AniList, Shikimori) instead of
   trusting one, and says so when they disagree.
 - **A daily bot** (GitHub Actions) checks everything, writes the results to the repo, and sends one Discord digest.
-- **Discover and My list:** browse and search any manga, and keep your own list in the browser.
+- **Discover and My list:** browse and search any manga, and keep your own list in the browser, with export, import
+  and a MyAnimeList import (all in the browser, nothing uploaded).
 - **Honest about doubt:** a "≠ sources differ" mark, a per-source breakdown, and Wikipedia's chapter list as a reference.
 
 <p>
@@ -42,7 +43,7 @@ the news to Discord.
 ```
 
 Plain HTML/CSS/JavaScript on the front, Python (standard library only) on the back, no build step. The rules that
-decide what the tracker tells you are covered by **169 tests**, including replays of recorded source answers for
+decide what the tracker tells you are covered by **200+ tests**, including replays of recorded source answers for
 78 series and checks against what the web says. Details: [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md).
 
 ## Run it
@@ -63,7 +64,7 @@ To get the Discord digest, add your webhook as the repo secret `DISCORD_WEBHOOK_
 
 - **Chapter counts of finished series can be off by a few.** The sources copy one upstream list that counts extras
   as chapters (Bleach 706, Wikipedia 686). The page flags it instead of pretending to be sure.
-- **My list has one source for running series** (browsers can't call MangaDex or MangaUpdates), so it has no
+- **My list is kept in your browser** (export it to keep a copy) and has one source for running series (browsers can't call MangaDex or MangaUpdates), so it has no
   release dates and no alerts. It is a reading checklist, not a tracker.
 - **It is built for one list.** The bot tracks the owner's series; there are no accounts.
 - It relies on free, unofficial services that can change or disappear.

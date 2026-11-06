@@ -91,6 +91,11 @@ like it is on break.
   call directly: AniList (covers, status) and MangaBaka (chapter **count** and hiatus flag). So My list has
   no release dates, no rhythm-based break detection and no alerts: those need the daily bot, which tracks
   the sample library. It is not synced between devices.
+  **Back up and import:** "Back up or import My list" under the grid exports the list as a small JSON file
+  (`manga-tracker-my-list.json`: only ids, titles and chapters read) and reads one back, or reads a **MyAnimeList
+  manga export** (.xml) directly in the browser, matching the series on AniList by their MAL id. Files are never
+  uploaded. Everything read from a file is treated as untrusted (types checked, sizes capped, at most 500 series).
+  The logic lives in `mylist.js` and is tested in `test_mylist.py` against a sample export.
 - **Looks right when shared**: page description, Open Graph and Twitter tags, a web manifest, app icons and a
   1200x630 preview image (`python3 make_assets.py` draws them, with no manga art).
 - **Never blank**: grey placeholders while loading, and a clear red message if `series.json` can't be read.

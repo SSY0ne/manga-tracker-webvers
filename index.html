@@ -150,6 +150,29 @@
         <p id="list-msg" class="msg"></p>
         <ul id="mylist" class="grid"></ul>
 
+        <!-- My list only (visitors): back it up, or bring a list in -->
+        <details id="mine-tools" class="import" hidden>
+          <summary>Back up or import My list</summary>
+          <p class="msg">
+            Your list lives in this browser only: if you clear its data it is gone. Export it to keep a copy, or bring a
+            list in from a file you exported here, or from MyAnimeList (on MAL: Profile, then Export, then the
+            <b>manga</b> list; you get an .xml file). Files are read in your browser and never uploaded.
+          </p>
+          <div class="statuses">
+            <label><input type="checkbox" class="mine-status" value="Reading" checked> Reading</label>
+            <label><input type="checkbox" class="mine-status" value="Plan to Read"> Plan to read</label>
+            <label><input type="checkbox" class="mine-status" value="On-Hold"> On hold</label>
+            <label><input type="checkbox" class="mine-status" value="Completed"> Completed</label>
+            <label><input type="checkbox" class="mine-status" value="Dropped"> Dropped</label>
+          </div>
+          <p class="msg">The statuses only apply to a MyAnimeList file.</p>
+          <div class="tools-row">
+            <button id="mine-export" type="button" class="btn ghost">Export my list</button>
+            <input id="mine-file" type="file" accept=".json,.xml,application/json,application/xml,text/xml" aria-label="Import a list file">
+          </div>
+          <p id="mine-msg" class="msg" role="status"></p>
+        </details>
+
         <!-- MAL import: bottom of the page, only with server.py running -->
         <div id="import-section" hidden>
           <details class="import">
@@ -252,6 +275,7 @@
     <div id="detail-body"></div>
   </dialog>
 
+  <script src="mylist.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

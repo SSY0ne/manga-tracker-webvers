@@ -232,7 +232,7 @@ def preview(state=None):
             return
         state = found[-1]
     folder = tempfile.mkdtemp(prefix="manga-preview-")
-    for name in ("index.html", "app.js", "style.css", "manifest.webmanifest", "series.json", "history.jsonl", "reference_counts.json"):
+    for name in ("index.html", "app.js", "mylist.js", "style.css", "manifest.webmanifest", "series.json", "history.jsonl", "reference_counts.json"):
         shutil.copy(os.path.join(HERE, name), folder)
     shutil.copytree(os.path.join(HERE, "assets"), os.path.join(folder, "assets"))
     shutil.copy(state, os.path.join(folder, "state.json"))

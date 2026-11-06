@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<myanimelist>
+  <myinfo>
+    <user_id>1</user_id>
+    <user_name>tester</user_name>
+    <user_export_type>2</user_export_type>
+    <user_total_manga>5</user_total_manga>
+  </myinfo>
+  <manga>
+    <manga_mangadb_id>13</manga_mangadb_id>
+    <manga_title><![CDATA[One Piece]]></manga_title>
+    <manga_volumes>111</manga_volumes>
+    <manga_chapters>0</manga_chapters>
+    <my_id>0</my_id>
+    <my_read_volumes>0</my_read_volumes>
+    <my_read_chapters>1180</my_read_chapters>
+    <my_start_date>0000-00-00</my_start_date>
+    <my_scanalation_group><![CDATA[]]></my_scanalation_group>
+    <my_score>0</my_score>
+    <my_status>Reading</my_status>
+    <update_on_import>1</update_on_import>
+  </manga>
+  <manga>
+    <manga_mangadb_id>2</manga_mangadb_id>
+    <manga_title><![CDATA[Berserk]]></manga_title>
+    <my_read_chapters>376</my_read_chapters>
+    <my_status>Reading</my_status>
+  </manga>
+  <manga>
+    <manga_mangadb_id>656</manga_mangadb_id>
+    <manga_title><![CDATA[Vagabond]]></manga_title>
+    <my_read_chapters>0</my_read_chapters>
+    <my_status>Plan to Read</my_status>
+  </manga>
+  <manga>
+    <manga_mangadb_id>28</manga_mangadb_id>
+    <manga_title><![CDATA[Nana <& "Quotes"]]></manga_title>
+    <my_read_chapters>84</my_read_chapters>
+    <my_status>Completed</my_status>
+  </manga>
+  <manga>
+    <manga_mangadb_id>114745</manga_mangadb_id>
+    <manga_title><![CDATA[Blue Lock]]></manga_title>
+    <my_read_chapters>10</my_read_chapters>
+    <my_status>Dropped</my_status>
+  </manga>
+  <manga>
+    <manga_mangadb_id>13</manga_mangadb_id>
+    <manga_title><![CDATA[One Piece (a duplicate row)]]></manga_title>
+    <my_read_chapters>5</my_read_chapters>
+    <my_status>Reading</my_status>
+  </manga>
+</myanimelist>

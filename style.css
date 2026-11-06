@@ -182,6 +182,7 @@ input[type="search"]:focus, input[type="number"]:focus, select:focus { outline: 
   border-radius: 999px;
 }
 .chip.new { color: #fff; background: linear-gradient(135deg, #7a68ff, #ff6b9d); }
+.tools-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 10px 0 4px; }
 .conflict-pill {
   position: absolute;
   bottom: 12px; /* bottom-left: the top corners hold the status tag, bottom-right the "+N behind" pill */

@@ -1205,6 +1205,7 @@ function setMode(mode) {
     if (o.disabled && o.selected) o.parentElement.value = o.parentElement.id === "sort-by" ? "title" : "all";
   });
   document.getElementById("about").hidden = canEdit || viewMode === "mine";
+  document.getElementById("mine-tools").hidden = canEdit || viewMode !== "mine";
   updateModeSwitch();
   renderList();
   if (viewMode === "mine") fillMine(mineEntries.filter((e) => e.pending || !e.mbAt || Date.now() - e.mbAt > MB_FRESH_MS), { basics: false });
@@ -1247,6 +1248,86 @@ function addToMine(m, btn) {
   toast(`Added ${m.title} to My list`, () => removeMine(m.id));
   if (viewMode === "mine") renderList();
   fillMine([e], { basics: false });
+}
+
+// ---------- My list: back it up, bring a list in ----------
+
+function downloadMine() {
+  const msg = document.getElementById("mine-msg");
+  if (mineEntries.length === 0) {
+    msg.textContent = "Your list is empty: nothing to export yet.";
+    return;
+  }
+  const blob = new Blob([JSON.stringify(buildMineExport(mineEntries, new Date().toISOString()), null, 1)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "manga-tracker-my-list.json";
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+  msg.textContent = `Exported ${mineEntries.length} series. Keep the file somewhere safe.`;
+}
+
+// A file exported from here (.json) or a MyAnimeList manga export (.xml), read in the browser.
+async function importIntoMine(file) {
+  const msg = document.getElementById("mine-msg");
+  if (file.size > 20 * 1024 * 1024) {
+    msg.textContent = "That file is too big to be a list.";
+    return;
+  }
+  let text;
+  try {
+    text = await file.text();
+  } catch {
+    msg.textContent = "Couldn't read that file.";
+    return;
+  }
+  let items;
+  let unmatched = 0;
+  let invalid = 0;
+  if (/^\s*<\?xml|^\s*<myanimelist/i.test(text) || /\.xml$/i.test(file.name)) {
+    const wanted = [...document.querySelectorAll(".mine-status:checked")].map((c) => c.value);
+    if (wanted.length === 0) {
+      msg.textContent = "Tick at least one status to import.";
+      return;
+    }
+    const parsed = parseMalExport(text, wanted);
+    if (parsed.error) {
+      msg.textContent = parsed.error;
+      return;
+    }
+    let found;
+    try {
+      found = await matchMalOnAniList(parsed.rows, (done, total) => (msg.textContent = `Matching ${done} of ${total} on AniList...`));
+    } catch (err) {
+      msg.textContent = `AniList lookup failed: ${err.message}`;
+      return;
+    }
+    items = parsed.rows.filter((r) => found.has(r.mal)).map((r) => ({ id: found.get(r.mal).id, title: found.get(r.mal).title.english || found.get(r.mal).title.romaji, read: r.read }));
+    unmatched = parsed.rows.length - items.length;
+  } else {
+    const parsed = parseMineFile(text);
+    if (parsed.error) {
+      msg.textContent = parsed.error;
+      return;
+    }
+    items = parsed.items;
+    invalid = parsed.invalid;
+  }
+  const { added, already, skipped } = mergeIntoMine(mineEntries, items, MAX_MINE);
+  mineEntries.push(...added);
+  if (viewMode === "mine") entries = mineEntries;
+  saveMine();
+  updateModeSwitch();
+  renderList();
+  const bits = [`Added ${added.length}`];
+  if (already) bits.push(`${already} already in your list`);
+  if (unmatched) bits.push(`${unmatched} not found on AniList`);
+  if (invalid) bits.push(`${invalid} unusable entries skipped`);
+  if (skipped) bits.push(`${skipped} left out: a list holds at most ${MAX_MINE}`);
+  msg.textContent = bits.join(", ") + (added.length ? ". Looking up their chapters..." : ".");
+  fillMine(added); // covers and chapter counts, one by one (see fillMine)
 }
 
 // ---------- Discover: browse and search, then add ----------
@@ -1478,6 +1559,21 @@ async function refreshNow() {
 // browser; only titles, MAL ids and chapters-read are sent on to series.json.
 // AniList can look up a manga by its MAL id, so each match is exact.
 
+// MyAnimeList ids -> AniList entries (MAL id, AniList id, title), 50 at a time (AniList's page limit).
+async function matchMalOnAniList(rows, onProgress) {
+  const found = new Map();
+  for (let i = 0; i < rows.length; i += 50) {
+    onProgress(Math.min(i + 50, rows.length), rows.length);
+    const data = await anilist(
+      `query ($ids: [Int]) { Page(perPage: 50) {
+         media(idMal_in: $ids, type: MANGA) { id idMal title { romaji english } } } }`,
+      { ids: rows.slice(i, i + 50).map((r) => r.mal) }
+    );
+    data.Page.media.forEach((m) => found.set(m.idMal, m));
+  }
+  return found;
+}
+
 async function importMal(file) {
   const msg = document.getElementById("import-msg");
   const wanted = [...document.querySelectorAll(".import-status:checked")].map((c) => c.value);
@@ -1487,36 +1583,16 @@ async function importMal(file) {
   }
 
   msg.textContent = "Reading the file...";
-  const doc = new DOMParser().parseFromString(await file.text(), "application/xml");
-  if (doc.querySelector("parsererror") || !doc.querySelector("myanimelist")) {
-    msg.textContent = "That doesn't look like a MyAnimeList export (.xml).";
+  const parsed = parseMalExport(await file.text(), wanted); // mylist.js (tested)
+  if (parsed.error) {
+    msg.textContent = parsed.error;
     return;
   }
-  const text = (m, tag) => (m.querySelector(tag)?.textContent || "").trim();
-  const rows = [...doc.querySelectorAll("manga")]
-    .map((m) => ({
-      mal: Number(text(m, "manga_mangadb_id")),
-      status: text(m, "my_status"),
-      read: Number(text(m, "my_read_chapters")) || 0,
-    }))
-    .filter((r) => r.mal && wanted.includes(r.status));
-  if (rows.length === 0) {
-    msg.textContent = "No manga with those statuses in this file (is it the manga export, not anime?).";
-    return;
-  }
+  const rows = parsed.rows;
 
-  // MAL id -> AniList id, 50 at a time (AniList's page limit)
-  const found = new Map();
+  let found;
   try {
-    for (let i = 0; i < rows.length; i += 50) {
-      msg.textContent = `Matching ${Math.min(i + 50, rows.length)} of ${rows.length} on AniList...`;
-      const data = await anilist(
-        `query ($ids: [Int]) { Page(perPage: 50) {
-           media(idMal_in: $ids, type: MANGA) { id idMal title { romaji english } } } }`,
-        { ids: rows.slice(i, i + 50).map((r) => r.mal) }
-      );
-      data.Page.media.forEach((m) => found.set(m.idMal, m));
-    }
+    found = await matchMalOnAniList(rows, (done, total) => (msg.textContent = `Matching ${done} of ${total} on AniList...`));
   } catch (err) {
     msg.textContent = `AniList lookup failed: ${err.message}`;
     return;
@@ -1994,6 +2070,12 @@ document.getElementById("import-file").addEventListener("change", async (ev) => 
   ev.target.value = ""; // lets you pick the same file again later
 });
 document.getElementById("refresh").addEventListener("click", refreshNow);
+document.getElementById("mine-export").addEventListener("click", downloadMine);
+document.getElementById("mine-file").addEventListener("change", async (ev) => {
+  const file = ev.target.files[0];
+  if (file) await importIntoMine(file);
+  ev.target.value = ""; // lets you pick the same file again
+});
 document.querySelectorAll("#mode-switch button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
 
 let timer;
