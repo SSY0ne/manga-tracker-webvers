@@ -17,6 +17,9 @@
                                           newly added source gets into the recorded series; then review with replay
     python3 devtools.py replay            run the CURRENT rules on every fixture, offline, and show what changed
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
+    python3 devtools.py reference         read Wikipedia's "List of X chapters" pages for every FINISHED recorded series (slow and
+                                          polite, resumable) into reference_counts.json, then report how often it matches the web
+                                          truths and how many of our answers it would change
     python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
                                           sourced truth for finished series); one polite request per title
     python3 devtools.py backtest          check the rhythm and break rules against what really happened in history.jsonl:
@@ -634,6 +637,56 @@ def mutate():
     print(f"\n{survived} not caught" if survived else "\nevery breakage was caught")
 
 
+def reference_run(report_only=False):
+    import corpus
+    import reference
+
+    path = os.path.join(HERE, "reference_counts.json")
+    store = json.load(open(path)) if os.path.exists(path) else {}
+    fixtures = [fx for fx in corpus.load_all() if fx["status"] == "FINISHED"]
+    if not report_only:
+        for fx in fixtures:
+            key = str(fx["id"])
+            if key in store:
+                continue
+            try:
+                found = reference.lookup(fx["titles"][:2])
+            except Exception as err:
+                print(f"{fx['title'][:30]:30} FAILED: {err}", flush=True)
+                continue
+            store[key] = {"title": fx["title"], **(found or {"count": None, "pages": []})}
+            json.dump(store, open(path, "w"), indent=1, ensure_ascii=False, sort_keys=True)
+            print(f"{fx['title'][:30]:30} " + (f"{found['count']} chapters ({found['entries']} entries) from {found['pages'][0]}" if found else "no list page found"), flush=True)
+    truth = corpus.load_truth()
+    found = {k: v for k, v in store.items() if v.get("count")}
+    print(f"\nCoverage: a Wikipedia count for {len(found)} of {len(fixtures)} finished series")
+    ours = {str(fx["id"]): fx["golden"] for fx in fixtures}
+    rows = []
+    for k, v in found.items():
+        t = truth.get(k)
+        rows.append((v["title"], v["count"], ours[k]["chapter"], t))
+    def num(x):
+        try:
+            return float(x)
+        except (TypeError, ValueError):
+            return None
+    # against the web-checked truths. Truths that were themselves read from Wikipedia prove only that the parser works.
+    indep, circular = [], []
+    for title, wp, mine, t in rows:
+        if t and t.get("latest"):
+            (circular if "wikipedia" in t["source"].lower() else indep).append((title, wp, mine, t))
+    for label, group in (("truths NOT taken from Wikipedia (an independent check)", indep), ("truths taken from Wikipedia (parser check only)", circular)):
+        ok = [g for g in group if abs(g[1] - float(g[3]["latest"])) <= g[3].get("tolerance", 0)]
+        print(f"  {label}: Wikipedia matches {len(ok)} of {len(group)}")
+        for title, wp, mine, t in group:
+            flag = "ok  " if abs(wp - float(t["latest"])) <= t.get("tolerance", 0) else "MISS"
+            print(f"     {flag} {title[:26]:26} wikipedia {wp:>4}  web {t['latest']:>4}  our answer today {mine}")
+    changed = [(title, mine, wp) for title, wp, mine, t in rows if num(mine) is not None and abs(num(mine) - wp) >= 1]
+    print(f"\nOur answer today differs from Wikipedia's for {len(changed)} of {len(found)}:")
+    for title, mine, wp in changed:
+        print(f"  {title[:28]:28} we say {mine:>5}  wikipedia {wp:>4}  ({'+' if float(mine) > wp else ''}{float(mine) - wp:g})")
+
+
 def record_source(name):
     import corpus
     import server
@@ -745,6 +798,8 @@ if __name__ == "__main__":
         score(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "mutate":
         mutate()
+    elif cmd == "reference":
+        reference_run(report_only="--report" in sys.argv)
     elif cmd == "record-source":
         record_source(sys.argv[2] if len(sys.argv) > 2 else "")
     elif cmd == "replay":
