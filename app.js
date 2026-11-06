@@ -391,6 +391,7 @@ function tileChip(e) {
   if (isLimited(e)) return { cls: "limited", text: "Limited" };
   if (isOnBreak(e)) return { cls: "break", text: "On break" };
   if (isNew(e)) return { cls: "new", text: "New" };
+  if (e.status === "RELEASING") return { cls: "releasing", text: "Releasing" };
   if (e.status === "FINISHED") return { cls: "finished", text: "Finished" };
   return null;
 }
@@ -600,7 +601,7 @@ function renderDetail(e) {
   h.id = "detail-title";
   const chips = el("div", "chips");
   const lead = tileChip(e);
-  if (lead && lead.cls !== "finished") chips.append(el("span", `chip ${lead.cls}`, lead.text));
+  if (lead && lead.cls !== "finished" && lead.cls !== "releasing") chips.append(el("span", `chip ${lead.cls}`, lead.text));
   if (e.status) chips.append(el("span", "chip status", STATUS_LABEL[e.status] || e.status));
   head.append(h, chips);
   const close = el("button", "close-btn", "✕");
