@@ -1,0 +1,119 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "113",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "113",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "7",
+    "name": "MangaUpdates",
+    "plausible": false
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30104,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:37+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "113",
+   "chapterNum": 113.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/6766/Yotsuba"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "7",
+   "chapterNum": 7.0,
+   "expectedNext": "2026-11-11",
+   "history": [
+    {
+     "chapter": "7",
+     "date": "2026-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2026-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2026-10-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-10-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2026-10-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2026-10-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2026-09-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "114",
+     "date": "2025-03-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "113",
+     "date": "2024-07-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "112",
+     "date": "2023-12-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "111",
+     "date": "2023-08-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "110",
+     "date": "2023-03-30T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-05T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/auem2hr/yotsuba-to"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Yotsuba&!",
+ "titles": [
+  "Yotsuba&!",
+  "Yotsuba to!",
+  "Yotsuba and!",
+  "Yotsuba!"
+ ],
+ "version": 1,
+ "year": 2003
+}

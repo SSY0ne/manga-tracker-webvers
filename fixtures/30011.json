@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "700",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "700",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "700",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "700",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "700",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30011,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:27+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "700",
+   "chapterNum": 700.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30011"
+  },
+  "Kitsu": {
+   "chapter": "700",
+   "chapterNum": 700.0,
+   "ended": "2014-11-10",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/35"
+  },
+  "MangaBaka": {
+   "chapter": "700",
+   "chapterNum": 700.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/270/NARUTO"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "700",
+   "chapterNum": 700.0,
+   "expectedNext": "2020-12-21",
+   "history": [
+    {
+     "chapter": "700",
+     "date": "2020-12-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "699",
+     "date": "2020-12-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "698",
+     "date": "2020-12-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "697",
+     "date": "2020-12-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "696",
+     "date": "2020-12-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "695",
+     "date": "2020-12-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "694",
+     "date": "2020-12-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "693",
+     "date": "2020-12-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "692",
+     "date": "2020-12-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "691",
+     "date": "2020-12-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "690",
+     "date": "2020-12-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "689",
+     "date": "2020-12-09T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-12-20T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 1,
+   "url": "https://www.mangaupdates.com/series/7z3yqqk/naruto"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Naruto",
+ "titles": [
+  "Naruto",
+  "NARUTO",
+  "נארוטו",
+  "Наруто"
+ ],
+ "version": 1,
+ "year": 1999
+}

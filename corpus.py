@@ -125,11 +125,29 @@ def check_truth(truth, result):
         tol = truth.get("tolerance", 0)
         if got is None or want is None or abs(got - want) > tol:
             problems.append(f"chapter {result.get('chapter')} (web: {truth['latest']}{f' ±{tol}' if tol else ''})")
+    if truth.get("latestMin") is not None:  # a running series: the web gives a floor, not today's exact chapter
+        got = server.chapter_number(result.get("chapter"))
+        if got is None or got < truth["latestMin"]:
+            problems.append(f"chapter {result.get('chapter')} (web: at least {truth['latestMin']})")
     if truth.get("dormant") is not None and bool(result.get("dormant")) != truth["dormant"]:
         problems.append(f"dormant={bool(result.get('dormant'))} (web: {truth['dormant']})")
     if truth.get("onBreak") is not None and (result.get("quietDays", 0) > 0 or bool(result.get("hiatus"))) != truth["onBreak"]:
         problems.append(f"onBreak={result.get('quietDays', 0) > 0} (web: {truth['onBreak']})")
     return (not problems, "; ".join(problems))
+
+
+def score(set_name=None):
+    """Replay every fixture that has a truth and compare. Returns rows (title, set, ok, why, enforced)."""
+    truth = load_truth()
+    rows = []
+    for fx in load_all():
+        t = truth.get(str(fx["id"]))
+        if not t or (set_name and t.get("set", "main") != set_name):
+            continue
+        result, _ = replay(fx)
+        ok, why = check_truth(t, result)
+        rows.append((t.get("title", fx["title"]), t.get("set", "main"), ok, why, bool(t.get("enforced"))))
+    return rows
 
 
 # ---------- recording (live) ----------

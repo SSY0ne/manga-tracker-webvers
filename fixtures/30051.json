@@ -1,0 +1,151 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "276",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "276",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "12",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "276",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "276",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30051,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:09+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "276",
+   "chapterNum": 276.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30051"
+  },
+  "Kitsu": {
+   "chapter": "276",
+   "chapterNum": 276.0,
+   "ended": "1996-06-04",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/133"
+  },
+  "MangaBaka": {
+   "chapter": "276",
+   "chapterNum": 276.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/13074/Slam-Dunk"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "12",
+   "chapterNum": 12.0,
+   "expectedNext": "2015-03-18",
+   "history": [
+    {
+     "chapter": "12",
+     "date": "2015-03-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "11",
+     "date": "2014-05-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "7",
+     "date": "2014-02-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2013-12-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2013-11-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2013-11-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2013-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2013-09-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2013-09-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "10",
+     "date": "2007-12-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "276",
+     "date": "1111-11-11T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2015-03-07T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 11,
+   "url": "https://www.mangaupdates.com/series/pklldyu/slam-dunk"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Slam Dunk",
+ "titles": [
+  "Slam Dunk",
+  "SLAM DUNK",
+  "スラムダンク",
+  "Slam Dunk: 10 Days After"
+ ],
+ "version": 1,
+ "year": 1990
+}

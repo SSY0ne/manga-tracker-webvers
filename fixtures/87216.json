@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "205.5",
+  "countOnly": null,
+  "date": "2020-10-04",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "207",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "205.5",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "207",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "207",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 6
+ },
+ "id": 87216,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:45+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "207",
+   "chapterNum": 207.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/87216"
+  },
+  "Kitsu": {
+   "chapter": "207",
+   "chapterNum": 207.0,
+   "ended": "2020-05-18",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/37280"
+  },
+  "MangaBaka": {
+   "chapter": "207",
+   "chapterNum": 207.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/3403/Demon-Slayer-Kimetsu-no-Yaiba"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "205.5",
+   "chapterNum": 205.5,
+   "expectedNext": "2020-10-10",
+   "history": [
+    {
+     "chapter": "205.5",
+     "date": "2020-10-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "187.5",
+     "date": "2020-07-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "205",
+     "date": "2020-05-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "178.5",
+     "date": "2020-05-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "204",
+     "date": "2020-05-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "203",
+     "date": "2020-04-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "202",
+     "date": "2020-04-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "201",
+     "date": "2020-04-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "200",
+     "date": "2020-03-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "199",
+     "date": "2020-03-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "198",
+     "date": "2020-03-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "197",
+     "date": "2020-03-08T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-10-04T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/gnv09ie/kimetsu-no-yaiba"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Demon Slayer: Kimetsu no Yaiba",
+ "titles": [
+  "Demon Slayer: Kimetsu no Yaiba",
+  "Kimetsu no Yaiba",
+  "KnY",
+  "Guardianes de la Noche"
+ ],
+ "version": 1,
+ "year": 2016
+}

@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "95",
+  "countOnly": null,
+  "date": "2008-10-20",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "95",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "95",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "92",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "92",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 4
+ },
+ "id": 30267,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:49+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "92",
+   "chapterNum": 92.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30267"
+  },
+  "Kitsu": {
+   "chapter": "92",
+   "chapterNum": 92.0,
+   "ended": "2008-09-30",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/618"
+  },
+  "MangaBaka": {
+   "chapter": "95",
+   "chapterNum": 95.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1736/HELLSING"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "95",
+   "chapterNum": 95.0,
+   "expectedNext": "2008-10-24",
+   "history": [
+    {
+     "chapter": "95",
+     "date": "2008-10-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "94",
+     "date": "2008-09-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2008-07-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2008-07-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "93",
+     "date": "2008-07-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "92",
+     "date": "2008-06-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "91",
+     "date": "2008-04-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "90",
+     "date": "2008-02-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "89",
+     "date": "2008-01-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2008-01-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "88",
+     "date": "2007-12-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "87",
+     "date": "2007-11-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2008-10-20T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 4,
+   "url": "https://www.mangaupdates.com/series/eih1hcc/hellsing"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "HELLSING",
+ "titles": [
+  "HELLSING",
+  "HELLSING",
+  "Hellsing Cross Fire",
+  "Crossfire"
+ ],
+ "version": 1,
+ "year": 1997
+}

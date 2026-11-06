@@ -1,0 +1,119 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "147",
+  "countOnly": null,
+  "date": "2025-10-15",
+  "dormant": false,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 387,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "147",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "147",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 14
+ },
+ "id": 118586,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:26+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "147",
+   "chapterNum": 147.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1995/Frieren-Beyond-Journey-s-End"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "147",
+   "chapterNum": 147.0,
+   "expectedNext": "2025-10-29",
+   "history": [
+    {
+     "chapter": "147",
+     "date": "2025-10-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "146",
+     "date": "2025-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "145",
+     "date": "2025-09-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "144",
+     "date": "2025-09-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "143",
+     "date": "2025-08-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "142",
+     "date": "2025-08-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "141",
+     "date": "2025-07-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "140",
+     "date": "2024-12-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "139",
+     "date": "2024-12-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "138",
+     "date": "2024-11-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "137",
+     "date": "2024-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "136",
+     "date": "2024-10-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-10-15T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 14,
+   "url": "https://www.mangaupdates.com/series/ugf5dzu/sousou-no-frieren"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Frieren: Beyond Journey’s End",
+ "titles": [
+  "Frieren: Beyond Journey’s End",
+  "Sousou no Frieren",
+  "Frieren at the Funeral",
+  "장송의 프리렌"
+ ],
+ "version": 1,
+ "year": 2020
+}

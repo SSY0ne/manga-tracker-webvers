@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "200",
+  "countOnly": null,
+  "date": "2023-05-31",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "201",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "200",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "201",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "201",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 105398,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:03+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "201",
+   "chapterNum": 201.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/105398"
+  },
+  "Kitsu": {
+   "chapter": "201",
+   "chapterNum": 201.0,
+   "ended": "2023-05-31",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/54114"
+  },
+  "MangaBaka": {
+   "chapter": "201",
+   "chapterNum": 201.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/3397/Solo-Leveling"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "200",
+   "chapterNum": 200.0,
+   "expectedNext": "2023-06-07",
+   "history": [
+    {
+     "chapter": "200",
+     "date": "2023-05-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "199",
+     "date": "2023-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "198",
+     "date": "2023-05-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "197",
+     "date": "2023-05-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "196",
+     "date": "2023-05-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "195",
+     "date": "2023-04-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "194",
+     "date": "2023-04-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "193",
+     "date": "2023-04-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "192",
+     "date": "2023-04-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "191",
+     "date": "2023-03-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "190",
+     "date": "2023-03-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "189",
+     "date": "2023-03-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-05-31T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/6z1uqw7/solo-leveling"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Solo Leveling",
+ "titles": [
+  "Solo Leveling",
+  "Na Honjaman Level Up",
+  "I Level Up Alone",
+  "Only I Level Up"
+ ],
+ "version": 1,
+ "year": 2018
+}

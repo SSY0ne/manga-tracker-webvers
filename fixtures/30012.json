@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "706",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "706",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "250",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "706",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "706",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30012,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:33+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "706",
+   "chapterNum": 706.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30012"
+  },
+  "Kitsu": {
+   "chapter": "706",
+   "chapterNum": 706.0,
+   "ended": "2016-08-23",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/37"
+  },
+  "MangaBaka": {
+   "chapter": "706",
+   "chapterNum": 706.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/2410/BLEACH"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "expectedNext": "2023-10-07",
+   "history": [
+    {
+     "chapter": "250",
+     "date": "2023-09-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "249",
+     "date": "2023-09-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "248",
+     "date": "2023-09-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "247",
+     "date": "2023-09-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "246",
+     "date": "2023-09-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "245",
+     "date": "2023-08-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "244",
+     "date": "2023-08-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "243",
+     "date": "2023-08-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "242",
+     "date": "2023-08-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "241",
+     "date": "2023-07-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "240",
+     "date": "2023-07-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "239",
+     "date": "2023-07-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-09-30T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/wm47jwz/bleach"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Bleach",
+ "titles": [
+  "Bleach",
+  "BLEACH",
+  "ブリーチ",
+  "بلیچ"
+ ],
+ "version": 1,
+ "year": 2001
+}

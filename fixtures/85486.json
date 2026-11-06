@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "430",
+  "countOnly": null,
+  "date": "2024-08-04",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "432",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "430",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "432",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "432",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 85486,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:06+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "432",
+   "chapterNum": 432.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/85486"
+  },
+  "Kitsu": {
+   "chapter": "432",
+   "chapterNum": 432.0,
+   "ended": "2024-08-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/26004"
+  },
+  "MangaBaka": {
+   "chapter": "432",
+   "chapterNum": 432.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/7423/MY-HERO-ACADEMIA"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "430",
+   "chapterNum": 430.0,
+   "expectedNext": "2024-08-11",
+   "history": [
+    {
+     "chapter": "430",
+     "date": "2024-08-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "429",
+     "date": "2024-07-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "428",
+     "date": "2024-07-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "427",
+     "date": "2024-07-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "426",
+     "date": "2024-06-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "425",
+     "date": "2024-06-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "424",
+     "date": "2024-06-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "423",
+     "date": "2024-05-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "422",
+     "date": "2024-05-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "421",
+     "date": "2024-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "420",
+     "date": "2024-04-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "419",
+     "date": "2024-04-07T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2024-08-04T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/tc9lj22/boku-no-hero-academia"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "My Hero Academia",
+ "titles": [
+  "My Hero Academia",
+  "Boku no Hero Academia",
+  "HeroAca",
+  "ヒロアカ"
+ ],
+ "version": 1,
+ "year": 2014
+}

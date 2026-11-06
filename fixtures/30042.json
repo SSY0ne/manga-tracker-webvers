@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "520",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "520",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "149",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "520",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "520",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30042,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:14+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "520",
+   "chapterNum": 520.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30042"
+  },
+  "Kitsu": {
+   "chapter": "520",
+   "chapterNum": 520.0,
+   "ended": "1995-05-23",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/111"
+  },
+  "MangaBaka": {
+   "chapter": "520",
+   "chapterNum": 520.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/997/DRAGON-BALL"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "149",
+   "chapterNum": 149.0,
+   "expectedNext": "2026-06-14",
+   "history": [
+    {
+     "chapter": "149",
+     "date": "2026-05-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "134",
+     "date": "2026-04-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "119",
+     "date": "2026-02-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "104",
+     "date": "2026-01-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "89",
+     "date": "2025-12-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "74",
+     "date": "2025-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "59",
+     "date": "2025-09-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "44",
+     "date": "2025-08-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "29",
+     "date": "2025-08-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "14",
+     "date": "2025-08-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "240",
+     "date": "2023-09-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "239",
+     "date": "2023-09-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-05-25T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 20,
+   "url": "https://www.mangaupdates.com/series/iitcsf0/dragon-ball"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Dragon Ball",
+ "titles": [
+  "Dragon Ball",
+  "Dragon Ball",
+  "Dragonball",
+  "Dragon Ball Z"
+ ],
+ "version": 1,
+ "year": 1984
+}

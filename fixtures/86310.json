@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "304",
+  "countOnly": null,
+  "date": "2022-02-22",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "305",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "304",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "305",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "305",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 5
+ },
+ "id": 86310,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:19+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "305",
+   "chapterNum": 305.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/86310"
+  },
+  "Kitsu": {
+   "chapter": "305",
+   "chapterNum": 305.0,
+   "ended": "2022-02-22",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/36201"
+  },
+  "MangaBaka": {
+   "chapter": "305",
+   "chapterNum": 305.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/22256/Fire-Force"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "304",
+   "chapterNum": 304.0,
+   "expectedNext": "2022-02-27",
+   "history": [
+    {
+     "chapter": "304",
+     "date": "2022-02-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "303",
+     "date": "2022-02-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "302",
+     "date": "2022-02-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "301",
+     "date": "2022-02-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "300",
+     "date": "2022-01-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "299",
+     "date": "2022-01-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "298",
+     "date": "2022-01-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "297",
+     "date": "2022-01-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "296",
+     "date": "2022-01-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "295",
+     "date": "2021-12-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "294",
+     "date": "2021-12-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "293",
+     "date": "2021-11-23T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2022-02-22T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 5,
+   "url": "https://www.mangaupdates.com/series/9carn1k/enen-no-shouboutai"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Fire Force",
+ "titles": [
+  "Fire Force",
+  "Enen no Shouboutai",
+  "หน่วยผจญคนไฟลุก",
+  "Blazing Fire Brigade"
+ ],
+ "version": 1,
+ "year": 2015
+}

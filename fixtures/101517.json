@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "271",
+  "countOnly": null,
+  "date": "2024-09-29",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "272",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "271",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "272",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "272",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 101517,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:30+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "272",
+   "chapterNum": 272.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/101517"
+  },
+  "Kitsu": {
+   "chapter": "272",
+   "chapterNum": 272.0,
+   "ended": "2024-09-30",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/40815"
+  },
+  "MangaBaka": {
+   "chapter": "272",
+   "chapterNum": 272.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/6199/Jujutsu-Kaisen"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "271",
+   "chapterNum": 271.0,
+   "expectedNext": "2024-10-06",
+   "history": [
+    {
+     "chapter": "271",
+     "date": "2024-09-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "270",
+     "date": "2024-09-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "269",
+     "date": "2024-09-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "268",
+     "date": "2024-09-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "267",
+     "date": "2024-08-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "266",
+     "date": "2024-08-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "265",
+     "date": "2024-08-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "264",
+     "date": "2024-07-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "263",
+     "date": "2024-07-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "262",
+     "date": "2024-06-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "261",
+     "date": "2024-05-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "260",
+     "date": "2024-05-19T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2024-09-29T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/axmopy6/jujutsu-kaisen"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Jujutsu Kaisen",
+ "titles": [
+  "Jujutsu Kaisen",
+  "Jujutsu Kaisen",
+  "Sorcery Fight",
+  "주술회전"
+ ],
+ "version": 1,
+ "year": 2018
+}

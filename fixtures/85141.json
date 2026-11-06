@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "570",
+  "countOnly": null,
+  "date": "2022-12-09",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "570",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "570",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "34",
+    "name": "Webtoon",
+    "plausible": false
+   },
+   {
+    "chapter": "569",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "569",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 85141,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:55+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "569",
+   "chapterNum": 569.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/85141"
+  },
+  "Kitsu": {
+   "chapter": "569",
+   "chapterNum": 569.0,
+   "ended": "2022-10-13",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/35880"
+  },
+  "MangaBaka": {
+   "chapter": "570",
+   "chapterNum": 570.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/2343/The-God-of-High-School"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "570",
+   "chapterNum": 570.0,
+   "expectedNext": "2022-12-16",
+   "history": [
+    {
+     "chapter": "570",
+     "date": "2022-12-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "569",
+     "date": "2022-12-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "568",
+     "date": "2022-11-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "567",
+     "date": "2022-11-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "566",
+     "date": "2022-11-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "565",
+     "date": "2022-11-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "564",
+     "date": "2022-10-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "563",
+     "date": "2022-10-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "562",
+     "date": "2022-10-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "561",
+     "date": "2022-10-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "560",
+     "date": "2022-09-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "559",
+     "date": "2022-09-23T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2022-12-09T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/wmt1xxw/god-of-high-school"
+  },
+  "Webtoon": {
+   "chapter": "34",
+   "chapterNum": 34.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "34",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "33",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "32",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "31",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "30",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "29",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "28",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "27",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "26",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "25",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "24",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "23",
+     "date": "2014-07-01T01:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2014-07-01T01:00:00+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": null,
+   "url": "https://www.webtoons.com/en/action/the-god-of-high-school/ep-34/viewer?title_no=66&episode_no=34"
+  }
+ },
+ "status": "FINISHED",
+ "title": "The God of High School",
+ "titles": [
+  "The God of High School",
+  "God of High School",
+  "GoH",
+  "เทพเกรียน โรงเรียนมัธยม"
+ ],
+ "version": 1,
+ "year": 2011
+}

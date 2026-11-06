@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "249",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "249",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "13",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "249",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "249",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30003,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:03+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "249",
+   "chapterNum": 249.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30003"
+  },
+  "Kitsu": {
+   "chapter": "249",
+   "chapterNum": 249.0,
+   "ended": "2006-04-24",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/12"
+  },
+  "MangaBaka": {
+   "chapter": "249",
+   "chapterNum": 249.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/4792/20th-Century-Boys"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "13",
+   "chapterNum": 13.0,
+   "expectedNext": "2007-08-19",
+   "history": [
+    {
+     "chapter": "13",
+     "date": "2007-08-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "11",
+     "date": "2005-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "10",
+     "date": "2005-10-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "9",
+     "date": "2005-10-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "8",
+     "date": "2005-09-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "7",
+     "date": "2005-09-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2005-08-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2005-08-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2005-08-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2005-08-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2005-07-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2005-07-12T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2007-08-14T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 5,
+   "url": "https://www.mangaupdates.com/series/ktr1ti2/20-seiki-shounen"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "20th Century Boys",
+ "titles": [
+  "20th Century Boys",
+  "20 Seiki Shounen",
+  "Nijuu Seiki Shounen",
+  "Nijuusseiki Shounen"
+ ],
+ "version": 1,
+ "year": 1999
+}

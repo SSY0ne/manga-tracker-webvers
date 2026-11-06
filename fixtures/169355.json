@@ -1,0 +1,119 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "137",
+  "countOnly": null,
+  "date": "2026-11-01",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "137",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "137",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 169355,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:07+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "137",
+   "chapterNum": 137.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/708/Kagurabachi"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "137",
+   "chapterNum": 137.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "137",
+     "date": "2026-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "136",
+     "date": "2026-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "135",
+     "date": "2026-10-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "134",
+     "date": "2026-10-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "133",
+     "date": "2026-10-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "132",
+     "date": "2026-09-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "131",
+     "date": "2026-09-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "130",
+     "date": "2026-08-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "129",
+     "date": "2026-08-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "128",
+     "date": "2026-08-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "127",
+     "date": "2026-08-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "126",
+     "date": "2026-07-26T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-01T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/rrlks4b/kagurabachi"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Kagurabachi",
+ "titles": [
+  "Kagurabachi",
+  "Kagurabachi",
+  "神樂鉢",
+  "KGB"
+ ],
+ "version": 1,
+ "year": 2023
+}

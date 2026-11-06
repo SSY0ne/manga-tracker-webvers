@@ -1,0 +1,89 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "162",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "162",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "162",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "162",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30001,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:57+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "162",
+   "chapterNum": 162.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30001"
+  },
+  "Kitsu": {
+   "chapter": "162",
+   "chapterNum": 162.0,
+   "ended": "2001-12-20",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/4"
+  },
+  "MangaBaka": {
+   "chapter": "162",
+   "chapterNum": 162.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/10748/MONSTER"
+  },
+  "MangaDex": null,
+  "MangaUpdates": null,
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Monster",
+ "titles": [
+  "Monster",
+  "MONSTER",
+  "몬스터"
+ ],
+ "version": 1,
+ "year": 1994
+}

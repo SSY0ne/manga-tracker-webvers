@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "108",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "108",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "108",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "108",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "108",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30021,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:13+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "108",
+   "chapterNum": 108.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30021"
+  },
+  "Kitsu": {
+   "chapter": "108",
+   "chapterNum": 108.0,
+   "ended": "2006-05-15",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/57"
+  },
+  "MangaBaka": {
+   "chapter": "108",
+   "chapterNum": 108.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1824/DEATH-NOTE"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "108",
+   "chapterNum": 108.0,
+   "expectedNext": "2021-01-14",
+   "history": [
+    {
+     "chapter": "108",
+     "date": "2021-01-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "107",
+     "date": "2020-12-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "106",
+     "date": "2020-12-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "105",
+     "date": "2020-12-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "104",
+     "date": "2020-12-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "103",
+     "date": "2020-12-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "102",
+     "date": "2020-11-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "101",
+     "date": "2020-11-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "100",
+     "date": "2020-11-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "99",
+     "date": "2020-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "98",
+     "date": "2020-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "97",
+     "date": "2020-10-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2021-01-07T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/1ljv3bs/death-note"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Death Note",
+ "titles": [
+  "Death Note",
+  "DEATH NOTE",
+  "デスノート",
+  "Ölüm Defteri"
+ ],
+ "version": 1,
+ "year": 2003
+}

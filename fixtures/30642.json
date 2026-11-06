@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "220",
+  "countOnly": null,
+  "date": "2025-07-25",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "224",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "220",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "220",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "224",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 30
+ },
+ "id": 30642,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:35+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "224",
+   "chapterNum": 224.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30642"
+  },
+  "Kitsu": {
+   "chapter": "220",
+   "chapterNum": 220.0,
+   "ended": "2025-07-25",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/1456"
+  },
+  "MangaBaka": {
+   "chapter": "224",
+   "chapterNum": 224.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/3248/VINLAND-SAGA"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "220",
+   "chapterNum": 220.0,
+   "expectedNext": "2025-08-24",
+   "history": [
+    {
+     "chapter": "220",
+     "date": "2025-07-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "219",
+     "date": "2025-05-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "218",
+     "date": "2025-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "217",
+     "date": "2025-01-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "216",
+     "date": "2024-11-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "215",
+     "date": "2024-10-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "214",
+     "date": "2024-09-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "213",
+     "date": "2024-08-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "212",
+     "date": "2024-06-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "211",
+     "date": "2024-05-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "210",
+     "date": "2024-04-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "209",
+     "date": "2024-02-23T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-07-25T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 30,
+   "url": "https://www.mangaupdates.com/series/cql4c43/vinland-saga"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Vinland Saga",
+ "titles": [
+  "Vinland Saga",
+  "Vinland Saga",
+  "Saga Winlandzka",
+  "Сага о Винланде"
+ ],
+ "version": 1,
+ "year": 2005
+}

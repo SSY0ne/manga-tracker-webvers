@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "250",
+  "countOnly": null,
+  "date": "2026-07-12",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "250",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "250",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "250",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "250",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 132182,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:20+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/132182"
+  },
+  "Kitsu": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "ended": "2026-07-12",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/59240"
+  },
+  "MangaBaka": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/173/Blue-Box"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "expectedNext": "2026-07-19",
+   "history": [
+    {
+     "chapter": "250",
+     "date": "2026-07-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "249",
+     "date": "2026-07-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "248",
+     "date": "2026-06-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "247",
+     "date": "2026-06-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "246",
+     "date": "2026-06-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "245",
+     "date": "2026-06-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "244",
+     "date": "2026-05-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "243",
+     "date": "2026-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "242",
+     "date": "2026-05-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "241",
+     "date": "2026-05-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "240",
+     "date": "2026-04-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "239",
+     "date": "2026-04-19T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-07-12T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/3wv666d/ao-no-hako"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Blue Box",
+ "titles": [
+  "Blue Box",
+  "Ao no Hako",
+  "青色之箱",
+  "กล่องรักวัยใส"
+ ],
+ "version": 1,
+ "year": 2021
+}

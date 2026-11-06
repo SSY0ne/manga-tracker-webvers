@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "404",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "Kitsu",
+  "sources": [
+   {
+    "chapter": "407",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "145",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "404",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "404",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 65243,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:51+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "404",
+   "chapterNum": 404.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/65243"
+  },
+  "Kitsu": {
+   "chapter": "404",
+   "chapterNum": 404.0,
+   "ended": "2020-07-20",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/12619"
+  },
+  "MangaBaka": {
+   "chapter": "407",
+   "chapterNum": 407.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/8718/Haikyu"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "145",
+   "chapterNum": 145.0,
+   "expectedNext": "2023-10-08",
+   "history": [
+    {
+     "chapter": "145",
+     "date": "2023-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "144",
+     "date": "2023-09-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "143",
+     "date": "2023-09-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "142",
+     "date": "2023-09-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "141",
+     "date": "2023-09-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "140",
+     "date": "2023-08-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "139",
+     "date": "2023-08-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "138",
+     "date": "2023-08-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "137",
+     "date": "2023-08-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "136",
+     "date": "2023-07-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "135",
+     "date": "2023-07-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "134",
+     "date": "2023-07-16T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-10-01T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/ul2du3n/haikyu"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Haikyu!!",
+ "titles": [
+  "Haikyu!!",
+  "Haikyuu!!",
+  "Ball High!!",
+  "HQ!!"
+ ],
+ "version": 1,
+ "year": 2012
+}

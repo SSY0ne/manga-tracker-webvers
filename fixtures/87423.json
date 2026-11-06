@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "181",
+  "countOnly": null,
+  "date": "2020-06-14",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "181",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "181",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "181",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "181",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 87423,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:25+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/87423"
+  },
+  "Kitsu": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "ended": "2020-06-15",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/38047"
+  },
+  "MangaBaka": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/5072/The-Promised-Neverland"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "expectedNext": "2020-06-21",
+   "history": [
+    {
+     "chapter": "181",
+     "date": "2020-06-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "180",
+     "date": "2020-06-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "179",
+     "date": "2020-05-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "178",
+     "date": "2020-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "177",
+     "date": "2020-05-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "176",
+     "date": "2020-05-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "175",
+     "date": "2020-04-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "174",
+     "date": "2020-04-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "173",
+     "date": "2020-03-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "172",
+     "date": "2020-03-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "171",
+     "date": "2020-03-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "170",
+     "date": "2020-03-08T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-06-14T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/qwxz22l/yakusoku-no-neverland"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "The Promised Neverland",
+ "titles": [
+  "The Promised Neverland",
+  "Yakusoku no Neverland",
+  "YakuNeba",
+  "Vadedilmiş Yokyer"
+ ],
+ "version": 1,
+ "year": 2016
+}

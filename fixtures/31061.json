@@ -1,0 +1,119 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "1169",
+  "countOnly": null,
+  "date": "2026-10-13",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 24,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "1169",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "1169",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 31061,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:31+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "1169",
+   "chapterNum": 1169.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/2089/Case-Closed"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "1169",
+   "chapterNum": 1169.0,
+   "expectedNext": "2026-10-20",
+   "history": [
+    {
+     "chapter": "1169",
+     "date": "2026-10-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "1168",
+     "date": "2026-10-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "1167",
+     "date": "2026-09-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "1166",
+     "date": "2026-07-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "1165",
+     "date": "2026-07-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "1164",
+     "date": "2026-07-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "1163",
+     "date": "2026-06-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "1162",
+     "date": "2026-04-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "1161",
+     "date": "2026-04-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "1160",
+     "date": "2026-04-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "1159",
+     "date": "2026-03-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "1158",
+     "date": "2026-02-23T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-13T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/3xfm8ig/meitantei-conan"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Detective Conan",
+ "titles": [
+  "Detective Conan",
+  "Meitantei Conan",
+  "Case Closed",
+  "Detectiu Conan"
+ ],
+ "version": 1,
+ "year": 1994
+}

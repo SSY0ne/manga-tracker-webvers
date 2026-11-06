@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "102",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "103",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "102",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "103",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "103",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30145,
+ "read": null,
+ "recordedAt": "2026-11-06T12:23:54+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "103",
+   "chapterNum": 103.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30145"
+  },
+  "Kitsu": {
+   "chapter": "103",
+   "chapterNum": 103.0,
+   "ended": "2008-06-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/354"
+  },
+  "MangaBaka": {
+   "chapter": "103",
+   "chapterNum": 103.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/10341/BECK"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "102",
+   "chapterNum": 102.0,
+   "expectedNext": "2009-05-29",
+   "history": [
+    {
+     "chapter": "102",
+     "date": "2009-04-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "100",
+     "date": "2008-11-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "98",
+     "date": "2008-08-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "97",
+     "date": "2008-07-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "96",
+     "date": "2008-05-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "95",
+     "date": "2008-04-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "94",
+     "date": "2008-03-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "93",
+     "date": "2008-02-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "92",
+     "date": "2008-01-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "91",
+     "date": "2007-11-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "90",
+     "date": "2007-09-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "89",
+     "date": "2007-08-18T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2009-04-27T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 32,
+   "url": "https://www.mangaupdates.com/series/q9z31ex/beck"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "BECK",
+ "titles": [
+  "BECK",
+  "BECK",
+  "ベック",
+  "Beck: Mongolian Chop Squad"
+ ],
+ "version": 1,
+ "year": 2000
+}

@@ -15,6 +15,10 @@
                                           --id 123 456 for series that are not in series.json); needs the network
     python3 devtools.py replay            run the CURRENT rules on every fixture, offline, and show what changed
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
+    python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
+                                          sourced truth for finished series); one polite request per title
+    python3 devtools.py score [SET]       how often the current rules agree with the web-checked truths, per set
+                                          ("main" = the 40 series the rules were built on, "holdout" = never seen)
     python3 devtools.py mutate            break each rule on purpose, in a scratch copy, and say which tests notice
     python3 devtools.py preview [STATE]   serve a COPY of the site on :8125 using the newest sandbox state.json (or
                                           STATE), to see a change in the browser before the bot has run
@@ -305,6 +309,71 @@ MUTATIONS = [
 ]
 
 
+def wiki(titles, pause=5.0):
+    """Chapter counts mentioned in the lead of the English Wikipedia article for each title.
+
+    One request per title (search + extract together), `pause` seconds apart, and it waits as long as
+    Wikipedia asks (Retry-After) when it says "too many requests". Prints the page it read so the
+    answer can be traced: Wikipedia's counts are written by editors from the publishers' volume lists."""
+    import re
+    import urllib.error
+    import urllib.parse
+
+    headers = {"User-Agent": "manga-tracker-factcheck/1.0 (learning project; github.com/SSY0ne/manga-tracker-webvers)"}
+    for title in titles:
+        params = urllib.parse.urlencode({
+            "action": "query", "format": "json", "generator": "search", "gsrsearch": f"{title} manga",
+            "gsrlimit": 2, "prop": "extracts", "exintro": 1, "explaintext": 1, "exlimit": 2,
+        })
+        data = None
+        for attempt in range(4):
+            time.sleep(pause)
+            try:
+                req = urllib.request.Request("https://en.wikipedia.org/w/api.php?" + params, headers=headers)
+                data = json.load(urllib.request.urlopen(req, timeout=25))
+                break
+            except urllib.error.HTTPError as err:
+                if err.code != 429:
+                    print(f"{title}: HTTP {err.code}")
+                    break
+                wait = int(err.headers.get("Retry-After", "30")) + 3
+                print(f"  (Wikipedia asked to wait {wait}s)", flush=True)
+                time.sleep(wait)
+        if not data:
+            print(f"{title[:28]:28} no answer")
+            continue
+        pages = sorted((data.get("query") or {}).get("pages", {}).values(), key=lambda p: p.get("index", 9))
+        hits = []
+        for page in pages:
+            text = page.get("extract", "")
+            for m in re.finditer(r"([^.]*?\b(\d[\d,]*)\s+(?:individual\s+)?chapters[^.]*\.)", text):
+                hits.append((page["title"], m.group(2).replace(",", ""), re.sub(r"\s+", " ", m.group(1)).strip()[:150]))
+        if hits:
+            for page_title, n, sentence in hits[:2]:
+                print(f"{title[:28]:28} {n:>5} chapters  [{page_title}]  {sentence}")
+        else:
+            print(f"{title[:28]:28} (no chapter count in the lead of: {', '.join(p['title'] for p in pages) or 'nothing found'})")
+
+
+def score(set_name=None):
+    import corpus
+
+    rows = corpus.score(set_name)
+    truth = corpus.load_truth()
+    fixtures = {str(fx["id"]): fx for fx in corpus.load_all()}
+    for name in sorted({r[1] for r in rows}):
+        part = [r for r in rows if r[1] == name]
+        hit = [r for r in part if r[2]]
+        print(f"{name:8} {len(hit)} of {len(part)} agree with the web ({100 * len(hit) // max(1, len(part))}%)")
+        for title, _, ok, why, enforced in part:
+            if not ok:
+                print(f"   MISS {title[:30]:30} {why}{'' if enforced else '   (not enforced)'}")
+        untested = [fx["title"] for k, fx in fixtures.items() if k not in truth and (name != "holdout" or True)]
+    checked = {r[0] for r in rows}
+    left = [fx["title"] for k, fx in fixtures.items() if (truth.get(k, {}).get("title") or fx["title"]) not in checked and k not in truth]
+    print(f"\n{len(left)} recorded series have no web-checked truth yet (they count for nothing here).")
+
+
 def mutate():
     """Mutation testing: if breaking a rule on purpose doesn't make a test fail, that rule is unprotected."""
     import glob
@@ -409,6 +478,10 @@ if __name__ == "__main__":
         restart()
     elif cmd == "record":
         record(sys.argv[2:])
+    elif cmd == "wiki":
+        wiki(sys.argv[2:])
+    elif cmd == "score":
+        score(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "mutate":
         mutate()
     elif cmd == "replay":

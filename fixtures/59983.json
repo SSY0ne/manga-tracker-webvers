@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "543",
+  "countOnly": null,
+  "date": "2019-01-01",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "544",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "543",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "50",
+    "name": "Webtoon",
+    "plausible": false
+   },
+   {
+    "chapter": "544",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "544",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 59983,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:46+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "544",
+   "chapterNum": 544.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/59983"
+  },
+  "Kitsu": {
+   "chapter": "544",
+   "chapterNum": 544.0,
+   "ended": "2019-01-08",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/23815"
+  },
+  "MangaBaka": {
+   "chapter": "544",
+   "chapterNum": 544.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/10004/Noblesse"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "543",
+   "chapterNum": 543.0,
+   "expectedNext": "2019-01-08",
+   "history": [
+    {
+     "chapter": "543",
+     "date": "2019-01-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "542",
+     "date": "2018-12-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "541",
+     "date": "2018-12-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "540",
+     "date": "2018-12-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "539",
+     "date": "2018-12-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "538",
+     "date": "2018-11-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "537",
+     "date": "2018-11-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "536",
+     "date": "2018-11-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "535",
+     "date": "2018-11-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "534",
+     "date": "2018-10-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "533",
+     "date": "2018-10-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "532",
+     "date": "2018-10-16T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2019-01-01T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/snvji36/noblesse"
+  },
+  "Webtoon": {
+   "chapter": "50",
+   "chapterNum": 50.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "50",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "49",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "48",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "47",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "46",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "45",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "44",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "43",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "42",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "41",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "40",
+     "date": "2014-07-01T01:00:00+00:00"
+    },
+    {
+     "chapter": "39",
+     "date": "2014-07-01T01:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2014-07-01T01:00:00+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": null,
+   "url": "https://www.webtoons.com/en/action/noblesse/ep-50/viewer?title_no=87&episode_no=50"
+  }
+ },
+ "status": "FINISHED",
+ "title": "Noblesse",
+ "titles": [
+  "Noblesse",
+  "Noblesse",
+  "大貴族",
+  "โนเบลส"
+ ],
+ "version": 1,
+ "year": 2007
+}

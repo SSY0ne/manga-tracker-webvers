@@ -1,0 +1,119 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "877",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "877",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "832",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 46765,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:41+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "877",
+   "chapterNum": 877.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1797/Kingdom"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "832",
+   "chapterNum": 832.0,
+   "expectedNext": "2025-11-22",
+   "history": [
+    {
+     "chapter": "832",
+     "date": "2025-11-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "831",
+     "date": "2025-05-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "829",
+     "date": "2025-05-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "828",
+     "date": "2025-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "827",
+     "date": "2025-04-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "826",
+     "date": "2025-03-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "825",
+     "date": "2025-03-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "822",
+     "date": "2025-01-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "816",
+     "date": "2024-12-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "814",
+     "date": "2024-12-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "818",
+     "date": "2024-11-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "811",
+     "date": "2024-10-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-11-10T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 12,
+   "url": "https://www.mangaupdates.com/series/1zitx1c/kingdom"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Kingdom",
+ "titles": [
+  "Kingdom",
+  "Kingdom",
+  "킹덤",
+  "王者天下"
+ ],
+ "version": 1,
+ "year": 2006
+}

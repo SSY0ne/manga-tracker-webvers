@@ -1,0 +1,204 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "257",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "257",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "33",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "7",
+    "name": "Webtoon",
+    "plausible": false
+   },
+   {
+    "chapter": "257",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "257",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 103995,
+ "read": null,
+ "recordedAt": "2026-11-06T12:24:03+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "257",
+   "chapterNum": 257.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/103995"
+  },
+  "Kitsu": {
+   "chapter": "257",
+   "chapterNum": 257.0,
+   "ended": "2023-04-10",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/53969"
+  },
+  "MangaBaka": {
+   "chapter": "257",
+   "chapterNum": 257.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/3213/True-Beauty"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "33",
+   "chapterNum": 33.0,
+   "expectedNext": "2023-07-05",
+   "history": [
+    {
+     "chapter": "33",
+     "date": "2023-06-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "32",
+     "date": "2023-06-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "31",
+     "date": "2023-06-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "30",
+     "date": "2023-06-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "29",
+     "date": "2023-05-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "28",
+     "date": "2023-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "27",
+     "date": "2023-05-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "26",
+     "date": "2023-05-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "25",
+     "date": "2023-05-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "24",
+     "date": "2023-04-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "23",
+     "date": "2023-04-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "22",
+     "date": "2023-04-12T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-06-28T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/1mq46dr/true-beauty"
+  },
+  "Webtoon": {
+   "chapter": "7",
+   "chapterNum": 7.0,
+   "expectedNext": "2018-09-26",
+   "history": [
+    {
+     "chapter": "7",
+     "date": "2018-09-19T04:00:24+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2018-09-12T04:00:23+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2018-09-05T04:00:24+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2018-08-29T04:00:20+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2018-08-22T04:00:20+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2018-08-15T04:26:13+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2018-08-15T04:26:13+00:00"
+    },
+    {
+     "chapter": "0",
+     "date": "2018-08-15T04:26:13+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2018-09-19T04:00:24+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/romance/truebeauty/episode-7/viewer?title_no=1436&episode_no=8"
+  }
+ },
+ "status": "FINISHED",
+ "title": "True Beauty",
+ "titles": [
+  "True Beauty",
+  "Yeosingangnim",
+  "Descent of a Goddess",
+  "The Secret of Angel"
+ ],
+ "version": 1,
+ "year": 2018
+}

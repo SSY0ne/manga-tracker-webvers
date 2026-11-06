@@ -1,0 +1,153 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "236",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "AniList",
+  "sources": [
+   {
+    "chapter": "237",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "3",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "232",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "236",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 98416,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:00+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "236",
+   "chapterNum": 236.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/98416"
+  },
+  "Kitsu": {
+   "chapter": "232",
+   "chapterNum": 232.0,
+   "ended": "2022-03-07",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/38860"
+  },
+  "MangaBaka": {
+   "chapter": "237",
+   "chapterNum": 237.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/3762/Dr-STONE"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "3",
+   "chapterNum": 3.0,
+   "expectedNext": "2023-12-31",
+   "history": [
+    {
+     "chapter": "3",
+     "date": "2023-12-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2023-12-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2023-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "232.5",
+     "date": "2022-07-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "232",
+     "date": "2022-03-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "231",
+     "date": "2022-02-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "230",
+     "date": "2022-02-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "229",
+     "date": "2022-02-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "228",
+     "date": "2022-02-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "227",
+     "date": "2022-01-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "226",
+     "date": "2022-01-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "225",
+     "date": "2022-01-16T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-12-24T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/065n5kz/dr-stone"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Dr. STONE",
+ "titles": [
+  "Dr. STONE",
+  "Dr. STONE"
+ ],
+ "version": 1,
+ "year": 2017
+}

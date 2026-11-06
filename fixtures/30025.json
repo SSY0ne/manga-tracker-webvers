@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "163",
+  "countOnly": null,
+  "date": "2026-11-05",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "Webtoon",
+  "sources": [
+   {
+    "chapter": "163",
+    "name": "MangaBaka",
+    "plausible": false
+   },
+   {
+    "chapter": "163",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "163",
+    "name": "Webtoon",
+    "plausible": true
+   },
+   {
+    "chapter": "116",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "116",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 3
+ },
+ "id": 30025,
+ "read": null,
+ "recordedAt": "2026-11-06T12:20:22+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "116",
+   "chapterNum": 116.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30025"
+  },
+  "Kitsu": {
+   "chapter": "116",
+   "chapterNum": 116.0,
+   "ended": "2010-09-11",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/66"
+  },
+  "MangaBaka": {
+   "chapter": "163",
+   "chapterNum": 163.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/8312/FULLMETAL-ALCHEMIST"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "163",
+   "chapterNum": 163.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "163",
+     "date": "2026-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "162",
+     "date": "2026-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "161",
+     "date": "2026-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "160",
+     "date": "2026-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "159",
+     "date": "2026-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "158",
+     "date": "2026-10-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "157",
+     "date": "2026-10-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "156",
+     "date": "2026-10-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "155",
+     "date": "2026-10-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "154",
+     "date": "2026-10-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "153",
+     "date": "2026-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "152",
+     "date": "2026-09-27T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-05T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 3,
+   "url": "https://www.mangaupdates.com/series/8q91xb4/hagane-no-renkinjutsushi"
+  },
+  "Webtoon": {
+   "chapter": "163",
+   "chapterNum": 163.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "163",
+     "date": "2026-11-05T02:00:19+00:00"
+    },
+    {
+     "chapter": "162",
+     "date": "2026-11-01T01:01:09+00:00"
+    },
+    {
+     "chapter": "161",
+     "date": "2026-10-29T01:01:17+00:00"
+    },
+    {
+     "chapter": "160",
+     "date": "2026-10-25T01:01:04+00:00"
+    },
+    {
+     "chapter": "159",
+     "date": "2026-10-22T01:00:52+00:00"
+    },
+    {
+     "chapter": "158",
+     "date": "2026-10-18T01:00:59+00:00"
+    },
+    {
+     "chapter": "157",
+     "date": "2026-10-15T01:00:46+00:00"
+    },
+    {
+     "chapter": "156",
+     "date": "2026-10-11T01:01:00+00:00"
+    },
+    {
+     "chapter": "155",
+     "date": "2026-10-08T01:00:47+00:00"
+    },
+    {
+     "chapter": "154",
+     "date": "2026-10-04T01:00:58+00:00"
+    },
+    {
+     "chapter": "153",
+     "date": "2026-10-01T01:00:46+00:00"
+    },
+    {
+     "chapter": "152",
+     "date": "2026-09-27T01:01:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-05T02:00:19+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 3,
+   "url": "https://www.webtoons.com/en/graphic-novel/fullmetal-alchemist/episode-163/viewer?title_no=7862&episode_no=163"
+  }
+ },
+ "status": "FINISHED",
+ "title": "Fullmetal Alchemist",
+ "titles": [
+  "Fullmetal Alchemist",
+  "Hagane no Renkinjutsushi",
+  "Full Metal Alchemist",
+  "FMA"
+ ],
+ "version": 1,
+ "year": 2001
+}

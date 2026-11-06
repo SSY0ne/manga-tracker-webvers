@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "314",
+  "countOnly": null,
+  "date": "2022-04-28",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "314",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "314",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "314",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "314",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 6
+ },
+ "id": 86559,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:24+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "314",
+   "chapterNum": 314.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/86559"
+  },
+  "Kitsu": {
+   "chapter": "314",
+   "chapterNum": 314.0,
+   "ended": "2022-04-28",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/34444"
+  },
+  "MangaBaka": {
+   "chapter": "314",
+   "chapterNum": 314.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/5719/Golden-Kamuy"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "314",
+   "chapterNum": 314.0,
+   "expectedNext": "2022-05-04",
+   "history": [
+    {
+     "chapter": "314",
+     "date": "2022-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "313",
+     "date": "2022-04-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "312",
+     "date": "2022-04-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "311",
+     "date": "2022-04-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "310",
+     "date": "2022-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "309",
+     "date": "2022-03-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "308",
+     "date": "2022-03-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "307",
+     "date": "2022-02-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "306",
+     "date": "2022-02-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "305",
+     "date": "2022-02-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "304",
+     "date": "2022-01-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "303",
+     "date": "2022-01-22T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2022-04-28T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/2vusaic/golden-kamui"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Golden Kamuy",
+ "titles": [
+  "Golden Kamuy",
+  "Golden Kamuy",
+  "Golden Kamui",
+  "黃金神威"
+ ],
+ "version": 1,
+ "year": 2014
+}

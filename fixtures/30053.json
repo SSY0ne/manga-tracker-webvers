@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "175",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "176",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "175",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "175",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "176",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30053,
+ "read": null,
+ "recordedAt": "2026-11-06T12:21:37+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "176",
+   "chapterNum": 176.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30053"
+  },
+  "Kitsu": {
+   "chapter": "175",
+   "chapterNum": 175.0,
+   "ended": "1994-07-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/138"
+  },
+  "MangaBaka": {
+   "chapter": "176",
+   "chapterNum": 176.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/5380/Yu-Yu-Hakusho"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "175",
+   "chapterNum": 175.0,
+   "expectedNext": "2008-12-03",
+   "history": [
+    {
+     "chapter": "175",
+     "date": "2008-11-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "174",
+     "date": "2008-11-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "173",
+     "date": "2008-10-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2008-09-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "171",
+     "date": "2008-08-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "172",
+     "date": "2008-08-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "8",
+     "date": "2008-08-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "170",
+     "date": "2008-08-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "7",
+     "date": "2008-07-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "169",
+     "date": "2008-07-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "168",
+     "date": "2008-07-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "167",
+     "date": "2008-06-14T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2008-11-27T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/ss3rlmi/yu-yu-hakusho"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Yu Yu Hakusho",
+ "titles": [
+  "Yu Yu Hakusho",
+  "Yuu☆Yuu☆Hakusho",
+  "Yuu Yuu Hakusho",
+  "YuYu Hakusho"
+ ],
+ "version": 1,
+ "year": 1990
+}

@@ -1,0 +1,184 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "632",
+  "countOnly": null,
+  "date": "2026-11-05",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "632",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "632",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "620",
+    "name": "Webtoon",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 6
+ },
+ "id": 86848,
+ "read": null,
+ "recordedAt": "2026-11-06T12:22:56+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "632",
+   "chapterNum": 632.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/1536/Lookism"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "632",
+   "chapterNum": 632.0,
+   "expectedNext": "2026-11-11",
+   "history": [
+    {
+     "chapter": "632",
+     "date": "2026-11-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "631",
+     "date": "2026-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "630",
+     "date": "2026-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "629",
+     "date": "2026-10-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "628",
+     "date": "2026-10-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "627",
+     "date": "2026-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "626",
+     "date": "2026-09-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "625",
+     "date": "2026-09-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "624",
+     "date": "2026-09-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "612",
+     "date": "2026-09-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "623",
+     "date": "2026-09-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "611",
+     "date": "2026-08-30T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-05T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/0udr4gz/lookism"
+  },
+  "Webtoon": {
+   "chapter": "620",
+   "chapterNum": 620.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "620",
+     "date": "2026-11-01T01:00:20+00:00"
+    },
+    {
+     "chapter": "619",
+     "date": "2026-10-25T01:00:20+00:00"
+    },
+    {
+     "chapter": "618",
+     "date": "2026-10-18T01:00:18+00:00"
+    },
+    {
+     "chapter": "617",
+     "date": "2026-10-11T01:00:18+00:00"
+    },
+    {
+     "chapter": "616",
+     "date": "2026-10-04T01:00:17+00:00"
+    },
+    {
+     "chapter": "615",
+     "date": "2026-09-27T01:00:18+00:00"
+    },
+    {
+     "chapter": "614",
+     "date": "2026-09-20T01:00:19+00:00"
+    },
+    {
+     "chapter": "613",
+     "date": "2026-09-13T01:00:23+00:00"
+    },
+    {
+     "chapter": "612",
+     "date": "2026-09-06T01:00:21+00:00"
+    },
+    {
+     "chapter": "611",
+     "date": "2026-08-30T01:00:28+00:00"
+    },
+    {
+     "chapter": "610",
+     "date": "2026-08-23T01:00:27+00:00"
+    },
+    {
+     "chapter": "609",
+     "date": "2026-08-16T01:00:22+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-01T01:00:20+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/drama/lookism/ep-620-gapryong-kim-11/viewer?title_no=1049&episode_no=620"
+  }
+ },
+ "status": "RELEASING",
+ "title": "Lookism",
+ "titles": [
+  "Lookism",
+  "Oemo Jisangjuui",
+  "外見至上主義",
+  "APARI3NCIAS"
+ ],
+ "version": 1,
+ "year": 2014
+}

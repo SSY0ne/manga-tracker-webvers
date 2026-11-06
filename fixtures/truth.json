@@ -6,7 +6,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "AniList + Kitsu + a series database all say 401 (43 volumes); MangaBaka said 487",
-  "note": "the case the count vote was built for"
+  "note": "the case the count vote was built for",
+  "set": "main"
  },
  "30656": {
   "title": "Vagabond",
@@ -15,7 +16,8 @@
   "dormant": true,
   "enforced": true,
   "source": "https://en.wikipedia.org/wiki/List_of_Vagabond_chapters",
-  "note": "327 is the latest chapter; hiatus since 2015-05-21"
+  "note": "327 is the latest chapter; hiatus since 2015-05-21",
+  "set": "main"
  },
  "119257": {
   "title": "Omniscient Reader",
@@ -23,7 +25,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "https://kcomicsbeat.com/2026/05/24/first-season-ends-for-omniscient-readers-viewpoint/",
-  "note": "season 1 ended after 311 chapters (May 2026); the English Webtoon feed is behind at 308"
+  "note": "season 1 ended after 311 chapters (May 2026); the English Webtoon feed is behind at 308",
+  "set": "main"
  },
  "105778": {
   "title": "Chainsaw Man",
@@ -31,7 +34,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "https://www.siliconera.com/chainsaw-man-manga-ended-with-chapter-232-and-familiar-characters/",
-  "note": "ended with chapter 232 on 2026-03-24; Kitsu only lists Part 1 (97)"
+  "note": "ended with chapter 232 on 2026-03-24; Kitsu only lists Part 1 (97)",
+  "set": "main"
  },
  "86123": {
   "title": "Black Clover",
@@ -39,7 +43,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "https://respawn.outlookindia.com/pop-culture/pop-culture-news/black-clover-manga-ends-at-chapter-392-after-11-years",
-  "note": "final chapters 390-392, May 2026"
+  "note": "final chapters 390-392, May 2026",
+  "set": "main"
  },
  "117195": {
   "title": "[Oshi no Ko]",
@@ -47,7 +52,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_chapters",
-  "note": "166 chapters, ended 2024-11-14; AniList and MangaBaka say 171, Kitsu 168"
+  "note": "166 chapters, ended 2024-11-14; AniList and MangaBaka say 171, Kitsu 168",
+  "set": "main"
  },
  "198372": {
   "title": "Jujutsu Kaisen Modulo",
@@ -55,7 +61,8 @@
   "tolerance": 0,
   "enforced": true,
   "source": "https://animehunch.com/jujutsu-kaisen-modulo-manga-ends-with-chapter-25/",
-  "note": "ended with chapter 25 (March 2026); MangaBaka and Kitsu say 26"
+  "note": "ended with chapter 25 (March 2026); MangaBaka and Kitsu say 26",
+  "set": "main"
  },
  "30026": {
   "title": "Hunter x Hunter",
@@ -65,7 +72,8 @@
   "dormant": false,
   "enforced": true,
   "source": "https://fandomwire.com/hunter-x-hunter-chapter-420-where-to-read-togashi-hiatus-duration-explained/",
-  "note": "chapter 420 on 2026-09-06, then a new hiatus announced; not dormant"
+  "note": "chapter 420 on 2026-09-06, then a new hiatus announced; not dormant",
+  "set": "main"
  },
  "39982": {
   "title": "Usogui",
@@ -73,7 +81,8 @@
   "tolerance": 2,
   "enforced": true,
   "source": "https://en.wikipedia.org/wiki/Usogui (539 chapters, 49 volumes); MyAnimeList says 541",
-  "note": "extras are counted differently; either is defensible"
+  "note": "extras are counted differently; either is defensible",
+  "set": "main"
  },
  "102988": {
   "title": "Tokyo Revengers",
@@ -81,7 +90,8 @@
   "tolerance": 1,
   "enforced": true,
   "source": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_chapters",
-  "note": "278 chapters, final one 2022-11-16; AniList and MangaBaka say 279"
+  "note": "278 chapters, final one 2022-11-16; AniList and MangaBaka say 279",
+  "set": "main"
  },
  "85611": {
   "title": "Tokyo Ghoul:re",
@@ -89,7 +99,8 @@
   "tolerance": 2,
   "enforced": true,
   "source": "MyAnimeList and most databases say 181; MangaDex has 179",
-  "note": "the real total is 179-181 depending on extras"
+  "note": "the real total is 179-181 depending on extras",
+  "set": "main"
  },
  "30375": {
   "title": "Initial D",
@@ -97,7 +108,8 @@
   "tolerance": 0,
   "enforced": false,
   "source": "Wikipedia and the Initial D wiki: 719 chapters, 48 volumes; MyAnimeList says 724",
-  "note": "KNOWN MISS: we say 725 (AniList and MangaBaka both do)"
+  "note": "KNOWN MISS: we say 725 (AniList and MangaBaka both do)",
+  "set": "main"
  },
  "30002": {
   "title": "Berserk",
@@ -105,7 +117,8 @@
   "tolerance": 0,
   "enforced": false,
   "source": "https://www.thepopverse.com/comics-berserk-chapter-384-delay-apology-koji-mori-post/ and https://animehunch.com/berserk-chapter-384-gets-release-date-after-eight-month-break/",
-  "note": "mainstream outlets number the June-July 2026 issues 384-386; one site says 399-401. Not settled, so not enforced"
+  "note": "mainstream outlets number the June-July 2026 issues 384-386; one site says 399-401. Not settled, so not enforced",
+  "set": "main"
  },
  "30007": {
   "title": "Hajime no Ippo",
@@ -113,13 +126,194 @@
   "tolerance": 0,
   "enforced": false,
   "source": "https://www.animenewsnetwork.com/news/2025-12-29/hajime-no-ippo-boxing-manga-announces-break/.232613",
-  "note": "1515 was the latest in March 2026; I could not confirm what happened since"
+  "note": "1515 was the latest in March 2026; I could not confirm what happened since",
+  "set": "main"
  },
  "30028": {
   "title": "Nana",
   "dormant": true,
   "enforced": false,
   "source": "not checked on the web yet",
-  "note": "84 chapters, nothing since 2009 per MangaUpdates; needs a sourced check"
+  "note": "84 chapters, nothing since 2009 per MangaUpdates; needs a sourced check",
+  "set": "main"
+ },
+ "30021": {
+  "title": "Death Note",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters",
+  "note": "",
+  "latest": "108",
+  "tolerance": 0
+ },
+ "30011": {
+  "title": "Naruto",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/Naruto",
+  "note": "",
+  "latest": "700",
+  "tolerance": 0
+ },
+ "30003": {
+  "title": "20th Century Boys",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/20th_Century_Boys",
+  "note": "",
+  "latest": "249",
+  "tolerance": 0
+ },
+ "30042": {
+  "title": "Dragon Ball",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/Dragon_Ball_(manga)",
+  "note": "519 individual chapters",
+  "latest": "519",
+  "tolerance": 0
+ },
+ "87423": {
+  "title": "The Promised Neverland",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_The_Promised_Neverland_chapters",
+  "note": "",
+  "latest": "181",
+  "tolerance": 0
+ },
+ "30053": {
+  "title": "Yu Yu Hakusho",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/YuYu_Hakusho",
+  "note": "",
+  "latest": "175",
+  "tolerance": 0
+ },
+ "30145": {
+  "title": "BECK",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/Beck_(manga)",
+  "note": "103 chapters in 34 volumes",
+  "latest": "103",
+  "tolerance": 0
+ },
+ "30025": {
+  "title": "Fullmetal Alchemist",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_chapters",
+  "note": "108 chapters, 27 volumes; two aggregator sites say 116",
+  "latest": "108",
+  "tolerance": 0
+ },
+ "30012": {
+  "title": "Bleach",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_Bleach_volumes",
+  "note": "highest chapter number is 686; the same page counts 698 individual chapters including extras",
+  "latest": "686",
+  "tolerance": 0
+ },
+ "65243": {
+  "title": "Haikyu!!",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_chapters",
+  "note": "the last numbered chapter is 402; MyAnimeList counts 407 with extras",
+  "latest": "402",
+  "tolerance": 5
+ },
+ "87216": {
+  "title": "Demon Slayer",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.fandompost.com/2020/05/18/the-demon-slayer-manga-ends/",
+  "note": "205 chapters, final one on 2020-05-18; a 205.5 would be a bonus",
+  "latest": "205",
+  "tolerance": 0
+ },
+ "30642": {
+  "title": "Vinland Saga",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.anitrendz.com/news/2025/06/21/vinland-saga-manga-to-end-in-july-2025-with-chapter-220",
+  "note": "ended with chapter 220 on 2025-07-25; AniList says 224",
+  "latest": "220",
+  "tolerance": 0
+ },
+ "30267": {
+  "title": "Hellsing",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://en.wikipedia.org/wiki/List_of_Hellsing_chapters",
+  "note": "best supported 95; MyAnimeList says 92, one encyclopedia 89",
+  "latest": "95",
+  "tolerance": 3
+ },
+ "85486": {
+  "title": "My Hero Academia",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.sportskeeda.com/anime/is-my-hero-academia-manga-over",
+  "note": "430 at the August 2024 end; a December 2024 bonus was later recognised as 431",
+  "latest": "430",
+  "tolerance": 1
+ },
+ "46765": {
+  "title": "Kingdom",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.thepopverse.com/comics-manga-kingdom-release-schedule-updated-english-japanese",
+  "note": "weekly; 882 out on 2026-07-15 and 887 scheduled for 2026-08-19",
+  "latestMin": 887
+ },
+ "31061": {
+  "title": "Detective Conan",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://animehunch.com/detective-conan-manga-chapter-1167-releases-after-2-month-hiatus/",
+  "note": "chapter 1167 mid-September 2026 after a two-month break",
+  "latestMin": 1167
+ },
+ "118586": {
+  "title": "Frieren",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.thepopverse.com/comics-manga-frieren-beyond-journeys-end-manga-release-schedule",
+  "note": "latest is 147 (2025-10-14); indefinite hiatus, 148 'to be announced' as of July 2026",
+  "latest": "147",
+  "tolerance": 0,
+  "onBreak": true,
+  "dormant": false
+ },
+ "169355": {
+  "title": "Kagurabachi",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.thepopverse.com/comics-manga-kagurabachi-delay-hiatus-chapter-132-september-2026/",
+  "note": "chapter 132 was due 2026-09-28; the actual latest is unknown",
+  "latestMin": 131
+ },
+ "30104": {
+  "title": "Yotsuba&!",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://www.thepopverse.com/comics-yotsuba-manga-release-schedule-hiatus-breaks-new-chapter/",
+  "note": "114 is the latest, 115 'no date'; a long irregular hiatus, not 5 years",
+  "latest": "114",
+  "tolerance": 0,
+  "dormant": false
+ },
+ "86848": {
+  "title": "Lookism",
+  "set": "holdout",
+  "enforced": false,
+  "source": "https://weebathon.blogspot.com/2026/01/Lookism-Chapter-591-Release-Date-Time-Where-to-Read.html",
+  "note": "chapter 591 on 2026-01-23 (a fan blog: weak source)",
+  "latestMin": 591
  }
 }
