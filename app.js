@@ -128,6 +128,27 @@ function sourcesLine(e) {
   return { text, detail, kind: e.agreement };
 }
 
+// Do the sources that FIT disagree about the chapter? (Sources we already threw out as stale or in another
+// numbering don't count: they are listed in the detail panel.) Whole chapters only: 223.9 and 223 agree.
+// The tile gets a note when they are at least 2 apart; a difference of 1 is normal (extras are counted
+// differently) and only appears in the detail panel.
+function chapterSpread(e) {
+  const nums = (e.sources || [])
+    .filter((s) => s.plausible && s.chapter != null && s.kind !== "status")
+    .map((s) => Math.floor(parseFloat(s.chapter)))
+    .filter((n) => Number.isFinite(n));
+  return nums.length > 1 ? { min: Math.min(...nums), max: Math.max(...nums) } : null;
+}
+const CONFLICT_AT = 2;
+function hasConflict(e) {
+  const sp = chapterSpread(e);
+  return Boolean(sp) && sp.max - sp.min >= CONFLICT_AT;
+}
+function conflictText(e) {
+  const sp = chapterSpread(e);
+  return sp ? `Sources differ: ${sp.min} to ${sp.max}` : "";
+}
+
 function fmtQuiet(days) {
   const weeks = Math.floor(days / 7);
   return weeks >= 104 ? `over ${Math.floor(weeks / 52)} years` : `${weeks} wks`;
@@ -411,7 +432,7 @@ function tileSubtitle(e) {
   if (e.chapter) {
     // For a series on break the date is old news: say WHY it is flagged instead.
     const q = isDormant(e) ? e.dormantDays : quietDays(e);
-    const why = q ? `${fmtQuiet(q)} quiet` : isDormant(e) ? "listed as discontinued" : onHiatus(e) ? "listed as hiatus" : null;
+    const why = q ? `${fmtQuiet(q)} quiet` : isDormant(e) ? "listed as discontinued" : onHiatus(e) ? "listed as hiatus" : hasConflict(e) ? "sources differ" : null;
     if (why) return `Ch. ${e.chapter} · ${why}`;
     return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
   }
@@ -440,6 +461,13 @@ function makeTile(e, opts = {}) {
       c.className = `chip ${chip.cls}`;
       c.textContent = chip.text;
       cover.append(c);
+    }
+    if (hasConflict(e)) {
+      const x = document.createElement("span");
+      x.className = "conflict-pill";
+      x.textContent = "≠";
+      x.title = conflictText(e);
+      cover.append(x);
     }
     const behind = behindShown(e);
     if (behind > 0) {
@@ -648,6 +676,10 @@ function renderDetail(e) {
   } else {
     facts.append(fact("Latest", e.pending ? "Checking..." : "No reliable chapter data"));
   }
+  const spread = chapterSpread(e);
+  if (spread && spread.max > spread.min) {
+    facts.append(fact("Sources differ", `${spread.min} to ${spread.max}: shown is ${e.chapter || "?"}${e.source ? ` (${e.source})` : ""}`));
+  }
   if (e.typicalGapDays) facts.append(fact("Usually every", `${Math.round(e.typicalGapDays)} days`));
   if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
     facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
@@ -657,13 +689,13 @@ function renderDetail(e) {
       fact("Dormant", e.dormantDays ? `${fmtQuiet(e.dormantDays)} without a chapter: the author may never return` : "listed as discontinued: the author may never return")
     );
   }
+  else if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
+  else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
   for (const v of e.statusVotes || []) {
     if (v.status === "hiatus" || v.status === "discontinued") {
       facts.append(fact(`${v.name} says`, `${v.status === "hiatus" ? "paused" : "discontinued"}${v.ended ? ` (last chapter ${v.ended})` : ""}`));
     }
   }
-  else if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
-  else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
   main.append(facts);
 
   // Your progress and this series' alert settings belong to the OWNER: a visitor to the published
@@ -787,7 +819,7 @@ const SHOW = {
   dormant: isDormant,
   new: isNew,
   behind: (e) => behindShown(e) > 0,
-  disagree: (e) => e.agreement === "conflict" || (e.sources || []).some((s) => s.kind === "count" && !s.plausible),
+  disagree: hasConflict,
   count: (e) => e.countOnly === true,
   finished: (e) => e.status === "FINISHED",
 };

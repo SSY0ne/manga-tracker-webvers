@@ -1,0 +1,133 @@
+function renderDetail(e) {
+  const body = document.getElementById("detail-body");
+  const quiet = quietDays(e);
+
+  // Hero: blurred cover as the backdrop, sharp cover + title + labels on top
+  const hero = el("div", "d-hero");
+  hero.style.setProperty("--cover", `url("${coverUrl(e, "large").replace(/"/g, "%22")}")`);
+  const img = el("img", "d-cover");
+  img.src = coverUrl(e, "large");
+  img.alt = `Cover of ${e.title}`;
+  const head = el("div", "d-head");
+  const h = el("h2", "d-title", e.title);
+  h.id = "detail-title";
+  const chips = el("div", "chips");
+  const lead = tileChip(e);
+  if (lead && lead.cls !== "finished" && lead.cls !== "releasing") chips.append(el("span", `chip ${lead.cls}`, lead.text));
+  if (e.status) chips.append(el("span", "chip status", STATUS_LABEL[e.status] || e.status));
+  head.append(h, chips);
+  const close = el("button", "close-btn", "✕");
+  close.type = "button";
+  close.setAttribute("aria-label", "Close");
+  close.addEventListener("click", () => document.getElementById("detail").close());
+  hero.append(img, head, close);
+
+  const main = el("div", "d-body");
+
+  // The facts
+  const facts = el("div", "d-section");
+  facts.append(el("h3", "", "Chapters"));
+  if (e.chapter) {
+    const a = el("a", "", `Ch. ${e.chapter}`);
+    a.href = e.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    const latest = el("span");
+    latest.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · no date");
+    facts.append(fact("Latest", latest));
+  } else {
+    facts.append(fact("Latest", e.pending ? "Checking..." : "No reliable chapter data"));
+  }
+  if (e.typicalGapDays) facts.append(fact("Usually every", `${Math.round(e.typicalGapDays)} days`));
+  if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
+    facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
+  }
+  if (isDormant(e)) {
+    facts.append(
+      fact("Dormant", e.dormantDays ? `${fmtQuiet(e.dormantDays)} without a chapter: the author may never return` : "listed as discontinued: the author may never return")
+    );
+  }
+  for (const v of e.statusVotes || []) {
+    if (v.status === "hiatus" || v.status === "discontinued") {
+      facts.append(fact(`${v.name} says`, `${v.status === "hiatus" ? "paused" : "discontinued"}${v.ended ? ` (last chapter ${v.ended})` : ""}`));
+    }
+  }
+  else if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
+  else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
+  main.append(facts);
+
+  // Your progress and this series' alert settings belong to the OWNER: a visitor to the published
+  // site never sees them (they appear only while server.py is running).
+  if (personal()) {
+    const prog = el("div", "d-section");
+    prog.append(el("h3", "", "Your progress"), progressRow(e), el("p", "msg"));
+    prog.lastChild.id = "detail-msg";
+    main.append(prog);
+    if (canEdit) main.append(settingsSection(e));
+    else {
+      main.append(
+        el("p", "msg", "Saved in this browser only. Chapter counts come from MangaBaka (plus AniList and Kitsu once a series has finished). Break alerts and release dates need the daily bot, which tracks the sample library.")
+      );
+    }
+  }
+
+  // What each source said
+  const list = e.sources || [];
+  if (list.length && !e.pending) {
+    const src = sourcesLine(e);
+    const sec = el("div", "d-section");
+    sec.append(el("h3", "", "Sources"));
+    if (src) sec.append(el("div", `src-line ${src.kind === "agree" ? "src-agree" : src.kind === "conflict" ? "src-conflict" : ""}`, src.text));
+    list.forEach((s) => {
+      const row = el("div", "src-row" + (s.plausible ? "" : " bad"));
+      const dot = el("span", `dot ${s.plausible ? (s.name === e.source ? "ok" : "") : "bad"}`);
+      const kind = s.kind === "count" ? "count" : "dated";
+      row.append(
+        dot,
+        el("span", "nm", s.name),
+        el("span", "ch", `ch. ${s.chapter ?? "?"} · ${s.publishedAt ? fmtShort(new Date(s.publishedAt)) : kind}`),
+        el("span", "note", s.plausible ? (s.name === e.source ? "used" : "also fits") : "doesn't fit")
+      );
+      sec.append(row);
+    });
+    main.append(sec);
+  }
+
+  // Actions + links
+  const actions = el("div", "d-actions");
+  if (personal()) {
+    const rm = el("button", "btn danger", "Remove from my list");
+    rm.type = "button";
+    rm.addEventListener("click", () => {
+      // Removing is hard to undo by hand, so ask first. The toast afterwards offers an Undo.
+      const ask = el("div", "confirm", `Remove ${e.title} from your list?`);
+      const yes = el("button", "btn danger", "Yes, remove");
+      yes.type = "button";
+      const no = el("button", "btn ghost", "Cancel");
+      no.type = "button";
+      no.addEventListener("click", () => actions.replaceChildren(rm));
+      yes.addEventListener("click", async () => {
+        const removed = canEdit ? await removeSeries(e.id) : removeMine(e.id);
+        document.getElementById("detail").close();
+        if (removed) toast(`Removed ${removed.title}`, () => (canEdit ? restoreSeries(removed) : restoreMine(removed)));
+      });
+      actions.replaceChildren(ask, yes, no);
+      no.focus(); // the safe choice is the one under your thumb
+    });
+    actions.append(rm);
+  }
+  const links = el("div", "d-links");
+  const link = (href, label) => {
+    const a = el("a", "", label);
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    links.append(a);
+  };
+  link(`https://anilist.co/manga/${e.id}`, "AniList");
+  if (e.mal) link(`https://myanimelist.net/manga/${e.mal}`, "MyAnimeList");
+  if (actions.children.length) main.append(actions);
+  main.append(links);
+
+  body.replaceChildren(hero, main);
+}

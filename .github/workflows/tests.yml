@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - "*.py"
+      - "*.js"
+      - "index.html"
       - "fixtures/**"
       - ".github/workflows/tests.yml"
   pull_request:
@@ -20,5 +22,5 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run the rule tests and the recorded-fixture tests
-        run: python3 -m unittest -v test_rules test_fixtures
+      - name: Run the rule tests, the recorded-fixture tests and the page-script checks
+        run: python3 -m unittest -v test_rules test_fixtures test_js

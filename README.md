@@ -197,6 +197,14 @@ python3 devtools.py record NAME        # re-record a series from the live source
 python3 devtools.py mutate             # break each rule on purpose and check the tests notice
 ```
 
+**Sources differ**: when the sources that fit disagree by 2 chapters or more (Initial D: 719 to 725), the cover gets a
+"≠" mark and the subtitle says "sources differ"; the Show filter has the same option. The detail panel always lists the
+range and which source is shown, even for a difference of 1 (normal on finished series, where extras are counted
+differently). No source is trusted blindly: the page says so when they conflict.
+
+`test_js.py` guards the page script itself (it once shipped with a syntax error that no Python test could see): it
+parses `app.js` and checks that every element id the script asks for exists in `index.html`.
+
 **Rule footprint**: every answer also records which rules changed it (`count_vote`, `stale_feed`,
 `lagging_feed`, `highest_chapter`, `upload_date_dropped`, `any_language`, `dormant`...). The bot saves the
 counts in `state.json`, the Health tab lists them, and the digest warns when one rule suddenly changes
