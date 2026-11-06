@@ -8,6 +8,9 @@
     python3 devtools.py restart           stop whatever listens on :8123 and start server.py again
     python3 devtools.py sandbox           run the full check on COPIES of series.json/state.json
     python3 devtools.py sandbox FILE.xml  ...after importing a MyAnimeList export into the copy first
+    python3 devtools.py compare NAME...   ask every source LIVE for these series (title contains NAME) and
+                                          print what state.json says now next to what the code says today
+    python3 devtools.py compare --all     the same for every series (about 3 minutes)
 
 `sandbox` never touches your real files and never sends a notification, so it is the safe
 way to try a change (new source, new rule, a different import) and read the result.
@@ -184,6 +187,50 @@ def sandbox(xml=None):
     report(state)
 
 
+ANILIST_FIELDS = "id title { romaji english } synonyms startDate { year } status"
+
+
+def compare(needles, everything=False):
+    """The check we kept rebuilding by hand: after changing a source or a rule, run the CURRENT code
+    on a few series (live requests, nothing saved) and show old versus new, with each source's answer.
+    A source's number marked x does not fit (see reconcile() in server.py)."""
+    import server  # imported here: the other commands don't need it
+
+    series = json.load(open(os.path.join(HERE, "series.json")))
+    state = json.load(open(os.path.join(HERE, "state.json"))).get("series", {})
+    chosen = [s for s in series if everything or any(n.lower() in s["title"].lower() for n in needles)]
+    if not chosen:
+        print("No series matches", needles or "(give a name, or --all)")
+        return
+    data = server.http_json(
+        server.ANILIST,
+        {"query": f"query ($ids: [Int]) {{ Page(perPage: 50) {{ media(id_in: $ids, type: MANGA) {{ {ANILIST_FIELDS} }} }} }}",
+         "variables": {"ids": [s["id"] for s in chosen][:50]}},
+    )["data"]["Page"]["media"]
+    info = {m["id"]: m for m in data}
+    changed = 0
+    for s in chosen:
+        m = info.get(s["id"])
+        if not m:
+            print(f"{s['title'][:26]:26} not found on AniList")
+            continue
+        titles = [t for t in [m["title"]["english"], m["title"]["romaji"], *m["synonyms"]] if t][:4]
+        old = state.get(str(s["id"]), {})
+        try:
+            new = server.chapter_info(s["id"], titles, m["startDate"]["year"], s.get("read"), m["status"], old.get("matches"), s.get("gapDays"))  # gapDays: your own rhythm, like the bot
+        except Exception as err:
+            print(f"{s['title'][:26]:26} FAILED: {err}")
+            continue
+        day = lambda e: (e.get("publishedAt") or "")[:10] or "no date"
+        now = (new.get("chapter"), day(new), new.get("agreement"))
+        before = (old.get("chapter"), day(old), old.get("agreement"))
+        mark = "  " if now == before else "<>"
+        changed += now != before
+        srcs = " ".join(f"{x['name'][:4]}:{x['chapter']}{'' if x['plausible'] else 'x'}" for x in new.get("sources", []))
+        print(f"{mark} {s['title'][:24]:24} state.json: ch {before[0]} {before[1]} {before[2]}  |  now: ch {now[0]} {now[1]} {now[2]} (rhythm {new.get('typicalGapDays')}, quiet {new.get('quietDays')})  [{srcs}]")
+    print(f"\n{changed} of {len(chosen)} differ from state.json (<> marks them).")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "report":
@@ -196,6 +243,9 @@ if __name__ == "__main__":
         match(sys.argv[2])
     elif cmd == "restart":
         restart()
+    elif cmd == "compare":
+        names = [a for a in sys.argv[2:] if not a.startswith("--")]
+        compare(names, everything="--all" in sys.argv)
     elif cmd == "sandbox":
         sandbox(sys.argv[2] if len(sys.argv) > 2 else None)
     else:

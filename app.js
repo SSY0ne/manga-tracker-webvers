@@ -1530,6 +1530,7 @@ const SOURCE_ROLE = {
   Webtoon: "official episodes + dates",
   Kitsu: "chapter count + end date (finished)",
   AniList: "chapter count (finished)",
+  "MangaDex (any language)": "fallback for a running series with no English chapters",
 };
 const STALE_HOURS = 36; // the bot runs daily; more than this = something is wrong
 

@@ -30,6 +30,13 @@ like it is on break.
     that agree beat a higher count (Berserk: MangaBaka 401, MangaDex and MangaUpdates 386).
   - **Upload dates are not release dates.** For a finished series a date after its last chapter (Kitsu
     knows it) is dropped, so Tokyo Ghoul:re (ended 2018) doesn't show "Aug 2026".
+  - **Licensed series: any language.** English chapters vanish when a series is licensed (Blue Lock's stop
+    at 177, Spanish and Portuguese uploads are at 367). For a RUNNING series where nothing else fits,
+    MangaDex is read in every language (chapter numbers are the same). It is a guarded fallback: the
+    chapter must be recent (120 days) and not far above the count (One-Punch Man's other numbering, 313
+    against 240, is refused), a whole chapter beats its bonus decimals, and it gives no rhythm (fan upload
+    habits aren't one). Set the real rhythm yourself with `"gapDays"` in `series.json` (Grand Blue
+    Dreaming: 30).
   If no dated source fits, the consensus count is used ("count only", no date). Each card says whether
   the sources agree, disagree or only one has data.
 - **Matching a series on each source.** MangaDex has an exact AniList link. MangaUpdates
@@ -175,6 +182,7 @@ python3 devtools.py match NAME        # why a series doesn't match on MangaUpdat
 python3 devtools.py restart           # restart server.py on :8123
 python3 make_assets.py                # redraw the icons and the link-preview image (needs skia-python)
 python3 devtools.py sandbox [FILE.xml]  # full check on COPIES of your files, sends nothing
+python3 devtools.py compare NAME...   # ask every source LIVE for these series and show state.json next to what the code says now (--all: every series)
 python3 check.py --no-send            # same check on the real files: saves state, sends nothing
 ```
 

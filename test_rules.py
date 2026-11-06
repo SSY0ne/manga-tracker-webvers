@@ -376,6 +376,149 @@ class KitsuAndAniListCandidates(unittest.TestCase):
             self.assertEqual(asked, ["MangaBaka", "Kitsu", "AniList"])
 
 
+class MangaDexAnyLanguage(unittest.TestCase):
+    """Blue Lock: English stops at 177, Spanish and Portuguese are at 367. No network."""
+
+    def run_candidate(self, rows, aggregate=None, calls=None):
+        """rows = (chapter, language, time, externalUrl) in the answer. aggregate = chapter numbers the
+        `aggregate` call lists (default: every chapter in the rows)."""
+        data = [{"id": f"id{i}", "attributes": {"chapter": ch, "publishAt": when, "translatedLanguage": lang, "externalUrl": ext}}
+                for i, (ch, lang, when, ext) in enumerate(rows)]
+        numbers = aggregate if aggregate is not None else sorted({r[0] for r in rows})
+        agg = {"volumes": {"none": {"volume": "none", "chapters": {n: {"chapter": n} for n in numbers}}}}
+
+        def fake_md_get(path, params):
+            if calls is not None:
+                calls.append((path, params))
+            if path.endswith("/aggregate"):
+                return agg
+            asked = {v for k, v in params if k == "chapter[]"}  # like the real API: only the chapters asked for
+            return {"data": [d for d in data if not asked or d["attributes"]["chapter"] in asked]}
+
+        server._md_id_cache[999] = "uuid-999"
+        with mock.patch.object(server, "md_get", fake_md_get):
+            return server.mangadex_any_language_candidate(999, ["Blue Lock"], None)
+
+    def test_the_highest_chapter_in_any_language_wins_and_the_earliest_time_is_kept(self):
+        c = self.run_candidate([
+            ("367", "es-la", "2026-10-31T10:00:00+00:00", None),
+            ("367", "pt-br", "2026-10-30T09:00:00+00:00", None),   # same chapter, earlier: the real release is closer to this
+            ("177", "en", "2024-05-01T00:00:00+00:00", None),
+        ])
+        self.assertEqual((c["source"], c["chapter"], c["publishedAt"]), (server.ANY_LANGUAGE, "367", "2026-10-30T09:00:00+00:00"))
+
+    def test_only_english_chapters_get_their_own_link(self):
+        other = self.run_candidate([("367", "es-la", "2026-10-31T10:00:00+00:00", None)])
+        self.assertEqual(other["url"], "https://mangadex.org/title/uuid-999")  # never a fan translation page
+        self.assertFalse(other["official"])
+        english = self.run_candidate([("12", "en", "2026-10-31T10:00:00+00:00", None)])
+        self.assertTrue(english["url"].startswith("https://mangadex.org/chapter/"))
+
+    def test_it_asks_for_the_top_chapters_in_every_language(self):
+        calls = []
+        numbers = [str(n) for n in range(1, 41)]  # 40 chapters exist
+        self.run_candidate([("40", "es", "2026-10-31T10:00:00+00:00", None)], aggregate=numbers, calls=calls)
+        params = [p for path, p in calls if path == "/chapter"][0]  # only /chapter can filter by chapter number
+        self.assertIn(("manga", "uuid-999"), params)
+        self.assertFalse(any(k.startswith("translatedLanguage") for k, _ in params))
+        self.assertEqual([v for k, v in params if k == "chapter[]"], [str(n) for n in range(40, 28, -1)])  # the 12 highest
+
+    def test_old_chapters_uploaded_late_cannot_hide_the_newest_ones(self):
+        # a language catching up uploads chapters 1-90 AFTER chapter 420 was posted
+        rows = [(str(n), "pt-br", f"2026-10-{20 + n % 9:02d}T00:00:00+00:00", None) for n in range(1, 91)]
+        rows.append(("420", "en", "2026-09-06T00:00:00+00:00", None))
+        c = self.run_candidate(rows, aggregate=[str(n) for n in range(1, 91)] + ["420"])
+        self.assertEqual(c["chapter"], "420")
+
+    def test_a_whole_chapter_beats_its_bonus_decimal_even_if_the_decimal_is_newer(self):
+        # Black Clover: 392 is the end, a later 392.5 is a bonus
+        c = self.run_candidate([("392", "es", "2026-04-30T00:00:00+00:00", None), ("392.5", "es", "2026-08-16T00:00:00+00:00", None)])
+        self.assertEqual(c["chapter"], "392")
+
+    def test_no_rhythm_comes_from_fan_upload_habits(self):
+        rows = [(str(n), "es", f"2026-10-{n:02d}T00:00:00+00:00", None) for n in range(1, 9)]
+        c = self.run_candidate(rows)
+        self.assertIsNone(c["typicalGapDays"])
+        self.assertIsNone(c["expectedNext"])
+
+    def test_an_empty_series_gives_nothing(self):
+        self.assertIsNone(self.run_candidate([], aggregate=[]))
+
+
+class AnyLanguageFallback(unittest.TestCase):
+    """When the fallback may be used and when its answer is thrown away."""
+
+    def fallback(self, count, chapter, days_ago):
+        candidates = [cnt(count)] if count else []
+        cand = rel(server.ANY_LANGUAGE, chapter, days_ago)
+        return server.any_language_fallback(candidates, lambda: cand)
+
+    def test_a_recent_chapter_close_to_the_count_is_used(self):
+        self.assertIsNotNone(self.fallback(366, 367, 5))   # Blue Lock
+
+    def test_a_late_upload_is_not_a_release(self):
+        self.assertIsNone(self.fallback(327, 327, 2900))   # Vagabond's last chapter, uploaded in 2018
+
+    def test_the_age_limit_has_an_edge_at_120_days(self):
+        self.assertIsNotNone(self.fallback(112, 112, 120))
+        self.assertIsNone(self.fallback(112, 112, 121))
+
+    def test_a_different_numbering_far_above_the_count_is_refused(self):
+        self.assertIsNone(self.fallback(240, 313, 10))     # One-Punch Man
+        self.assertIsNotNone(self.fallback(240, 269, 10))  # 1.1 x 240 + 5 = 269 is still allowed
+        self.assertIsNone(self.fallback(240, 270, 10))
+
+    def test_without_a_count_nothing_can_be_checked(self):
+        self.assertIsNone(self.fallback(None, 367, 5))
+
+    def test_nothing_found_means_nothing_added(self):
+        self.assertIsNone(server.any_language_fallback([cnt(100)], lambda: None))
+
+    def run_info(self, status, md_candidate, fallback=None):
+        """chapter_info with fake sources: MangaBaka says 366; the others are given."""
+        sources = [("MangaBaka", lambda *a: cnt(366)), ("MangaDex", lambda *a: md_candidate)]
+        calls = []
+
+        def fake_fallback(*a):
+            calls.append(1)
+            return fallback
+
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}), \
+                mock.patch("time.sleep"), mock.patch.object(server, "mangadex_any_language_candidate", fake_fallback):
+            return server.chapter_info(1, ["x"], status=status, read=None), calls
+
+    def test_a_running_series_with_only_a_count_tries_every_language(self):
+        r, calls = self.run_info("RELEASING", rel("MangaDex", 150, 900), fallback=rel(server.ANY_LANGUAGE, 367, 5))
+        self.assertEqual(len(calls), 1)
+        self.assertEqual((r["chapter"], r["source"]), ("367", server.ANY_LANGUAGE))
+
+    def test_the_fallback_is_not_used_when_a_normal_source_fits(self):
+        r, calls = self.run_info("RELEASING", rel("MangaDex", 366, 3), fallback=rel(server.ANY_LANGUAGE, 367, 1))
+        self.assertEqual(calls, [])
+        self.assertEqual(r["chapter"], "366")
+
+    def test_the_fallback_is_not_used_for_a_finished_series(self):
+        r, calls = self.run_info("FINISHED", rel("MangaDex", 150, 900), fallback=rel(server.ANY_LANGUAGE, 367, 5))
+        self.assertEqual(calls, [])
+        self.assertTrue(r.get("countOnly"))
+
+    def test_a_refused_fallback_keeps_the_count(self):
+        r, calls = self.run_info("RELEASING", rel("MangaDex", 150, 900), fallback=None)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual((r["chapter"], r["agreement"]), ("366", "count"))
+
+    def test_a_failing_fallback_never_breaks_the_answer(self):
+        sources = [("MangaBaka", lambda *a: cnt(366)), ("MangaDex", lambda *a: rel("MangaDex", 150, 900))]
+
+        def boom(*a):
+            raise RuntimeError("MangaDex is down")
+
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}), \
+                mock.patch("time.sleep"), mock.patch.object(server, "mangadex_any_language_candidate", boom):
+            r = server.chapter_info(1, ["x"], status="RELEASING")
+        self.assertEqual(r["chapter"], "366")
+
+
 class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
     """chapter_info() must return quietDays, because the bot and the page both trust it."""
 

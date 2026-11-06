@@ -110,7 +110,7 @@ def http_json(url, body=None, accept="application/json"):
         return json.load(res)
 
 
-def build_candidate(source, pairs, series_url, official=False):
+def build_candidate(source, pairs, series_url, official=False, newest="time"):
     """Turn (chapter text, ISO time, link or None) rows from ONE release source into a candidate.
 
     The same chapter is often listed several times (several uploaders or groups), so
@@ -119,6 +119,9 @@ def build_candidate(source, pairs, series_url, official=False):
     gaps. Breaks only ever make a gap LONGER, so the short gaps show the real rhythm
     (a weekly series that skips weeks still says 7).
     `official` = the link goes to the publisher's own reader.
+    `newest` = which chapter counts as the latest: "time" (the most recently released, right for a
+    feed in ONE language) or "number" (the highest chapter, for a feed that mixes languages, where a
+    language catching up uploads old chapters late).
     """
     first = {}  # chapter number -> (time, link)
     for text, when, link in pairs:
@@ -130,7 +133,11 @@ def build_candidate(source, pairs, series_url, official=False):
     if not first:
         return None
 
-    ordered = sorted(first.items(), key=lambda kv: (kv[1][0], kv[0]), reverse=True)  # newest first
+    if newest == "number":  # highest chapter first; a whole chapter beats its bonus decimals (392 over 392.5)
+        order = lambda kv: (math.floor(kv[0]), kv[0] == math.floor(kv[0]), kv[1][0], kv[0])
+    else:
+        order = lambda kv: (kv[1][0], kv[0])
+    ordered = sorted(first.items(), key=order, reverse=True)  # newest first
     num, (published, link) = ordered[0]
 
     days = sorted({parse_time(t).date() for _, (t, _) in ordered})
@@ -298,6 +305,25 @@ def find_mangadex_id(al_id, titles):
     return None
 
 
+def md_top_chapters(md_id, how_many=12):
+    """The highest chapter numbers MangaDex has in ANY language, as the strings it uses.
+
+    The `aggregate` call lists every chapter number once, across languages. (The feed sorted by
+    upload time is no use for this: a language catching up uploads old chapters, which push the
+    newest ones out of its window.)
+    """
+    agg = md_get(f"/manga/{md_id}/aggregate", [])
+    seen = {}
+    volumes = agg.get("volumes") or {}
+    for vol in volumes.values() if isinstance(volumes, dict) else volumes:
+        chapters = vol.get("chapters") or {}
+        for key in chapters if isinstance(chapters, dict) else []:
+            num = chapter_number(key)
+            if num is not None:
+                seen[num] = key
+    return [seen[n] for n in sorted(seen, reverse=True)[:how_many]]
+
+
 def mangadex_candidate(al_id, titles, year):
     md_id = find_mangadex_id(al_id, titles)
     if not md_id:
@@ -315,6 +341,83 @@ def mangadex_candidate(al_id, titles, year):
     cand = build_candidate("MangaDex", pairs, f"https://mangadex.org/title/{md_id}")
     if cand:
         cand["official"] = not cand["url"].startswith("https://mangadex.org")
+    return cand
+
+
+# ---------- fallback: MangaDex in ANY language ----------
+# English chapters vanish when a series is licensed (Blue Lock's stop at 177 while Spanish and
+# Portuguese uploads are at 367). Chapter NUMBERS are the same in every language, so for a RUNNING
+# series where nothing else fits we read them all. It stays a fallback because other languages bring
+# their own problems: different numbering (One-Punch Man 313 against 240), bonus decimals,
+# backlogs uploaded years late (Vagabond's last chapter "dated" 2018). Hence the guards in
+# any_language_fallback(), and no rhythm from it: fan groups' upload habits are not a release rhythm.
+
+ANY_LANGUAGE = "MangaDex (any language)"
+ANY_LANGUAGE_MAX_AGE_DAYS = 120  # an older "latest chapter" is probably a late upload, not a release
+
+
+def md_top_chapters(md_id, how_many=12):
+    """The highest chapter numbers MangaDex has in ANY language, as the strings it uses.
+
+    The `aggregate` call lists every chapter number once, across languages. (The feed sorted by
+    upload time is no use for this: a language catching up uploads old chapters, which push the
+    newest ones out of its window.)
+    """
+    agg = md_get(f"/manga/{md_id}/aggregate", [])
+    seen = {}
+    volumes = agg.get("volumes") or {}
+    for vol in volumes.values() if isinstance(volumes, dict) else volumes:
+        chapters = vol.get("chapters") or {}
+        for key in chapters if isinstance(chapters, dict) else []:
+            num = chapter_number(key)
+            if num is not None:
+                seen[num] = key
+    return [seen[n] for n in sorted(seen, reverse=True)[:how_many]]
+
+
+def mangadex_any_language_candidate(al_id, titles, year):
+    md_id = find_mangadex_id(al_id, titles)
+    if not md_id:
+        return None
+    top = md_top_chapters(md_id)
+    if not top:
+        return None
+    # /chapter (not the manga feed) because only it can filter by chapter number
+    feed = md_get(
+        "/chapter",
+        [("manga", md_id), ("order[publishAt]", "desc"), ("limit", 100)]
+        + [("chapter[]", c) for c in top]
+        + [("contentRating[]", r) for r in ("safe", "suggestive", "erotica", "pornographic")],
+    )
+    pairs = []
+    for c in feed.get("data", []):
+        a = c["attributes"]
+        link = None
+        if a.get("translatedLanguage") == "en":
+            link = a.get("externalUrl") or f"https://mangadex.org/chapter/{c['id']}"
+        pairs.append((a.get("chapter"), a.get("publishAt"), link))  # not English: link the series, never a fan translation
+    cand = build_candidate(ANY_LANGUAGE, pairs, f"https://mangadex.org/title/{md_id}", newest="number")
+    if cand:
+        cand["official"] = not cand["url"].startswith("https://mangadex.org")
+        cand["typicalGapDays"] = cand["expectedNext"] = None  # no rhythm from fan upload habits
+    return cand
+
+
+def any_language_fallback(candidates, fetch):
+    """The any-language candidate to add, or None. Only when the caller found nothing that fits.
+
+    Guards: it must be recent (a late backlog upload isn't a release) and not far above the count
+    (a different numbering, like One-Punch Man's 313 against 240)."""
+    counts = [c["chapterNum"] for c in candidates if c and c["kind"] == "count" and c["chapterNum"]]
+    if not counts:
+        return None
+    count = lower_median(counts)
+    cand = fetch()
+    if not cand:
+        return None
+    age = (datetime.now(timezone.utc) - parse_time(cand["publishedAt"])).days
+    if age > ANY_LANGUAGE_MAX_AGE_DAYS or cand["chapterNum"] > 1.1 * count + 5:
+        return None
     return cand
 
 
@@ -445,7 +548,7 @@ SOURCES = [
     ("Kitsu", kitsu_candidate),
     ("AniList", anilist_candidate),
 ]
-PRIORITY = {"Webtoon": 2, "MangaDex": 1, "MangaUpdates": 0, "MangaBaka": -1, "Kitsu": -2, "AniList": -3}
+PRIORITY = {"Webtoon": 2, "MangaDex": 1, ANY_LANGUAGE: 0, "MangaUpdates": 0, "MangaBaka": -1, "Kitsu": -2, "AniList": -3}
 FINISHED_ONLY = {"Kitsu", "AniList"}  # they have no chapter count for a series that is still running
 
 
@@ -626,6 +729,18 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
     result = reconcile(candidates, read, status)
+    if status == "RELEASING" and result.get("agreement") == "count":  # a running series and nothing fits: try every language
+        started = time.time()
+        try:
+            extra = any_language_fallback(candidates, lambda: mangadex_any_language_candidate(al_id, titles, year))
+            stat(ANY_LANGUAGE, "ok" if extra else "none")
+        except Exception as err:  # optional: its failure must not break the answer we already have
+            stat(ANY_LANGUAGE, "failed")
+            stat_error(ANY_LANGUAGE, f"{type(err).__name__}: {err}")
+            extra = None
+        stat(ANY_LANGUAGE, "seconds", time.time() - started)
+        if extra:
+            result = reconcile(candidates + [extra], read, status)
     if gap_override and result.get("found") and result.get("publishedAt"):
         gap = int(gap_override)
         result["typicalGapDays"] = gap
