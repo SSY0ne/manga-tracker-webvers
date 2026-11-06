@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T11:20:06+00:00",
+  "checkedAt": "2026-11-06T14:12:35+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -97,7 +97,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "30002": {
       "hiatus": false,
@@ -195,7 +205,17 @@
         }
       ],
       "quiet": true,
-      "quietDays": 119
+      "quietDays": 119,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "86123": {
       "hiatus": false,
@@ -307,11 +327,21 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2026-05-01"
+        }
+      ]
     },
     "106130": {
       "hiatus": false,
-      "countOnly": true,
+      "countOnly": false,
       "matches": {
         "MangaBaka": 83,
         "MangaDex": "4141c5dc-c525-4df5-afd7-cc7d192a832f",
@@ -320,8 +350,8 @@
           "url": "https://www.mangaupdates.com/series/joxc7wz/blue-lock"
         }
       },
-      "agreement": "count",
-      "source": "MangaBaka",
+      "agreement": "agree",
+      "source": "MangaDex (any language)",
       "sources": [
         {
           "name": "MangaBaka",
@@ -343,20 +373,88 @@
           "chapter": "272",
           "publishedAt": "2024-08-19T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "MangaDex (any language)",
+          "kind": "release",
+          "chapter": "367",
+          "publishedAt": "2026-10-31T03:40:10+00:00",
+          "plausible": true
         }
       ],
       "limited": false,
       "title": "Blue Lock",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106130-yPNeuSu75ey1.jpg",
       "status": "RELEASING",
-      "chapter": "366",
-      "publishedAt": null,
-      "url": "https://mangabaka.org/manga/83/Blue-Lock",
+      "chapter": "367",
+      "publishedAt": "2026-10-31T03:40:10+00:00",
+      "url": "https://mangadex.org/title/4141c5dc-c525-4df5-afd7-cc7d192a832f",
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [],
+      "history": [
+        {
+          "chapter": "367",
+          "date": "2026-10-31T03:40:10+00:00"
+        },
+        {
+          "chapter": "366",
+          "date": "2026-10-27T03:17:25+00:00"
+        },
+        {
+          "chapter": "365",
+          "date": "2026-10-20T03:18:14+00:00"
+        },
+        {
+          "chapter": "364",
+          "date": "2026-10-10T06:06:17+00:00"
+        },
+        {
+          "chapter": "364.2",
+          "date": "2026-10-10T01:54:43+00:00"
+        },
+        {
+          "chapter": "364.1",
+          "date": "2026-10-06T18:13:29+00:00"
+        },
+        {
+          "chapter": "363",
+          "date": "2026-09-29T04:05:51+00:00"
+        },
+        {
+          "chapter": "362",
+          "date": "2026-09-18T06:56:38+00:00"
+        },
+        {
+          "chapter": "361",
+          "date": "2026-09-15T21:23:15+00:00"
+        },
+        {
+          "chapter": "360",
+          "date": "2026-09-08T03:36:32+00:00"
+        },
+        {
+          "chapter": "359",
+          "date": "2026-09-01T03:56:49+00:00"
+        },
+        {
+          "chapter": "358",
+          "date": "2026-08-25T02:39:13+00:00"
+        }
+      ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "any_language"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "168468": {
       "hiatus": false,
@@ -454,7 +552,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "114998": {
       "hiatus": false,
@@ -509,7 +617,20 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "stale_feed",
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2022-01-26"
+        }
+      ]
     },
     "105778": {
       "hiatus": false,
@@ -621,7 +742,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2026-03-25"
+        }
+      ]
     },
     "44568": {
       "hiatus": false,
@@ -684,7 +815,20 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_vote",
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2015-10-15"
+        }
+      ]
     },
     "132029": {
       "hiatus": false,
@@ -782,7 +926,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "106929": {
       "hiatus": false,
@@ -888,11 +1042,21 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "87395": {
       "hiatus": false,
-      "countOnly": true,
+      "countOnly": false,
       "matches": {
         "MangaBaka": 1264,
         "MangaDex": "fffbfac3-b7ad-41ee-9581-b4d90ecec941",
@@ -901,8 +1065,8 @@
           "url": "https://www.mangaupdates.com/series/u63f9zm/grand-blue"
         }
       },
-      "agreement": "count",
-      "source": "MangaBaka",
+      "agreement": "agree",
+      "source": "MangaDex (any language)",
       "sources": [
         {
           "name": "MangaBaka",
@@ -924,6 +1088,13 @@
           "chapter": "84",
           "publishedAt": "2023-06-09T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "MangaDex (any language)",
+          "kind": "release",
+          "chapter": "112",
+          "publishedAt": "2026-09-10T10:12:33+00:00",
+          "plausible": true
         }
       ],
       "limited": false,
@@ -931,13 +1102,74 @@
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx87395-axsA49kSZp72.jpg",
       "status": "RELEASING",
       "chapter": "112",
-      "publishedAt": null,
-      "url": "https://mangabaka.org/manga/1264/Grand-Blue-Dreaming",
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "publishedAt": "2026-09-10T10:12:33+00:00",
+      "url": "https://mangadex.org/title/fffbfac3-b7ad-41ee-9581-b4d90ecec941",
+      "typicalGapDays": 30,
+      "expectedNext": "2026-10-10",
+      "history": [
+        {
+          "chapter": "112",
+          "date": "2026-09-10T10:12:33+00:00"
+        },
+        {
+          "chapter": "111",
+          "date": "2026-08-25T12:04:35+00:00"
+        },
+        {
+          "chapter": "110",
+          "date": "2026-08-29T02:04:50+00:00"
+        },
+        {
+          "chapter": "109",
+          "date": "2026-08-31T01:27:23+00:00"
+        },
+        {
+          "chapter": "108",
+          "date": "2026-04-13T05:35:23+00:00"
+        },
+        {
+          "chapter": "107",
+          "date": "2026-08-27T09:00:18+00:00"
+        },
+        {
+          "chapter": "107.6",
+          "date": "2026-08-29T02:23:56+00:00"
+        },
+        {
+          "chapter": "107.5",
+          "date": "2026-08-29T02:21:01+00:00"
+        },
+        {
+          "chapter": "106",
+          "date": "2026-08-27T08:34:02+00:00"
+        },
+        {
+          "chapter": "105",
+          "date": "2026-01-19T05:22:37+00:00"
+        },
+        {
+          "chapter": "105.6",
+          "date": "2026-08-27T05:32:24+00:00"
+        },
+        {
+          "chapter": "105.5",
+          "date": "2026-08-27T05:30:06+00:00"
+        }
+      ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "any_language"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "30007": {
       "hiatus": true,
@@ -1035,7 +1267,17 @@
         }
       ],
       "quiet": true,
-      "quietDays": 248
+      "quietDays": 248,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "30936": {
       "hiatus": false,
@@ -1098,7 +1340,20 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "stale_feed",
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2011-02-21"
+        }
+      ]
     },
     "30026": {
       "hiatus": true,
@@ -1196,7 +1451,17 @@
         }
       ],
       "quiet": true,
-      "quietDays": 60
+      "quietDays": 60,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "137280": {
       "hiatus": false,
@@ -1295,7 +1560,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "30375": {
       "hiatus": false,
@@ -1358,7 +1633,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2013-07-29"
+        }
+      ]
     },
     "138072": {
       "hiatus": false,
@@ -1456,7 +1743,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "198372": {
       "hiatus": false,
@@ -1568,7 +1865,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2026-03-09"
+        }
+      ]
     },
     "37375": {
       "hiatus": false,
@@ -1631,7 +1938,20 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "stale_feed",
+        "upload_date_dropped"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2011-10-27"
+        }
+      ]
     },
     "141626": {
       "hiatus": false,
@@ -1737,7 +2057,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "30028": {
       "hiatus": true,
@@ -1834,8 +2164,20 @@
           "date": "2008-03-01T00:00:00+00:00"
         }
       ],
-      "quiet": true,
-      "quietDays": 6373
+      "quiet": false,
+      "quietDays": 6373,
+      "dormant": true,
+      "dormantDays": 6373,
+      "rules": [
+        "dormant"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "hiatus",
+          "ended": "2009-05-26"
+        }
+      ]
     },
     "119257": {
       "hiatus": true,
@@ -1941,7 +2283,19 @@
         }
       ],
       "quiet": true,
-      "quietDays": 171
+      "quietDays": 171,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "highest_chapter"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "74347": {
       "hiatus": false,
@@ -2032,7 +2386,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "34632": {
       "hiatus": false,
@@ -2088,7 +2452,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "upload_date_dropped"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2013-11-02"
+        }
+      ]
     },
     "141705": {
       "hiatus": false,
@@ -2194,7 +2570,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "144939": {
       "hiatus": false,
@@ -2292,7 +2678,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "125828": {
       "hiatus": false,
@@ -2390,7 +2786,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "96223": {
       "hiatus": false,
@@ -2438,7 +2844,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": null
+        }
+      ]
     },
     "30727": {
       "hiatus": false,
@@ -2501,7 +2919,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2015-01-13"
+        }
+      ]
     },
     "130229": {
       "hiatus": false,
@@ -2614,7 +3044,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2022-06-06"
+        }
+      ]
     },
     "107098": {
       "hiatus": false,
@@ -2712,7 +3152,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "179444": {
       "hiatus": false,
@@ -2810,7 +3260,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "108556": {
       "hiatus": false,
@@ -2908,7 +3368,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "releasing",
+          "ended": null
+        }
+      ]
     },
     "100954": {
       "hiatus": false,
@@ -3021,7 +3491,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2020-07-02"
+        }
+      ]
     },
     "140407": {
       "hiatus": false,
@@ -3105,7 +3585,17 @@
         }
       ],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2026-01-01"
+        }
+      ]
     },
     "85611": {
       "hiatus": false,
@@ -3168,7 +3658,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "upload_date_dropped"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2018-07-05"
+        }
+      ]
     },
     "102988": {
       "hiatus": false,
@@ -3231,7 +3733,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2022-11-16"
+        }
+      ]
     },
     "39982": {
       "hiatus": false,
@@ -3294,7 +3808,19 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "count_only"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2017-12-21"
+        }
+      ]
     },
     "30656": {
       "hiatus": true,
@@ -3342,8 +3868,23 @@
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
-      "quiet": true,
-      "quietDays": 0
+      "quiet": false,
+      "quietDays": 0,
+      "dormant": true,
+      "dormantDays": 4187,
+      "rules": [
+        "any_language_refused",
+        "count_only",
+        "dormant",
+        "lagging_feed"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "hiatus",
+          "ended": "2015-05-21"
+        }
+      ]
     },
     "117195": {
       "hiatus": false,
@@ -3376,8 +3917,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "166.5",
-          "publishedAt": "2024-12-22T00:00:00+00:00",
+          "chapter": "166",
+          "publishedAt": "2024-11-13T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -3406,13 +3947,25 @@
       "expectedNext": null,
       "history": [],
       "quiet": false,
-      "quietDays": 0
+      "quietDays": 0,
+      "dormant": false,
+      "dormantDays": 0,
+      "rules": [
+        "upload_date_dropped"
+      ],
+      "statusVotes": [
+        {
+          "name": "Shikimori",
+          "status": "finished",
+          "ended": "2024-11-14"
+        }
+      ]
     }
   },
   "health": {
-    "startedAt": "2026-11-06T11:20:06+00:00",
-    "finishedAt": "2026-11-06T11:22:15+00:00",
-    "durationSec": 129,
+    "startedAt": "2026-11-06T14:12:35+00:00",
+    "finishedAt": "2026-11-06T14:15:43+00:00",
+    "durationSec": 189,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3422,7 +3975,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 48.3,
+        "seconds": 46.1,
         "errors": []
       },
       "MangaDex": {
@@ -3431,7 +3984,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.3,
+        "seconds": 19.1,
         "errors": []
       },
       "MangaUpdates": {
@@ -3440,7 +3993,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 8.7,
+        "seconds": 27.5,
         "errors": []
       },
       "Webtoon": {
@@ -3449,7 +4002,16 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 4.9,
+        "seconds": 7.7,
+        "errors": []
+      },
+      "Shikimori": {
+        "ok": 40,
+        "none": 0,
+        "failed": 0,
+        "cached": 0,
+        "rateLimited": 0,
+        "seconds": 19.8,
         "errors": []
       },
       "Kitsu": {
@@ -3458,7 +4020,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.2,
+        "seconds": 4.8,
         "errors": []
       },
       "AniList": {
@@ -3467,9 +4029,40 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.5,
+        "seconds": 2.3,
+        "errors": []
+      },
+      "MangaDex (any language)": {
+        "ok": 2,
+        "none": 1,
+        "failed": 0,
+        "cached": 0,
+        "rateLimited": 0,
+        "seconds": 2.6,
         "errors": []
       }
+    },
+    "rules": {
+      "any_language": 2,
+      "stale_feed": 3,
+      "count_only": 9,
+      "count_vote": 1,
+      "upload_date_dropped": 4,
+      "dormant": 2,
+      "highest_chapter": 1,
+      "any_language_refused": 1,
+      "lagging_feed": 1
+    },
+    "ruleLabels": {
+      "any_language": "MangaDex in any language was used",
+      "stale_feed": "a release feed far behind the count was ignored",
+      "count_only": "no release feed fits: count only",
+      "count_vote": "a chapter count was outvoted by the others",
+      "upload_date_dropped": "an upload date after the series ended was dropped",
+      "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
+      "highest_chapter": "the highest chapter beat a fresher date",
+      "any_language_refused": "the any-language answer was refused (too old or too high)",
+      "lagging_feed": "a lone feed that stopped early lost to the count"
     }
   }
 }
