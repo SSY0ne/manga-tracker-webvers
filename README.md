@@ -13,14 +13,25 @@ like it is on break.
 - **Import from MyAnimeList**: upload the .xml export (MAL, Profile, Export, manga list)
   on the page, or run `python3 check.py --import-mal FILE.xml`. Series are matched
   exactly by MAL id, and your chapters-read is kept so cards show "17 behind".
-- **Several chapter sources, compared.** Four sources, each a small function in
-  `server.py`: **MangaDex**, **MangaUpdates** and **Webtoon RSS** give chapters with dates;
-  **MangaBaka** gives the chapter count and a hiatus status, and also lists the series' ids on
-  the other sites, so those are matched exactly instead of by title. `reconcile()` keeps the
-  answer that is coherent: not in the future, not far below what you have read or below the
-  MangaBaka count, and the freshest when they differ. If no dated source fits, the MangaBaka
-  count is used ("count only", no date). Each card says whether the sources agree, disagree
-  or only one has data.
+- **Several chapter sources, compared.** Each is a small function in `server.py`: **MangaDex**,
+  **MangaUpdates** and **Webtoon RSS** give chapters with dates; **MangaBaka** gives the chapter count and
+  a hiatus status, and also lists the series' ids on the other sites, so those are matched exactly instead
+  of by title; **Kitsu** and **AniList** add a chapter count (and, from Kitsu, the date of the last chapter)
+  once a series has **finished**. `reconcile()` keeps the answer that is coherent: not in the future, not
+  far below what you have read, and not far below the count. Rules learned by checking the real data
+  against the web:
+  - **Counts vote.** The counts are reduced to their lower median and a count more than 5% away is
+    outvoted (MangaBaka said 487 chapters for Clover, a series with 401; Kitsu and AniList say 401).
+  - **The highest chapter wins**, not the latest date: a feed that translates later has a later date but
+    an older chapter (Omniscient Reader: Webtoon 308 dated after MangaUpdates 311). Bonus chapters like
+    166.5 are ignored.
+  - **A stale feed loses.** A single release source more than 5% (and 5 chapters) behind the count, with
+    no other feed agreeing, is ignored (Vagabond: MangaDex stopped at 303, the series has 327). Two feeds
+    that agree beat a higher count (Berserk: MangaBaka 401, MangaDex and MangaUpdates 386).
+  - **Upload dates are not release dates.** For a finished series a date after its last chapter (Kitsu
+    knows it) is dropped, so Tokyo Ghoul:re (ended 2018) doesn't show "Aug 2026".
+  If no dated source fits, the consensus count is used ("count only", no date). Each card says whether
+  the sources agree, disagree or only one has data.
 - **Matching a series on each source.** MangaDex has an exact AniList link. MangaUpdates
   does not, so a series is matched by title similarity (at least 0.85, ignoring bracketed
   bits) AND start year within one year, which also tells two manga with the same name apart.
@@ -178,6 +189,6 @@ python3 check.py --no-send            # same check on the real files: saves stat
 
 ## Data sources
 
-[AniList](https://anilist.gg/) GraphQL API for titles, covers and status;
-[MangaDex](https://api.mangadex.org/docs/), [MangaUpdates](https://api.mangaupdates.com/) and [MangaBaka](https://mangabaka.org/) APIs and Webtoon's public RSS feeds for chapters and dates. Only metadata and
+[AniList](https://anilist.co/) GraphQL API for titles, covers, status and finished-series chapter counts;
+[MangaDex](https://api.mangadex.org/docs/), [MangaUpdates](https://api.mangaupdates.com/), [MangaBaka](https://mangabaka.org/) and [Kitsu](https://kitsu.docs.apiary.io/) APIs and Webtoon's public RSS feeds for chapters, counts and dates. Only metadata and
 links to official sources are used.

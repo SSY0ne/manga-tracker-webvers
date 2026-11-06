@@ -129,7 +129,7 @@ def og_image():
     c.drawString("Never wonder if your manga is on break.", 84, 362, font(38, bold=False), paint(0xFF8E95A8))
     # what makes it different, as three small chips
     x = 84
-    for label in ("4 sources compared", "daily bot", "61 tests"):
+    for label in ("6 sources compared", "daily bot", "77 tests"):
         width = font(28).measureText(label) + 44
         c.drawRoundRect(skia.Rect.MakeXYWH(x, 452, width, 58), 29, 29, paint(0xFF131722))
         c.drawRoundRect(skia.Rect.MakeXYWH(x, 452, width, 58), 29, 29, paint(0x28FFFFFF, stroke=2))

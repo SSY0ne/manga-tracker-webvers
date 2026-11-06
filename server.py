@@ -27,6 +27,7 @@ come from the same code: the page never recomputes the rule.
 import difflib
 import email.utils
 import json
+import math
 import os
 import re
 import time
@@ -43,6 +44,8 @@ SERIES_FILE = os.path.join(HERE, "series.json")
 MANGADEX = "https://api.mangadex.org"
 MANGAUPDATES = "https://api.mangaupdates.com/v1"
 MANGABAKA = "https://api.mangabaka.org/v1"
+KITSU = "https://kitsu.io/api/edge"
+ANILIST = "https://graphql.anilist.co"
 USER_AGENT = "manga-tracker-learning-project/0.1"
 CACHE_SECONDS = 15 * 60  # don't hit a source more than once per series per 15 min
 
@@ -96,8 +99,8 @@ def fmt_num(x):
     return str(int(x)) if x == int(x) else str(x)
 
 
-def http_json(url, body=None):
-    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+def http_json(url, body=None, accept="application/json"):
+    headers = {"User-Agent": USER_AGENT, "Accept": accept}
     data = None
     if body is not None:
         data = json.dumps(body).encode()
@@ -230,6 +233,49 @@ def mangabaka_candidate(al_id, titles, year):
         "typicalGapDays": None,
         "expectedNext": None,
         "history": [],
+    }
+
+
+# ---------- sources: Kitsu and AniList (chapter counts for FINISHED series) ----------
+# Two more independent counts, so one source's mistake gets outvoted (MangaBaka said 487 chapters
+# for Clover, a series with 401). Both only know a chapter count once a series has ended, so they
+# are asked for FINISHED series only. Kitsu also knows the date of the LAST chapter ("ended"),
+# which tells a real release date from the day a copy was uploaded to MangaDex.
+
+def kitsu_candidate(al_id, titles, year):
+    query = urllib.parse.urlencode({
+        "filter[externalSite]": "anilist/manga", "filter[externalId]": al_id, "include": "item",
+        "fields[manga]": "canonicalTitle,chapterCount,status,endDate",
+    })
+    items = http_json(f"{KITSU}/mappings?{query}", accept="application/vnd.api+json").get("included") or []  # exact match by AniList id
+    if not items:
+        return None
+    attrs = items[0]["attributes"]
+    total = chapter_number(attrs.get("chapterCount"))
+    if not total:
+        return None
+    return {
+        "kind": "count", "source": "Kitsu", "official": False,
+        "chapter": fmt_num(total), "chapterNum": total, "publishedAt": None,
+        "ended": attrs.get("endDate"),  # "YYYY-MM-DD" of the last chapter (sometimes a year-only placeholder)
+        "status": attrs.get("status"), "url": f"https://kitsu.io/manga/{items[0]['id']}",
+        "typicalGapDays": None, "expectedNext": None, "history": [],
+    }
+
+
+def anilist_candidate(al_id, titles, year):
+    data = http_json(
+        ANILIST,
+        {"query": "query ($id: Int) { Media(id: $id, type: MANGA) { chapters } }", "variables": {"id": int(al_id)}},
+    )
+    total = chapter_number(((data.get("data") or {}).get("Media") or {}).get("chapters"))
+    if not total:
+        return None
+    return {
+        "kind": "count", "source": "AniList", "official": False,
+        "chapter": fmt_num(total), "chapterNum": total, "publishedAt": None,
+        "url": f"https://anilist.co/manga/{al_id}",
+        "typicalGapDays": None, "expectedNext": None, "history": [],
     }
 
 
@@ -396,8 +442,11 @@ SOURCES = [
     ("MangaDex", mangadex_candidate),
     ("MangaUpdates", mangaupdates_candidate),
     ("Webtoon", webtoon_candidate),
+    ("Kitsu", kitsu_candidate),
+    ("AniList", anilist_candidate),
 ]
-PRIORITY = {"Webtoon": 2, "MangaDex": 1, "MangaUpdates": 0, "MangaBaka": -1}
+PRIORITY = {"Webtoon": 2, "MangaDex": 1, "MangaUpdates": 0, "MangaBaka": -1, "Kitsu": -2, "AniList": -3}
+FINISHED_ONLY = {"Kitsu", "AniList"}  # they have no chapter count for a series that is still running
 
 
 # ---------- compare the sources and choose ----------
@@ -412,26 +461,43 @@ def close(a, b):
     return False
 
 
+def lower_median(values):
+    """The middle value (the lower one when there are two): one wrong count can't pull it far."""
+    values = sorted(values)
+    return values[(len(values) - 1) // 2] if values else 0
+
+
 def reconcile(candidates, read, status):
     """Pick the coherent answer and say how sure we are.
 
+    COUNTS (MangaBaka, and Kitsu + AniList for finished series) are first reduced to one consensus
+    number, their lower median. A count more than 5% away from it is outvoted and marked as not
+    fitting (MangaBaka's 487 for Clover against 401 from the other two).
     A candidate is implausible when: its date is in the future, OR its chapter is far below
     what you have read (under 80%), OR under half of the highest chapter any source reports,
-    OR it is a release feed far behind the MangaBaka count (stale). Webtoon is exempt from
-    the count rule because its episode numbers differ from manga chapters.
-    Among plausible RELEASE candidates we keep the FRESHEST (a stale source has an old date);
-    ties go to the higher chapter, then by PRIORITY.
+    OR it is a release feed far behind the count (stale). Webtoon is exempt from the count rule
+    because its episode numbers differ from manga chapters.
+    Among plausible RELEASE candidates we keep the one with the HIGHEST chapter (a source that
+    translates later has a later date but an older chapter: Webtoon 308 vs MangaUpdates 311),
+    ignoring decimals like 166.5 (bonus chapters). Same chapter: the freshest date, then PRIORITY.
+    Exception, a lagging feed: a single release source more than 5% (and 5 chapters) behind the
+    count, with no other feed agreeing with it, is treated as stale and the count wins (Vagabond:
+    MangaDex stopped at 303, the series has 327).
+    A date after the series' own end (Kitsu knows the last chapter's date) is the day a copy was
+    uploaded, not a release: it is dropped for FINISHED series.
       agreement: "agree"    all plausible sources tell the same story (see close())
-                 "conflict" they differ (we still use the freshest release)
+                 "conflict" they differ (we still use the best release)
                  "single"   only one plausible source
-                 "count"    no release feed fits, so we use MangaBaka's count (no date)
+                 "count"    no release feed fits, so we use the consensus count (no date)
                  "none"     nothing coherent -> "limited data": we claim nothing
+
     hiatus = MangaBaka lists the series as on hiatus (a status vote besides our date rule).
     """
     candidates = [c for c in candidates if c]
     counts = [c for c in candidates if c["kind"] == "count"]
-    count = max((c["chapterNum"] for c in counts if c["chapterNum"]), default=0)
-    top = max((c["chapterNum"] for c in candidates if c["chapterNum"]), default=0)
+    count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])
+    release_top = max((c["chapterNum"] for c in candidates if c["kind"] == "release" and c["chapterNum"]), default=0)
+    top = max(release_top, count)
     horizon = datetime.now(timezone.utc) + timedelta(days=1)
     hiatus = any(c.get("status") == "hiatus" for c in counts)
 
@@ -444,6 +510,8 @@ def reconcile(candidates, read, status):
             return False
         if c["chapterNum"] < 0.5 * top:
             return False
+        if c["kind"] == "count" and count and abs(c["chapterNum"] - count) > 0.05 * count:
+            return False  # outvoted by the other counts
         if c["kind"] == "release" and c["source"] != "Webtoon" and count and c["chapterNum"] < 0.8 * count:
             return False
         return True
@@ -461,12 +529,20 @@ def reconcile(candidates, read, status):
     ]
     base = {"hiatus": hiatus, "sources": summary}
     releases = [c for c in good if c["kind"] == "release"]
+    good_counts = [c for c in good if c["kind"] == "count"]
 
+    best = None
     if releases:
         best = max(
             releases,
-            key=lambda c: (parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)),
+            key=lambda c: (math.floor(c["chapterNum"]), parse_time(c["publishedAt"]).date(), c["chapterNum"], PRIORITY.get(c["source"], 0)),
         )
+        backed = any(c is not best and abs(c["chapterNum"] - best["chapterNum"]) <= 3 for c in releases)
+        if (count and best["source"] != "Webtoon" and not backed
+                and best["chapterNum"] < 0.95 * count and count - best["chapterNum"] > 5):
+            best = None  # a lone feed that stopped long before the count: stale, use the count
+
+    if best is not None:
         if len(good) == 1:
             agreement = "single"
         elif all(close(best, c) for c in good if c is not best):
@@ -481,10 +557,17 @@ def reconcile(candidates, read, status):
                     result["url"] = c["url"]
                     break
         result.update({"found": True, "limited": False, "agreement": agreement, "source": best["source"]})
+        # A release dated after the series ended is an upload date: show no date rather than a wrong one.
+        ended = next(
+            (c["ended"] for c in good_counts if c.get("ended") and abs(c["chapterNum"] - best["chapterNum"]) <= 0.05 * best["chapterNum"]),
+            None,
+        )
+        if status == "FINISHED" and ended and ended[:4].isdigit() and parse_time(best["publishedAt"]).year > int(ended[:4]):
+            result.update({"publishedAt": None, "typicalGapDays": None, "expectedNext": None, "history": [], "dateDropped": True})
         return {**result, **base}
 
-    if good:  # only a count survives: chapter number but no date, rhythm or calendar
-        c = max(good, key=lambda c: c["chapterNum"])
+    if good_counts:  # only a count survives: chapter number but no date, rhythm or calendar
+        c = max(good_counts, key=lambda c: (c["chapterNum"] == count, PRIORITY.get(c["source"], 0)))
         return {
             "found": True, "limited": False, "agreement": "count", "source": c["source"], "countOnly": True,
             "chapter": c["chapter"], "publishedAt": None, "url": c["url"], "typicalGapDays": None,
@@ -517,6 +600,8 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
 
     candidates, errors = [], []
     for name, fetch in SOURCES:
+        if name in FINISHED_ONLY and status != "FINISHED":
+            continue
         key = (name, al_id)
         hit = _cache.get(key)
         if hit and time.time() - hit[0] < CACHE_SECONDS:

@@ -10,7 +10,7 @@
 
 const ANILIST = "https://graphql.anilist.co";
 const DAY = 24 * 60 * 60 * 1000;
-const FIELDS = `id title { romaji english } synonyms startDate { year } status coverImage { medium }`;
+const FIELDS = `id title { romaji english } synonyms startDate { year } status chapters coverImage { medium }`;
 
 const STATUS_LABEL = {
   RELEASING: "Releasing",
@@ -98,7 +98,11 @@ function sourcesLine(e) {
   const names = list.filter((s) => s.plausible).map((s) => s.name);
   const used = e.source;
   const text =
-    e.agreement === "agree"
+    e.agreement === "counts"
+      ? list.every((s) => s.plausible)
+        ? `Counts agree (${names.join(" + ")})`
+        : `Counts differ: ${names.join(" + ")} outvote ${list.filter((s) => !s.plausible).map((s) => s.name).join(", ")}`
+      : e.agreement === "agree"
       ? `Sources agree (${names.join(" + ")})`
       : e.agreement === "conflict"
         ? `Sources disagree, using ${used} (fresher)`
@@ -149,6 +153,7 @@ function fromAniList(m) {
     title: m.title.english || m.title.romaji,
     cover: m.coverImage?.medium || null,
     status: m.status,
+    alChapters: m.chapters || null, // AniList only knows the count once a series has finished
     // Used to match the series on the other chapter sources (title variants + start year)
     names: [m.title.english, m.title.romaji, ...(m.synonyms || [])].filter(Boolean),
     year: m.startDate?.year || null,
@@ -268,7 +273,7 @@ async function loadAll(onProgress) {
 // saved to series.json (the bot reads it too). A visitor to the published site never sees it.
 
 async function setRead(e, n) {
-  n = Math.max(0, Math.floor(n));
+  n = Math.min(100000, Math.max(0, Math.floor(n)));
   if (!canEdit) {
     if (viewMode !== "mine") return false;
     e.read = n; // a visitor's list lives in their browser
@@ -398,7 +403,7 @@ function tileSubtitle(e) {
     if (why) return `Ch. ${e.chapter} · ${why}`;
     return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
   }
-  return e.pending ? "Checking..." : STATUS_LABEL[e.status] || "";
+  return e.pending ? "Checking..." : e.lookupFailed && !e.chapter ? "Count unavailable, retrying later" : STATUS_LABEL[e.status] || "";
 }
 
 // opts.button = a search result with an Add button (not clickable);
@@ -615,7 +620,7 @@ function renderDetail(e) {
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     const latest = el("span");
-    latest.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · count only, no date");
+    latest.append(a, e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : " · no date");
     facts.append(fact("Latest", latest));
   } else {
     facts.append(fact("Latest", e.pending ? "Checking..." : "No reliable chapter data"));
@@ -638,7 +643,7 @@ function renderDetail(e) {
     if (canEdit) main.append(settingsSection(e));
     else {
       main.append(
-        el("p", "msg", "Saved in this browser only. Chapter counts come from MangaBaka. Break alerts and release dates need the daily bot, which tracks the sample library.")
+        el("p", "msg", "Saved in this browser only. Chapter counts come from MangaBaka (plus AniList and Kitsu once a series has finished). Break alerts and release dates need the daily bot, which tracks the sample library.")
       );
     }
   }
@@ -849,6 +854,22 @@ function renderList() {
         : "This library is empty.";
     }
   }
+  if (viewMode === "mine" && fillLeft > 0 && entries.length) msg.textContent = `Looking up chapter counts... ${fillLeft} left`;
+  else if (viewMode === "mine") {
+    const failed = entries.filter((e) => e.lookupFailed);
+    if (failed.length) {
+      msg.replaceChildren(`${failed.length} chapter count${failed.length > 1 ? "s" : ""} couldn't load (the source is busy). `);
+      const retry = el("button", "link-btn", "Try again");
+      retry.type = "button";
+      retry.addEventListener("click", () => {
+        blockedUntil = 0;
+        failed.forEach((e) => ((e.lookupFailed = false), (e.mbAt = null)));
+        fillMine(failed, { basics: false });
+        renderList();
+      });
+      msg.append(retry);
+    }
+  }
   document.getElementById("library-title").textContent = canEdit
     ? "Your library"
     : viewMode === "mine"
@@ -880,13 +901,53 @@ function renderList() {
 // has no release dates and no rhythm-based break detection: that needs the bot.
 
 const MANGABAKA = "https://api.mangabaka.org/v1";
-const MB_FRESH_MS = 12 * 60 * 60 * 1000; // ask MangaBaka again after 12 hours
+const KITSU = "https://kitsu.io/api/edge";
+const MB_FRESH_MS = 12 * 60 * 60 * 1000; // ask the sources again after 12 hours
+const MAX_MINE = 500; // a bigger list would take hours to look up (MangaBaka allows only a few calls in a row)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const isNum = (v) => typeof v === "number" && Number.isFinite(v);
+const aniListCover = (v) => (typeof v === "string" && /^https:\/\/s\d+\.anilist\.co\/[\w\-./]+$/.test(v) ? v : null);
+
+// Whatever is in localStorage is untrusted (old versions, hand edits, other pages on this address):
+// keep only the fields we know, with the right types and sane sizes.
+function cleanMine(x) {
+  if (!x || !Number.isInteger(x.id) || x.id <= 0 || typeof x.title !== "string" || !x.title.trim()) return null;
+  const num = (v, max) => (isNum(v) && v >= 0 && v <= max ? Math.floor(v) : null);
+  const e = {
+    id: x.id,
+    title: x.title.trim().slice(0, 200),
+    read: num(x.read, 100000) || 0,
+    names: Array.isArray(x.names) ? x.names.filter((n) => typeof n === "string").slice(0, 6).map((n) => n.slice(0, 200)) : undefined,
+    year: num(x.year, 3000) || null,
+    cover: aniListCover(x.cover),
+    status: Object.prototype.hasOwnProperty.call(STATUS_LABEL, x.status) ? x.status : undefined,
+    alChapters: num(x.alChapters, 100000) || null,
+    chapter: typeof x.chapter === "string" && /^\d{1,6}(\.\d{1,2})?$/.test(x.chapter) ? x.chapter : null,
+    hiatus: x.hiatus === true,
+    countOnly: x.countOnly === true,
+    agreement: ["single", "counts"].includes(x.agreement) ? x.agreement : undefined,
+    source: typeof x.source === "string" ? x.source.slice(0, 30) : undefined,
+    url: typeof x.url === "string" && /^https:\/\//.test(x.url) ? x.url.slice(0, 300) : `https://anilist.co/manga/${x.id}`,
+    mbAt: isNum(x.mbAt) ? x.mbAt : null,
+  };
+  if (Array.isArray(x.sources)) {
+    e.sources = x.sources
+      .filter((s) => s && typeof s.name === "string")
+      .slice(0, 6)
+      .map((s) => ({ name: s.name.slice(0, 30), kind: "count", chapter: typeof s.chapter === "string" ? s.chapter.slice(0, 10) : null, publishedAt: null, plausible: s.plausible === true }));
+  }
+  return e;
+}
 
 function loadMine() {
   try {
     const v = JSON.parse(localStorage.getItem(MINE_KEY) || "[]");
-    return Array.isArray(v) ? v.filter((x) => x && Number.isInteger(x.id) && typeof x.title === "string") : [];
+    if (!Array.isArray(v)) return [];
+    const seen = new Set();
+    return v
+      .map(cleanMine)
+      .filter((e) => e && !seen.has(e.id) && seen.add(e.id))
+      .slice(0, MAX_MINE);
   } catch {
     return [];
   }
@@ -894,17 +955,27 @@ function loadMine() {
 
 function saveMine() {
   try {
-    const keep = ["id", "title", "read", "names", "year", "cover", "status", "chapter", "hiatus", "countOnly", "url", "mbAt"];
+    const keep = ["id", "title", "read", "names", "year", "cover", "status", "alChapters", "chapter", "hiatus", "countOnly", "agreement", "source", "sources", "url", "mbAt"];
     localStorage.setItem(MINE_KEY, JSON.stringify(mineEntries.map((e) => Object.fromEntries(keep.map((k) => [k, e[k]])))));
   } catch {
     /* private mode or full storage: the list just won't survive a reload */
   }
 }
 
+// fetch that waits and retries when a source answers 429 "too many requests" (MangaBaka does
+// after a handful of calls in a row, and says how long to wait in Retry-After: 10).
+async function politeFetch(url, tries = 3) {
+  for (let i = 1; ; i++) {
+    const res = await fetch(url);
+    if (res.status !== 429 || i >= tries) return res;
+    await sleep(Math.min(15, parseFloat(res.headers.get("Retry-After")) || 10) * 1000);
+  }
+}
+
 // The MangaBaka record of a series, matched exactly by its AniList id (same rule as server.py).
 async function mangabakaFor(e) {
   for (const term of (e.names || [e.title]).slice(0, 3)) {
-    const res = await fetch(`${MANGABAKA}/series/search?${new URLSearchParams({ q: term, limit: 10 })}`);
+    const res = await politeFetch(`${MANGABAKA}/series/search?${new URLSearchParams({ q: term, limit: 10 })}`);
     if (res.status === 429) throw new Error("rate limited");
     if (!res.ok) continue;
     const found = (await res.json()).data || [];
@@ -914,31 +985,90 @@ async function mangabakaFor(e) {
   return null;
 }
 
-function applyMangabaka(e, d) {
-  const total = d ? parseFloat(d.total_chapters) : NaN;
-  e.chapter = total > 0 ? String(total) : null;
-  e.countOnly = total > 0;
-  e.hiatus = d?.status === "hiatus";
-  e.url = d?.canonical_url || `https://anilist.co/manga/${e.id}`;
+// Kitsu (no key, browsers allowed) knows the chapter count of FINISHED series, matched by AniList id.
+async function kitsuCount(e) {
+  const q = new URLSearchParams({
+    "filter[externalSite]": "anilist/manga",
+    "filter[externalId]": e.id,
+    include: "item",
+    "fields[manga]": "chapterCount",
+  });
+  const res = await fetch(`${KITSU}/mappings?${q}`);
+  if (!res.ok) return null;
+  const item = ((await res.json()).included || [])[0];
+  return item?.attributes?.chapterCount > 0 ? item.attributes.chapterCount : null;
 }
 
-// Fill "My list" entries one by one (gently: MangaBaka rate-limits), showing each as it arrives.
-async function fillMine(list, { basics = true, force = false } = {}) {
-  if (basics) await fillBasics(list);
-  for (const e of list) {
-    if (force || !e.mbAt || Date.now() - e.mbAt > MB_FRESH_MS) {
-      try {
-        applyMangabaka(e, await mangabakaFor(e));
-        e.mbAt = Date.now();
-      } catch {
-        /* offline or rate limited: keep what we had, try again next visit */
-      }
-      await sleep(250);
+// Same idea as reconcile() in server.py for counts: take the lower median; a count more than 5%
+// away from it is outvoted. A lone count (a series still running) is just "1 source".
+function applyCounts(e, counts, hiatus) {
+  const values = counts.map((c) => c.n).sort((a, b) => a - b);
+  const mid = values.length ? values[Math.floor((values.length - 1) / 2)] : 0;
+  e.sources = counts.map((c) => ({ name: c.name, kind: "count", chapter: String(c.n), publishedAt: null, plausible: Math.abs(c.n - mid) <= 0.05 * mid }));
+  e.chapter = mid > 0 ? String(mid) : null;
+  e.countOnly = mid > 0;
+  e.hiatus = hiatus;
+  e.agreement = counts.length > 1 ? "counts" : counts.length === 1 ? "single" : undefined;
+  e.source = (e.sources.find((s) => s.plausible) || {}).name;
+  e.url = e.source === "MangaBaka" && e.mbUrl ? e.mbUrl : `https://anilist.co/manga/${e.id}`;
+}
+
+async function lookUp(e) {
+  const mb = await mangabakaFor(e); // may throw "rate limited": the caller stops and tries later
+  const counts = [];
+  const total = mb ? parseFloat(mb.total_chapters) : NaN;
+  if (total > 0) counts.push({ name: "MangaBaka", n: total });
+  if (e.status === "FINISHED") {
+    if (e.alChapters) counts.push({ name: "AniList", n: e.alChapters });
+    try {
+      const k = await kitsuCount(e);
+      if (k) counts.push({ name: "Kitsu", n: k });
+    } catch {
+      /* Kitsu is optional */
     }
-    e.pending = false;
-    if (viewMode === "mine") renderList();
   }
-  saveMine();
+  if (!counts.length && e.chapter) return; // a lookup that finds nothing must not erase what we already knew
+  e.mbUrl = mb?.canonical_url || null;
+  applyCounts(e, counts, mb?.status === "hiatus");
+}
+
+// One queue for the whole page: lookups run one at a time, paced, so adding 40 series at once
+// doesn't trip the rate limit. When MangaBaka keeps refusing, stop and try again on the next visit.
+let fillChain = Promise.resolve();
+let fillLeft = 0;
+let blockedUntil = 0; // after a rate limit, nobody asks MangaBaka again for a minute
+
+function fillMine(list, { basics = true } = {}) {
+  const todo = list.filter((e) => !e.queued);
+  todo.forEach((e) => (e.queued = true));
+  fillLeft += todo.length;
+  const run = async () => {
+    if (basics) await fillBasics(todo);
+    for (const e of todo) {
+      const stale = !e.mbAt || Date.now() - e.mbAt > MB_FRESH_MS;
+      if (stale && Date.now() >= blockedUntil) {
+        try {
+          await lookUp(e);
+          e.mbAt = Date.now();
+          e.lookupFailed = false;
+        } catch {
+          blockedUntil = Date.now() + 60000; // rate limited (or offline): the rest waits for the next visit
+          e.lookupFailed = true;
+        }
+        await sleep(700);
+      } else if (stale) {
+        e.lookupFailed = true;
+      }
+      e.pending = false;
+      e.queued = false;
+      fillLeft -= 1;
+      if (viewMode === "mine") renderList();
+    }
+    saveMine();
+    if (viewMode === "mine") renderList();
+  };
+  fillChain = fillChain.then(run, run);
+  return fillChain;
 }
 
 function updateModeSwitch() {
@@ -1077,9 +1207,14 @@ function renderDiscover() {
     })
   );
   const msg = document.getElementById("discover-msg");
-  msg.textContent = disc.error
-    ? `Couldn't load manga: ${disc.error}`
-    : disc.busy && !disc.items.length
+  msg.replaceChildren();
+  if (disc.error) {
+    msg.append(`Couldn't load manga (${disc.error}). `);
+    const retry = el("button", "link-btn", "Try again");
+    retry.type = "button";
+    retry.addEventListener("click", () => discoverLoad(!disc.items.length));
+    msg.append(retry);
+  } else msg.textContent = disc.busy && !disc.items.length
       ? "Loading..."
       : !disc.busy && !disc.items.length && disc.page
         ? "No results."
@@ -1384,6 +1519,8 @@ const SOURCE_ROLE = {
   MangaUpdates: "chapters + dates",
   MangaBaka: "chapter count + hiatus + ids",
   Webtoon: "official episodes + dates",
+  Kitsu: "chapter count + end date (finished)",
+  AniList: "chapter count (finished)",
 };
 const STALE_HOURS = 36; // the bot runs daily; more than this = something is wrong
 

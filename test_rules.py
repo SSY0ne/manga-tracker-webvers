@@ -32,10 +32,11 @@ def rel(source, chapter, days_ago, official=False, url=None):
     }
 
 
-def cnt(chapter, status="releasing"):
-    """A ready-made 'count' candidate (MangaBaka): a chapter count and a status, no date."""
+def cnt(chapter, status="releasing", source="MangaBaka", ended=None):
+    """A ready-made 'count' candidate (MangaBaka, Kitsu, AniList): a chapter count, no date.
+    `ended` = the date of the last chapter that Kitsu knows."""
     return {
-        "kind": "count", "source": "MangaBaka", "official": False,
+        "kind": "count", "source": source, "official": False, "ended": ended,
         "chapter": str(chapter) if chapter else None, "chapterNum": float(chapter) if chapter else None,
         "publishedAt": None, "status": status, "url": "https://mangabaka.example/",
         "typicalGapDays": None, "expectedNext": None, "history": [],
@@ -252,6 +253,127 @@ class Reconcile(unittest.TestCase):
     def test_no_candidates_at_all(self):
         r = server.reconcile([None, None], read=None, status="RELEASING")
         self.assertEqual((r["agreement"], r["limited"]), ("none", True))
+
+
+class ReconcileAgainstTheWeb(unittest.TestCase):
+    """Cases found by checking the real data against the web (Vagabond, Clover, Omniscient Reader...)."""
+
+    def test_highest_chapter_wins_over_a_later_dated_older_chapter(self):
+        # Omniscient Reader: MangaUpdates had 311 (May 19), the Webtoon feed 308 but dated two weeks later
+        r = server.reconcile([cnt(311), rel("MangaUpdates", 311, 40), rel("Webtoon", 308, 26, official=True)], read=None, status="RELEASING")
+        self.assertEqual((r["source"], r["chapter"]), ("MangaUpdates", "311"))
+
+    def test_a_bonus_chapter_does_not_beat_the_real_last_one(self):
+        # Oshi no Ko ends at 166; MangaUpdates also lists 166.5 (a bonus)
+        r = server.reconcile([cnt(168), rel("MangaDex", 166, 30), rel("MangaUpdates", 166.5, 700)], read=None, status="FINISHED")
+        self.assertEqual(r["chapter"], "166")
+
+    def test_a_lone_feed_far_behind_the_count_is_stale(self):
+        # Vagabond: MangaDex stopped at 303, MangaBaka and Kitsu both say 327
+        r = server.reconcile(
+            [cnt(327), cnt(327, source="Kitsu"), rel("MangaDex", 303, 2000), rel("MangaUpdates", 2, 1900)],
+            read=None, status="RELEASING")
+        self.assertEqual((r["agreement"], r["chapter"]), ("count", "327"))
+        self.assertIsNone(r["publishedAt"])
+
+    def test_two_feeds_that_agree_beat_a_count_that_is_higher(self):
+        # Berserk: MangaBaka says 401, MangaDex and MangaUpdates both say 386 (the web agrees with them)
+        r = server.reconcile([cnt(401), rel("MangaDex", 386, 120), rel("MangaUpdates", 386, 120)], read=None, status="RELEASING")
+        self.assertEqual((r["chapter"], r["agreement"]), ("386", "conflict"))
+
+    def test_the_lagging_rule_has_edges_at_5_percent_and_more_than_5_chapters(self):
+        def used(n, count):  # which answer wins: the lone MangaDex feed at chapter n, or the count
+            r = server.reconcile([cnt(count), rel("MangaDex", n, 5)], read=None, status="RELEASING")
+            return "count" if r.get("countOnly") else r["source"]
+        self.assertEqual(used(96, 100), "MangaDex")   # 4% behind: still a fit
+        self.assertEqual(used(95, 100), "MangaDex")   # exactly 5% behind, and only 5 chapters: kept
+        self.assertEqual(used(94, 100), "count")      # 6% and 6 chapters behind: stale
+        self.assertEqual(used(190, 200), "MangaDex")  # exactly 5% behind (10 chapters): kept
+        self.assertEqual(used(189, 200), "count")     # just past 5%: stale
+        self.assertEqual(used(96, 101), "MangaDex")   # 4.95% behind: kept
+
+    def test_a_webtoon_feed_is_never_called_stale(self):
+        r = server.reconcile([cnt(425), rel("Webtoon", 300, 3, official=True)], read=None, status="RELEASING")
+        self.assertEqual(r["source"], "Webtoon")
+
+    def test_a_count_far_from_the_other_two_is_outvoted(self):
+        # Clover: MangaBaka said 487, Kitsu and AniList say 401
+        r = server.reconcile([cnt(487), cnt(401, source="Kitsu"), cnt(401, source="AniList")], read=None, status="FINISHED")
+        self.assertEqual((r["chapter"], r["agreement"]), ("401", "count"))
+        plausible = {s["name"]: s["plausible"] for s in r["sources"]}
+        self.assertEqual(plausible, {"MangaBaka": False, "Kitsu": True, "AniList": True})
+
+    def test_one_odd_count_is_outvoted_but_a_small_difference_is_fine(self):
+        # Chainsaw Man: Kitsu lists only Part 1 (97), the other two say 232
+        r = server.reconcile([cnt(232), cnt(97, source="Kitsu"), cnt(232, source="AniList")], read=None, status="FINISHED")
+        self.assertEqual(r["chapter"], "232")
+        # Usogui: 541 vs 539 is the usual "do extras count" difference: nobody is outvoted
+        r = server.reconcile([cnt(541), cnt(541, source="Kitsu"), cnt(539, source="AniList")], read=None, status="FINISHED")
+        self.assertTrue(all(s["plausible"] for s in r["sources"]))
+
+    def test_an_upload_date_after_the_series_ended_is_dropped(self):
+        # Tokyo Ghoul:re ended in 2018, but MangaDex's copy was uploaded recently
+        r = server.reconcile([cnt(181), cnt(179, source="Kitsu", ended="2018-07-05"), rel("MangaDex", 179, 70)], read=None, status="FINISHED")
+        self.assertEqual(r["chapter"], "179")
+        self.assertIsNone(r["publishedAt"])
+        self.assertTrue(r["dateDropped"])
+
+    def test_a_date_in_the_ending_year_is_kept(self):
+        year = datetime.now(timezone.utc).year
+        r = server.reconcile([cnt(392), cnt(392, source="Kitsu", ended=f"{year}-04-30"), rel("MangaDex", 392, 30)], read=None, status="FINISHED")
+        self.assertIsNotNone(r["publishedAt"])
+
+    def test_the_date_is_kept_when_kitsu_describes_a_different_entry(self):
+        # Chainsaw Man: Kitsu's entry (Part 1) ended in 2020, but the 232 chapters really ended this year
+        r = server.reconcile([cnt(232), cnt(97, source="Kitsu", ended="2020-12-14"), cnt(232, source="AniList"), rel("MangaUpdates", 232, 30)], read=None, status="FINISHED")
+        self.assertIsNotNone(r["publishedAt"])
+
+    def test_the_date_is_kept_while_the_series_is_running(self):
+        r = server.reconcile([cnt(100), cnt(100, source="Kitsu", ended="2010-01-01"), rel("MangaDex", 100, 3)], read=None, status="RELEASING")
+        self.assertIsNotNone(r["publishedAt"])
+
+
+class KitsuAndAniListCandidates(unittest.TestCase):
+    """No network: the HTTP call is replaced by a canned answer."""
+
+    def test_kitsu_asks_with_the_json_api_media_type_and_reads_count_and_end_date(self):
+        # Kitsu answers 406 to "Accept: application/json": that bug failed 18 of 18 lookups once
+        seen = {}
+
+        def fake(url, body=None, accept="application/json"):
+            seen["accept"], seen["url"] = accept, url
+            return {"included": [{"id": "1482", "attributes": {"chapterCount": 327, "status": "finished", "endDate": "2015-05-21"}}]}
+
+        with mock.patch.object(server, "http_json", fake):
+            c = server.kitsu_candidate(30656, [], None)
+        self.assertEqual(seen["accept"], "application/vnd.api+json")
+        self.assertIn("externalId", seen["url"])
+        self.assertEqual((c["kind"], c["source"], c["chapter"], c["ended"]), ("count", "Kitsu", "327", "2015-05-21"))
+
+    def test_kitsu_without_a_match_or_a_count_gives_nothing(self):
+        with mock.patch.object(server, "http_json", lambda *a, **k: {"included": []}):
+            self.assertIsNone(server.kitsu_candidate(1, [], None))
+        no_count = {"included": [{"id": "9", "attributes": {"chapterCount": None, "status": "current", "endDate": None}}]}
+        with mock.patch.object(server, "http_json", lambda *a, **k: no_count):
+            self.assertIsNone(server.kitsu_candidate(1, [], None))
+
+    def test_anilist_count(self):
+        with mock.patch.object(server, "http_json", lambda *a, **k: {"data": {"Media": {"chapters": 401}}}):
+            c = server.anilist_candidate(44568, [], None)
+        self.assertEqual((c["source"], c["chapter"]), ("AniList", "401"))
+        with mock.patch.object(server, "http_json", lambda *a, **k: {"data": {"Media": {"chapters": None}}}):
+            self.assertIsNone(server.anilist_candidate(30013, [], None))
+
+    def test_the_two_count_sources_are_only_asked_for_finished_series(self):
+        asked = []
+        fake_sources = [(n, (lambda n: lambda *a: asked.append(n))(n)) for n in ("MangaBaka", "Kitsu", "AniList")]
+        with mock.patch.object(server, "SOURCES", fake_sources), mock.patch.object(server, "_cache", {}), mock.patch("time.sleep"):
+            server.chapter_info(1, ["x"], status="RELEASING")
+            self.assertEqual(asked, ["MangaBaka"])
+            asked.clear()
+            server._cache.clear()
+            server.chapter_info(1, ["x"], status="FINISHED")
+            self.assertEqual(asked, ["MangaBaka", "Kitsu", "AniList"])
 
 
 class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
