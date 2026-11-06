@@ -10,7 +10,7 @@
 Each run sends ONE digest: sections for new chapters / back from break / maybe on break /
 status changes, heads-ups when a source failed, and a one-line summary. Nothing new = no
 message (set DIGEST_ALWAYS=1 to also get an "all quiet" message). Per series, series.json can set
-"alerts": "breaks" (only break news) or "off" (muted), and "gapDays": N (you know its rhythm).
+"alerts": "breaks" (only break news) or "off" (muted), and "gapDays": N (you know its rhythm), "decimals": true (count bonus chapters like 12.5).
 
 Notifications go to every channel that is set up (env vars, never in files; on GitHub
 they are repo secrets):
@@ -364,7 +364,7 @@ def check(series_path, state_path, dry):
             matches["MangaUpdates"] = {"id": int(s["mu"])}
         try:
             info = server.chapter_info(
-                str(m["id"]), names, year, s.get("read"), m["status"], matches, gap_override=s.get("gapDays")
+                str(m["id"]), names, year, s.get("read"), m["status"], matches, gap_override=s.get("gapDays"), keep_decimals=bool(s.get("decimals"))
             )
         except Exception as err:  # every source down: keep the old info, try again tomorrow
             print(f"! {name}: lookup failed ({err}), keeping old data")

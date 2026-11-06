@@ -3,14 +3,16 @@
  "gapDays": null,
  "golden": {
   "agreement": "agree",
-  "chapter": "205.5",
+  "chapter": "205",
   "countOnly": null,
-  "date": "2020-10-04",
+  "date": "2020-05-17",
   "dormant": false,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
-  "rules": [],
+  "rules": [
+   "decimal_ignored"
+  ],
   "source": "MangaUpdates",
   "sources": [
    {
@@ -19,7 +21,7 @@
     "plausible": true
    },
    {
-    "chapter": "205.5",
+    "chapter": "205",
     "name": "MangaUpdates",
     "plausible": true
    },

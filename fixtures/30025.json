@@ -2,18 +2,20 @@
  "anyLanguage": null,
  "gapDays": null,
  "golden": {
-  "agreement": "conflict",
-  "chapter": "163",
-  "countOnly": null,
-  "date": "2026-11-05",
+  "agreement": "count",
+  "chapter": "116",
+  "countOnly": true,
+  "date": null,
   "dormant": false,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
   "rules": [
-   "count_vote"
+   "above_finished_count",
+   "count_vote",
+   "count_only"
   ],
-  "source": "Webtoon",
+  "source": "Kitsu",
   "sources": [
    {
     "chapter": "163",
@@ -23,12 +25,12 @@
    {
     "chapter": "163",
     "name": "MangaUpdates",
-    "plausible": true
+    "plausible": false
    },
    {
     "chapter": "163",
     "name": "Webtoon",
-    "plausible": true
+    "plausible": false
    },
    {
     "chapter": "116",
@@ -41,7 +43,7 @@
     "plausible": true
    }
   ],
-  "typicalGapDays": 3
+  "typicalGapDays": null
  },
  "id": 30025,
  "read": null,

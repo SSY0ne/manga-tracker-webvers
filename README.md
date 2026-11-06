@@ -8,7 +8,8 @@ like it is on break.
 - Search manga (AniList) and add it to your list (`series.json`).
 - Shows the latest chapter and its date, linked to the official reader (MangaDex data).
 - Learns each series' **own rhythm** from its chapter history and flags **On break?**
-  when it is far more overdue than usual (at least 2.5x its usual gap and 2 weeks more).
+  when it is far more overdue than usual (at least 3x its usual gap and 5 weeks more: a weekly series after
+  6 weeks, a monthly one after 90 days. Weekly series skip 2-3 weeks all the time, which is not a break).
   AniList is slow to mark hiatus, and a fixed "6 weeks" would flag slow series all the time.
 - **Import from MyAnimeList**: upload the .xml export (MAL, Profile, Export, manga list)
   on the page, or run `python3 check.py --import-mal FILE.xml`. Series are matched
@@ -28,6 +29,12 @@ like it is on break.
   - **A stale feed loses.** A single release source more than 5% (and 5 chapters) behind the count, with
     no other feed agreeing, is ignored (Vagabond: MangaDex stopped at 303, the series has 327). Two feeds
     that agree beat a higher count (Berserk: MangaBaka 401, MangaDex and MangaUpdates 386).
+  - **A finished series can't have more chapters than its counts.** A release number more than 10% (+5) above
+    what at least two counts agree on is another numbering and is ignored: Fullmetal Alchemist (108 chapters)
+    is re-released on Webtoon as "episodes", and Episode 163 was taken for a new chapter.
+  - **Bonus chapters are ignored.** A newest entry like 205.5 gives way to the whole chapter before it (Demon
+    Slayer ended at 205). A series that really numbers story chapters like that opts in with
+    `"decimals": true` in `series.json` (or the checkbox in the detail panel).
   - **Upload dates are not release dates.** For a finished series a date after its last chapter (Kitsu
     knows it) is dropped, so Tokyo Ghoul:re (ended 2018) doesn't show "Aug 2026".
   - **Licensed series: any language.** English chapters vanish when a series is licensed (Blue Lock's stop

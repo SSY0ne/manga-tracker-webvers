@@ -186,6 +186,7 @@ async function fetchLatest(e) {
   if (e.read) params.set("read", e.read);
   if (e.status) params.set("status", e.status);
   if (e.gapDays) params.set("gap", e.gapDays); // a rhythm you set by hand
+  if (e.decimals) params.set("decimals", "1"); // this series really numbers chapters like 12.5
   return await fetchJSON(`api/latest?${params}`);
 }
 
@@ -268,6 +269,7 @@ async function loadAll(onProgress) {
       read: s.read,
       alerts: s.alerts, // per-series settings from series.json (see the panel)
       gapDays: s.gapDays,
+      decimals: s.decimals,
       pending: !known || !known.history,
     };
   });
@@ -528,15 +530,16 @@ function fact(label, value) {
 
 // Save per-series settings to series.json, then ask server.py again so a new rhythm
 // changes the next-chapter date and the "on break" verdict straight away.
-async function saveSettings(e, alerts, gapDays) {
+async function saveSettings(e, alerts, gapDays, decimals) {
   const res = await fetch("api/series", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: e.id, title: e.title, alerts: alerts === "all" ? null : alerts, gapDays: gapDays || null }),
+    body: JSON.stringify({ id: e.id, title: e.title, alerts: alerts === "all" ? null : alerts, gapDays: gapDays || null, decimals: decimals || null }),
   });
   if (!res.ok) return false;
   e.alerts = alerts === "all" ? undefined : alerts;
   e.gapDays = gapDays || undefined;
+  e.decimals = decimals || undefined;
   applyLatest(e, await fetchLatest(e));
   return true;
 }
@@ -572,6 +575,16 @@ function settingsSection(e) {
   gapRow.append(el("label", "", "New chapter every"), gap, el("span", "note", "days"));
   const hint = el("p", "msg", "Leave it empty to let the tool measure it. Set it for irregular series, so a long gap isn't called a break.");
 
+  const decRow = el("div", "setting-row");
+  const dec = el("input");
+  dec.type = "checkbox";
+  dec.checked = Boolean(e.decimals);
+  dec.id = "setting-decimals";
+  const decLabel = el("label", "", "Count bonus chapters like 12.5");
+  decLabel.htmlFor = "setting-decimals";
+  decRow.append(dec, decLabel);
+  const decHint = el("p", "msg", "Off by default: a bonus page or split part isn't a new chapter. Turn it on only for a series that really numbers its story chapters this way.");
+
   const save = el("button", "", "Save");
   save.type = "button";
   const msg = el("p", "msg");
@@ -585,13 +598,13 @@ function settingsSection(e) {
     save.disabled = true;
     save.textContent = "Saving...";
     msg.textContent = "Saving, then re-checking this series on every source (a few seconds)...";
-    const ok = await saveSettings(e, sel.value, days);
+    const ok = await saveSettings(e, sel.value, days, dec.checked);
     renderList();
     if (detailEntry === e) renderDetail(e);
     const note = document.getElementById("settings-msg");
     if (note) note.textContent = ok ? "Saved to series.json. Commit and push it so the daily bot uses it." : "Could not save.";
   });
-  sec.append(alertsRow, gapRow, hint, save, msg);
+  sec.append(alertsRow, gapRow, hint, decRow, decHint, save, msg);
   return sec;
 }
 

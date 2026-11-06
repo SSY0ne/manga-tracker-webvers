@@ -20,6 +20,9 @@
     python3 devtools.py backtest          check the rhythm and break rules against what really happened in history.jsonl:
                                           predict each chapter's date from the earlier ones, and see how the "on break"
                                           flag would have behaved. Gets better as the daily bot adds real events.
+    python3 devtools.py breaktune         try many "on break" settings (x its usual gap, or its gap plus N days) on the real
+                                          gaps in history.jsonl: how many flags would be false alarms, how many long
+                                          breaks it still catches, and how long it waits before warning
     python3 devtools.py sensitivity       move each threshold of the rules (x0.5 ... x2) and see which recorded series change
                                           and which web-checked truths flip: a threshold nothing reacts to is safe,
                                           one that flips many series is a guess you are leaning on
@@ -291,7 +294,7 @@ def record(args):
             continue
         matches = (state.get(str(s["id"])) or {}).get("matches")
         try:
-            fx = corpus.record_live(s["id"], titles_of(m), m["startDate"]["year"], m["status"], s.get("read"), s.get("gapDays"), matches, titles_of(m)[0])
+            fx = corpus.record_live(s["id"], titles_of(m), m["startDate"]["year"], m["status"], s.get("read"), s.get("gapDays"), matches, titles_of(m)[0], bool(s.get("decimals")))
         except Exception as err:
             print(f"{titles_of(m)[0][:30]:30} FAILED: {err}")
             continue
@@ -313,6 +316,10 @@ MUTATIONS = [
     ("server.py", 'if status == "FINISHED" and ended and', 'if False and ended and', "upload dates after the end are kept"),
     ("server.py", 'if status == "RELEASING" and result.get("agreement") == "count":', 'if False:', "the any-language fallback never runs"),
     ("server.py", 'return days if days >= limit else 0', 'return days if days >= 100 * limit else 0', "the on-break rule never fires"),
+    ("server.py", 'if status == "FINISHED" and c["kind"] == "release" and n_counts >= 2', 'if False and c["kind"] == "release" and n_counts >= 2', "a finished series accepts releases far above its count"),
+    ("server.py", "    if not keep_decimals:\n", "    if False:\n", "bonus decimal chapters are no longer ignored"),
+    ("server.py", "BREAK_EXTRA_DAYS = 35", "BREAK_EXTRA_DAYS = 14", "the on-break rule is impatient again (14 days)"),
+    ("server.py", "BREAK_MULT = 3.0", "BREAK_MULT = 1.0", "the on-break multiple is dropped"),
     ("server.py", 'count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])', 'count = max([c["chapterNum"] for c in counts if c["chapterNum"]], default=0)', "the count consensus takes the maximum, not the lower median"),
 ]
 
@@ -397,8 +404,8 @@ THRESHOLDS = [
     ("any-language answer too old after (days)", "ANY_LANGUAGE_MAX_AGE_DAYS = 120", 120, lambda v: f"ANY_LANGUAGE_MAX_AGE_DAYS = {_num(v)}"),
     ("any-language answer too high: above (x count)", "cand[\"chapterNum\"] > 1.1 * count + 5", 0.1, lambda v: f'cand["chapterNum"] > {_num(1 + v)} * count + 5'),
     ("dormant after (years)", 'os.environ.get("DORMANT_YEARS", "5")', 5, lambda v: f'os.environ.get("DORMANT_YEARS", "{_num(v)}")'),
-    ("on break: x its usual gap", "2.5 * typical_gap", 2.5, lambda v: f"{_num(v)} * typical_gap"),
-    ("on break: or its gap plus (days)", "typical_gap + 14", 14, lambda v: f"typical_gap + {_num(v)}"),
+    ("on break: x its usual gap", "BREAK_MULT = 3.0", 3.0, lambda v: f"BREAK_MULT = {_num(v)}"),
+    ("on break: or its gap plus (days)", "BREAK_EXTRA_DAYS = 35", 35, lambda v: f"BREAK_EXTRA_DAYS = {_num(v)}"),
     ("on break without a rhythm after (weeks)", 'os.environ.get("BREAK_WEEKS", "6")', 6, lambda v: f'os.environ.get("BREAK_WEEKS", "{round(v)}")'),  # a whole number of weeks
 ]
 FACTORS = (0.5, 0.75, 1.25, 1.5, 2)
@@ -509,7 +516,7 @@ def backtest():
             naive_last.append(abs(err(last_gap)))
             naive_mean.append(abs(err(mean_gap)))
             per_series.setdefault(s["title"], []).append(abs(err(typical)))
-            limit = max(2.5 * typical, typical + 14)
+            limit = max(server.BREAK_MULT * typical, typical + server.BREAK_EXTRA_DAYS)  # the real rule
             gap = (actual - before[-1]).days
             flags.append((gap >= limit, gap - limit, typical, s["title"]))
     if not ours:
@@ -533,6 +540,43 @@ def backtest():
         print(f"  once it fired, the next chapter came {statistics.median(extra):.0f} days later (median); "
               f"{pct(extra, 14)} within 14 days (a flag that would have been a false alarm), {pct(extra, 28)} within 28 days.")
         print("  series with flags: " + ", ".join(sorted({f[3] for f in fired})[:10]))
+
+
+def breaktune():
+    """Choose the "on break" numbers from data. For every gap between two chapters of a running series
+    (history.jsonl), the rule's limit is computed from the chapters before it. A flag is a FALSE ALARM when the
+    next chapter came within 14 days after the flag fired; a LONG BREAK is a gap of at least 8 weeks (and 6x
+    the usual gap), which any sensible rule must still catch."""
+    import statistics
+
+    import server
+
+    events = [json.loads(l) for l in open(os.path.join(HERE, "history.jsonl")) if l.strip()]
+    state = json.load(open(os.path.join(HERE, "state.json"))).get("series", {})
+    by_series = {}
+    for e in events:
+        if e["type"] == "chapter" and (state.get(str(e["id"])) or {}).get("status") != "FINISHED":
+            by_series.setdefault(e["id"], set()).add(server.parse_time(e["t"]).date())
+    gaps = []  # (usual gap then, actual gap)
+    for days in by_series.values():
+        days = sorted(days)
+        for i in range(5, len(days)):
+            typical = server.typical_gap(days[:i])
+            if typical:
+                gaps.append((typical, (days[i] - days[i - 1]).days))
+    long_breaks = [g for g in gaps if g[1] >= 56 and g[1] >= 6 * g[0]]
+    print(f"{len(gaps)} gaps in running series, {len(long_breaks)} of them long breaks (8+ weeks)\n")
+    print(f"{'rule: x gap, or gap + days':28} {'flags':>6} {'false alarms':>13} {'long breaks caught':>19} {'median wait for a weekly series':>32}")
+    rows = []
+    for mult in (2.5, 3, 3.5, 4, 5):
+        for extra in (14, 21, 28, 35, 42):
+            fired = [(t, g) for t, g in gaps if g >= max(mult * t, t + extra)]
+            false = [x for x in fired if x[1] - max(mult * x[0], x[0] + extra) <= 14]
+            caught = [x for x in long_breaks if x[1] >= max(mult * x[0], x[0] + extra)]
+            wait = max(mult * 7, 7 + extra)
+            rows.append((mult, extra, len(fired), len(false), len(caught), wait))
+            mark = "   <- today" if (mult, extra) == (2.5, 14) else ""
+            print(f"{'x' + str(mult) + ', or +' + str(extra) + ' d':28} {len(fired):>6} {f'{100 * len(false) // max(1, len(fired))}% ({len(false)})':>13} {f'{100 * len(caught) // max(1, len(long_breaks))}% ({len(caught)})':>19} {wait:>29.0f} d{mark}")
 
 
 def rules_footprint():
@@ -634,7 +678,7 @@ def compare(needles, everything=False):
         titles = titles_of(m)
         old = state.get(str(s["id"]), {})
         try:
-            new = server.chapter_info(s["id"], titles, m["startDate"]["year"], s.get("read"), m["status"], old.get("matches"), s.get("gapDays"))  # gapDays: your own rhythm, like the bot
+            new = server.chapter_info(s["id"], titles, m["startDate"]["year"], s.get("read"), m["status"], old.get("matches"), s.get("gapDays"), bool(s.get("decimals")))  # your own settings, like the bot
         except Exception as err:
             print(f"{s['title'][:26]:26} FAILED: {err}")
             continue
@@ -664,6 +708,8 @@ if __name__ == "__main__":
         record(sys.argv[2:])
     elif cmd == "wiki":
         wiki(sys.argv[2:])
+    elif cmd == "breaktune":
+        breaktune()
     elif cmd == "backtest":
         backtest()
     elif cmd == "sensitivity":

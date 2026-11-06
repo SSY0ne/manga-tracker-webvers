@@ -113,13 +113,20 @@ class QuietDays(unittest.TestCase):
         self.assertEqual(server.quiet_days("FINISHED", day(500), 7), 0)
         self.assertEqual(server.quiet_days("RELEASING", None, 7), 0)
 
-    def test_weekly_series_flags_after_three_weeks(self):
+    def test_weekly_series_flags_after_six_weeks(self):
+        # weekly series skip 2-3 weeks all the time (holidays, a sick author): that is not a break
         self.assertEqual(server.quiet_days("RELEASING", day(20), 7), 0)
-        self.assertGreaterEqual(server.quiet_days("RELEASING", day(22), 7), 22)
+        self.assertEqual(server.quiet_days("RELEASING", day(41), 7), 0)
+        self.assertGreaterEqual(server.quiet_days("RELEASING", day(42), 7), 42)   # 7 + 35 days
 
-    def test_monthly_series_flags_after_about_75_days(self):
-        self.assertEqual(server.quiet_days("RELEASING", day(70), 30), 0)
-        self.assertGreaterEqual(server.quiet_days("RELEASING", day(80), 30), 80)
+    def test_monthly_series_flags_after_90_days(self):
+        self.assertEqual(server.quiet_days("RELEASING", day(89), 30), 0)
+        self.assertGreaterEqual(server.quiet_days("RELEASING", day(90), 30), 90)  # 3 x 30
+
+    def test_the_limit_is_the_larger_of_the_two_rules(self):
+        # a fortnightly series: max(3 x 14, 14 + 35) = 49 days
+        self.assertEqual(server.quiet_days("RELEASING", day(48), 14), 0)
+        self.assertGreaterEqual(server.quiet_days("RELEASING", day(49), 14), 49)
 
     def test_unknown_rhythm_falls_back_to_six_weeks(self):
         self.assertEqual(server.quiet_days("RELEASING", day(41), None, fallback_weeks=6), 0)
@@ -644,7 +651,7 @@ class RuleFootprint(unittest.TestCase):
         self.assertIn("any_language", used["rules"])
 
     def test_every_rule_has_a_label(self):
-        for rule in ("count_vote", "stale_feed", "lagging_feed", "highest_chapter", "upload_date_dropped", "any_language", "any_language_refused", "dormant", "count_only"):
+        for rule in ("count_vote", "stale_feed", "lagging_feed", "highest_chapter", "upload_date_dropped", "any_language", "any_language_refused", "dormant", "count_only", "above_finished_count", "decimal_ignored"):
             self.assertIn(rule, server.RULE_LABELS)
 
 
@@ -672,6 +679,89 @@ class RuleFootprintInTheBot(unittest.TestCase):
 
     def test_a_new_rule_counts_from_zero(self):
         self.assertEqual(len(check.rule_notes({"fresh_rule": 6}, {"count_vote": 1}, 40)), 1)
+
+
+class FinishedSeriesReleaseAboveTheCount(unittest.TestCase):
+    """Fullmetal Alchemist: 108 chapters (116 with extras), but Webtoon re-releases it as 'episodes' up to 163."""
+
+    def fma(self, status, release=163, counts=(163, 116, 116)):
+        cands = [cnt(counts[0]), cnt(counts[1], source="Kitsu"), cnt(counts[2], source="AniList"),
+                 rel("MangaUpdates", release, 1), rel("Webtoon", release, 1, official=True)]
+        return server.reconcile(cands, None, status)
+
+    def test_the_episode_numbers_are_ignored_for_a_finished_series(self):
+        r = self.fma("FINISHED")
+        self.assertEqual((r["chapter"], r["agreement"]), ("116", "count"))
+        self.assertIsNone(r["publishedAt"])  # no fake "new this week"
+        self.assertIn("above_finished_count", r["rules"])
+
+    def test_a_running_series_is_not_affected(self):
+        r = self.fma("RELEASING")
+        self.assertEqual(r["chapter"], "163")
+        self.assertNotIn("above_finished_count", r["rules"])
+
+    def test_the_edge_is_1_1_times_the_count_plus_5(self):
+        self.assertEqual(self.fma("FINISHED", release=132)["chapter"], "132")   # 1.1 x 116 + 5 = 132.6: still fits
+        self.assertEqual(self.fma("FINISHED", release=133)["chapter"], "116")
+
+    def test_it_needs_two_counts_to_agree_on_the_ceiling(self):
+        r = server.reconcile([cnt(100), rel("MangaDex", 150, 3)], None, "FINISHED")  # one count only: not enough
+        self.assertEqual(r["chapter"], "150")
+
+
+class BonusChapters(unittest.TestCase):
+    """Demon Slayer ended at chapter 205; MangaUpdates' newest entry is a bonus 205.5."""
+
+    def cand(self, rows, typical=7):
+        """rows = (chapter, days ago), newest first, like a candidate's history."""
+        c = rel("MangaUpdates", rows[0][0], rows[0][1])
+        c["typicalGapDays"] = typical
+        c["history"] = [{"chapter": str(ch), "date": day(ago)} for ch, ago in rows]
+        return c
+
+    def test_a_bonus_decimal_gives_way_to_the_whole_chapter_before_it(self):
+        c = server.prefer_whole(self.cand([(205.5, 100), (205, 160), (204, 167)]))
+        self.assertEqual(c["chapter"], "205")
+        self.assertEqual(c["publishedAt"], day(160))       # the date of chapter 205, not of the bonus
+        self.assertEqual(c["chapterNum"], 205.0)
+        self.assertTrue(c["decimalIgnored"])
+
+    def test_the_next_expected_date_follows_the_whole_chapter(self):
+        c = server.prefer_whole(self.cand([(205.5, 100), (205, 160)], typical=7))
+        self.assertEqual(c["expectedNext"], (server.parse_time(day(160)) + timedelta(days=7)).date().isoformat())
+
+    def test_a_whole_chapter_is_left_alone(self):
+        c = self.cand([(205, 160), (204, 167)])
+        self.assertIs(server.prefer_whole(c), c)
+
+    def test_without_a_close_whole_chapter_in_the_history_nothing_changes(self):
+        c = self.cand([(205.5, 100), (190, 160)])           # 15 chapters away: not the same story position
+        self.assertIs(server.prefer_whole(c), c)
+        only_decimals = self.cand([(5.5, 10), (4.5, 20)])
+        self.assertIs(server.prefer_whole(only_decimals), only_decimals)
+
+    def test_counts_and_empty_candidates_pass_through(self):
+        self.assertIsNone(server.prefer_whole(None))
+        self.assertEqual(server.prefer_whole(cnt(205.5))["chapter"], "205.5")
+
+    def test_the_highest_whole_chapter_wins_among_several(self):
+        c = server.prefer_whole(self.cand([(206.5, 50), (205, 160), (206, 100)]))
+        self.assertEqual(c["chapter"], "206")
+
+    def info(self, keep):
+        sources = [("MangaBaka", lambda *a: cnt(207)), ("MangaUpdates", lambda *a: self.cand([(205.5, 30), (205, 90)]))]
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}), mock.patch("time.sleep"):
+            return server.chapter_info(1, ["x"], status="RELEASING", keep_decimals=keep)
+
+    def test_chapter_info_ignores_bonus_chapters_by_default(self):
+        r = self.info(False)
+        self.assertEqual(r["chapter"], "205")
+        self.assertIn("decimal_ignored", r["rules"])
+
+    def test_the_series_setting_keeps_them(self):
+        r = self.info(True)
+        self.assertEqual(r["chapter"], "205.5")
+        self.assertNotIn("decimal_ignored", r["rules"])
 
 
 class TypicalGap(unittest.TestCase):
@@ -705,8 +795,8 @@ class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
             return server.chapter_info("1", ["x"], None, read, status)
 
     def test_quiet_days_come_with_the_answer(self):
-        r = self.info([rel("MangaDex", 100, 40)], "RELEASING")  # weekly series, 40 days silent
-        self.assertEqual(r["quietDays"], 40)
+        r = self.info([rel("MangaDex", 100, 60)], "RELEASING")  # weekly series, 60 days silent (the limit is 42)
+        self.assertEqual(r["quietDays"], 60)
 
     def test_finished_series_are_never_on_break(self):
         self.assertEqual(self.info([rel("MangaDex", 100, 400)], "FINISHED")["quietDays"], 0)
@@ -820,22 +910,22 @@ class GapOverride(unittest.TestCase):
     """series.json "gapDays": a rhythm you know replaces the measured one."""
 
     def info(self, gap_override):
-        sources = [("S0", lambda *a: rel("MangaDex", 100, 40))]  # last chapter 40 days ago, measured rhythm 7
+        sources = [("S0", lambda *a: rel("MangaDex", 100, 60))]  # last chapter 60 days ago, measured rhythm 7
         server._cache.clear()
         with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server.time, "sleep"):
             return server.chapter_info("1", ["x"], None, None, "RELEASING", gap_override=gap_override)
 
     def test_without_an_override_the_series_looks_on_break(self):
-        self.assertEqual(self.info(None)["quietDays"], 40)
+        self.assertEqual(self.info(None)["quietDays"], 60)
 
-    def test_a_monthly_override_makes_40_days_perfectly_normal(self):
+    def test_a_monthly_override_makes_60_days_perfectly_normal(self):
         r = self.info(30)
         self.assertEqual(r["typicalGapDays"], 30)
-        self.assertEqual(r["quietDays"], 0)  # limit for a 30-day rhythm is 75 days
+        self.assertEqual(r["quietDays"], 0)  # limit for a 30-day rhythm is 90 days
         self.assertTrue(r["gapOverride"])
 
     def test_next_chapter_follows_the_override(self):
-        published = datetime.fromisoformat(day(40))
+        published = datetime.fromisoformat(day(60))
         self.assertEqual(self.info(30)["expectedNext"], (published + timedelta(days=30)).date().isoformat())
 
 

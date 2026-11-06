@@ -575,14 +575,43 @@ def close(a, b):
 RULE_LABELS = {
     "count_vote": "a chapter count was outvoted by the others",
     "stale_feed": "a release feed far behind the count was ignored",
+    "above_finished_count": "a release far above a finished series' count was ignored (another numbering)",
     "lagging_feed": "a lone feed that stopped early lost to the count",
     "highest_chapter": "the highest chapter beat a fresher date",
     "upload_date_dropped": "an upload date after the series ended was dropped",
+    "decimal_ignored": "a bonus chapter (like 205.5) was ignored for the whole chapter",
     "any_language": "MangaDex in any language was used",
     "any_language_refused": "the any-language answer was refused (too old or too high)",
     "dormant": "marked dormant (years without a chapter)",
     "count_only": "no release feed fits: count only",
 }
+
+
+def prefer_whole(cand):
+    """A release candidate whose latest chapter is a bonus decimal (205.5) reports the whole chapter before it.
+
+    Sites add bonus pages, side stories and split parts as 12.5 or 364.2. They are not the story's
+    chapters: Demon Slayer ended at 205 but MangaUpdates' newest entry is 205.5, and a bonus must not look
+    like a new chapter. The whole chapter is taken from the candidate's own recent history (12 entries, newest
+    first), only when it is within 3 chapters of the decimal. Per series, series.json "decimals": true keeps them."""
+    if not cand or cand["kind"] != "release" or cand["chapterNum"] is None or cand["chapterNum"] == math.floor(cand["chapterNum"]):
+        return cand
+    whole = []
+    for h in cand.get("history") or []:
+        n = chapter_number(h["chapter"])
+        if n is not None and n == math.floor(n) and cand["chapterNum"] - n <= 3:
+            whole.append((n, h))
+    if not whole:
+        return cand
+    n, h = max(whole, key=lambda x: x[0])
+    out = dict(cand)
+    out.update(chapter=h["chapter"], chapterNum=n, publishedAt=h["date"], decimalIgnored=True)
+    typical = cand.get("typicalGapDays")
+    out["expectedNext"] = (
+        datetime.fromtimestamp(parse_time(h["date"]).timestamp() + typical * 86400, tz=timezone.utc).date().isoformat()
+        if typical else None
+    )
+    return out
 
 
 def lower_median(values):
@@ -620,6 +649,7 @@ def reconcile(candidates, read, status):
     candidates = [c for c in candidates if c]
     counts = [c for c in candidates if c["kind"] == "count"]
     count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])
+    n_counts = sum(1 for c in counts if c["chapterNum"])
     release_top = max((c["chapterNum"] for c in candidates if c["kind"] == "release" and c["chapterNum"]), default=0)
     top = max(release_top, count)
     horizon = datetime.now(timezone.utc) + timedelta(days=1)
@@ -639,6 +669,11 @@ def reconcile(candidates, read, status):
             return "count_vote"  # outvoted by the other counts
         if c["kind"] == "release" and c["source"] != "Webtoon" and count and c["chapterNum"] < 0.8 * count:
             return "stale_feed"
+        # A finished series has no more chapters to come, so a release number well above what at least two
+        # counts agree on is another numbering: Fullmetal Alchemist (108 chapters, 116 with extras) is being
+        # re-released on Webtoon as "episodes", and its Episode 163 was taken for a new chapter.
+        if status == "FINISHED" and c["kind"] == "release" and n_counts >= 2 and c["chapterNum"] > 1.1 * count + 5:
+            return "above_finished_count"
         return None
 
     def plausible(c):
@@ -647,7 +682,7 @@ def reconcile(candidates, read, status):
     good = [c for c in candidates if plausible(c)]
     # Which rules changed this answer (see RULE_LABELS): recorded so a rule that suddenly fires on many
     # series, or never fires, shows up in the Health tab and the digest.
-    rules = sorted({v for v in (verdict(c) for c in candidates) if v in ("count_vote", "stale_feed")})
+    rules = sorted({v for v in (verdict(c) for c in candidates) if v in ("count_vote", "stale_feed", "above_finished_count")})
     summary = [
         {
             "name": c["source"],
@@ -713,7 +748,7 @@ def reconcile(candidates, read, status):
     return {"found": False, "agreement": "none", "limited": status == "RELEASING", **base}
 
 
-def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None, gap_override=None):
+def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None, gap_override=None, keep_decimals=False):
     """Ask every source, then reconcile. Raises only if every source failed.
 
     `matches` = what we already know about which entry each source uses for this series
@@ -724,6 +759,9 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     `gap_override` = days between chapters that YOU know (series.json "gapDays"), for series whose
     rhythm the statistics get wrong. It replaces the measured rhythm, so the next-chapter date and
     the "on break" verdict follow it.
+
+    `keep_decimals` = count bonus chapters like 12.5 as chapters (series.json "decimals": true), for the
+    rare series that numbers real story chapters that way. Default: they are ignored (prefer_whole).
     """
     matches = matches or {}
     if matches.get("MangaBaka"):
@@ -762,7 +800,16 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
             time.sleep(0.3)  # be polite to the sources (MangaBaka sleeps inside mb_get)
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
+    decimals_ignored = False
+    if not keep_decimals:
+        whole = [prefer_whole(c) for c in candidates]
+        decimals_ignored = any(w is not c for w, c in zip(whole, candidates))
+        candidates = whole
     result = reconcile(candidates, read, status)
+    if decimals_ignored and result.get("source") and any(
+        c and c.get("decimalIgnored") and c["source"] == result["source"] for c in candidates
+    ):
+        result["rules"] = sorted(set(result["rules"]) | {"decimal_ignored"})
     last_evidence = None  # an old date that proves the series has been quiet at least this long
     if status == "RELEASING" and result.get("agreement") == "count":  # a running series and nothing fits: try every language
         started = time.time()
@@ -821,6 +868,8 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
 
 # ---------- the "on break" rule (the only copy) ----------
 
+BREAK_MULT = 3.0  # "on break" needs at least this many times the usual gap...
+BREAK_EXTRA_DAYS = 35  # ...and at least this many days more than the usual gap (weekly series skip 2-3 weeks all the time)
 FALLBACK_WEEKS = int(os.environ.get("BREAK_WEEKS", "6"))  # used only when a series has too little history
 
 
@@ -828,14 +877,16 @@ def quiet_days(status, published_iso, typical_gap, fallback_weeks=FALLBACK_WEEKS
     """How many days it has been quiet, or 0 if it doesn't look on break.
 
     A Releasing series is "quiet" when it is way overdue compared to ITS OWN rhythm:
-    at least 2.5x its usual gap and at least 2 weeks more than the gap. A weekly
-    series flags after 3 weeks, a monthly one after about 75 days. With too little
+    at least BREAK_MULT (3) x its usual gap and at least BREAK_EXTRA_DAYS (35) more than the gap. A weekly
+    series flags after 6 weeks, a monthly one after 90 days. (It used to be 2.5x and 14 days, which flagged
+    a weekly series after 3 weeks: on the real history, 8 of 13 such flags were false alarms, because weekly
+    series regularly skip 2-3 weeks. The numbers come from `devtools.py breaktune`.) With too little
     history we fall back to a flat number of weeks.
     """
     if status != "RELEASING" or not published_iso:
         return 0
     days = (datetime.now(timezone.utc) - parse_time(published_iso)).days
-    limit = max(2.5 * typical_gap, typical_gap + 14) if typical_gap else fallback_weeks * 7
+    limit = max(BREAK_MULT * typical_gap, typical_gap + BREAK_EXTRA_DAYS) if typical_gap else fallback_weeks * 7
     return days if days >= limit else 0
 
 
@@ -902,6 +953,7 @@ class Handler(SimpleHTTPRequestHandler):
         year = (q.get("year") or [""])[0]
         read = (q.get("read") or [""])[0]
         gap = (q.get("gap") or [""])[0]
+        keep_decimals = (q.get("decimals") or [""])[0] == "1"
         try:
             self.send_json(
                 200,
@@ -912,6 +964,7 @@ class Handler(SimpleHTTPRequestHandler):
                     int(read) if read.isdigit() else None,
                     (q.get("status") or [None])[0],
                     gap_override=int(gap) if gap.isdigit() else None,
+                    keep_decimals=keep_decimals,
                 ),
             )
         except Exception as err:  # every source failed
@@ -945,9 +998,13 @@ class Handler(SimpleHTTPRequestHandler):
                     if gap is not None and not 1 <= gap <= 730:
                         raise ValueError("gapDays must be 1 to 730")
                     entry["gapDays"] = gap
+                if "decimals" in it:
+                    if it["decimals"] not in (None, True, False):
+                        raise ValueError("decimals must be true or false")
+                    entry["decimals"] = it["decimals"]
                 clean.append(entry)
         except (ValueError, KeyError, TypeError, AttributeError):
-            return self.send_json(400, {"error": "need id (number) and title; alerts all/breaks/off; gapDays 1-730"})
+            return self.send_json(400, {"error": "need id (number) and title; alerts all/breaks/off; gapDays 1-730; decimals true/false"})
         series = read_series()
         by_id = {s["id"]: s for s in series}
         for entry in clean:
@@ -959,9 +1016,9 @@ class Handler(SimpleHTTPRequestHandler):
             for key, value in entry.items():
                 if key in ("mal", "read"):
                     target[key] = value
-                elif key in ("alerts", "gapDays"):
-                    # the default ("all alerts", measured rhythm) is simply not stored
-                    if value is None or value == "all":
+                elif key in ("alerts", "gapDays", "decimals"):
+                    # the default ("all alerts", measured rhythm, bonus chapters ignored) is simply not stored
+                    if value is None or value == "all" or value is False:
                         target.pop(key, None)
                     else:
                         target[key] = value

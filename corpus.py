@@ -77,7 +77,7 @@ def replay(fx):
             mock.patch("time.sleep"), \
             mock.patch.object(server, "mangadex_any_language_candidate", lambda *a: any_language):
         result = server.chapter_info(
-            fx["id"], fx["titles"], fx.get("year"), fx.get("read"), fx["status"], None, gap_override=fx.get("gapDays")
+            fx["id"], fx["titles"], fx.get("year"), fx.get("read"), fx["status"], None, gap_override=fx.get("gapDays"), keep_decimals=bool(fx.get("decimals"))
         )
     return result, snapshot(result)
 
@@ -152,7 +152,7 @@ def score(set_name=None):
 
 # ---------- recording (live) ----------
 
-def record_live(al_id, titles, year, status, read=None, gap=None, matches=None, title=None):
+def record_live(al_id, titles, year, status, read=None, gap=None, matches=None, title=None, decimals=False):
     """Ask every source for real and freeze the answers. Needs the network."""
     import time
 
@@ -166,7 +166,7 @@ def record_live(al_id, titles, year, status, read=None, gap=None, matches=None, 
 
     sources = [(name, wrap(name, fn)) for name, fn in server.SOURCES]
     with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}):
-        server.chapter_info(al_id, titles, year, read, status, matches, gap_override=gap)
+        server.chapter_info(al_id, titles, year, read, status, matches, gap_override=gap, keep_decimals=decimals)
     any_language = None
     if status == "RELEASING":  # always keep it, so a later rule that wants it can be replayed
         try:
@@ -182,6 +182,7 @@ def record_live(al_id, titles, year, status, read=None, gap=None, matches=None, 
         "status": status,
         "read": read,
         "gapDays": gap,
+        "decimals": decimals,
         "recordedAt": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
         "sources": raw,
         "anyLanguage": any_language,
