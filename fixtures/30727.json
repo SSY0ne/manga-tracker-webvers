@@ -1,0 +1,219 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "338",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "338",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "134",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "134",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "338",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "338",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30727,
+ "read": 0,
+ "recordedAt": "2026-11-06T12:13:32+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "338",
+   "chapterNum": 338.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30727"
+  },
+  "Kitsu": {
+   "chapter": "338",
+   "chapterNum": 338.0,
+   "ended": "2015-01-13",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/1604"
+  },
+  "MangaBaka": {
+   "chapter": "338",
+   "chapterNum": 338.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/10658/Shamo"
+  },
+  "MangaDex": {
+   "chapter": "134",
+   "chapterNum": 134.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "134",
+     "date": "2018-03-02T23:04:48+00:00"
+    },
+    {
+     "chapter": "133",
+     "date": "2018-03-02T23:03:56+00:00"
+    },
+    {
+     "chapter": "132",
+     "date": "2018-03-02T23:02:43+00:00"
+    },
+    {
+     "chapter": "131",
+     "date": "2018-03-02T23:01:24+00:00"
+    },
+    {
+     "chapter": "130",
+     "date": "2018-03-02T22:59:59+00:00"
+    },
+    {
+     "chapter": "129",
+     "date": "2018-03-02T22:58:58+00:00"
+    },
+    {
+     "chapter": "128",
+     "date": "2018-03-02T22:57:29+00:00"
+    },
+    {
+     "chapter": "127",
+     "date": "2018-03-02T22:55:55+00:00"
+    },
+    {
+     "chapter": "126",
+     "date": "2018-03-02T22:54:24+00:00"
+    },
+    {
+     "chapter": "125",
+     "date": "2018-03-02T22:51:03+00:00"
+    },
+    {
+     "chapter": "124",
+     "date": "2018-03-02T22:49:05+00:00"
+    },
+    {
+     "chapter": "123",
+     "date": "2018-03-02T22:47:24+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2018-03-02T23:04:48+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/ddc59cd3-661b-494b-ac3d-d491b65a10aa"
+  },
+  "MangaUpdates": {
+   "chapter": "134",
+   "chapterNum": 134.0,
+   "expectedNext": "2020-09-02",
+   "history": [
+    {
+     "chapter": "134",
+     "date": "2020-07-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "125",
+     "date": "2020-06-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "116",
+     "date": "2015-03-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "107",
+     "date": "2014-07-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "98",
+     "date": "2013-10-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "89",
+     "date": "2013-08-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "80",
+     "date": "2012-12-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "71",
+     "date": "2012-08-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "63",
+     "date": "2011-08-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "62",
+     "date": "2011-08-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "61",
+     "date": "2011-08-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "60",
+     "date": "2011-08-14T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-07-23T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 41,
+   "url": "https://www.mangaupdates.com/series/61a7yql/shamo"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Shamo",
+ "titles": [
+  "Shamo",
+  "Gamecock",
+  "Coq de Combat"
+ ],
+ "version": 1,
+ "year": 1998
+}

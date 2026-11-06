@@ -1,0 +1,249 @@
+{
+ "anyLanguage": {
+  "chapter": "367",
+  "chapterNum": 367.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "367",
+    "date": "2026-10-31T03:40:10+00:00"
+   },
+   {
+    "chapter": "366",
+    "date": "2026-10-27T03:17:25+00:00"
+   },
+   {
+    "chapter": "365",
+    "date": "2026-10-20T03:18:14+00:00"
+   },
+   {
+    "chapter": "364",
+    "date": "2026-10-10T06:06:17+00:00"
+   },
+   {
+    "chapter": "364.2",
+    "date": "2026-10-10T01:54:43+00:00"
+   },
+   {
+    "chapter": "364.1",
+    "date": "2026-10-06T18:13:29+00:00"
+   },
+   {
+    "chapter": "363",
+    "date": "2026-09-29T04:05:51+00:00"
+   },
+   {
+    "chapter": "362",
+    "date": "2026-09-18T06:56:38+00:00"
+   },
+   {
+    "chapter": "361",
+    "date": "2026-09-15T21:23:15+00:00"
+   },
+   {
+    "chapter": "360",
+    "date": "2026-09-08T03:36:32+00:00"
+   },
+   {
+    "chapter": "359",
+    "date": "2026-09-01T03:56:49+00:00"
+   },
+   {
+    "chapter": "358",
+    "date": "2026-08-25T02:39:13+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-10-31T03:40:10+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/4141c5dc-c525-4df5-afd7-cc7d192a832f"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "367",
+  "countOnly": null,
+  "date": "2026-10-31",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex (any language)",
+  "sources": [
+   {
+    "chapter": "366",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "150",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "272",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "367",
+    "name": "MangaDex (any language)",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 106130,
+ "read": 367,
+ "recordedAt": "2026-11-06T12:11:47+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "366",
+   "chapterNum": 366.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/83/Blue-Lock"
+  },
+  "MangaDex": {
+   "chapter": "150",
+   "chapterNum": 150.0,
+   "expectedNext": "2026-07-20",
+   "history": [
+    {
+     "chapter": "150",
+     "date": "2026-07-19T14:26:25+00:00"
+    },
+    {
+     "chapter": "177",
+     "date": "2024-09-09T08:33:28+00:00"
+    },
+    {
+     "chapter": "176",
+     "date": "2024-09-09T08:33:21+00:00"
+    },
+    {
+     "chapter": "175",
+     "date": "2024-08-31T17:17:47+00:00"
+    },
+    {
+     "chapter": "174",
+     "date": "2024-08-31T17:16:46+00:00"
+    },
+    {
+     "chapter": "173",
+     "date": "2024-08-31T17:15:45+00:00"
+    },
+    {
+     "chapter": "22",
+     "date": "2024-08-31T17:14:45+00:00"
+    },
+    {
+     "chapter": "21",
+     "date": "2024-08-31T17:12:49+00:00"
+    },
+    {
+     "chapter": "20",
+     "date": "2024-08-31T17:10:49+00:00"
+    },
+    {
+     "chapter": "19",
+     "date": "2024-08-31T17:08:48+00:00"
+    },
+    {
+     "chapter": "18",
+     "date": "2024-08-31T17:04:47+00:00"
+    },
+    {
+     "chapter": "17",
+     "date": "2024-08-31T16:59:48+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-07-19T14:26:25+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 1,
+   "url": "https://mangadex.org/chapter/02bb0664-1ec9-422d-add0-b4e3ba7ae733"
+  },
+  "MangaUpdates": {
+   "chapter": "272",
+   "chapterNum": 272.0,
+   "expectedNext": "2024-08-26",
+   "history": [
+    {
+     "chapter": "272",
+     "date": "2024-08-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "271",
+     "date": "2024-07-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "270",
+     "date": "2024-07-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "269",
+     "date": "2024-07-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "268",
+     "date": "2024-07-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "267",
+     "date": "2024-06-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "266",
+     "date": "2024-06-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "265",
+     "date": "2024-06-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "264",
+     "date": "2024-06-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "263",
+     "date": "2024-05-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "262",
+     "date": "2024-05-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "261",
+     "date": "2024-05-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2024-08-19T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/joxc7wz/blue-lock"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Blue Lock",
+ "titles": [
+  "Blue Lock",
+  "Blue Lock",
+  "Bluelock",
+  "BLUE LOCK ขังดวลแข้ง"
+ ],
+ "version": 1,
+ "year": 2018
+}

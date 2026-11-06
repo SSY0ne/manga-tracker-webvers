@@ -1,0 +1,242 @@
+{
+ "anyLanguage": {
+  "chapter": "41",
+  "chapterNum": 41.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "41",
+    "date": "2026-10-18T14:56:32+00:00"
+   },
+   {
+    "chapter": "40",
+    "date": "2026-09-16T14:53:41+00:00"
+   },
+   {
+    "chapter": "39",
+    "date": "2026-08-18T14:53:12+00:00"
+   },
+   {
+    "chapter": "38",
+    "date": "2026-07-16T14:55:05+00:00"
+   },
+   {
+    "chapter": "37",
+    "date": "2026-06-17T14:51:24+00:00"
+   },
+   {
+    "chapter": "36",
+    "date": "2026-05-18T14:55:28+00:00"
+   },
+   {
+    "chapter": "35",
+    "date": "2026-04-16T14:51:09+00:00"
+   },
+   {
+    "chapter": "34",
+    "date": "2026-03-18T14:55:52+00:00"
+   },
+   {
+    "chapter": "33",
+    "date": "2026-02-17T14:57:00+00:00"
+   },
+   {
+    "chapter": "32",
+    "date": "2026-01-18T14:57:11+00:00"
+   },
+   {
+    "chapter": "31",
+    "date": "2025-12-17T14:58:37+00:00"
+   },
+   {
+    "chapter": "30",
+    "date": "2025-11-18T15:00:00+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-10-18T14:56:32+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/chapter/8ece7468-be3a-456b-9a45-033071c814a8"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "41",
+  "countOnly": null,
+  "date": "2026-10-18",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "41",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "41",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "41",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 29
+ },
+ "id": 138072,
+ "read": 1,
+ "recordedAt": "2026-11-06T12:12:42+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "41",
+   "chapterNum": 41.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/408/JoJo-s-Bizarre-Adventure-Part-9-The-JoJoLands"
+  },
+  "MangaDex": {
+   "chapter": "41",
+   "chapterNum": 41.0,
+   "expectedNext": "2026-11-16",
+   "history": [
+    {
+     "chapter": "41",
+     "date": "2026-10-18T14:56:32+00:00"
+    },
+    {
+     "chapter": "40",
+     "date": "2026-09-16T14:53:41+00:00"
+    },
+    {
+     "chapter": "39",
+     "date": "2026-08-18T14:53:12+00:00"
+    },
+    {
+     "chapter": "24",
+     "date": "2026-07-16T21:38:04+00:00"
+    },
+    {
+     "chapter": "23",
+     "date": "2026-07-16T21:37:57+00:00"
+    },
+    {
+     "chapter": "22",
+     "date": "2026-07-16T21:37:48+00:00"
+    },
+    {
+     "chapter": "21",
+     "date": "2026-07-16T21:37:40+00:00"
+    },
+    {
+     "chapter": "20",
+     "date": "2026-07-16T21:37:31+00:00"
+    },
+    {
+     "chapter": "19",
+     "date": "2026-07-16T21:37:18+00:00"
+    },
+    {
+     "chapter": "18",
+     "date": "2026-07-16T21:36:57+00:00"
+    },
+    {
+     "chapter": "38",
+     "date": "2026-07-16T14:55:05+00:00"
+    },
+    {
+     "chapter": "37",
+     "date": "2026-06-17T14:51:24+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-18T14:56:32+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 29,
+   "url": "https://mangadex.org/chapter/8ece7468-be3a-456b-9a45-033071c814a8"
+  },
+  "MangaUpdates": {
+   "chapter": "41",
+   "chapterNum": 41.0,
+   "expectedNext": "2026-11-16",
+   "history": [
+    {
+     "chapter": "41",
+     "date": "2026-10-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "40",
+     "date": "2026-09-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "39",
+     "date": "2026-08-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "38",
+     "date": "2026-07-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "37",
+     "date": "2026-06-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "36",
+     "date": "2026-05-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "35",
+     "date": "2026-04-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "34",
+     "date": "2026-03-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "33",
+     "date": "2026-02-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "32",
+     "date": "2026-01-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "31",
+     "date": "2025-12-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "30",
+     "date": "2025-11-18T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-18T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 29,
+   "url": "https://www.mangaupdates.com/series/i4uepti/jojo-no-kimyou-na-bouken-part-9-the-jojolands"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "JoJo no Kimyou na Bouken: The JOJOLands",
+ "titles": [
+  "JoJo no Kimyou na Bouken: The JOJOLands",
+  "JoJo's Bizarre Adventure Part 9: The JOJOLands"
+ ],
+ "version": 1,
+ "year": 2023
+}

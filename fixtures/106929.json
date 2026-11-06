@@ -1,0 +1,309 @@
+{
+ "anyLanguage": {
+  "chapter": "424",
+  "chapterNum": 424.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "424",
+    "date": "2026-10-28T14:56:52+00:00"
+   },
+   {
+    "chapter": "423",
+    "date": "2026-10-21T03:47:09+00:00"
+   },
+   {
+    "chapter": "422",
+    "date": "2026-10-14T03:38:50+00:00"
+   },
+   {
+    "chapter": "421",
+    "date": "2026-10-06T23:41:12+00:00"
+   },
+   {
+    "chapter": "420",
+    "date": "2026-09-30T21:16:18+00:00"
+   },
+   {
+    "chapter": "419",
+    "date": "2026-09-23T03:36:02+00:00"
+   },
+   {
+    "chapter": "418",
+    "date": "2026-09-17T03:16:36+00:00"
+   },
+   {
+    "chapter": "417",
+    "date": "2026-09-09T00:44:16+00:00"
+   },
+   {
+    "chapter": "416",
+    "date": "2026-09-02T02:15:46+00:00"
+   },
+   {
+    "chapter": "415",
+    "date": "2026-08-28T00:09:03+00:00"
+   },
+   {
+    "chapter": "414",
+    "date": "2026-08-19T04:04:33+00:00"
+   },
+   {
+    "chapter": "413",
+    "date": "2026-08-11T22:14:29+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-10-28T14:56:52+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/7e544761-7d3d-4fce-8137-719814d7d138"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "425",
+  "countOnly": null,
+  "date": "2026-11-03",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "425",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "390",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "425",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "410",
+    "name": "Webtoon",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 106929,
+ "read": 422,
+ "recordedAt": "2026-11-06T12:12:14+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "425",
+   "chapterNum": 425.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/57/Eleceed"
+  },
+  "MangaDex": {
+   "chapter": "390",
+   "chapterNum": 390.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "390",
+     "date": "2026-06-24T22:02:33+00:00"
+    },
+    {
+     "chapter": "247",
+     "date": "2023-05-30T15:37:24+00:00"
+    },
+    {
+     "chapter": "246",
+     "date": "2023-05-30T15:37:02+00:00"
+    },
+    {
+     "chapter": "245",
+     "date": "2023-05-30T15:36:42+00:00"
+    },
+    {
+     "chapter": "244",
+     "date": "2023-05-30T15:36:22+00:00"
+    },
+    {
+     "chapter": "243",
+     "date": "2023-05-30T15:35:57+00:00"
+    },
+    {
+     "chapter": "242",
+     "date": "2023-05-30T15:34:19+00:00"
+    },
+    {
+     "chapter": "241",
+     "date": "2023-05-30T15:34:01+00:00"
+    },
+    {
+     "chapter": "240",
+     "date": "2023-05-30T15:33:39+00:00"
+    },
+    {
+     "chapter": "239",
+     "date": "2023-05-30T15:33:14+00:00"
+    },
+    {
+     "chapter": "238",
+     "date": "2023-05-30T15:32:53+00:00"
+    },
+    {
+     "chapter": "237",
+     "date": "2023-05-30T15:32:29+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-06-24T22:02:33+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/2709e6d2-0f9c-4baf-add6-fc20efacb4ce"
+  },
+  "MangaUpdates": {
+   "chapter": "425",
+   "chapterNum": 425.0,
+   "expectedNext": "2026-11-10",
+   "history": [
+    {
+     "chapter": "425",
+     "date": "2026-11-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "424",
+     "date": "2026-10-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "423",
+     "date": "2026-10-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "422",
+     "date": "2026-10-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "421",
+     "date": "2026-10-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "406",
+     "date": "2026-10-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "420",
+     "date": "2026-09-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "405",
+     "date": "2026-09-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "419",
+     "date": "2026-09-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "404",
+     "date": "2026-09-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "418",
+     "date": "2026-09-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "403",
+     "date": "2026-09-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-03T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed"
+  },
+  "Webtoon": {
+   "chapter": "410",
+   "chapterNum": 410.0,
+   "expectedNext": "2026-11-10",
+   "history": [
+    {
+     "chapter": "410",
+     "date": "2026-11-03T02:00:12+00:00"
+    },
+    {
+     "chapter": "409",
+     "date": "2026-10-27T01:00:17+00:00"
+    },
+    {
+     "chapter": "408",
+     "date": "2026-10-20T01:00:17+00:00"
+    },
+    {
+     "chapter": "407",
+     "date": "2026-10-13T01:00:16+00:00"
+    },
+    {
+     "chapter": "406",
+     "date": "2026-10-06T01:00:17+00:00"
+    },
+    {
+     "chapter": "405",
+     "date": "2026-09-29T01:00:16+00:00"
+    },
+    {
+     "chapter": "404",
+     "date": "2026-09-22T01:00:16+00:00"
+    },
+    {
+     "chapter": "403",
+     "date": "2026-09-15T01:00:19+00:00"
+    },
+    {
+     "chapter": "402",
+     "date": "2026-09-08T01:00:20+00:00"
+    },
+    {
+     "chapter": "401",
+     "date": "2026-09-01T01:00:20+00:00"
+    },
+    {
+     "chapter": "400",
+     "date": "2026-08-25T01:00:20+00:00"
+    },
+    {
+     "chapter": "399",
+     "date": "2026-08-18T01:00:18+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-03T02:00:12+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/action/eleceed/episode-410/viewer?title_no=1571&episode_no=410"
+  }
+ },
+ "status": "RELEASING",
+ "title": "Eleceed",
+ "titles": [
+  "Eleceed",
+  "Eleceed",
+  "Eleceed: Velocidad eléctrica",
+  "觉醒吧，铲屎官！"
+ ],
+ "version": 1,
+ "year": 2018
+}

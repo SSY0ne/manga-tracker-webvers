@@ -1,0 +1,155 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "22",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "22",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "16",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "22",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "22",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 114998,
+ "read": 6,
+ "recordedAt": "2026-11-06T12:11:56+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "22",
+   "chapterNum": 22.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/114998"
+  },
+  "Kitsu": {
+   "chapter": "22",
+   "chapterNum": 22.0,
+   "ended": "2022-01-26",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/58725"
+  },
+  "MangaBaka": {
+   "chapter": "22",
+   "chapterNum": 22.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/37135/Bungo-Stray-Dogs-Beast"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "16",
+   "chapterNum": 16.0,
+   "expectedNext": "2022-04-19",
+   "history": [
+    {
+     "chapter": "16",
+     "date": "2022-04-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "15",
+     "date": "2022-03-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "14.5",
+     "date": "2022-03-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "14",
+     "date": "2022-03-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "13",
+     "date": "2022-03-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "12",
+     "date": "2021-01-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "11",
+     "date": "2020-12-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "10",
+     "date": "2020-12-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "9",
+     "date": "2020-12-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "7",
+     "date": "2020-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2020-07-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2020-06-03T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2022-04-18T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 1,
+   "url": "https://www.mangaupdates.com/series/2mwv8yr/bungou-stray-dogs-beast"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Bungo Stray Dogs Beast",
+ "titles": [
+  "Bungo Stray Dogs Beast",
+  "Bungou Stray Dogs BEAST",
+  "Bungo Stray Dogs BEAST",
+  "BEAST"
+ ],
+ "version": 1,
+ "year": 2019
+}

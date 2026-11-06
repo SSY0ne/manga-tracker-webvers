@@ -1,0 +1,241 @@
+{
+ "anyLanguage": {
+  "chapter": "213",
+  "chapterNum": 213.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "213",
+    "date": "2026-11-03T17:21:27+00:00"
+   },
+   {
+    "chapter": "212",
+    "date": "2026-10-27T18:44:42+00:00"
+   },
+   {
+    "chapter": "211",
+    "date": "2026-10-14T03:46:35+00:00"
+   },
+   {
+    "chapter": "210",
+    "date": "2026-10-06T18:21:19+00:00"
+   },
+   {
+    "chapter": "209",
+    "date": "2026-09-29T19:50:24+00:00"
+   },
+   {
+    "chapter": "208",
+    "date": "2026-09-15T18:22:19+00:00"
+   },
+   {
+    "chapter": "207",
+    "date": "2026-09-09T13:41:57+00:00"
+   },
+   {
+    "chapter": "206",
+    "date": "2026-09-02T03:19:35+00:00"
+   },
+   {
+    "chapter": "205",
+    "date": "2026-08-26T17:43:33+00:00"
+   },
+   {
+    "chapter": "204",
+    "date": "2026-08-20T03:01:23+00:00"
+   },
+   {
+    "chapter": "203",
+    "date": "2026-08-05T12:49:25+00:00"
+   },
+   {
+    "chapter": "202",
+    "date": "2026-07-29T14:51:38+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-11-03T17:21:27+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/chapter/3e1585f7-03ee-4455-82a3-08e06654c5f1"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "213",
+  "countOnly": null,
+  "date": "2026-11-03",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "213",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "213",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "213",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 144939,
+ "read": 211,
+ "recordedAt": "2026-11-06T12:13:20+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "213",
+   "chapterNum": 213.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/2119/Red-Blue"
+  },
+  "MangaDex": {
+   "chapter": "213",
+   "chapterNum": 213.0,
+   "expectedNext": "2026-11-10",
+   "history": [
+    {
+     "chapter": "213",
+     "date": "2026-11-03T17:21:27+00:00"
+    },
+    {
+     "chapter": "212",
+     "date": "2026-10-27T18:44:42+00:00"
+    },
+    {
+     "chapter": "211",
+     "date": "2026-10-14T03:46:35+00:00"
+    },
+    {
+     "chapter": "210",
+     "date": "2026-10-06T18:21:19+00:00"
+    },
+    {
+     "chapter": "209",
+     "date": "2026-09-29T19:50:24+00:00"
+    },
+    {
+     "chapter": "208",
+     "date": "2026-09-15T18:22:19+00:00"
+    },
+    {
+     "chapter": "207",
+     "date": "2026-09-10T04:43:56+00:00"
+    },
+    {
+     "chapter": "206",
+     "date": "2026-09-02T03:19:35+00:00"
+    },
+    {
+     "chapter": "205",
+     "date": "2026-08-26T17:43:33+00:00"
+    },
+    {
+     "chapter": "204",
+     "date": "2026-08-20T03:01:23+00:00"
+    },
+    {
+     "chapter": "203",
+     "date": "2026-08-05T12:49:25+00:00"
+    },
+    {
+     "chapter": "202",
+     "date": "2026-07-29T14:51:38+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-03T17:21:27+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangadex.org/chapter/3e1585f7-03ee-4455-82a3-08e06654c5f1"
+  },
+  "MangaUpdates": {
+   "chapter": "213",
+   "chapterNum": 213.0,
+   "expectedNext": "2026-11-10",
+   "history": [
+    {
+     "chapter": "213",
+     "date": "2026-11-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "212",
+     "date": "2026-10-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "211",
+     "date": "2026-10-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "210",
+     "date": "2026-10-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "209",
+     "date": "2026-09-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "208",
+     "date": "2026-09-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "207",
+     "date": "2026-09-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "206",
+     "date": "2026-09-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "205",
+     "date": "2026-08-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "204",
+     "date": "2026-08-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "203",
+     "date": "2026-08-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "202",
+     "date": "2026-07-29T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-03T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/b59574l/red-blue"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Red Blue",
+ "titles": [
+  "Red Blue"
+ ],
+ "version": 1,
+ "year": 2022
+}

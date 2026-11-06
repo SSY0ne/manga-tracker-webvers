@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "232",
+  "countOnly": null,
+  "date": "2026-03-24",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "232",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "4",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "232",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "97",
+    "name": "Kitsu",
+    "plausible": false
+   },
+   {
+    "chapter": "232",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 105778,
+ "read": 112,
+ "recordedAt": "2026-11-06T12:12:00+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "232",
+   "chapterNum": 232.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/105778"
+  },
+  "Kitsu": {
+   "chapter": "97",
+   "chapterNum": 97.0,
+   "ended": "2020-12-14",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/54139"
+  },
+  "MangaBaka": {
+   "chapter": "232",
+   "chapterNum": 232.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1677/Chainsaw-Man"
+  },
+  "MangaDex": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": "2026-09-01",
+   "history": [
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:47:09+00:00"
+    },
+    {
+     "chapter": "232",
+     "date": "2026-03-25T01:08:29+00:00"
+    },
+    {
+     "chapter": "231",
+     "date": "2026-03-10T15:05:23+00:00"
+    },
+    {
+     "chapter": "230",
+     "date": "2026-02-25T01:08:34+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2024-05-01T15:29:11+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2024-05-01T15:29:09+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2024-05-01T15:29:06+00:00"
+    },
+    {
+     "chapter": "97",
+     "date": "2020-12-13T20:18:59+00:00"
+    },
+    {
+     "chapter": "96",
+     "date": "2020-12-09T13:09:41+00:00"
+    },
+    {
+     "chapter": "95",
+     "date": "2020-11-30T16:00:49+00:00"
+    },
+    {
+     "chapter": "94",
+     "date": "2020-11-23T21:21:45+00:00"
+    },
+    {
+     "chapter": "93",
+     "date": "2020-11-17T02:39:52+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-08-26T17:47:09+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 6,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1001252"
+  },
+  "MangaUpdates": {
+   "chapter": "232",
+   "chapterNum": 232.0,
+   "expectedNext": "2026-03-31",
+   "history": [
+    {
+     "chapter": "232",
+     "date": "2026-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "231",
+     "date": "2026-03-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "230",
+     "date": "2026-02-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "229",
+     "date": "2026-02-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "228",
+     "date": "2026-02-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "227",
+     "date": "2026-01-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "226",
+     "date": "2026-01-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "225",
+     "date": "2026-01-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "224",
+     "date": "2025-12-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "223",
+     "date": "2025-12-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "222",
+     "date": "2025-12-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "221",
+     "date": "2025-11-25T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-03-24T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/ylx5wzn/chainsaw-man"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Chainsaw Man",
+ "titles": [
+  "Chainsaw Man",
+  "Chainsaw Man",
+  "CSM",
+  "رجل المنشار"
+ ],
+ "version": 1,
+ "year": 2018
+}

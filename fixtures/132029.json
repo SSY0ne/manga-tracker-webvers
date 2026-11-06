@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "251",
+  "chapterNum": 251.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "251",
+    "date": "2026-11-02T15:07:52+00:00"
+   },
+   {
+    "chapter": "250",
+    "date": "2026-10-26T15:07:51+00:00"
+   },
+   {
+    "chapter": "249",
+    "date": "2026-10-19T15:08:39+00:00"
+   },
+   {
+    "chapter": "248",
+    "date": "2026-10-12T15:07:42+00:00"
+   },
+   {
+    "chapter": "247",
+    "date": "2026-10-05T15:08:04+00:00"
+   },
+   {
+    "chapter": "246",
+    "date": "2026-09-14T15:07:09+00:00"
+   },
+   {
+    "chapter": "245",
+    "date": "2026-08-24T15:06:55+00:00"
+   },
+   {
+    "chapter": "244",
+    "date": "2026-08-17T15:07:02+00:00"
+   },
+   {
+    "chapter": "243",
+    "date": "2026-08-10T15:06:41+00:00"
+   },
+   {
+    "chapter": "242",
+    "date": "2026-07-28T18:34:22+00:00"
+   },
+   {
+    "chapter": "241",
+    "date": "2026-07-20T20:18:31+00:00"
+   },
+   {
+    "chapter": "240",
+    "date": "2026-07-07T17:52:42+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": true,
+  "publishedAt": "2026-11-02T15:07:52+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangaplus.shueisha.co.jp/viewer/1030696"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "251",
+  "countOnly": null,
+  "date": "2026-11-02",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "251",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "251",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "251",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 132029,
+ "read": 247,
+ "recordedAt": "2026-11-06T12:12:08+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "251",
+   "chapterNum": 251.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/4627/Dandadan"
+  },
+  "MangaDex": {
+   "chapter": "251",
+   "chapterNum": 251.0,
+   "expectedNext": "2026-11-09",
+   "history": [
+    {
+     "chapter": "251",
+     "date": "2026-11-02T15:07:52+00:00"
+    },
+    {
+     "chapter": "250",
+     "date": "2026-10-26T15:07:51+00:00"
+    },
+    {
+     "chapter": "249",
+     "date": "2026-10-19T15:08:39+00:00"
+    },
+    {
+     "chapter": "248",
+     "date": "2026-10-12T15:07:42+00:00"
+    },
+    {
+     "chapter": "247",
+     "date": "2026-10-05T15:08:04+00:00"
+    },
+    {
+     "chapter": "246",
+     "date": "2026-09-14T15:07:09+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:31:55+00:00"
+    },
+    {
+     "chapter": "245",
+     "date": "2026-08-24T15:06:55+00:00"
+    },
+    {
+     "chapter": "244",
+     "date": "2026-08-17T15:07:02+00:00"
+    },
+    {
+     "chapter": "243",
+     "date": "2026-08-10T15:06:41+00:00"
+    },
+    {
+     "chapter": "242",
+     "date": "2026-07-29T14:27:03+00:00"
+    },
+    {
+     "chapter": "235",
+     "date": "2026-06-01T15:05:32+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-02T15:07:52+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1030696"
+  },
+  "MangaUpdates": {
+   "chapter": "251",
+   "chapterNum": 251.0,
+   "expectedNext": "2026-11-09",
+   "history": [
+    {
+     "chapter": "251",
+     "date": "2026-11-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "250",
+     "date": "2026-10-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "249",
+     "date": "2026-10-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "248",
+     "date": "2026-10-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "247",
+     "date": "2026-10-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "246",
+     "date": "2026-09-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "245",
+     "date": "2026-08-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "244",
+     "date": "2026-08-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "243",
+     "date": "2026-08-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "242",
+     "date": "2026-07-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "241",
+     "date": "2026-07-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "240",
+     "date": "2026-07-06T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-02T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/tt2niag/dandadan"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Dandadan",
+ "titles": [
+  "Dandadan",
+  "Dandadan",
+  "ดันดาดัน",
+  "膽大黨"
+ ],
+ "version": 1,
+ "year": 2021
+}

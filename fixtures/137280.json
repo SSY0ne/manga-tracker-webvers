@@ -1,0 +1,212 @@
+{
+ "anyLanguage": {
+  "chapter": "92",
+  "chapterNum": 92.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "92",
+    "date": "2026-06-28T11:35:13+00:00"
+   },
+   {
+    "chapter": "91",
+    "date": "2026-06-21T09:42:51+00:00"
+   },
+   {
+    "chapter": "90",
+    "date": "2026-05-10T15:42:13+00:00"
+   },
+   {
+    "chapter": "89",
+    "date": "2026-04-22T09:29:34+00:00"
+   },
+   {
+    "chapter": "88",
+    "date": "2026-02-13T10:44:11+00:00"
+   },
+   {
+    "chapter": "87",
+    "date": "2026-02-10T19:32:19+00:00"
+   },
+   {
+    "chapter": "86",
+    "date": "2026-01-29T10:02:07+00:00"
+   },
+   {
+    "chapter": "85",
+    "date": "2026-01-20T12:01:47+00:00"
+   },
+   {
+    "chapter": "84",
+    "date": "2026-01-11T12:46:39+00:00"
+   },
+   {
+    "chapter": "83",
+    "date": "2025-12-26T11:38:09+00:00"
+   },
+   {
+    "chapter": "82",
+    "date": "2025-12-21T19:32:36+00:00"
+   },
+   {
+    "chapter": "81",
+    "date": "2025-12-18T17:32:43+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-06-28T11:35:13+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/a253e13a-2b41-4f7d-915e-1e31a3f5d31d"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "283",
+  "countOnly": null,
+  "date": "2026-10-29",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "283",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "283",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "3",
+    "name": "Webtoon",
+    "plausible": false
+   }
+  ],
+  "typicalGapDays": 6
+ },
+ "id": 137280,
+ "read": 279,
+ "recordedAt": "2026-11-06T12:12:34+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "283",
+   "chapterNum": 283.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/1291/I-m-the-Max-Level-Newbie"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "283",
+   "chapterNum": 283.0,
+   "expectedNext": "2026-11-04",
+   "history": [
+    {
+     "chapter": "283",
+     "date": "2026-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "282",
+     "date": "2026-10-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "281",
+     "date": "2026-10-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "280",
+     "date": "2026-10-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "279",
+     "date": "2026-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "278",
+     "date": "2026-09-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "277",
+     "date": "2026-09-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "276",
+     "date": "2026-09-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "275",
+     "date": "2026-09-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "274",
+     "date": "2026-08-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "273",
+     "date": "2026-08-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "272",
+     "date": "2026-08-13T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-29T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/upay4jv/i-m-the-max-level-newbie"
+  },
+  "Webtoon": {
+   "chapter": "3",
+   "chapterNum": 3.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "3",
+     "date": "2022-02-26T01:00:41+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2022-02-26T01:00:41+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2022-02-26T01:00:41+00:00"
+    },
+    {
+     "chapter": "0",
+     "date": "2022-02-26T01:00:41+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2022-02-26T01:00:41+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": null,
+   "url": "https://www.webtoons.com/en/action/im-the-max-level-newbie/ep-3-mangrove-the-tree-of-greed-1/viewer?title_no=3915&episode_no=4"
+  }
+ },
+ "status": "RELEASING",
+ "title": "I’m the Max-Level Newbie",
+ "titles": [
+  "I’m the Max-Level Newbie",
+  "Na Honja Mallep Newbie",
+  "Solo Max-Level Newbie",
+  "I Am The Top Ranker Newbie"
+ ],
+ "version": 1,
+ "year": 2021
+}

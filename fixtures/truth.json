@@ -1,0 +1,125 @@
+{
+ "_readme": "What the WEB says, hand-checked, each with its source. 'enforced': true = the tests fail if the code disagrees. false = counted in `devtools.py score` only (a known miss or not checked well enough). latest = chapter, tolerance = chapters allowed off.",
+ "44568": {
+  "title": "Clover",
+  "latest": "401",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "AniList + Kitsu + a series database all say 401 (43 volumes); MangaBaka said 487",
+  "note": "the case the count vote was built for"
+ },
+ "30656": {
+  "title": "Vagabond",
+  "latest": "327",
+  "tolerance": 0,
+  "dormant": true,
+  "enforced": true,
+  "source": "https://en.wikipedia.org/wiki/List_of_Vagabond_chapters",
+  "note": "327 is the latest chapter; hiatus since 2015-05-21"
+ },
+ "119257": {
+  "title": "Omniscient Reader",
+  "latest": "311",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "https://kcomicsbeat.com/2026/05/24/first-season-ends-for-omniscient-readers-viewpoint/",
+  "note": "season 1 ended after 311 chapters (May 2026); the English Webtoon feed is behind at 308"
+ },
+ "105778": {
+  "title": "Chainsaw Man",
+  "latest": "232",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "https://www.siliconera.com/chainsaw-man-manga-ended-with-chapter-232-and-familiar-characters/",
+  "note": "ended with chapter 232 on 2026-03-24; Kitsu only lists Part 1 (97)"
+ },
+ "86123": {
+  "title": "Black Clover",
+  "latest": "392",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "https://respawn.outlookindia.com/pop-culture/pop-culture-news/black-clover-manga-ends-at-chapter-392-after-11-years",
+  "note": "final chapters 390-392, May 2026"
+ },
+ "117195": {
+  "title": "[Oshi no Ko]",
+  "latest": "166",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_chapters",
+  "note": "166 chapters, ended 2024-11-14; AniList and MangaBaka say 171, Kitsu 168"
+ },
+ "198372": {
+  "title": "Jujutsu Kaisen Modulo",
+  "latest": "25",
+  "tolerance": 0,
+  "enforced": true,
+  "source": "https://animehunch.com/jujutsu-kaisen-modulo-manga-ends-with-chapter-25/",
+  "note": "ended with chapter 25 (March 2026); MangaBaka and Kitsu say 26"
+ },
+ "30026": {
+  "title": "Hunter x Hunter",
+  "latest": "420",
+  "tolerance": 0,
+  "onBreak": true,
+  "dormant": false,
+  "enforced": true,
+  "source": "https://fandomwire.com/hunter-x-hunter-chapter-420-where-to-read-togashi-hiatus-duration-explained/",
+  "note": "chapter 420 on 2026-09-06, then a new hiatus announced; not dormant"
+ },
+ "39982": {
+  "title": "Usogui",
+  "latest": "539",
+  "tolerance": 2,
+  "enforced": true,
+  "source": "https://en.wikipedia.org/wiki/Usogui (539 chapters, 49 volumes); MyAnimeList says 541",
+  "note": "extras are counted differently; either is defensible"
+ },
+ "102988": {
+  "title": "Tokyo Revengers",
+  "latest": "278",
+  "tolerance": 1,
+  "enforced": true,
+  "source": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_chapters",
+  "note": "278 chapters, final one 2022-11-16; AniList and MangaBaka say 279"
+ },
+ "85611": {
+  "title": "Tokyo Ghoul:re",
+  "latest": "181",
+  "tolerance": 2,
+  "enforced": true,
+  "source": "MyAnimeList and most databases say 181; MangaDex has 179",
+  "note": "the real total is 179-181 depending on extras"
+ },
+ "30375": {
+  "title": "Initial D",
+  "latest": "719",
+  "tolerance": 0,
+  "enforced": false,
+  "source": "Wikipedia and the Initial D wiki: 719 chapters, 48 volumes; MyAnimeList says 724",
+  "note": "KNOWN MISS: we say 725 (AniList and MangaBaka both do)"
+ },
+ "30002": {
+  "title": "Berserk",
+  "latest": "386",
+  "tolerance": 0,
+  "enforced": false,
+  "source": "https://www.thepopverse.com/comics-berserk-chapter-384-delay-apology-koji-mori-post/ and https://animehunch.com/berserk-chapter-384-gets-release-date-after-eight-month-break/",
+  "note": "mainstream outlets number the June-July 2026 issues 384-386; one site says 399-401. Not settled, so not enforced"
+ },
+ "30007": {
+  "title": "Hajime no Ippo",
+  "latest": "1515",
+  "tolerance": 0,
+  "enforced": false,
+  "source": "https://www.animenewsnetwork.com/news/2025-12-29/hajime-no-ippo-boxing-manga-announces-break/.232613",
+  "note": "1515 was the latest in March 2026; I could not confirm what happened since"
+ },
+ "30028": {
+  "title": "Nana",
+  "dormant": true,
+  "enforced": false,
+  "source": "not checked on the web yet",
+  "note": "84 chapters, nothing since 2009 per MangaUpdates; needs a sourced check"
+ }
+}

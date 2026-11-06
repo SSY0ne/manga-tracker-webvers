@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "179",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "181",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "179",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "91",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "179",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "181",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 85611,
+ "read": 143,
+ "recordedAt": "2026-11-06T12:14:04+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/85611"
+  },
+  "Kitsu": {
+   "chapter": "179",
+   "chapterNum": 179.0,
+   "ended": "2018-07-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/26401"
+  },
+  "MangaBaka": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/8297/Tokyo-Ghoul-re"
+  },
+  "MangaDex": {
+   "chapter": "179",
+   "chapterNum": 179.0,
+   "expectedNext": "2026-10-02",
+   "history": [
+    {
+     "chapter": "179",
+     "date": "2026-08-26T18:41:30+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T18:41:24+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2022-01-13T19:24:17+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2022-01-08T16:17:13+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2022-01-08T16:17:05+00:00"
+    },
+    {
+     "chapter": "72",
+     "date": "2021-07-07T20:01:46+00:00"
+    },
+    {
+     "chapter": "71",
+     "date": "2021-07-07T20:00:43+00:00"
+    },
+    {
+     "chapter": "70",
+     "date": "2021-02-16T16:02:49+00:00"
+    },
+    {
+     "chapter": "69",
+     "date": "2020-08-21T22:59:53+00:00"
+    },
+    {
+     "chapter": "68",
+     "date": "2020-07-15T00:50:18+00:00"
+    },
+    {
+     "chapter": "67",
+     "date": "2020-07-15T00:49:34+00:00"
+    },
+    {
+     "chapter": "66",
+     "date": "2020-07-15T00:49:15+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-08-26T18:41:30+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 37,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1010463"
+  },
+  "MangaUpdates": {
+   "chapter": "91",
+   "chapterNum": 91.0,
+   "expectedNext": "2023-10-05",
+   "history": [
+    {
+     "chapter": "91",
+     "date": "2023-09-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "90",
+     "date": "2023-09-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "89",
+     "date": "2023-09-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "88",
+     "date": "2023-09-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "87",
+     "date": "2023-08-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "86",
+     "date": "2023-08-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "85",
+     "date": "2023-08-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "84",
+     "date": "2023-08-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "83",
+     "date": "2023-08-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "82",
+     "date": "2023-07-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "81",
+     "date": "2023-07-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "80",
+     "date": "2023-07-13T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-09-28T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/kux1tcr/toukyou-ghoul-re"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Tokyo Ghoul:re",
+ "titles": [
+  "Tokyo Ghoul:re",
+  "Tokyo Ghoul:re",
+  "Tokyo Gûl: RE",
+  "Tokijský ghúl: re"
+ ],
+ "version": 1,
+ "year": 2014
+}

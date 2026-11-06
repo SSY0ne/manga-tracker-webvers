@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "420",
+  "chapterNum": 420.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "420",
+    "date": "2026-09-05T11:43:46+00:00"
+   },
+   {
+    "chapter": "419",
+    "date": "2026-08-29T13:35:23+00:00"
+   },
+   {
+    "chapter": "418",
+    "date": "2026-08-23T08:18:18+00:00"
+   },
+   {
+    "chapter": "417",
+    "date": "2026-08-09T04:35:55+00:00"
+   },
+   {
+    "chapter": "416",
+    "date": "2026-08-01T08:54:48+00:00"
+   },
+   {
+    "chapter": "415",
+    "date": "2026-07-26T09:30:47+00:00"
+   },
+   {
+    "chapter": "414",
+    "date": "2026-07-19T04:42:45+00:00"
+   },
+   {
+    "chapter": "413",
+    "date": "2026-07-11T14:38:13+00:00"
+   },
+   {
+    "chapter": "412",
+    "date": "2026-07-05T04:00:49+00:00"
+   },
+   {
+    "chapter": "411",
+    "date": "2026-06-29T05:59:54+00:00"
+   },
+   {
+    "chapter": "410",
+    "date": "2024-12-08T06:44:00+00:00"
+   },
+   {
+    "chapter": "409",
+    "date": "2024-11-29T21:15:44+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-09-05T11:43:46+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/db692d58-4b13-4174-ae8c-30c515c0689c"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "420",
+  "countOnly": null,
+  "date": "2026-09-06",
+  "dormant": false,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 60,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "420",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "420",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "420",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 4
+ },
+ "id": 30026,
+ "read": 102,
+ "recordedAt": "2026-11-06T12:12:30+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "420",
+   "chapterNum": 420.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/677/HUNTER-HUNTER"
+  },
+  "MangaDex": {
+   "chapter": "420",
+   "chapterNum": 420.0,
+   "expectedNext": "2026-09-10",
+   "history": [
+    {
+     "chapter": "420",
+     "date": "2026-09-06T15:20:29+00:00"
+    },
+    {
+     "chapter": "419",
+     "date": "2026-08-30T15:10:20+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:30:05+00:00"
+    },
+    {
+     "chapter": "418",
+     "date": "2026-08-23T15:07:01+00:00"
+    },
+    {
+     "chapter": "417",
+     "date": "2026-08-09T15:06:54+00:00"
+    },
+    {
+     "chapter": "416",
+     "date": "2026-08-02T15:06:43+00:00"
+    },
+    {
+     "chapter": "415",
+     "date": "2026-07-29T14:31:14+00:00"
+    },
+    {
+     "chapter": "410",
+     "date": "2024-12-08T16:24:53+00:00"
+    },
+    {
+     "chapter": "409",
+     "date": "2024-12-08T16:24:31+00:00"
+    },
+    {
+     "chapter": "408",
+     "date": "2024-11-24T15:05:57+00:00"
+    },
+    {
+     "chapter": "407",
+     "date": "2024-11-17T19:49:14+00:00"
+    },
+    {
+     "chapter": "406",
+     "date": "2024-11-10T22:10:47+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-09-06T15:20:29+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 4,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1030376"
+  },
+  "MangaUpdates": {
+   "chapter": "420",
+   "chapterNum": 420.0,
+   "expectedNext": "2026-09-13",
+   "history": [
+    {
+     "chapter": "420",
+     "date": "2026-09-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "419",
+     "date": "2026-08-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "418",
+     "date": "2026-08-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "417",
+     "date": "2026-08-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "416",
+     "date": "2026-08-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "415",
+     "date": "2026-07-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "414",
+     "date": "2026-07-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "413",
+     "date": "2026-07-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "412",
+     "date": "2026-07-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "411",
+     "date": "2026-06-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "410",
+     "date": "2024-12-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "409",
+     "date": "2024-11-29T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-09-06T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/mpt5n3o/hunter-x-hunter"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Hunter x Hunter",
+ "titles": [
+  "Hunter x Hunter",
+  "HUNTER×HUNTER",
+  "ハンター×ハンター",
+  "HxH"
+ ],
+ "version": 1,
+ "year": 1998
+}

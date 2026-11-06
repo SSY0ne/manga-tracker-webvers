@@ -1,0 +1,219 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "140",
+  "countOnly": null,
+  "date": "2020-08-31",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "141",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "140",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "14",
+    "name": "Webtoon",
+    "plausible": false
+   },
+   {
+    "chapter": "141",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "141",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 100954,
+ "read": 140,
+ "recordedAt": "2026-11-06T12:13:54+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "141",
+   "chapterNum": 141.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/100954"
+  },
+  "Kitsu": {
+   "chapter": "141",
+   "chapterNum": 141.0,
+   "ended": "2020-07-02",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/40731"
+  },
+  "MangaBaka": {
+   "chapter": "141",
+   "chapterNum": 141.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/26401/Sweet-Home"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "140",
+   "chapterNum": 140.0,
+   "expectedNext": "2020-09-07",
+   "history": [
+    {
+     "chapter": "140",
+     "date": "2020-08-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "139",
+     "date": "2020-08-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "138",
+     "date": "2020-08-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "137",
+     "date": "2020-08-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "136",
+     "date": "2020-08-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "135",
+     "date": "2020-07-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "134",
+     "date": "2020-07-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "133",
+     "date": "2020-07-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "132",
+     "date": "2020-07-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "131",
+     "date": "2020-06-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "130",
+     "date": "2020-06-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "129",
+     "date": "2020-06-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-08-31T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/ubbm79n/sweet-home-kim-carnby"
+  },
+  "Webtoon": {
+   "chapter": "14",
+   "chapterNum": 14.0,
+   "expectedNext": "2018-04-09",
+   "history": [
+    {
+     "chapter": "14",
+     "date": "2018-04-02T04:00:18+00:00"
+    },
+    {
+     "chapter": "13",
+     "date": "2018-03-26T04:00:18+00:00"
+    },
+    {
+     "chapter": "12",
+     "date": "2018-03-19T04:00:18+00:00"
+    },
+    {
+     "chapter": "11",
+     "date": "2018-03-12T04:00:18+00:00"
+    },
+    {
+     "chapter": "10",
+     "date": "2018-03-05T05:00:17+00:00"
+    },
+    {
+     "chapter": "9",
+     "date": "2018-02-26T05:00:18+00:00"
+    },
+    {
+     "chapter": "8",
+     "date": "2018-02-19T05:00:18+00:00"
+    },
+    {
+     "chapter": "7",
+     "date": "2018-02-12T05:00:18+00:00"
+    },
+    {
+     "chapter": "6",
+     "date": "2018-02-05T05:00:18+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2018-01-29T05:00:18+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2018-01-22T05:00:19+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2018-01-15T05:10:35+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2018-04-02T04:00:18+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/thriller/sweethome/ep-14/viewer?title_no=1285&episode_no=15"
+  }
+ },
+ "status": "FINISHED",
+ "title": "Sweet Home",
+ "titles": [
+  "Sweet Home",
+  "Sweet Home",
+  "Dulce Hogar"
+ ],
+ "version": 1,
+ "year": 2017
+}

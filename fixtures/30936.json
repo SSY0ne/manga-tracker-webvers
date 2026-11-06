@@ -1,0 +1,139 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "166",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "166",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "3",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "106",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "166",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "166",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30936,
+ "read": 0,
+ "recordedAt": "2026-11-06T12:12:25+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "166",
+   "chapterNum": 166.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/30936"
+  },
+  "Kitsu": {
+   "chapter": "166",
+   "chapterNum": 166.0,
+   "ended": "2011-02-21",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/2041"
+  },
+  "MangaBaka": {
+   "chapter": "166",
+   "chapterNum": 166.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/9706/Homunculus"
+  },
+  "MangaDex": {
+   "chapter": "3",
+   "chapterNum": 3.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "3",
+     "date": "2018-02-10T02:14:23+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2018-02-10T02:07:01+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2018-02-10T02:06:48+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2018-02-10T02:14:23+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/d5c8c5bc-11b6-40c5-9553-6c15c69700ff"
+  },
+  "MangaUpdates": {
+   "chapter": "106",
+   "chapterNum": 106.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "106",
+     "date": "2009-08-16T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2009-08-16T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": null,
+   "url": "https://www.mangaupdates.com/series/7fpp2m1/homunculus"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Homunculus",
+ "titles": [
+  "Homunculus",
+  "Homunculus",
+  "Homunkurusu"
+ ],
+ "version": 1,
+ "year": 2003
+}

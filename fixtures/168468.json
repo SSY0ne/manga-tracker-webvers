@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "38",
+  "chapterNum": 38.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "38",
+    "date": "2026-10-18T08:33:32+00:00"
+   },
+   {
+    "chapter": "37",
+    "date": "2026-09-15T13:05:54+00:00"
+   },
+   {
+    "chapter": "36",
+    "date": "2026-07-21T00:35:28+00:00"
+   },
+   {
+    "chapter": "35",
+    "date": "2026-06-18T15:05:39+00:00"
+   },
+   {
+    "chapter": "34",
+    "date": "2026-05-21T08:28:13+00:00"
+   },
+   {
+    "chapter": "33",
+    "date": "2026-04-20T15:05:30+00:00"
+   },
+   {
+    "chapter": "32",
+    "date": "2026-03-18T15:05:24+00:00"
+   },
+   {
+    "chapter": "31",
+    "date": "2026-02-19T12:28:32+00:00"
+   },
+   {
+    "chapter": "30",
+    "date": "2026-01-18T18:10:20+00:00"
+   },
+   {
+    "chapter": "29",
+    "date": "2025-12-17T14:51:27+00:00"
+   },
+   {
+    "chapter": "28",
+    "date": "2025-11-19T15:27:44+00:00"
+   },
+   {
+    "chapter": "27",
+    "date": "2025-10-18T12:51:42+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-10-18T08:33:32+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/0b094aab-0cfb-4837-a49b-7267bdb86bec"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "38",
+  "countOnly": null,
+  "date": "2026-10-20",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "38",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "38",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "38",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 14
+ },
+ "id": 168468,
+ "read": 14,
+ "recordedAt": "2026-11-06T12:11:51+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "38",
+   "chapterNum": 38.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/381/Boruto-Two-Blue-Vortex"
+  },
+  "MangaDex": {
+   "chapter": "38",
+   "chapterNum": 38.0,
+   "expectedNext": "2026-11-03",
+   "history": [
+    {
+     "chapter": "38",
+     "date": "2026-10-20T15:08:27+00:00"
+    },
+    {
+     "chapter": "37",
+     "date": "2026-09-17T15:07:18+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2026-09-09T15:29:42+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2026-09-09T15:29:30+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2026-09-09T15:29:18+00:00"
+    },
+    {
+     "chapter": "36",
+     "date": "2026-08-26T18:55:42+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T18:55:36+00:00"
+    },
+    {
+     "chapter": "35",
+     "date": "2026-06-18T15:05:39+00:00"
+    },
+    {
+     "chapter": "34",
+     "date": "2026-05-21T21:03:01+00:00"
+    },
+    {
+     "chapter": "33",
+     "date": "2026-04-20T15:05:30+00:00"
+    },
+    {
+     "chapter": "32",
+     "date": "2026-03-18T15:05:26+00:00"
+    },
+    {
+     "chapter": "31",
+     "date": "2026-02-19T15:05:42+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-10-20T15:08:27+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 14,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1029602"
+  },
+  "MangaUpdates": {
+   "chapter": "38",
+   "chapterNum": 38.0,
+   "expectedNext": "2026-11-18",
+   "history": [
+    {
+     "chapter": "38",
+     "date": "2026-10-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "37",
+     "date": "2026-09-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "36",
+     "date": "2026-07-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "35",
+     "date": "2026-06-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "34",
+     "date": "2026-05-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "33",
+     "date": "2026-04-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "32",
+     "date": "2026-03-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "31",
+     "date": "2026-02-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "30",
+     "date": "2026-01-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "29",
+     "date": "2025-12-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "28",
+     "date": "2025-11-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "27",
+     "date": "2025-10-20T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-20T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 29,
+   "url": "https://www.mangaupdates.com/series/39oouty/boruto-two-blue-vortex"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Boruto: Two Blue Vortex",
+ "titles": [
+  "Boruto: Two Blue Vortex",
+  "BORUTO: TWO BLUE VORTEX",
+  "BORUTO - TWO BLUE VORTEX -",
+  "BORUTO -TWO BLUE VORTEX-"
+ ],
+ "version": 1,
+ "year": 2023
+}

@@ -1,0 +1,184 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "279",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "279",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "3",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "157",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "278",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "279",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 102988,
+ "read": 278,
+ "recordedAt": "2026-11-06T12:14:08+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "279",
+   "chapterNum": 279.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/102988"
+  },
+  "Kitsu": {
+   "chapter": "278",
+   "chapterNum": 278.0,
+   "ended": "2022-11-16",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/40278"
+  },
+  "MangaBaka": {
+   "chapter": "279",
+   "chapterNum": 279.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/5391/Tokyo-Revengers"
+  },
+  "MangaDex": {
+   "chapter": "3",
+   "chapterNum": 3.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "3",
+     "date": "2024-09-09T08:39:57+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2024-09-09T08:39:48+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2024-09-09T08:39:41+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2024-09-09T08:39:57+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://kmanga.kodansha.com/title/10075/episode/311607"
+  },
+  "MangaUpdates": {
+   "chapter": "157",
+   "chapterNum": 157.0,
+   "expectedNext": "2023-09-20",
+   "history": [
+    {
+     "chapter": "157",
+     "date": "2023-09-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.8",
+     "date": "2023-05-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.6",
+     "date": "2023-02-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.5",
+     "date": "2023-02-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.4",
+     "date": "2022-12-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.3",
+     "date": "2022-12-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.2",
+     "date": "2022-12-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "278.1",
+     "date": "2022-11-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "278",
+     "date": "2022-11-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "277",
+     "date": "2022-11-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "276",
+     "date": "2022-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "275",
+     "date": "2022-10-25T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-09-13T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/aev98v4/toukyou-revengers"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Tokyo Revengers",
+ "titles": [
+  "Tokyo Revengers",
+  "Tokyo卍Revengers",
+  "Toukyou卍Revengers",
+  "Tokyo Manji Revengers"
+ ],
+ "version": 1,
+ "year": 2017
+}

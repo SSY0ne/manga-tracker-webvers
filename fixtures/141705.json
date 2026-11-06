@@ -1,0 +1,265 @@
+{
+ "anyLanguage": {
+  "chapter": "196",
+  "chapterNum": 196.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "196",
+    "date": "2026-06-24T21:58:31+00:00"
+   },
+   {
+    "chapter": "194",
+    "date": "2026-06-24T21:57:55+00:00"
+   },
+   {
+    "chapter": "193",
+    "date": "2026-06-24T21:57:26+00:00"
+   },
+   {
+    "chapter": "186",
+    "date": "2026-01-05T09:59:17+00:00"
+   },
+   {
+    "chapter": "185",
+    "date": "2026-01-05T09:55:34+00:00"
+   },
+   {
+    "chapter": "184",
+    "date": "2026-01-05T09:54:47+00:00"
+   },
+   {
+    "chapter": "183",
+    "date": "2025-12-14T10:18:49+00:00"
+   },
+   {
+    "chapter": "182",
+    "date": "2025-12-14T10:18:07+00:00"
+   },
+   {
+    "chapter": "181",
+    "date": "2025-12-14T10:17:28+00:00"
+   },
+   {
+    "chapter": "180",
+    "date": "2025-12-10T14:00:56+00:00"
+   },
+   {
+    "chapter": "179",
+    "date": "2025-12-09T17:26:31+00:00"
+   },
+   {
+    "chapter": "178",
+    "date": "2025-12-09T17:23:31+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-06-24T21:58:31+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/chapter/374c7acc-0706-49da-83b3-97a2ba870a95"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "228",
+  "countOnly": null,
+  "date": "2026-10-30",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "224",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "196",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "228",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "5",
+    "name": "Webtoon",
+    "plausible": false
+   }
+  ],
+  "typicalGapDays": 4
+ },
+ "id": 141705,
+ "read": 227,
+ "recordedAt": "2026-11-06T12:13:16+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "224",
+   "chapterNum": 224.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/1524/Reality-Quest"
+  },
+  "MangaDex": {
+   "chapter": "196",
+   "chapterNum": 196.0,
+   "expectedNext": "2026-07-01",
+   "history": [
+    {
+     "chapter": "196",
+     "date": "2026-06-24T21:58:31+00:00"
+    },
+    {
+     "chapter": "194",
+     "date": "2026-06-24T21:57:55+00:00"
+    },
+    {
+     "chapter": "193",
+     "date": "2026-06-24T21:57:26+00:00"
+    },
+    {
+     "chapter": "163",
+     "date": "2025-05-12T03:18:34+00:00"
+    },
+    {
+     "chapter": "161",
+     "date": "2025-04-24T03:41:47+00:00"
+    },
+    {
+     "chapter": "160",
+     "date": "2025-04-11T21:41:51+00:00"
+    },
+    {
+     "chapter": "159",
+     "date": "2025-04-06T21:57:16+00:00"
+    },
+    {
+     "chapter": "158",
+     "date": "2025-03-30T23:44:21+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-06-24T21:58:31+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangadex.org/chapter/374c7acc-0706-49da-83b3-97a2ba870a95"
+  },
+  "MangaUpdates": {
+   "chapter": "228",
+   "chapterNum": 228.0,
+   "expectedNext": "2026-11-03",
+   "history": [
+    {
+     "chapter": "228",
+     "date": "2026-10-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "227",
+     "date": "2026-10-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "226",
+     "date": "2026-10-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "213",
+     "date": "2026-10-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "225",
+     "date": "2026-10-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "224",
+     "date": "2026-10-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "223",
+     "date": "2026-09-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "222",
+     "date": "2026-09-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "221",
+     "date": "2026-09-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "220",
+     "date": "2026-09-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "211",
+     "date": "2026-09-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "210",
+     "date": "2026-08-31T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-10-30T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 4,
+   "url": "https://www.mangaupdates.com/series/oug0awj/reality-quest"
+  },
+  "Webtoon": {
+   "chapter": "5",
+   "chapterNum": 5.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "5",
+     "date": "2022-11-21T03:01:28+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2022-11-21T03:01:28+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2022-11-21T03:01:28+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2022-11-21T03:01:28+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2022-11-21T03:01:28+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2022-11-21T03:01:28+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": null,
+   "url": "https://www.webtoons.com/en/action/reality-quest/episode-5/viewer?title_no=4697&episode_no=5"
+  }
+ },
+ "status": "RELEASING",
+ "title": "Reality Quest",
+ "titles": [
+  "Reality Quest",
+  "Hyeonsil Quest",
+  "IRL Quest",
+  "现实闯关"
+ ],
+ "version": 1,
+ "year": 2021
+}

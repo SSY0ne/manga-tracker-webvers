@@ -1,0 +1,200 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "67",
+  "countOnly": null,
+  "date": "2022-07-21",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "69",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "67",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "6",
+    "name": "Webtoon",
+    "plausible": false
+   },
+   {
+    "chapter": "69",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "69",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 130229,
+ "read": 68,
+ "recordedAt": "2026-11-06T12:13:38+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "69",
+   "chapterNum": 69.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/130229"
+  },
+  "Kitsu": {
+   "chapter": "69",
+   "chapterNum": 69.0,
+   "ended": "2022-06-20",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/59034"
+  },
+  "MangaBaka": {
+   "chapter": "69",
+   "chapterNum": 69.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/47590/Shotgun-Boy"
+  },
+  "MangaDex": null,
+  "MangaUpdates": {
+   "chapter": "67",
+   "chapterNum": 67.0,
+   "expectedNext": "2022-07-28",
+   "history": [
+    {
+     "chapter": "67",
+     "date": "2022-07-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "66",
+     "date": "2022-07-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "65",
+     "date": "2022-07-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "64",
+     "date": "2022-06-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "63",
+     "date": "2022-06-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "62",
+     "date": "2022-05-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "61",
+     "date": "2022-05-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "60",
+     "date": "2022-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "59",
+     "date": "2022-04-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "58",
+     "date": "2022-04-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "57",
+     "date": "2022-04-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "56",
+     "date": "2022-03-31T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2022-07-21T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/h96si2z/shotgun-boy"
+  },
+  "Webtoon": {
+   "chapter": "6",
+   "chapterNum": 6.0,
+   "expectedNext": "2021-04-22",
+   "history": [
+    {
+     "chapter": "6",
+     "date": "2021-04-15T01:00:58+00:00"
+    },
+    {
+     "chapter": "5",
+     "date": "2021-04-08T00:00:32+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2021-04-01T00:00:31+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2021-03-25T00:00:27+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2021-03-18T00:00:28+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2021-03-18T00:00:28+00:00"
+    },
+    {
+     "chapter": "0",
+     "date": "2021-03-18T00:00:28+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2021-04-15T01:00:58+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/thriller/shotgun-boy/ep-6/viewer?title_no=2534&episode_no=7"
+  }
+ },
+ "status": "FINISHED",
+ "title": "Shotgun Boy",
+ "titles": [
+  "Shotgun Boy",
+  "Yeopchongsonyeon",
+  "Chico escopeta",
+  "Le Garçon au fusil"
+ ],
+ "version": 1,
+ "year": 2021
+}

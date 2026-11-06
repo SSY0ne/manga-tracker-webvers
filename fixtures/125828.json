@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "281",
+  "chapterNum": 281.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "281",
+    "date": "2026-11-01T15:11:51+00:00"
+   },
+   {
+    "chapter": "280",
+    "date": "2026-10-25T15:11:08+00:00"
+   },
+   {
+    "chapter": "279",
+    "date": "2026-10-18T15:12:04+00:00"
+   },
+   {
+    "chapter": "278",
+    "date": "2026-10-11T15:12:25+00:00"
+   },
+   {
+    "chapter": "277",
+    "date": "2026-10-04T01:22:46+00:00"
+   },
+   {
+    "chapter": "276",
+    "date": "2026-09-27T15:10:50+00:00"
+   },
+   {
+    "chapter": "275",
+    "date": "2026-09-13T15:15:05+00:00"
+   },
+   {
+    "chapter": "274",
+    "date": "2026-09-06T15:21:37+00:00"
+   },
+   {
+    "chapter": "273",
+    "date": "2026-08-30T15:09:49+00:00"
+   },
+   {
+    "chapter": "272",
+    "date": "2026-08-23T15:08:14+00:00"
+   },
+   {
+    "chapter": "271",
+    "date": "2026-08-09T15:07:59+00:00"
+   },
+   {
+    "chapter": "270",
+    "date": "2026-08-02T15:07:58+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": true,
+  "publishedAt": "2026-11-01T15:11:51+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangaplus.shueisha.co.jp/viewer/1030909"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "281",
+  "countOnly": null,
+  "date": "2026-11-01",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "281",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "281",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "281",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 125828,
+ "read": 278,
+ "recordedAt": "2026-11-06T12:13:24+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "281",
+   "chapterNum": 281.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/247/Sakamoto-Days"
+  },
+  "MangaDex": {
+   "chapter": "281",
+   "chapterNum": 281.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "281",
+     "date": "2026-11-01T15:11:51+00:00"
+    },
+    {
+     "chapter": "280",
+     "date": "2026-10-25T15:11:08+00:00"
+    },
+    {
+     "chapter": "279",
+     "date": "2026-10-18T15:12:04+00:00"
+    },
+    {
+     "chapter": "278",
+     "date": "2026-10-11T15:12:25+00:00"
+    },
+    {
+     "chapter": "277",
+     "date": "2026-10-04T15:09:40+00:00"
+    },
+    {
+     "chapter": "276",
+     "date": "2026-09-27T15:10:50+00:00"
+    },
+    {
+     "chapter": "275",
+     "date": "2026-09-13T15:15:05+00:00"
+    },
+    {
+     "chapter": "274",
+     "date": "2026-09-06T15:21:37+00:00"
+    },
+    {
+     "chapter": "273",
+     "date": "2026-08-30T15:09:49+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:31:11+00:00"
+    },
+    {
+     "chapter": "272",
+     "date": "2026-08-23T15:08:14+00:00"
+    },
+    {
+     "chapter": "271",
+     "date": "2026-08-09T15:07:59+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-01T15:11:51+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1030909"
+  },
+  "MangaUpdates": {
+   "chapter": "281",
+   "chapterNum": 281.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "281",
+     "date": "2026-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "280",
+     "date": "2026-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "279",
+     "date": "2026-10-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "278",
+     "date": "2026-10-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "277",
+     "date": "2026-10-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "276",
+     "date": "2026-09-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "275",
+     "date": "2026-09-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "274",
+     "date": "2026-09-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "273",
+     "date": "2026-08-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "272",
+     "date": "2026-08-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "271",
+     "date": "2026-08-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "270",
+     "date": "2026-08-02T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-01T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/phd2ifp/sakamoto-days"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Sakamoto Days",
+ "titles": [
+  "Sakamoto Days",
+  "SAKAMOTO DAYS",
+  "サカモト デイズ",
+  "Дни Сакамото"
+ ],
+ "version": 1,
+ "year": 2020
+}

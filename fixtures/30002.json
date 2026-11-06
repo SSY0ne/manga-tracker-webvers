@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "386",
+  "chapterNum": 386.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "386",
+    "date": "2026-07-09T19:06:25+00:00"
+   },
+   {
+    "chapter": "385",
+    "date": "2026-06-25T15:10:14+00:00"
+   },
+   {
+    "chapter": "384",
+    "date": "2026-06-13T06:33:54+00:00"
+   },
+   {
+    "chapter": "383",
+    "date": "2025-09-11T15:00:25+00:00"
+   },
+   {
+    "chapter": "382",
+    "date": "2025-06-26T17:03:55+00:00"
+   },
+   {
+    "chapter": "381",
+    "date": "2025-06-12T15:00:04+00:00"
+   },
+   {
+    "chapter": "380",
+    "date": "2025-02-27T15:00:18+00:00"
+   },
+   {
+    "chapter": "379",
+    "date": "2025-02-12T18:42:31+00:00"
+   },
+   {
+    "chapter": "378",
+    "date": "2024-11-07T14:41:29+00:00"
+   },
+   {
+    "chapter": "377",
+    "date": "2024-10-24T22:04:39+00:00"
+   },
+   {
+    "chapter": "376",
+    "date": "2024-04-25T15:02:47+00:00"
+   },
+   {
+    "chapter": "375",
+    "date": "2023-11-09T18:48:02+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-07-09T19:06:25+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/chapter/d5431b60-a7c2-49b5-ac5c-872d02ab05c8"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "386",
+  "countOnly": null,
+  "date": "2026-07-09",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 119,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "401",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "386",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "386",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 14
+ },
+ "id": 30002,
+ "read": 376,
+ "recordedAt": "2026-11-06T12:11:39+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "401",
+   "chapterNum": 401.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1692/BERSERK"
+  },
+  "MangaDex": {
+   "chapter": "386",
+   "chapterNum": 386.0,
+   "expectedNext": "2026-07-23",
+   "history": [
+    {
+     "chapter": "386",
+     "date": "2026-07-09T19:06:25+00:00"
+    },
+    {
+     "chapter": "385",
+     "date": "2026-06-25T15:10:14+00:00"
+    },
+    {
+     "chapter": "384",
+     "date": "2026-06-13T06:33:54+00:00"
+    },
+    {
+     "chapter": "383",
+     "date": "2025-09-11T15:00:25+00:00"
+    },
+    {
+     "chapter": "382",
+     "date": "2025-06-28T08:32:51+00:00"
+    },
+    {
+     "chapter": "381",
+     "date": "2025-06-12T15:00:04+00:00"
+    },
+    {
+     "chapter": "380",
+     "date": "2025-02-27T15:00:18+00:00"
+    },
+    {
+     "chapter": "379",
+     "date": "2025-02-13T15:00:05+00:00"
+    },
+    {
+     "chapter": "378",
+     "date": "2024-11-07T15:02:45+00:00"
+    },
+    {
+     "chapter": "377",
+     "date": "2024-10-25T18:37:23+00:00"
+    },
+    {
+     "chapter": "376",
+     "date": "2024-04-25T15:02:47+00:00"
+    },
+    {
+     "chapter": "375",
+     "date": "2023-11-09T18:48:02+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-07-09T19:06:25+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 14,
+   "url": "https://mangadex.org/chapter/d5431b60-a7c2-49b5-ac5c-872d02ab05c8"
+  },
+  "MangaUpdates": {
+   "chapter": "386",
+   "chapterNum": 386.0,
+   "expectedNext": "2026-07-23",
+   "history": [
+    {
+     "chapter": "386",
+     "date": "2026-07-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "385",
+     "date": "2026-06-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "384",
+     "date": "2026-06-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "383",
+     "date": "2025-09-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "382",
+     "date": "2025-06-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "381",
+     "date": "2025-06-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "380",
+     "date": "2025-02-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "379",
+     "date": "2025-02-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "378",
+     "date": "2024-11-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "377",
+     "date": "2024-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "376",
+     "date": "2024-04-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "375",
+     "date": "2023-11-08T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-07-09T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 14,
+   "url": "https://www.mangaupdates.com/series/njeqwry/berserk"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Berserk",
+ "titles": [
+  "Berserk",
+  "Berserk",
+  "بيرسيرك",
+  "Beruseruku"
+ ],
+ "version": 1,
+ "year": 1989
+}

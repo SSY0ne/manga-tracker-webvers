@@ -1,0 +1,217 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "401",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "Kitsu",
+  "sources": [
+   {
+    "chapter": "487",
+    "name": "MangaBaka",
+    "plausible": false
+   },
+   {
+    "chapter": "1",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "1",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "401",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "401",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 44568,
+ "read": 0,
+ "recordedAt": "2026-11-06T12:12:04+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "401",
+   "chapterNum": 401.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/44568"
+  },
+  "Kitsu": {
+   "chapter": "401",
+   "chapterNum": 401.0,
+   "ended": "2015-10-15",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/24953"
+  },
+  "MangaBaka": {
+   "chapter": "487",
+   "chapterNum": 487.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/13228/Clover"
+  },
+  "MangaDex": {
+   "chapter": "1",
+   "chapterNum": 1.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "1",
+     "date": "2019-12-21T21:58:42+00:00"
+    },
+    {
+     "chapter": "401.5",
+     "date": "2018-02-08T13:24:08+00:00"
+    },
+    {
+     "chapter": "401",
+     "date": "2018-02-08T13:23:55+00:00"
+    },
+    {
+     "chapter": "400",
+     "date": "2018-02-08T13:23:45+00:00"
+    },
+    {
+     "chapter": "399",
+     "date": "2018-02-08T13:23:41+00:00"
+    },
+    {
+     "chapter": "398",
+     "date": "2018-02-08T13:23:36+00:00"
+    },
+    {
+     "chapter": "397",
+     "date": "2018-02-08T13:23:31+00:00"
+    },
+    {
+     "chapter": "396",
+     "date": "2018-02-08T13:23:28+00:00"
+    },
+    {
+     "chapter": "395",
+     "date": "2018-02-08T13:23:19+00:00"
+    },
+    {
+     "chapter": "394",
+     "date": "2018-02-08T13:23:13+00:00"
+    },
+    {
+     "chapter": "393",
+     "date": "2018-02-08T13:23:08+00:00"
+    },
+    {
+     "chapter": "392",
+     "date": "2018-02-08T13:23:04+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2019-12-21T21:58:42+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/d6dc088a-c048-4b23-b720-ee047c29a3ae"
+  },
+  "MangaUpdates": {
+   "chapter": "1",
+   "chapterNum": 1.0,
+   "expectedNext": "2019-12-22",
+   "history": [
+    {
+     "chapter": "1",
+     "date": "2019-12-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "401.5",
+     "date": "2017-11-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "401",
+     "date": "2017-10-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "395",
+     "date": "2017-10-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "391",
+     "date": "2017-10-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "388",
+     "date": "2017-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "487",
+     "date": "2017-10-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "382",
+     "date": "2017-10-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "381",
+     "date": "2017-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "377",
+     "date": "2017-10-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "372",
+     "date": "2017-10-20T00:00:00+00:00"
+    },
+    {
+     "chapter": "371",
+     "date": "2017-10-20T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2019-12-21T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 1,
+   "url": "https://www.mangaupdates.com/series/zvovvo2/clover-tetsuhiro-hirakawa"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Clover",
+ "titles": [
+  "Clover"
+ ],
+ "version": 1,
+ "year": 2007
+}

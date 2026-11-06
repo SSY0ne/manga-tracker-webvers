@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "541",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "541",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "3",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "4",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "541",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "539",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 39982,
+ "read": 0,
+ "recordedAt": "2026-11-06T12:14:12+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "539",
+   "chapterNum": 539.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/39982"
+  },
+  "Kitsu": {
+   "chapter": "541",
+   "chapterNum": 541.0,
+   "ended": "2017-12-21",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/19590"
+  },
+  "MangaBaka": {
+   "chapter": "541",
+   "chapterNum": 541.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1518/Usogui"
+  },
+  "MangaDex": {
+   "chapter": "3",
+   "chapterNum": 3.0,
+   "expectedNext": "2025-03-27",
+   "history": [
+    {
+     "chapter": "3",
+     "date": "2025-03-22T06:26:27+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2025-03-21T15:06:55+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2025-03-16T19:52:38+00:00"
+    },
+    {
+     "chapter": "79",
+     "date": "2024-05-24T14:12:27+00:00"
+    },
+    {
+     "chapter": "78",
+     "date": "2024-04-23T07:01:29+00:00"
+    },
+    {
+     "chapter": "77",
+     "date": "2024-03-24T09:01:32+00:00"
+    },
+    {
+     "chapter": "76",
+     "date": "2024-02-23T14:04:41+00:00"
+    },
+    {
+     "chapter": "75",
+     "date": "2023-11-27T08:45:58+00:00"
+    },
+    {
+     "chapter": "74",
+     "date": "2023-11-20T02:18:54+00:00"
+    },
+    {
+     "chapter": "73",
+     "date": "2023-11-18T15:01:42+00:00"
+    },
+    {
+     "chapter": "72",
+     "date": "2023-11-13T11:56:32+00:00"
+    },
+    {
+     "chapter": "71",
+     "date": "2023-09-15T13:11:14+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-03-22T06:26:27+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 5,
+   "url": "https://mangadex.org/chapter/9d24f234-c9b5-48f5-9662-d908c64e3e69"
+  },
+  "MangaUpdates": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": "2025-04-10",
+   "history": [
+    {
+     "chapter": "4",
+     "date": "2025-04-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2025-03-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2025-03-16T00:00:00+00:00"
+    },
+    {
+     "chapter": "79",
+     "date": "2024-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "78",
+     "date": "2024-04-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "77",
+     "date": "2024-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "76",
+     "date": "2024-02-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "75",
+     "date": "2023-11-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "74",
+     "date": "2023-11-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "73",
+     "date": "2023-11-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "72",
+     "date": "2023-11-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "71",
+     "date": "2023-09-15T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-04-05T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 5,
+   "url": "https://www.mangaupdates.com/series/ekvmelp/usogui"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Usogui",
+ "titles": [
+  "Usogui",
+  "Usogui",
+  "The Lie Eater",
+  "บาคุ ลับ ลวง หลอก"
+ ],
+ "version": 1,
+ "year": 2006
+}

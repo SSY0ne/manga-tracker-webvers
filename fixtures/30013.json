@@ -1,0 +1,244 @@
+{
+ "anyLanguage": {
+  "chapter": "1197",
+  "chapterNum": 1197.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "1197",
+    "date": "2026-11-01T15:10:56+00:00"
+   },
+   {
+    "chapter": "1196",
+    "date": "2026-10-18T15:10:58+00:00"
+   },
+   {
+    "chapter": "1195",
+    "date": "2026-10-11T15:10:30+00:00"
+   },
+   {
+    "chapter": "1194",
+    "date": "2026-09-27T15:09:52+00:00"
+   },
+   {
+    "chapter": "1193",
+    "date": "2026-09-13T15:10:16+00:00"
+   },
+   {
+    "chapter": "1192",
+    "date": "2026-09-06T15:20:41+00:00"
+   },
+   {
+    "chapter": "1191",
+    "date": "2026-08-23T15:07:14+00:00"
+   },
+   {
+    "chapter": "1190",
+    "date": "2026-08-09T15:07:05+00:00"
+   },
+   {
+    "chapter": "1189",
+    "date": "2026-07-29T14:25:02+00:00"
+   },
+   {
+    "chapter": "1188",
+    "date": "2026-07-14T19:15:26+00:00"
+   },
+   {
+    "chapter": "1187",
+    "date": "2026-07-07T07:19:47+00:00"
+   },
+   {
+    "chapter": "1186",
+    "date": "2026-06-30T19:09:49+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": true,
+  "publishedAt": "2026-11-01T15:10:56+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangaplus.shueisha.co.jp/viewer/1030905"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "1197",
+  "countOnly": null,
+  "date": "2026-11-01",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "1197",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "1197",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "1197",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 30013,
+ "read": 1180,
+ "recordedAt": "2026-11-06T12:11:35+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "1197",
+   "chapterNum": 1197.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/377/ONE-PIECE"
+  },
+  "MangaDex": {
+   "chapter": "1197",
+   "chapterNum": 1197.0,
+   "expectedNext": "2026-11-08",
+   "history": [
+    {
+     "chapter": "1197",
+     "date": "2026-11-01T15:10:56+00:00"
+    },
+    {
+     "chapter": "1196",
+     "date": "2026-10-18T15:10:58+00:00"
+    },
+    {
+     "chapter": "1195",
+     "date": "2026-10-11T15:10:30+00:00"
+    },
+    {
+     "chapter": "1194",
+     "date": "2026-09-27T15:09:52+00:00"
+    },
+    {
+     "chapter": "1193",
+     "date": "2026-09-13T15:10:16+00:00"
+    },
+    {
+     "chapter": "1192",
+     "date": "2026-09-06T15:20:41+00:00"
+    },
+    {
+     "chapter": "1188",
+     "date": "2026-08-26T17:30:17+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:30:11+00:00"
+    },
+    {
+     "chapter": "1191",
+     "date": "2026-08-23T15:07:14+00:00"
+    },
+    {
+     "chapter": "1190",
+     "date": "2026-08-09T15:07:05+00:00"
+    },
+    {
+     "chapter": "1189",
+     "date": "2026-07-29T14:25:10+00:00"
+    },
+    {
+     "chapter": "1148",
+     "date": "2025-05-21T01:02:35+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-11-01T15:10:56+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1030905"
+  },
+  "MangaUpdates": {
+   "chapter": "1197",
+   "chapterNum": 1197.0,
+   "expectedNext": "2026-11-11",
+   "history": [
+    {
+     "chapter": "1197",
+     "date": "2026-11-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "1196",
+     "date": "2026-10-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "1195",
+     "date": "2026-10-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "1194",
+     "date": "2026-09-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "1193",
+     "date": "2026-09-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "1192",
+     "date": "2026-09-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "1191",
+     "date": "2026-08-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "1190",
+     "date": "2026-08-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "1189",
+     "date": "2026-07-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "1188",
+     "date": "2026-07-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "1187",
+     "date": "2026-07-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "1186",
+     "date": "2026-06-28T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-11-01T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 10,
+   "url": "https://www.mangaupdates.com/series/pb8uwds/one-piece"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "One Piece",
+ "titles": [
+  "One Piece",
+  "ONE PIECE",
+  "원피스",
+  "וואן פיס "
+ ],
+ "version": 1,
+ "year": 1997
+}

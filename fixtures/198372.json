@@ -1,0 +1,200 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "25",
+  "countOnly": null,
+  "date": "2026-03-08",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "26",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "4",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "25",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "26",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "25",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 7
+ },
+ "id": 198372,
+ "read": 22,
+ "recordedAt": "2026-11-06T12:12:46+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "25",
+   "chapterNum": 25.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/198372"
+  },
+  "Kitsu": {
+   "chapter": "26",
+   "chapterNum": 26.0,
+   "ended": "2026-03-08",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/76383"
+  },
+  "MangaBaka": {
+   "chapter": "26",
+   "chapterNum": 26.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/410304/Jujutsu-Kaisen-Modulo"
+  },
+  "MangaDex": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": "2026-09-01",
+   "history": [
+    {
+     "chapter": "4",
+     "date": "2026-08-26T19:34:58+00:00"
+    },
+    {
+     "chapter": "25",
+     "date": "2026-03-08T15:09:37+00:00"
+    },
+    {
+     "chapter": "24",
+     "date": "2026-03-01T15:10:20+00:00"
+    },
+    {
+     "chapter": "23",
+     "date": "2026-02-23T01:04:09+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2025-09-21T15:08:03+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2025-09-14T15:08:24+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2025-09-13T01:04:23+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-08-26T19:34:58+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 6,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1026617"
+  },
+  "MangaUpdates": {
+   "chapter": "25",
+   "chapterNum": 25.0,
+   "expectedNext": "2026-03-15",
+   "history": [
+    {
+     "chapter": "25",
+     "date": "2026-03-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "24",
+     "date": "2026-03-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "23",
+     "date": "2026-02-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "22",
+     "date": "2026-02-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "21",
+     "date": "2026-02-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "20",
+     "date": "2026-02-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "19",
+     "date": "2026-01-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "18",
+     "date": "2026-01-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "17",
+     "date": "2026-01-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "16",
+     "date": "2025-12-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "15",
+     "date": "2025-12-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "14",
+     "date": "2025-12-07T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-03-08T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/du3m917/jujutsu-kaisen-modulo"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Jujutsu Kaisen Modulo",
+ "titles": [
+  "Jujutsu Kaisen Modulo",
+  "Jujutsu Kaisen Modulo",
+  "呪術廻戦 モジュロ",
+  "Jujutsu Kaisen Mojuro"
+ ],
+ "version": 1,
+ "year": 2025
+}

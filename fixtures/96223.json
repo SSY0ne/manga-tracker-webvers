@@ -1,0 +1,89 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "4",
+  "countOnly": true,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "4",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "4",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "4",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 96223,
+ "read": 4,
+ "recordedAt": "2026-11-06T12:13:28+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/96223"
+  },
+  "Kitsu": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "ended": "2014-09-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/43083"
+  },
+  "MangaBaka": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/118430/In-the-beginning-of-the-end-of-the-world"
+  },
+  "MangaDex": null,
+  "MangaUpdates": null,
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Sekai no Owari no Hajimari ni",
+ "titles": [
+  "Sekai no Owari no Hajimari ni",
+  "In the beginning of the end of the world",
+  "Au début de la fin du monde"
+ ],
+ "version": 1,
+ "year": 2014
+}

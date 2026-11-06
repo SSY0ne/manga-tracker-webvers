@@ -1,0 +1,277 @@
+{
+ "anyLanguage": {
+  "chapter": "293",
+  "chapterNum": 293.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "293",
+    "date": "2026-01-02T18:18:34+00:00"
+   },
+   {
+    "chapter": "292",
+    "date": "2025-12-23T21:22:39+00:00"
+   },
+   {
+    "chapter": "290",
+    "date": "2025-12-02T21:07:01+00:00"
+   },
+   {
+    "chapter": "288",
+    "date": "2025-11-21T17:33:21+00:00"
+   },
+   {
+    "chapter": "287",
+    "date": "2025-11-17T18:13:07+00:00"
+   },
+   {
+    "chapter": "284",
+    "date": "2025-11-02T21:01:24+00:00"
+   },
+   {
+    "chapter": "283",
+    "date": "2025-10-28T13:06:38+00:00"
+   },
+   {
+    "chapter": "262",
+    "date": "2025-05-14T02:09:05+00:00"
+   },
+   {
+    "chapter": "259",
+    "date": "2025-04-23T00:19:25+00:00"
+   },
+   {
+    "chapter": "256",
+    "date": "2025-04-06T22:10:45+00:00"
+   },
+   {
+    "chapter": "255",
+    "date": "2025-03-30T23:58:20+00:00"
+   },
+   {
+    "chapter": "115",
+    "date": "2026-07-18T10:43:38+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-01-02T18:18:34+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/9a414441-bbad-43f1-a3a7-dc262ca790a3"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "311",
+  "countOnly": null,
+  "date": "2026-05-19",
+  "dormant": false,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 171,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "311",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "262",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "311",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "308",
+    "name": "Webtoon",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 6
+ },
+ "id": 119257,
+ "read": 310,
+ "recordedAt": "2026-11-06T12:13:04+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "311",
+   "chapterNum": 311.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manhwa/2060/Omniscient-Reader"
+  },
+  "MangaDex": {
+   "chapter": "262",
+   "chapterNum": 262.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "262",
+     "date": "2025-05-14T02:09:05+00:00"
+    },
+    {
+     "chapter": "259",
+     "date": "2025-04-23T00:19:25+00:00"
+    },
+    {
+     "chapter": "256",
+     "date": "2025-04-06T22:10:45+00:00"
+    },
+    {
+     "chapter": "255",
+     "date": "2025-03-30T23:58:20+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-05-14T02:09:05+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/55aee379-7ceb-48d3-bec0-67d7cc7e3675"
+  },
+  "MangaUpdates": {
+   "chapter": "311",
+   "chapterNum": 311.0,
+   "expectedNext": "2026-05-25",
+   "history": [
+    {
+     "chapter": "311",
+     "date": "2026-05-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "310",
+     "date": "2026-05-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "309",
+     "date": "2026-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "308",
+     "date": "2026-04-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "307",
+     "date": "2026-04-15T00:00:00+00:00"
+    },
+    {
+     "chapter": "306",
+     "date": "2026-04-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "299",
+     "date": "2026-03-31T00:00:00+00:00"
+    },
+    {
+     "chapter": "305",
+     "date": "2026-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "298",
+     "date": "2026-03-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "297",
+     "date": "2026-03-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "304",
+     "date": "2026-03-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "296",
+     "date": "2026-03-10T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-05-19T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 6,
+   "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader"
+  },
+  "Webtoon": {
+   "chapter": "308",
+   "chapterNum": 308.0,
+   "expectedNext": "2026-06-09",
+   "history": [
+    {
+     "chapter": "308",
+     "date": "2026-06-02T01:00:36+00:00"
+    },
+    {
+     "chapter": "307",
+     "date": "2026-05-26T01:00:32+00:00"
+    },
+    {
+     "chapter": "306",
+     "date": "2026-05-19T01:00:33+00:00"
+    },
+    {
+     "chapter": "305",
+     "date": "2026-05-12T01:00:33+00:00"
+    },
+    {
+     "chapter": "304",
+     "date": "2026-05-05T01:00:35+00:00"
+    },
+    {
+     "chapter": "303",
+     "date": "2026-04-28T01:00:40+00:00"
+    },
+    {
+     "chapter": "302",
+     "date": "2026-04-21T01:00:36+00:00"
+    },
+    {
+     "chapter": "301",
+     "date": "2026-04-14T01:00:37+00:00"
+    },
+    {
+     "chapter": "300",
+     "date": "2026-04-07T01:00:37+00:00"
+    },
+    {
+     "chapter": "299",
+     "date": "2026-03-31T01:00:38+00:00"
+    },
+    {
+     "chapter": "298",
+     "date": "2026-03-24T01:00:37+00:00"
+    },
+    {
+     "chapter": "297",
+     "date": "2026-03-17T01:00:38+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-06-02T01:00:36+00:00",
+   "source": "Webtoon",
+   "typicalGapDays": 7,
+   "url": "https://www.webtoons.com/en/action/omniscient-reader/episode-308/viewer?title_no=2154&episode_no=309"
+  }
+ },
+ "status": "RELEASING",
+ "title": "Omniscient Reader",
+ "titles": [
+  "Omniscient Reader",
+  "Jeonjijeok Dokja Sijeom",
+  "Omniscient Reader's Viewpoint",
+  "ORV"
+ ],
+ "version": 1,
+ "year": 2020
+}

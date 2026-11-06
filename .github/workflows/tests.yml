@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - "*.py"
+      - "fixtures/**"
       - ".github/workflows/tests.yml"
   pull_request:
 
@@ -19,5 +20,5 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run the rule tests
-        run: python3 -m unittest -v test_rules
+      - name: Run the rule tests and the recorded-fixture tests
+        run: python3 -m unittest -v test_rules test_fixtures

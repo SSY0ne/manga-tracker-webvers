@@ -1,0 +1,220 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "166",
+  "countOnly": null,
+  "date": null,
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex",
+  "sources": [
+   {
+    "chapter": "171",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "166",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "166.5",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "168",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "171",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 117195,
+ "read": 126,
+ "recordedAt": "2026-11-06T12:14:21+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "171",
+   "chapterNum": 171.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/117195"
+  },
+  "Kitsu": {
+   "chapter": "168",
+   "chapterNum": 168.0,
+   "ended": "2024-11-14",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/56391"
+  },
+  "MangaBaka": {
+   "chapter": "171",
+   "chapterNum": 171.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/593/Oshi-no-Ko"
+  },
+  "MangaDex": {
+   "chapter": "166",
+   "chapterNum": 166.0,
+   "expectedNext": "2026-09-03",
+   "history": [
+    {
+     "chapter": "166",
+     "date": "2026-08-26T18:44:14+00:00"
+    },
+    {
+     "chapter": "4",
+     "date": "2026-08-26T18:44:08+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2025-10-22T01:17:02+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2025-10-22T01:17:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2025-10-22T01:16:58+00:00"
+    },
+    {
+     "chapter": "152.5",
+     "date": "2025-02-18T20:45:19+00:00"
+    },
+    {
+     "chapter": "166.5",
+     "date": "2024-12-23T07:40:48+00:00"
+    },
+    {
+     "chapter": "100.5",
+     "date": "2023-01-21T19:41:50+00:00"
+    },
+    {
+     "chapter": "94",
+     "date": "2022-09-16T11:13:33+00:00"
+    },
+    {
+     "chapter": "93",
+     "date": "2022-09-08T14:14:02+00:00"
+    },
+    {
+     "chapter": "92",
+     "date": "2022-09-02T06:59:15+00:00"
+    },
+    {
+     "chapter": "91",
+     "date": "2022-08-25T19:09:43+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-08-26T18:44:14+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 8,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1022527"
+  },
+  "MangaUpdates": {
+   "chapter": "166.5",
+   "chapterNum": 166.5,
+   "expectedNext": "2024-12-29",
+   "history": [
+    {
+     "chapter": "166.5",
+     "date": "2024-12-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "166",
+     "date": "2024-11-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "165",
+     "date": "2024-11-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "164",
+     "date": "2024-10-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "163",
+     "date": "2024-10-23T00:00:00+00:00"
+    },
+    {
+     "chapter": "162",
+     "date": "2024-10-02T00:00:00+00:00"
+    },
+    {
+     "chapter": "161",
+     "date": "2024-09-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "160",
+     "date": "2024-09-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "159",
+     "date": "2024-09-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "158",
+     "date": "2024-08-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "157",
+     "date": "2024-08-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "156",
+     "date": "2024-07-24T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2024-12-22T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 7,
+   "url": "https://www.mangaupdates.com/series/89n01s3/oshi-no-ko"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "[Oshi no Ko]",
+ "titles": [
+  "[Oshi no Ko]",
+  "[Oshi no Ko]",
+  "Favorite Girl",
+  "My Idol's Child"
+ ],
+ "version": 1,
+ "year": 2020
+}

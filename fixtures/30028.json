@@ -1,0 +1,208 @@
+{
+ "anyLanguage": {
+  "chapter": "84",
+  "chapterNum": 84.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "84",
+    "date": "2025-05-04T00:24:00+00:00"
+   },
+   {
+    "chapter": "83",
+    "date": "2025-05-04T00:23:46+00:00"
+   },
+   {
+    "chapter": "82",
+    "date": "2025-05-04T00:23:23+00:00"
+   },
+   {
+    "chapter": "81",
+    "date": "2025-05-04T00:23:01+00:00"
+   },
+   {
+    "chapter": "80",
+    "date": "2025-05-04T00:22:41+00:00"
+   },
+   {
+    "chapter": "79",
+    "date": "2025-05-04T00:22:19+00:00"
+   },
+   {
+    "chapter": "78",
+    "date": "2025-05-04T00:21:59+00:00"
+   },
+   {
+    "chapter": "77",
+    "date": "2025-05-04T00:21:24+00:00"
+   },
+   {
+    "chapter": "76",
+    "date": "2025-05-04T00:21:00+00:00"
+   },
+   {
+    "chapter": "75",
+    "date": "2025-05-04T00:20:39+00:00"
+   },
+   {
+    "chapter": "74",
+    "date": "2025-05-04T00:20:18+00:00"
+   },
+   {
+    "chapter": "73",
+    "date": "2025-05-04T00:19:55+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2025-05-04T00:24:00+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/7e2ddc4c-c07c-4163-bf48-2b7c45f7b7fb"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "84",
+  "countOnly": null,
+  "date": "2009-05-26",
+  "dormant": true,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 6373,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "84",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "0.3",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "84",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 28
+ },
+ "id": 30028,
+ "read": 15,
+ "recordedAt": "2026-11-06T12:12:59+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "84",
+   "chapterNum": 84.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/11530/Nana"
+  },
+  "MangaDex": {
+   "chapter": "0.3",
+   "chapterNum": 0.3,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "0.3",
+     "date": "2024-05-01T15:46:35+00:00"
+    },
+    {
+     "chapter": "0.2",
+     "date": "2024-05-01T15:46:33+00:00"
+    },
+    {
+     "chapter": "0.1",
+     "date": "2024-05-01T15:46:31+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2024-05-01T15:46:35+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://viz.com/vizmanga/-/chapter/30512"
+  },
+  "MangaUpdates": {
+   "chapter": "84",
+   "chapterNum": 84.0,
+   "expectedNext": "2009-06-23",
+   "history": [
+    {
+     "chapter": "84",
+     "date": "2009-05-26T00:00:00+00:00"
+    },
+    {
+     "chapter": "83",
+     "date": "2009-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "82",
+     "date": "2009-04-13T00:00:00+00:00"
+    },
+    {
+     "chapter": "81",
+     "date": "2009-03-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "80",
+     "date": "2009-01-05T00:00:00+00:00"
+    },
+    {
+     "chapter": "79",
+     "date": "2008-11-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "78",
+     "date": "2008-09-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "77",
+     "date": "2008-08-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "76",
+     "date": "2008-07-06T00:00:00+00:00"
+    },
+    {
+     "chapter": "75",
+     "date": "2008-06-10T00:00:00+00:00"
+    },
+    {
+     "chapter": "74",
+     "date": "2008-04-28T00:00:00+00:00"
+    },
+    {
+     "chapter": "73",
+     "date": "2008-03-01T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2009-05-26T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 28,
+   "url": "https://www.mangaupdates.com/series/ov4rpc8/nana"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Nana",
+ "titles": [
+  "Nana",
+  "NANA",
+  "ナナ",
+  "나나"
+ ],
+ "version": 1,
+ "year": 2000
+}

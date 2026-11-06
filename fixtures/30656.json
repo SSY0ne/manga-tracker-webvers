@@ -1,0 +1,243 @@
+{
+ "anyLanguage": {
+  "chapter": "327",
+  "chapterNum": 327.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "327",
+    "date": "2018-03-19T02:20:43+00:00"
+   },
+   {
+    "chapter": "326",
+    "date": "2018-03-19T02:20:24+00:00"
+   },
+   {
+    "chapter": "325",
+    "date": "2018-03-19T02:18:22+00:00"
+   },
+   {
+    "chapter": "324",
+    "date": "2018-03-19T02:17:03+00:00"
+   },
+   {
+    "chapter": "323",
+    "date": "2018-03-19T02:16:15+00:00"
+   },
+   {
+    "chapter": "322",
+    "date": "2018-03-19T02:43:43+00:00"
+   },
+   {
+    "chapter": "321",
+    "date": "2018-03-19T02:42:02+00:00"
+   },
+   {
+    "chapter": "320",
+    "date": "2018-03-19T02:40:40+00:00"
+   },
+   {
+    "chapter": "319",
+    "date": "2018-03-19T02:38:27+00:00"
+   },
+   {
+    "chapter": "318",
+    "date": "2018-03-19T02:37:26+00:00"
+   },
+   {
+    "chapter": "317",
+    "date": "2018-03-19T02:35:59+00:00"
+   },
+   {
+    "chapter": "316",
+    "date": "2018-03-19T02:34:25+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2018-03-19T02:20:43+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/chapter/0754c218-0240-4752-a688-5e7d9bc74b55"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "count",
+  "chapter": "327",
+  "countOnly": true,
+  "date": null,
+  "dormant": true,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaBaka",
+  "sources": [
+   {
+    "chapter": "327",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "303",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "2",
+    "name": "MangaUpdates",
+    "plausible": false
+   }
+  ],
+  "typicalGapDays": null
+ },
+ "id": 30656,
+ "read": 327,
+ "recordedAt": "2026-11-06T12:14:16+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "327",
+   "chapterNum": 327.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1566/Vagabond"
+  },
+  "MangaDex": {
+   "chapter": "303",
+   "chapterNum": 303.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "303",
+     "date": "2020-06-30T07:40:34+00:00"
+    },
+    {
+     "chapter": "302",
+     "date": "2020-06-30T07:40:13+00:00"
+    },
+    {
+     "chapter": "301",
+     "date": "2020-06-30T07:39:49+00:00"
+    },
+    {
+     "chapter": "309",
+     "date": "2019-09-27T08:31:54+00:00"
+    },
+    {
+     "chapter": "308",
+     "date": "2019-09-27T08:31:15+00:00"
+    },
+    {
+     "chapter": "307",
+     "date": "2019-09-27T08:30:35+00:00"
+    },
+    {
+     "chapter": "306",
+     "date": "2019-09-27T08:29:55+00:00"
+    },
+    {
+     "chapter": "305",
+     "date": "2019-09-27T08:29:27+00:00"
+    },
+    {
+     "chapter": "298",
+     "date": "2019-09-27T08:28:28+00:00"
+    },
+    {
+     "chapter": "297",
+     "date": "2019-09-27T08:28:09+00:00"
+    },
+    {
+     "chapter": "324",
+     "date": "2019-07-28T09:26:58+00:00"
+    },
+    {
+     "chapter": "323",
+     "date": "2019-07-28T09:26:31+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-06-30T07:40:34+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangadex.org/chapter/dde72257-bcc9-44f5-915a-a94aa3b7b1e2"
+  },
+  "MangaUpdates": {
+   "chapter": "2",
+   "chapterNum": 2.0,
+   "expectedNext": "2020-11-26",
+   "history": [
+    {
+     "chapter": "2",
+     "date": "2020-11-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2020-10-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "327",
+     "date": "2015-05-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "326",
+     "date": "2015-04-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "325",
+     "date": "2015-03-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "324",
+     "date": "2015-02-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "323",
+     "date": "2015-02-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "322",
+     "date": "2014-01-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "321",
+     "date": "2014-01-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "320",
+     "date": "2013-11-25T00:00:00+00:00"
+    },
+    {
+     "chapter": "319",
+     "date": "2013-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "318",
+     "date": "2013-09-19T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2020-11-08T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 18,
+   "url": "https://www.mangaupdates.com/series/su6blie/vagabond"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Vagabond",
+ "titles": [
+  "Vagabond",
+  "Vagabond",
+  "배가본드"
+ ],
+ "version": 1,
+ "year": 1998
+}

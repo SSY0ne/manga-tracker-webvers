@@ -172,6 +172,22 @@ the title matching, the chapter parsing) are covered by tests that need no netwo
 python3 -m unittest -v test_rules
 ```
 
+**Recorded fixtures** (`fixtures/`, `corpus.py`): the rules were each written to fix a real series, and all
+were checked on the same 40 series, so a rule change could quietly make other series worse. A fixture
+freezes what every source answered for one series on one day (and the date), so the rules replay
+against all of them offline in a tenth of a second:
+
+```bash
+python3 -m unittest -v test_fixtures   # every series still gives its recorded answer + the web-checked truths hold
+python3 devtools.py replay             # after changing a rule: exactly which series changed, and how
+python3 devtools.py replay --update    # accept the changes as the new expected output
+python3 devtools.py record NAME        # re-record a series from the live sources
+python3 devtools.py mutate             # break each rule on purpose and check the tests notice
+```
+
+`fixtures/truth.json` holds what the web says (each with its source). A truth marked `enforced` fails
+the tests when the code disagrees; known misses (Initial D: 725, the web says 719) are listed but not enforced.
+
 They also run on GitHub whenever Python files change. To check the tests themselves, I changed 15
 thresholds one at a time in a scratch copy (0.8 to 0.1, 2.5x to 5x, and so on) and every change made
 at least one test fail.

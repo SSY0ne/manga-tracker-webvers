@@ -1,0 +1,211 @@
+{
+ "anyLanguage": null,
+ "gapDays": null,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "392",
+  "countOnly": null,
+  "date": "2026-04-30",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "392",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "4",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "392",
+    "name": "MangaUpdates",
+    "plausible": true
+   },
+   {
+    "chapter": "392",
+    "name": "Kitsu",
+    "plausible": true
+   },
+   {
+    "chapter": "392",
+    "name": "AniList",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 79
+ },
+ "id": 86123,
+ "read": 373,
+ "recordedAt": "2026-11-06T12:11:43+00:00",
+ "sources": {
+  "AniList": {
+   "chapter": "392",
+   "chapterNum": 392.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "AniList",
+   "typicalGapDays": null,
+   "url": "https://anilist.co/manga/86123"
+  },
+  "Kitsu": {
+   "chapter": "392",
+   "chapterNum": 392.0,
+   "ended": "2026-04-30",
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "Kitsu",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://kitsu.io/manga/27527"
+  },
+  "MangaBaka": {
+   "chapter": "392",
+   "chapterNum": 392.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "completed",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1915/Black-Clover"
+  },
+  "MangaDex": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "4",
+     "date": "2026-08-26T17:41:27+00:00"
+    },
+    {
+     "chapter": "392",
+     "date": "2026-04-30T15:05:52+00:00"
+    },
+    {
+     "chapter": "391",
+     "date": "2026-04-30T15:05:49+00:00"
+    },
+    {
+     "chapter": "390",
+     "date": "2026-04-30T15:05:48+00:00"
+    },
+    {
+     "chapter": "389",
+     "date": "2026-01-04T15:07:09+00:00"
+    },
+    {
+     "chapter": "388",
+     "date": "2026-01-04T15:07:07+00:00"
+    },
+    {
+     "chapter": "387",
+     "date": "2026-01-04T15:06:41+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2019-07-25T23:30:13+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2019-07-25T23:29:55+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2019-07-25T23:29:45+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2026-08-26T17:41:27+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://mangaplus.shueisha.co.jp/viewer/1000180"
+  },
+  "MangaUpdates": {
+   "chapter": "392",
+   "chapterNum": 392.0,
+   "expectedNext": "2026-07-18",
+   "history": [
+    {
+     "chapter": "392",
+     "date": "2026-04-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "389",
+     "date": "2026-01-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "386",
+     "date": "2025-10-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "383",
+     "date": "2025-08-11T00:00:00+00:00"
+    },
+    {
+     "chapter": "380",
+     "date": "2025-05-01T00:00:00+00:00"
+    },
+    {
+     "chapter": "378",
+     "date": "2025-01-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "376",
+     "date": "2024-11-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "373",
+     "date": "2024-08-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "371",
+     "date": "2024-04-29T00:00:00+00:00"
+    },
+    {
+     "chapter": "369",
+     "date": "2023-12-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "368",
+     "date": "2023-08-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "367",
+     "date": "2023-08-02T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-04-30T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 79,
+   "url": "https://www.mangaupdates.com/series/w8nq9bw/black-clover"
+  },
+  "Webtoon": null
+ },
+ "status": "FINISHED",
+ "title": "Black Clover",
+ "titles": [
+  "Black Clover",
+  "Black Clover",
+  "블랙 클로버"
+ ],
+ "version": 1,
+ "year": 2015
+}

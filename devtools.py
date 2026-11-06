@@ -11,6 +11,11 @@
     python3 devtools.py compare NAME...   ask every source LIVE for these series (title contains NAME) and
                                           print what state.json says now next to what the code says today
     python3 devtools.py compare --all     the same for every series (about 3 minutes)
+    python3 devtools.py record NAME...    freeze what every source says NOW for these series into fixtures/ (--all, or
+                                          --id 123 456 for series that are not in series.json); needs the network
+    python3 devtools.py replay            run the CURRENT rules on every fixture, offline, and show what changed
+    python3 devtools.py replay --update   ...and accept the changes as the new expected output
+    python3 devtools.py mutate            break each rule on purpose, in a scratch copy, and say which tests notice
     python3 devtools.py preview [STATE]   serve a COPY of the site on :8125 using the newest sandbox state.json (or
                                           STATE), to see a change in the browser before the bot has run
     python3 devtools.py preview stop      stop that preview server
@@ -232,6 +237,128 @@ def stop_preview():
 ANILIST_FIELDS = "id title { romaji english } synonyms startDate { year } status"
 
 
+def anilist_media(ids):
+    """{AniList id: media} (title, synonyms, start year, status), 50 ids per request."""
+    import server
+
+    found = {}
+    ids = list(ids)
+    for i in range(0, len(ids), 50):
+        data = server.http_json(
+            server.ANILIST,
+            {"query": f"query ($ids: [Int]) {{ Page(perPage: 50) {{ media(id_in: $ids, type: MANGA) {{ {ANILIST_FIELDS} }} }} }}",
+             "variables": {"ids": ids[i:i + 50]}},
+        )["data"]["Page"]["media"]
+        found.update({m["id"]: m for m in data})
+    return found
+
+
+def titles_of(m):
+    return [t for t in [m["title"]["english"], m["title"]["romaji"], *m["synonyms"]] if t][:4]
+
+
+def record(args):
+    import corpus
+    import server
+
+    series = json.load(open(os.path.join(HERE, "series.json")))
+    state = json.load(open(os.path.join(HERE, "state.json"))).get("series", {})
+    if "--id" in args:
+        chosen = [{"id": int(a)} for a in args[args.index("--id") + 1:] if a.isdigit()]
+    else:
+        names = [a for a in args if not a.startswith("--")]
+        chosen = [s for s in series if "--all" in args or any(n.lower() in s["title"].lower() for n in names)]
+    if not chosen:
+        print("Nothing to record: give names, --all, or --id 123 456")
+        return
+    media = anilist_media([s["id"] for s in chosen])
+    for s in chosen:
+        m = media.get(s["id"])
+        if not m:
+            print(f"{s['id']}: not found on AniList")
+            continue
+        matches = (state.get(str(s["id"])) or {}).get("matches")
+        try:
+            fx = corpus.record_live(s["id"], titles_of(m), m["startDate"]["year"], m["status"], s.get("read"), s.get("gapDays"), matches, titles_of(m)[0])
+        except Exception as err:
+            print(f"{titles_of(m)[0][:30]:30} FAILED: {err}")
+            continue
+        old = os.path.exists(corpus.path_for(fx["id"]))
+        corpus.save(fx)
+        g = fx["golden"]
+        print(f"{'updated ' if old else 'recorded'} {fx['title'][:30]:30} {fx['status']:10} ch {g['chapter']} {g['date'] or 'no date'} {g['agreement']}")
+
+
+# (file, text to find, replacement, what it breaks). Each is applied alone to a scratch copy.
+MUTATIONS = [
+    ("server.py", 'abs(c["chapterNum"] - count) > 0.05 * count', 'abs(c["chapterNum"] - count) > 0.5 * count', "a count is outvoted at 5% -> 50%"),
+    ("server.py", 'best["chapterNum"] < 0.95 * count and count - best["chapterNum"] > 5', 'best["chapterNum"] < 0.5 * count and count - best["chapterNum"] > 5', "a lone feed is stale at 95% of the count -> 50%"),
+    ("server.py", 'and not backed\n', 'and backed\n', "the lagging rule ignores whether another feed agrees"),
+    ("server.py", 'DORMANT_YEARS = float(os.environ.get("DORMANT_YEARS", "5"))', 'DORMANT_YEARS = float(os.environ.get("DORMANT_YEARS", "50"))', "dormant after 5 years -> 50"),
+    ("server.py", "ANY_LANGUAGE_MAX_AGE_DAYS = 120", "ANY_LANGUAGE_MAX_AGE_DAYS = 120000", "the any-language answer may be any age"),
+    ("server.py", 'cand["chapterNum"] > 1.1 * count + 5', 'cand["chapterNum"] > 100 * count + 5', "the any-language answer may be far above the count"),
+    ("server.py", 'key=lambda c: (math.floor(c["chapterNum"]), parse_time', 'key=lambda c: (0, parse_time', "the highest chapter no longer wins"),
+    ("server.py", 'if status == "FINISHED" and ended and', 'if False and ended and', "upload dates after the end are kept"),
+    ("server.py", 'if status == "RELEASING" and result.get("agreement") == "count":', 'if False:', "the any-language fallback never runs"),
+    ("server.py", 'return days if days >= limit else 0', 'return days if days >= 100 * limit else 0', "the on-break rule never fires"),
+    ("server.py", 'count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])', 'count = max([c["chapterNum"] for c in counts if c["chapterNum"]], default=0)', "the count consensus takes the maximum, not the lower median"),
+]
+
+
+def mutate():
+    """Mutation testing: if breaking a rule on purpose doesn't make a test fail, that rule is unprotected."""
+    import glob
+
+    here = os.path.dirname(os.path.abspath(__file__))
+    print(f"{len(MUTATIONS)} deliberate breakages, each tried alone in a scratch copy:\n")
+    survived = 0
+    for path, old, new, what in MUTATIONS:
+        tmp = tempfile.mkdtemp(prefix="manga-mutant-")
+        for f in glob.glob(os.path.join(here, "*.py")):
+            shutil.copy(f, tmp)
+        shutil.copytree(os.path.join(here, "fixtures"), os.path.join(tmp, "fixtures"))
+        text = open(os.path.join(tmp, path)).read()
+        if text.count(old) != 1:
+            print(f"?  {what}: pattern found {text.count(old)}x, fix MUTATIONS")
+            continue
+        open(os.path.join(tmp, path), "w").write(text.replace(old, new))
+        caught = []
+        for suite in ("test_rules", "test_fixtures"):
+            r = subprocess.run([sys.executable, "-m", "unittest", suite], cwd=tmp, capture_output=True, text=True)
+            if r.returncode != 0:
+                caught.append(suite.replace("test_", ""))
+        shutil.rmtree(tmp, ignore_errors=True)
+        survived += not caught
+        print(f"{'caught by ' + ' + '.join(caught) if caught else 'NOT CAUGHT':22} {what}")
+    print(f"\n{survived} not caught" if survived else "\nevery breakage was caught")
+
+
+def replay_all(update=False):
+    import corpus
+
+    fixtures = corpus.load_all()
+    if not fixtures:
+        print("No fixtures yet: run `python3 devtools.py record --all`")
+        return 0
+    changed = 0
+    for fx in fixtures:
+        _, snap = corpus.replay(fx)
+        d = corpus.diff(fx["golden"], snap)
+        if not d:
+            continue
+        changed += 1
+        flips = []
+        if "sources" in d:  # which source stopped or started "fitting"
+            before = {x["name"]: x["plausible"] for x in d["sources"][0]}
+            flips = [f"{x['name']} {'now fits' if x['plausible'] else 'no longer fits'}" for x in d["sources"][1] if before.get(x["name"]) != x["plausible"]]
+        print(f"CHANGED {fx['title'][:34]:34} " + "; ".join([f"{k}: {a} -> {b}" for k, (a, b) in d.items() if k != "sources"] + flips))
+        if update:
+            fx["golden"] = snap
+            corpus.save(fx)
+    print(f"\n{len(fixtures)} fixtures, {changed} changed" + (" (saved as the new expected output)" if changed and update else ""))
+    return 1 if changed and not update else 0
+
+
 def compare(needles, everything=False):
     """The check we kept rebuilding by hand: after changing a source or a rule, run the CURRENT code
     on a few series (live requests, nothing saved) and show old versus new, with each source's answer.
@@ -244,19 +371,14 @@ def compare(needles, everything=False):
     if not chosen:
         print("No series matches", needles or "(give a name, or --all)")
         return
-    data = server.http_json(
-        server.ANILIST,
-        {"query": f"query ($ids: [Int]) {{ Page(perPage: 50) {{ media(id_in: $ids, type: MANGA) {{ {ANILIST_FIELDS} }} }} }}",
-         "variables": {"ids": [s["id"] for s in chosen][:50]}},
-    )["data"]["Page"]["media"]
-    info = {m["id"]: m for m in data}
+    info = anilist_media([s["id"] for s in chosen])
     changed = 0
     for s in chosen:
         m = info.get(s["id"])
         if not m:
             print(f"{s['title'][:26]:26} not found on AniList")
             continue
-        titles = [t for t in [m["title"]["english"], m["title"]["romaji"], *m["synonyms"]] if t][:4]
+        titles = titles_of(m)
         old = state.get(str(s["id"]), {})
         try:
             new = server.chapter_info(s["id"], titles, m["startDate"]["year"], s.get("read"), m["status"], old.get("matches"), s.get("gapDays"))  # gapDays: your own rhythm, like the bot
@@ -285,6 +407,12 @@ if __name__ == "__main__":
         match(sys.argv[2])
     elif cmd == "restart":
         restart()
+    elif cmd == "record":
+        record(sys.argv[2:])
+    elif cmd == "mutate":
+        mutate()
+    elif cmd == "replay":
+        sys.exit(replay_all(update="--update" in sys.argv))
     elif cmd == "preview":
         if len(sys.argv) > 2 and sys.argv[2] == "stop":
             stop_preview()

@@ -1,0 +1,225 @@
+{
+ "anyLanguage": {
+  "chapter": "112",
+  "chapterNum": 112.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "112",
+    "date": "2026-09-10T10:12:33+00:00"
+   },
+   {
+    "chapter": "111",
+    "date": "2026-08-25T12:04:35+00:00"
+   },
+   {
+    "chapter": "110",
+    "date": "2026-08-29T02:04:50+00:00"
+   },
+   {
+    "chapter": "109",
+    "date": "2026-08-31T01:27:23+00:00"
+   },
+   {
+    "chapter": "108",
+    "date": "2026-04-13T05:35:23+00:00"
+   },
+   {
+    "chapter": "107",
+    "date": "2026-08-27T09:00:18+00:00"
+   },
+   {
+    "chapter": "107.6",
+    "date": "2026-08-29T02:23:56+00:00"
+   },
+   {
+    "chapter": "107.5",
+    "date": "2026-08-29T02:21:01+00:00"
+   },
+   {
+    "chapter": "106",
+    "date": "2026-08-27T08:34:02+00:00"
+   },
+   {
+    "chapter": "105",
+    "date": "2026-01-19T05:22:37+00:00"
+   },
+   {
+    "chapter": "105.6",
+    "date": "2026-08-27T05:32:24+00:00"
+   },
+   {
+    "chapter": "105.5",
+    "date": "2026-08-27T05:30:06+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-09-10T10:12:33+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/fffbfac3-b7ad-41ee-9581-b4d90ecec941"
+ },
+ "gapDays": 30,
+ "golden": {
+  "agreement": "agree",
+  "chapter": "112",
+  "countOnly": null,
+  "date": "2026-09-10",
+  "dormant": false,
+  "hiatus": false,
+  "limited": false,
+  "quietDays": 0,
+  "source": "MangaDex (any language)",
+  "sources": [
+   {
+    "chapter": "112",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "79",
+    "name": "MangaDex",
+    "plausible": false
+   },
+   {
+    "chapter": "84",
+    "name": "MangaUpdates",
+    "plausible": false
+   },
+   {
+    "chapter": "112",
+    "name": "MangaDex (any language)",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 30
+ },
+ "id": 87395,
+ "read": 112,
+ "recordedAt": "2026-11-06T12:12:18+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "112",
+   "chapterNum": 112.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/1264/Grand-Blue-Dreaming"
+  },
+  "MangaDex": {
+   "chapter": "79",
+   "chapterNum": 79.0,
+   "expectedNext": null,
+   "history": [
+    {
+     "chapter": "79",
+     "date": "2024-09-09T08:43:29+00:00"
+    },
+    {
+     "chapter": "78.2",
+     "date": "2024-08-31T17:03:47+00:00"
+    },
+    {
+     "chapter": "78.1",
+     "date": "2024-08-31T16:58:48+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2024-08-31T16:49:47+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2024-08-31T16:32:46+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2023-12-24T19:23:44+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": true,
+   "publishedAt": "2024-09-09T08:43:29+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": null,
+   "url": "https://kmanga.kodansha.com/title/10058/episode/318762"
+  },
+  "MangaUpdates": {
+   "chapter": "84",
+   "chapterNum": 84.0,
+   "expectedNext": "2023-07-08",
+   "history": [
+    {
+     "chapter": "84",
+     "date": "2023-06-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "83.5",
+     "date": "2023-04-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "83",
+     "date": "2023-03-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "82",
+     "date": "2023-01-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "81",
+     "date": "2022-12-30T00:00:00+00:00"
+    },
+    {
+     "chapter": "80",
+     "date": "2022-11-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "79.5",
+     "date": "2022-10-21T00:00:00+00:00"
+    },
+    {
+     "chapter": "79",
+     "date": "2022-09-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "78",
+     "date": "2022-08-19T00:00:00+00:00"
+    },
+    {
+     "chapter": "77",
+     "date": "2022-07-08T00:00:00+00:00"
+    },
+    {
+     "chapter": "42",
+     "date": "2018-03-07T00:00:00+00:00"
+    },
+    {
+     "chapter": "41.5",
+     "date": "2018-02-27T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2023-06-09T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 29,
+   "url": "https://www.mangaupdates.com/series/u63f9zm/grand-blue"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Grand Blue Dreaming",
+ "titles": [
+  "Grand Blue Dreaming",
+  "Grand Blue",
+  "Необъятный океан",
+  "Неосяжна блакить"
+ ],
+ "version": 1,
+ "year": 2014
+}

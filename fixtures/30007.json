@@ -1,0 +1,232 @@
+{
+ "anyLanguage": {
+  "chapter": "1515",
+  "chapterNum": 1515.0,
+  "expectedNext": null,
+  "history": [
+   {
+    "chapter": "1515",
+    "date": "2026-03-07T20:54:27+00:00"
+   },
+   {
+    "chapter": "1514",
+    "date": "2026-02-18T03:53:33+00:00"
+   },
+   {
+    "chapter": "1513",
+    "date": "2026-02-12T13:06:31+00:00"
+   },
+   {
+    "chapter": "1512",
+    "date": "2026-01-28T13:04:24+00:00"
+   },
+   {
+    "chapter": "1511",
+    "date": "2025-12-23T23:39:26+00:00"
+   },
+   {
+    "chapter": "1510",
+    "date": "2025-12-10T21:42:26+00:00"
+   },
+   {
+    "chapter": "1509",
+    "date": "2025-11-20T10:23:47+00:00"
+   },
+   {
+    "chapter": "1508",
+    "date": "2025-11-12T12:37:35+00:00"
+   },
+   {
+    "chapter": "1507",
+    "date": "2025-11-05T15:18:21+00:00"
+   },
+   {
+    "chapter": "1506",
+    "date": "2025-10-22T14:39:01+00:00"
+   },
+   {
+    "chapter": "1505",
+    "date": "2025-10-16T03:50:00+00:00"
+   },
+   {
+    "chapter": "1504",
+    "date": "2025-10-08T13:06:14+00:00"
+   }
+  ],
+  "kind": "release",
+  "official": false,
+  "publishedAt": "2026-03-07T20:54:27+00:00",
+  "source": "MangaDex (any language)",
+  "typicalGapDays": null,
+  "url": "https://mangadex.org/title/f7888782-0727-49b0-95ec-a3530c70f83b"
+ },
+ "gapDays": null,
+ "golden": {
+  "agreement": "conflict",
+  "chapter": "1515",
+  "countOnly": null,
+  "date": "2026-03-03",
+  "dormant": false,
+  "hiatus": true,
+  "limited": false,
+  "quietDays": 248,
+  "source": "MangaUpdates",
+  "sources": [
+   {
+    "chapter": "1515",
+    "name": "MangaBaka",
+    "plausible": true
+   },
+   {
+    "chapter": "1493",
+    "name": "MangaDex",
+    "plausible": true
+   },
+   {
+    "chapter": "1515",
+    "name": "MangaUpdates",
+    "plausible": true
+   }
+  ],
+  "typicalGapDays": 8
+ },
+ "id": 30007,
+ "read": 267,
+ "recordedAt": "2026-11-06T12:12:21+00:00",
+ "sources": {
+  "MangaBaka": {
+   "chapter": "1515",
+   "chapterNum": 1515.0,
+   "expectedNext": null,
+   "history": [],
+   "kind": "count",
+   "official": false,
+   "publishedAt": null,
+   "source": "MangaBaka",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://mangabaka.org/manga/206/Hajime-no-Ippo-Fighting-Spirit"
+  },
+  "MangaDex": {
+   "chapter": "1493",
+   "chapterNum": 1493.0,
+   "expectedNext": "2025-06-03",
+   "history": [
+    {
+     "chapter": "1493",
+     "date": "2025-05-27T17:06:38+00:00"
+    },
+    {
+     "chapter": "1492",
+     "date": "2025-05-06T17:37:45+00:00"
+    },
+    {
+     "chapter": "1491",
+     "date": "2025-04-22T23:30:54+00:00"
+    },
+    {
+     "chapter": "1490",
+     "date": "2025-04-15T16:51:06+00:00"
+    },
+    {
+     "chapter": "1489",
+     "date": "2025-04-08T18:25:42+00:00"
+    },
+    {
+     "chapter": "1488",
+     "date": "2025-04-01T18:33:04+00:00"
+    },
+    {
+     "chapter": "3",
+     "date": "2024-09-09T08:48:53+00:00"
+    },
+    {
+     "chapter": "2",
+     "date": "2024-09-09T08:48:47+00:00"
+    },
+    {
+     "chapter": "1",
+     "date": "2024-09-09T08:48:42+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2025-05-27T17:06:38+00:00",
+   "source": "MangaDex",
+   "typicalGapDays": 7,
+   "url": "https://mangadex.org/chapter/fb7c4202-75d9-4414-8e4b-25e718c066b7"
+  },
+  "MangaUpdates": {
+   "chapter": "1515",
+   "chapterNum": 1515.0,
+   "expectedNext": "2026-03-11",
+   "history": [
+    {
+     "chapter": "1515",
+     "date": "2026-03-03T00:00:00+00:00"
+    },
+    {
+     "chapter": "1514",
+     "date": "2026-02-17T00:00:00+00:00"
+    },
+    {
+     "chapter": "1513",
+     "date": "2026-02-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "1512",
+     "date": "2026-01-27T00:00:00+00:00"
+    },
+    {
+     "chapter": "1511",
+     "date": "2025-12-24T00:00:00+00:00"
+    },
+    {
+     "chapter": "1510",
+     "date": "2025-12-09T00:00:00+00:00"
+    },
+    {
+     "chapter": "1509",
+     "date": "2025-11-18T00:00:00+00:00"
+    },
+    {
+     "chapter": "1508",
+     "date": "2025-11-12T00:00:00+00:00"
+    },
+    {
+     "chapter": "1507",
+     "date": "2025-11-04T00:00:00+00:00"
+    },
+    {
+     "chapter": "1506",
+     "date": "2025-10-22T00:00:00+00:00"
+    },
+    {
+     "chapter": "1505",
+     "date": "2025-10-14T00:00:00+00:00"
+    },
+    {
+     "chapter": "1504",
+     "date": "2025-10-08T00:00:00+00:00"
+    }
+   ],
+   "kind": "release",
+   "official": false,
+   "publishedAt": "2026-03-03T00:00:00+00:00",
+   "source": "MangaUpdates",
+   "typicalGapDays": 8,
+   "url": "https://www.mangaupdates.com/series/9ft0dv5/hajime-no-ippo"
+  },
+  "Webtoon": null
+ },
+ "status": "RELEASING",
+ "title": "Hajime no Ippo: Fighting Spirit!",
+ "titles": [
+  "Hajime no Ippo: Fighting Spirit!",
+  "Hajime no Ippo",
+  "The Fighting!",
+  "Fighting Spirit"
+ ],
+ "version": 1,
+ "year": 1989
+}
