@@ -729,10 +729,17 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     if errors and not any(candidates):
         raise RuntimeError("; ".join(errors))
     result = reconcile(candidates, read, status)
+    last_evidence = None  # an old date that proves the series has been quiet at least this long
     if status == "RELEASING" and result.get("agreement") == "count":  # a running series and nothing fits: try every language
         started = time.time()
+        fetched = {}
+
+        def fetch_all_languages():
+            fetched["c"] = mangadex_any_language_candidate(al_id, titles, year)
+            return fetched["c"]
+
         try:
-            extra = any_language_fallback(candidates, lambda: mangadex_any_language_candidate(al_id, titles, year))
+            extra = any_language_fallback(candidates, fetch_all_languages)
             stat(ANY_LANGUAGE, "ok" if extra else "none")
         except Exception as err:  # optional: its failure must not break the answer we already have
             stat(ANY_LANGUAGE, "failed")
@@ -741,6 +748,8 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
         stat(ANY_LANGUAGE, "seconds", time.time() - started)
         if extra:
             result = reconcile(candidates + [extra], read, status)
+        else:
+            last_evidence = last_upload_evidence(candidates, fetched.get("c"))
     if gap_override and result.get("found") and result.get("publishedAt"):
         gap = int(gap_override)
         result["typicalGapDays"] = gap
@@ -753,6 +762,10 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     result["quietDays"] = (
         0 if result.get("limited") else quiet_days(status, result.get("publishedAt"), result.get("typicalGapDays"))
     )
+
+    # Dormant: so long without a chapter that the author has probably stopped (see dormant_days).
+    result["dormantDays"] = 0 if result.get("limited") else dormant_days(status, result.get("publishedAt") or last_evidence)
+    result["dormant"] = result["dormantDays"] > 0
 
     found = {}
     if _mb_id_cache.get(al_id):
@@ -785,6 +798,38 @@ def quiet_days(status, published_iso, typical_gap, fallback_weeks=FALLBACK_WEEKS
     days = (datetime.now(timezone.utc) - parse_time(published_iso)).days
     limit = max(2.5 * typical_gap, typical_gap + 14) if typical_gap else fallback_weeks * 7
     return days if days >= limit else 0
+
+
+# ---------- "dormant": so long without a chapter that the author has probably stopped ----------
+
+# One number. 5 years is longer than the pauses series have come back from (a big shonen series can
+# vanish for 3-4 years and return), and shorter than Nana (since 2009) or Vagabond (since 2015),
+# which nobody expects back. Change it with the environment variable DORMANT_YEARS.
+DORMANT_YEARS = float(os.environ.get("DORMANT_YEARS", "5"))
+
+
+def dormant_days(status, last_iso, years=DORMANT_YEARS):
+    """Days since the last chapter when that is at least `years` years, else 0.
+
+    Only for a series still listed as running (Releasing or Hiatus): a finished one has ended, a
+    dormant one has not been declared over by anyone, it has just gone silent for years."""
+    if status not in ("RELEASING", "HIATUS") or not last_iso:
+        return 0
+    days = (datetime.now(timezone.utc) - parse_time(last_iso)).days
+    return days if days >= years * 365 else 0
+
+
+def last_upload_evidence(candidates, cand):
+    """The date of a refused any-language answer, when it is the SAME last chapter the count says.
+
+    Vagabond: MangaDex has chapter 327 in Spanish "dated" 2018. That is the upload day, not the
+    release (2015), but a chapter can't be released after it was uploaded, so the real age is AT LEAST
+    this old: a safe lower bound for "has been quiet for years"."""
+    counts = [c["chapterNum"] for c in candidates if c and c["kind"] == "count" and c["chapterNum"]]
+    if not counts or not cand or not cand.get("publishedAt"):
+        return None
+    count = lower_median(counts)
+    return cand["publishedAt"] if 0.95 * count <= cand["chapterNum"] <= 1.1 * count + 5 else None
 
 
 # ---------- series.json (local editing) ----------

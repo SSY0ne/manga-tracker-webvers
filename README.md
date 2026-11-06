@@ -56,6 +56,13 @@ like it is on break.
   chapter facts, your progress editor and what every source said. The search to add a manga is
   at the top and the MyAnimeList import is at the very bottom of the list (both only when
   `server.py` is running).
+- **Dormant**: a series still listed as running with no chapter for **5 years** or more (Nana since 2009,
+  Vagabond since 2015) gets its own tag instead of "On break", because a break is a pause we expect to
+  end. The rule is one number in `server.py` (`dormant_days`, `DORMANT_YEARS`, default 5: longer than the
+  3-4 year pauses big series have come back from). For a series with no usable date, an old
+  late-upload date still proves it has been quiet at least that long. The bot sends one "Now dormant"
+  notice (and none of the weekly "maybe on break" kind), records it in the history log, and says
+  "back after years of silence" if a new chapter ever appears.
 - **Why it's on break, on the cover**: a series on break says so under its title ("Ch. 386 ·
   16 wks quiet" or "listed as hiatus") instead of an old date.
 - **Two modes**. With `server.py` running you are the **owner**: add, import, edit settings, and see your

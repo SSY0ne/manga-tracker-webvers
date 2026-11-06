@@ -397,6 +397,7 @@ function coverUrl(e, size = "medium") {
 
 function tileChip(e) {
   if (isLimited(e)) return { cls: "limited", text: "Limited" };
+  if (isDormant(e)) return { cls: "dormant", text: "Dormant" };
   if (isOnBreak(e)) return { cls: "break", text: "On break" };
   if (isNew(e)) return { cls: "new", text: "New" };
   if (e.status === "RELEASING") return { cls: "releasing", text: "Releasing" };
@@ -407,7 +408,7 @@ function tileChip(e) {
 function tileSubtitle(e) {
   if (e.chapter) {
     // For a series on break the date is old news: say WHY it is flagged instead.
-    const q = quietDays(e);
+    const q = isDormant(e) ? e.dormantDays : quietDays(e);
     const why = q ? `${fmtQuiet(q)} quiet` : onHiatus(e) ? "listed as hiatus" : null;
     if (why) return `Ch. ${e.chapter} · ${why}`;
     return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
@@ -638,7 +639,8 @@ function renderDetail(e) {
   if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
     facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
   }
-  if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
+  if (isDormant(e)) facts.append(fact("Dormant", `${fmtQuiet(e.dormantDays)} without a chapter: the author may never return`));
+  else if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
   else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
   main.append(facts);
 
@@ -731,13 +733,18 @@ function behindBy(e) {
 // that is still running: one that is on break, finished or has no usable data has nothing new
 // to catch up on. (The detail panel still shows your exact numbers for every series.)
 function isRunning(e) {
-  return e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e);
+  return e.status === "RELEASING" && !isOnBreak(e) && !isDormant(e) && !isLimited(e);
 }
 function behindShown(e) {
   return personal() && isRunning(e) ? behindBy(e) : 0;
 }
+// Dormant = years without a chapter (the rule lives in server.dormant_days; the page only reads it).
+// It is not "on break": a break is a pause we expect to end.
+function isDormant(e) {
+  return e.dormant === true && !isLimited(e);
+}
 function isOnBreak(e) {
-  return quietDays(e) > 0 || onHiatus(e);
+  return !isDormant(e) && (quietDays(e) > 0 || onHiatus(e));
 }
 function isNew(e) {
   return Boolean(e.publishedAt) && Date.now() - new Date(e.publishedAt).getTime() < 7 * DAY;
@@ -755,6 +762,7 @@ const SHOW = {
   all: () => true,
   releasing: (e) => e.status === "RELEASING",
   onbreak: isOnBreak,
+  dormant: isDormant,
   new: isNew,
   behind: (e) => behindShown(e) > 0,
   disagree: (e) => e.agreement === "conflict" || (e.sources || []).some((s) => s.kind === "count" && !s.plausible),
@@ -820,6 +828,8 @@ function renderStats() {
     { key: "new", label: "new this week", n: entries.filter(isNew).length, cls: "fresh" },
     { key: "onbreak", label: "on break", n: entries.filter(isOnBreak).length, cls: "warm" },
   ];
+  const dormantCount = entries.filter(isDormant).length;
+  if (dormantCount) defs.splice(3, 0, { key: "dormant", label: "dormant", n: dormantCount, cls: "" });
   if (personal()) defs.push({ key: "behind", label: "to catch up", n: entries.filter((e) => behindShown(e) > 0).length, cls: "" });
   const current = document.getElementById("filter-show").value;
   document.getElementById("stats").replaceChildren(
@@ -1485,6 +1495,10 @@ function describeEvent(ev) {
       return { icon: "⏸️", text: `${ev.title} looks on break`, note: ev.reason === "hiatus" ? "listed as hiatus" : `${Math.floor((ev.quietDays || 0) / 7)} weeks quiet` };
     case "break_end":
       return { icon: "▶️", text: `${ev.title} is back`, note: "" };
+    case "dormant":
+      return { icon: "💤", text: `${ev.title} marked dormant`, note: `no chapter for over ${Math.floor((ev.dormantDays || 0) / 365)} years` };
+    case "revived":
+      return { icon: "🌱", text: `${ev.title} is back after years of silence`, note: "" };
     case "status":
       return { icon: "ℹ️", text: `${ev.title}: ${status(ev.previous)} to ${status(ev.status)}`, note: "AniList status" };
     case "source_change":
@@ -1724,7 +1738,7 @@ function renderCalendar() {
   const today = startOfDay(new Date());
 
   // Overdue
-  const overdue = botEntries().filter((e) => quietDays(e) || onHiatus(e));
+  const overdue = botEntries().filter((e) => !isDormant(e) && (quietDays(e) || onHiatus(e)));
   document.getElementById("overdue-block").hidden = overdue.length === 0;
   document.getElementById("overdue").replaceChildren(
     ...overdue.map((e) => {

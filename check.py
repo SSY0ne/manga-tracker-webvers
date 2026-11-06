@@ -191,6 +191,7 @@ DIGEST_SECTIONS = [
     ("chapter", "New chapters"),
     ("back", "Back from break"),
     ("break", "Maybe on break"),
+    ("dormant", "Now dormant"),
     ("status", "Status changes"),
 ]
 
@@ -201,11 +202,11 @@ def should_alert(kind, setting):
     if setting == "off":
         return False
     if setting == "breaks":
-        return kind in ("break", "back")
+        return kind in ("break", "back", "dormant")
     return True
 
 
-def build_digest(items, notes=(), when=None, tracked=0, on_break=0, always=False):
+def build_digest(items, notes=(), when=None, tracked=0, on_break=0, always=False, dormant=0):
     """One tidy message per run: grouped sections, then heads-ups, then a one-line summary.
 
     Returns "" when there is nothing to say (no news, no heads-ups), unless always=True, which
@@ -224,8 +225,20 @@ def build_digest(items, notes=(), when=None, tracked=0, on_break=0, always=False
     if not items and not notes:
         lines += ["", "Nothing new today."]
     # Plain text on purpose: the same message goes out by email, where Discord's italics would show up as _ marks
-    lines += ["", f"Tracking {tracked} series · {on_break} on break"]
+    lines += ["", f"Tracking {tracked} series · {on_break} on break" + (f" · {dormant} dormant" if dormant else "")]
     return "\n".join(lines)
+
+
+def dormancy_change(old, dormant):
+    """What a change in the dormant flag means: "dormant" (say so), "dormant_silent" (the state had no
+    flag yet, so this is the first run with the rule: log it, don't announce series that were quiet
+    for years already), "revived" (it was dormant and is not any more) or None."""
+    was = bool(old.get("dormant"))
+    if dormant and not was:
+        return "dormant" if "dormant" in old else "dormant_silent"
+    if was and not dormant:
+        return "revived"
+    return None
 
 
 def chunk_lines(text, limit=1900):
@@ -281,7 +294,7 @@ def check(series_path, state_path, dry):
     new_state_map = {}  # only series still in series.json are kept
     if not series:
         print("series.json is empty. Add one with: python3 check.py --add \"title\"")
-        return {"messages": [], "events": [], "notes": [], "tracked": 0, "on_break": 0}
+        return {"messages": [], "events": [], "notes": [], "tracked": 0, "on_break": 0, "dormant": 0}
 
     ids = [s["id"] for s in series]
     by_id = {}
@@ -342,7 +355,11 @@ def check(series_path, state_path, dry):
         quiet_for = 0 if limited else info.get("quietDays", 0)  # decided in server.chapter_info
         # A second opinion on breaks: MangaBaka lists the series as "hiatus".
         hiatus = bool(info.get("hiatus")) and m["status"] == "RELEASING" and not limited
-        quiet = quiet_for > 0 or hiatus
+        # Dormant (see server.dormant_days): years without a chapter. Not "on break" any more: a break is
+        # a pause we expect to end, so a dormant series sends no break alerts.
+        dormant = bool(info.get("dormant")) and not limited
+        dormant_for = info.get("dormantDays", 0) if dormant else 0
+        quiet = (quiet_for > 0 or hiatus) and not dormant
         new_state = {
             "hiatus": hiatus,
             "countOnly": bool(info.get("countOnly")),
@@ -362,6 +379,8 @@ def check(series_path, state_path, dry):
             "history": info.get("history", []),
             "quiet": quiet,
             "quietDays": quiet_for,
+            "dormant": dormant,
+            "dormantDays": dormant_for,
         }
 
         if old is None:
@@ -370,6 +389,7 @@ def check(series_path, state_path, dry):
             event("first_seen", chapter=chapter, source=info.get("source"), status=m["status"])
         else:
             was_quiet = old.get("quiet", False)
+            change = dormancy_change(old, dormant)
             delta = chapter_delta(old.get("chapter"), chapter)
             # Only compare like with like: the same source as last time, and a series
             # that is actually running. Switching sources is a data correction.
@@ -380,7 +400,9 @@ def check(series_path, state_path, dry):
                 # A real new chapter. (A drop or a big jump is just us switching to a
                 # better source, a data correction, so it never triggers an alert.)
                 link = f"\n{url}" if url else ""
-                if was_quiet:
+                if old.get("dormant"):
+                    say("back", f"▶️ **{name}** is back after years of silence: chapter **{chapter}**{link}")
+                elif was_quiet:
                     say("back", f"▶️ **{name}** is back from break: chapter **{chapter}**{link}")
                 else:
                     say("chapter", f"📖 **{name}**: new chapter **{chapter}**{link}")
@@ -396,6 +418,12 @@ def check(series_path, state_path, dry):
                     )
                 else:  # only the hiatus listing says so
                     say("break", f"⏸️ **{name}** is listed as on hiatus (last chapter {chapter})")
+            if change == "dormant":
+                say(
+                    "dormant",
+                    f"💤 **{name}**: no new chapter for over {dormant_for // 365} years, marked dormant "
+                    f"(the author may never return; last was {chapter})",
+                )
             if m["status"] != old.get("status"):
                 say("status", f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList")
 
@@ -407,8 +435,12 @@ def check(series_path, state_path, dry):
                 event("source_change", chapter=chapter, previous=old.get("chapter"), source=info["source"], previousSource=old["source"])
             if quiet and not was_quiet:
                 event("break_start", reason="dates" if quiet_for else "hiatus", quietDays=quiet_for or None, chapter=chapter)
-            elif was_quiet and not quiet:
+            elif was_quiet and not quiet and not dormant:  # (a break that became dormant did not end)
                 event("break_end", chapter=chapter)
+            if change in ("dormant", "dormant_silent"):
+                event("dormant", chapter=chapter, dormantDays=dormant_for)
+            elif change == "revived":
+                event("revived", chapter=chapter)
             if m["status"] != old.get("status"):
                 event("status", previous=old.get("status"), status=m["status"])
         new_state_map[str(m["id"])] = new_state
@@ -440,6 +472,7 @@ def check(series_path, state_path, dry):
         "notes": health_notes(server.STATS, len(series), lookup_failed),
         "tracked": len(new_state_map),
         "on_break": sum(1 for v in new_state_map.values() if v["quiet"]),
+        "dormant": sum(1 for v in new_state_map.values() if v["dormant"]),
     }
 
 
@@ -544,7 +577,7 @@ def main():
         print(f"{len(result['events'])} event(s) {'would be ' if args.dry else ''}logged to history.jsonl")
     items, notes = result["messages"], result["notes"]
     digest = build_digest(
-        items, notes, tracked=result["tracked"], on_break=result["on_break"],
+        items, notes, tracked=result["tracked"], on_break=result["on_break"], dormant=result["dormant"],
         always=os.environ.get("DIGEST_ALWAYS") == "1",  # a repo variable: also send an "all quiet" day
     )
     if not digest:

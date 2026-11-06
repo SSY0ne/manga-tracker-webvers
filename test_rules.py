@@ -519,6 +519,93 @@ class AnyLanguageFallback(unittest.TestCase):
         self.assertEqual(r["chapter"], "366")
 
 
+class DormantRule(unittest.TestCase):
+    """No chapter for 5 years: the author has probably stopped (Nana since 2009, Vagabond since 2015)."""
+
+    YEARS = 5 * 365
+
+    def test_the_limit_is_five_years(self):
+        self.assertEqual(server.dormant_days("RELEASING", day(self.YEARS - 1)), 0)
+        self.assertEqual(server.dormant_days("RELEASING", day(self.YEARS)), self.YEARS)  # exactly 5 years: dormant
+        self.assertEqual(server.dormant_days("HIATUS", day(self.YEARS + 100)), self.YEARS + 100)
+
+    def test_only_a_series_still_listed_as_running_can_be_dormant(self):
+        for status in ("FINISHED", "CANCELLED", "NOT_YET_RELEASED", None):
+            self.assertEqual(server.dormant_days(status, day(9000)), 0, status)
+
+    def test_without_a_date_nothing_is_claimed(self):
+        self.assertEqual(server.dormant_days("RELEASING", None), 0)
+
+    def test_the_limit_can_be_changed(self):
+        self.assertGreater(server.dormant_days("RELEASING", day(800), years=2), 0)
+        self.assertEqual(server.dormant_days("RELEASING", day(800), years=3), 0)
+
+    def test_an_old_upload_date_is_evidence_only_when_it_is_the_counted_last_chapter(self):
+        stale = rel(server.ANY_LANGUAGE, 327, 2900)
+        self.assertEqual(server.last_upload_evidence([cnt(327)], stale), stale["publishedAt"])   # Vagabond
+        self.assertIsNone(server.last_upload_evidence([cnt(327)], rel(server.ANY_LANGUAGE, 400, 2900)))  # another numbering, far above
+        self.assertIsNone(server.last_upload_evidence([cnt(327)], rel(server.ANY_LANGUAGE, 100, 2900)))  # an old chapter
+        self.assertIsNone(server.last_upload_evidence([], stale))                                          # no count to check
+        self.assertIsNone(server.last_upload_evidence([cnt(327)], None))
+
+    def info(self, status, sources, fallback=None):
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}), \
+                mock.patch("time.sleep"), mock.patch.object(server, "mangadex_any_language_candidate", lambda *a: fallback):
+            return server.chapter_info(1, ["x"], status=status)
+
+    def test_a_release_feed_with_a_date_years_ago_makes_it_dormant(self):
+        r = self.info("RELEASING", [("MangaBaka", lambda *a: cnt(84, status="hiatus")), ("MangaUpdates", lambda *a: rel("MangaUpdates", 84, 6000))])
+        self.assertTrue(r["dormant"])
+        self.assertGreaterEqual(r["dormantDays"], 6000)
+
+    def test_a_series_that_is_merely_on_break_is_not_dormant(self):
+        r = self.info("RELEASING", [("MangaBaka", lambda *a: cnt(420, status="hiatus")), ("MangaUpdates", lambda *a: rel("MangaUpdates", 420, 60))])
+        self.assertFalse(r["dormant"])
+        self.assertEqual(r["dormantDays"], 0)
+
+    def test_a_count_only_series_is_dormant_when_the_refused_late_upload_proves_it(self):
+        # Vagabond: nothing fits, MangaDex has chapter 327 "dated" 2018 in Spanish
+        sources = [("MangaBaka", lambda *a: cnt(327)), ("MangaDex", lambda *a: rel("MangaDex", 303, 2000))]
+        r = self.info("RELEASING", sources, fallback=rel(server.ANY_LANGUAGE, 327, 2900))
+        self.assertTrue(r["dormant"])
+        self.assertTrue(r["countOnly"])
+
+    def test_the_same_series_without_that_evidence_is_not_declared_dormant(self):
+        sources = [("MangaBaka", lambda *a: cnt(327)), ("MangaDex", lambda *a: rel("MangaDex", 303, 2000))]
+        self.assertFalse(self.info("RELEASING", sources, fallback=None)["dormant"])
+
+    def test_a_finished_series_is_never_dormant(self):
+        r = self.info("FINISHED", [("MangaBaka", lambda *a: cnt(84)), ("MangaUpdates", lambda *a: rel("MangaUpdates", 84, 6000))])
+        self.assertFalse(r["dormant"])
+
+    def test_limited_data_claims_nothing(self):
+        r = self.info("RELEASING", [("MangaDex", lambda *a: rel("MangaDex", 4, 30))])
+        r2 = server.reconcile([rel("MangaDex", 4, 30)], read=373, status="RELEASING")
+        self.assertTrue(r2["limited"])
+        self.assertFalse(r["dormant"])
+
+
+class DormancyInTheBot(unittest.TestCase):
+    def test_the_transitions(self):
+        self.assertEqual(check.dormancy_change({"dormant": False}, True), "dormant")
+        self.assertEqual(check.dormancy_change({}, True), "dormant_silent")     # first run with the rule: no announcement
+        self.assertEqual(check.dormancy_change({"dormant": True}, True), None)  # still dormant: nothing new
+        self.assertEqual(check.dormancy_change({"dormant": True}, False), "revived")
+        self.assertIsNone(check.dormancy_change({"dormant": False}, False))
+        self.assertIsNone(check.dormancy_change({}, False))
+
+    def test_a_dormant_notice_goes_to_those_who_want_break_news_but_not_to_muted_series(self):
+        self.assertTrue(check.should_alert("dormant", None))
+        self.assertTrue(check.should_alert("dormant", "breaks"))
+        self.assertFalse(check.should_alert("dormant", "off"))
+
+    def test_the_digest_has_a_dormant_section_and_count(self):
+        text = check.build_digest([("dormant", "💤 **Nana**: no new chapter for over 17 years")], tracked=40, on_break=4, dormant=2)
+        self.assertIn("**Now dormant (1)**", text)
+        self.assertIn("Tracking 40 series · 4 on break · 2 dormant", text)
+        self.assertNotIn("dormant", check.build_digest([("chapter", "x")], tracked=40, on_break=4).split("Tracking")[1])
+
+
 class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
     """chapter_info() must return quietDays, because the bot and the page both trust it."""
 

@@ -11,6 +11,9 @@
     python3 devtools.py compare NAME...   ask every source LIVE for these series (title contains NAME) and
                                           print what state.json says now next to what the code says today
     python3 devtools.py compare --all     the same for every series (about 3 minutes)
+    python3 devtools.py preview [STATE]   serve a COPY of the site on :8125 using the newest sandbox state.json (or
+                                          STATE), to see a change in the browser before the bot has run
+    python3 devtools.py preview stop      stop that preview server
 
 `sandbox` never touches your real files and never sends a notification, so it is the safe
 way to try a change (new source, new rule, a different import) and read the result.
@@ -66,6 +69,7 @@ def report(state_path=None):
         ("CONFLICT (freshest kept)", [v for v in series.values() if v.get("agreement") == "conflict"]),
         ("LIMITED (releasing, no source fits)", [v for v in series.values() if v.get("limited")]),
         ("ON BREAK?", [v for v in series.values() if v.get("quiet")]),
+        ("DORMANT (5+ years without a chapter)", [v for v in series.values() if v.get("dormant")]),
     ):
         if rows:
             print(f"\n{label}:")
@@ -187,6 +191,44 @@ def sandbox(xml=None):
     report(state)
 
 
+PREVIEW_PORT = 8125
+
+
+def preview(state=None):
+    """The page with data it doesn't have yet: copy the site files and a state.json (default: the newest
+    sandbox run) to a temp folder and serve it on :8125 (never cached, never touching the real files)."""
+    import glob
+
+    if state is None:
+        found = sorted(glob.glob(os.path.join(tempfile.gettempdir(), "manga-sandbox-*", "state.json")), key=os.path.getmtime)
+        found += sorted(glob.glob("/var/folders/*/*/T/manga-sandbox-*/state.json"), key=os.path.getmtime)
+        if not found:
+            print("No sandbox run yet: run `python3 devtools.py sandbox` first, or pass a state.json path.")
+            return
+        state = found[-1]
+    folder = tempfile.mkdtemp(prefix="manga-preview-")
+    for name in ("index.html", "app.js", "style.css", "manifest.webmanifest", "series.json", "history.jsonl"):
+        shutil.copy(os.path.join(HERE, name), folder)
+    shutil.copytree(os.path.join(HERE, "assets"), os.path.join(folder, "assets"))
+    shutil.copy(state, os.path.join(folder, "state.json"))
+    stop_preview()
+    code = (
+        "import functools, http.server, sys\n"
+        "class H(http.server.SimpleHTTPRequestHandler):\n"
+        "    def end_headers(self):\n"
+        "        self.send_header('Cache-Control', 'no-store'); super().end_headers()\n"
+        "    def log_message(self, *a): pass\n"
+        f"http.server.ThreadingHTTPServer(('127.0.0.1', {PREVIEW_PORT}), functools.partial(H, directory={folder!r})).serve_forever()\n"
+    )
+    subprocess.Popen([sys.executable, "-c", code], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    time.sleep(1)
+    print(f"preview of {state}\n  -> http://127.0.0.1:{PREVIEW_PORT}/index.html   (stop it with: python3 devtools.py preview stop)")
+
+
+def stop_preview():
+    subprocess.run(["pkill", "-f", f"ThreadingHTTPServer\\(\\('127.0.0.1', {PREVIEW_PORT}\\)"], capture_output=True)
+
+
 ANILIST_FIELDS = "id title { romaji english } synonyms startDate { year } status"
 
 
@@ -227,7 +269,7 @@ def compare(needles, everything=False):
         mark = "  " if now == before else "<>"
         changed += now != before
         srcs = " ".join(f"{x['name'][:4]}:{x['chapter']}{'' if x['plausible'] else 'x'}" for x in new.get("sources", []))
-        print(f"{mark} {s['title'][:24]:24} state.json: ch {before[0]} {before[1]} {before[2]}  |  now: ch {now[0]} {now[1]} {now[2]} (rhythm {new.get('typicalGapDays')}, quiet {new.get('quietDays')})  [{srcs}]")
+        print(f"{mark} {s['title'][:24]:24} state.json: ch {before[0]} {before[1]} {before[2]}  |  now: ch {now[0]} {now[1]} {now[2]} (rhythm {new.get('typicalGapDays')}, quiet {new.get('quietDays')}{', DORMANT ' + str(new['dormantDays'] // 365) + 'y' if new.get('dormant') else ''})  [{srcs}]")
     print(f"\n{changed} of {len(chosen)} differ from state.json (<> marks them).")
 
 
@@ -243,6 +285,11 @@ if __name__ == "__main__":
         match(sys.argv[2])
     elif cmd == "restart":
         restart()
+    elif cmd == "preview":
+        if len(sys.argv) > 2 and sys.argv[2] == "stop":
+            stop_preview()
+        else:
+            preview(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "compare":
         names = [a for a in sys.argv[2:] if not a.startswith("--")]
         compare(names, everything="--all" in sys.argv)
