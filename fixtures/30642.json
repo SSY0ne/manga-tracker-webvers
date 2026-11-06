@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2025-07-25",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "224",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2025-07-25",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 30
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 30,
    "url": "https://www.mangaupdates.com/series/cql4c43/vinland-saga"
+  },
+  "Shikimori": {
+   "chapter": "224",
+   "chapterNum": 224.0,
+   "ended": "2025-07-25",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/642-vinland-saga"
   },
   "Webtoon": null
  },

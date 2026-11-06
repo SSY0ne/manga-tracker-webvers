@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2020-08-31",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -37,6 +38,13 @@
     "chapter": "141",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2020-07-02",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -145,6 +153,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/ubbm79n/sweet-home-kim-carnby"
+  },
+  "Shikimori": {
+   "chapter": "141",
+   "chapterNum": 141.0,
+   "ended": "2020-07-02",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/124845-sweet-home"
   },
   "Webtoon": {
    "chapter": "14",

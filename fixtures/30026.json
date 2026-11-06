@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-09-06",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": true,
   "limited": false,
   "quietDays": 60,
@@ -87,6 +88,13 @@
     "chapter": "420",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 4
@@ -229,6 +237,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/mpt5n3o/hunter-x-hunter"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z26-hunter-x-hunter"
   },
   "Webtoon": null
  },

@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -29,6 +30,13 @@
     "chapter": "4",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -78,6 +86,20 @@
   },
   "MangaDex": null,
   "MangaUpdates": null,
+  "Shikimori": {
+   "chapter": "4",
+   "chapterNum": 4.0,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/93748-sekai-no-owari-no-hajimari-ni"
+  },
   "Webtoon": null
  },
  "status": "FINISHED",

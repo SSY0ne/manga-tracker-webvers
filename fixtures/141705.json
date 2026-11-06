@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-10-30",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -92,6 +93,13 @@
     "chapter": "5",
     "name": "Webtoon",
     "plausible": false
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 4
@@ -218,6 +226,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 4,
    "url": "https://www.mangaupdates.com/series/oug0awj/reality-quest"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/151157-reality-quest"
   },
   "Webtoon": {
    "chapter": "5",

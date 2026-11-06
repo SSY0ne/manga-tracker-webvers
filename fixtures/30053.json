@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "176",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "1994-07-12",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/ss3rlmi/yu-yu-hakusho"
+  },
+  "Shikimori": {
+   "chapter": "176",
+   "chapterNum": 176.0,
+   "ended": "1994-07-12",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/53-yuu-yuu-hakusho"
   },
   "Webtoon": null
  },

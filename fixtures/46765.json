@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -25,6 +26,13 @@
     "chapter": "832",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": null
@@ -107,6 +115,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 12,
    "url": "https://www.mangaupdates.com/series/1zitx1c/kingdom"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/16765-kingdom"
   },
   "Webtoon": null
  },

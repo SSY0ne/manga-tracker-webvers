@@ -411,7 +411,7 @@ function tileSubtitle(e) {
   if (e.chapter) {
     // For a series on break the date is old news: say WHY it is flagged instead.
     const q = isDormant(e) ? e.dormantDays : quietDays(e);
-    const why = q ? `${fmtQuiet(q)} quiet` : onHiatus(e) ? "listed as hiatus" : null;
+    const why = q ? `${fmtQuiet(q)} quiet` : isDormant(e) ? "listed as discontinued" : onHiatus(e) ? "listed as hiatus" : null;
     if (why) return `Ch. ${e.chapter} · ${why}`;
     return `Ch. ${e.chapter}` + (e.publishedAt ? ` · ${fmtShort(new Date(e.publishedAt))}` : "");
   }
@@ -652,7 +652,16 @@ function renderDetail(e) {
   if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
     facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
   }
-  if (isDormant(e)) facts.append(fact("Dormant", `${fmtQuiet(e.dormantDays)} without a chapter: the author may never return`));
+  if (isDormant(e)) {
+    facts.append(
+      fact("Dormant", e.dormantDays ? `${fmtQuiet(e.dormantDays)} without a chapter: the author may never return` : "listed as discontinued: the author may never return")
+    );
+  }
+  for (const v of e.statusVotes || []) {
+    if (v.status === "hiatus" || v.status === "discontinued") {
+      facts.append(fact(`${v.name} says`, `${v.status === "hiatus" ? "paused" : "discontinued"}${v.ended ? ` (last chapter ${v.ended})` : ""}`));
+    }
+  }
   else if (quiet) facts.append(fact("On break?", `${fmtQuiet(quiet)} without a chapter`));
   else if (onHiatus(e)) facts.append(fact("On break?", "listed as hiatus"));
   main.append(facts);
@@ -1556,6 +1565,7 @@ const SOURCE_ROLE = {
   MangaBaka: "chapter count + hiatus + ids",
   Webtoon: "official episodes + dates",
   Kitsu: "chapter count + end date (finished)",
+  Shikimori: "status (paused / discontinued) + last chapter date, not a count",
   AniList: "chapter count (finished)",
   "MangaDex (any language)": "fallback for a running series with no English chapters",
 };

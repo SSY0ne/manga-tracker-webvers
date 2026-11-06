@@ -13,6 +13,8 @@
     python3 devtools.py compare --all     the same for every series (about 3 minutes)
     python3 devtools.py record NAME...    freeze what every source says NOW for these series into fixtures/ (--all, or
                                           --id 123 456 for series that are not in series.json); needs the network
+    python3 devtools.py record-source SRC ask ONE source (e.g. Shikimori) live for every fixture and store its answer, so a
+                                          newly added source gets into the recorded series; then review with replay
     python3 devtools.py replay            run the CURRENT rules on every fixture, offline, and show what changed
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
     python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
@@ -319,6 +321,8 @@ MUTATIONS = [
     ("server.py", 'if status == "FINISHED" and c["kind"] == "release" and n_counts >= 2', 'if False and c["kind"] == "release" and n_counts >= 2', "a finished series accepts releases far above its count"),
     ("server.py", "    if not keep_decimals:\n", "    if False:\n", "bonus decimal chapters are no longer ignored"),
     ("server.py", "BREAK_EXTRA_DAYS = 35", "BREAK_EXTRA_DAYS = 14", "the on-break rule is impatient again (14 days)"),
+    ("server.py", 'any(v["status"] in ("hiatus", "discontinued") for v in status_votes)', "False", "Shikimori's paused status no longer counts as a hiatus vote"),
+    ("server.py", 'result.get("publishedAt") or paused_last or last_evidence', 'result.get("publishedAt") or last_evidence', "a paused series' last-chapter date from Shikimori is ignored"),
     ("server.py", "BREAK_MULT = 3.0", "BREAK_MULT = 1.0", "the on-break multiple is dropped"),
     ("server.py", 'count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])', 'count = max([c["chapterNum"] for c in counts if c["chapterNum"]], default=0)', "the count consensus takes the maximum, not the lower median"),
 ]
@@ -630,6 +634,27 @@ def mutate():
     print(f"\n{survived} not caught" if survived else "\nevery breakage was caught")
 
 
+def record_source(name):
+    import corpus
+    import server
+
+    if name not in dict(server.SOURCES):
+        print(f"No source called {name}. Known: {', '.join(n for n, _ in server.SOURCES)}")
+        return
+    done = 0
+    for fx in corpus.load_all():
+        try:
+            c = corpus.record_source_into(fx, name)
+        except Exception as err:
+            print(f"{fx['title'][:30]:30} FAILED: {err}")
+            continue
+        corpus.save(fx)
+        done += 1
+        print(f"{fx['title'][:30]:30} {name}: " + (f"{c['status']} (last chapter {c.get('ended')}, ch {c.get('chapter')})" if c else "nothing"), flush=True)
+        time.sleep(0.3)
+    print(f"\n{done} fixtures now hold a {name} answer. Next: python3 devtools.py replay")
+
+
 def replay_all(update=False):
     import corpus
 
@@ -720,6 +745,8 @@ if __name__ == "__main__":
         score(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "mutate":
         mutate()
+    elif cmd == "record-source":
+        record_source(sys.argv[2] if len(sys.argv) > 2 else "")
     elif cmd == "replay":
         sys.exit(replay_all(update="--update" in sys.argv))
     elif cmd == "preview":

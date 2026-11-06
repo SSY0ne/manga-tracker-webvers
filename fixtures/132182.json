@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2026-07-12",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "250",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2026-07-13",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/3wv666d/ao-no-hako"
+  },
+  "Shikimori": {
+   "chapter": "250",
+   "chapterNum": 250.0,
+   "ended": "2026-07-13",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/135545-ao-no-hako"
   },
   "Webtoon": null
  },

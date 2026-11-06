@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2026-03-08",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -37,6 +38,13 @@
     "chapter": "25",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2026-03-09",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -185,6 +193,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/du3m917/jujutsu-kaisen-modulo"
+  },
+  "Shikimori": {
+   "chapter": "25",
+   "chapterNum": 25.0,
+   "ended": "2026-03-09",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/186597-jujutsu-kaisen-modulo"
   },
   "Webtoon": null
  },

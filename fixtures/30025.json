@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -41,6 +42,13 @@
     "chapter": "116",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2010-09-11",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -149,6 +157,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 3,
    "url": "https://www.mangaupdates.com/series/8q91xb4/hagane-no-renkinjutsushi"
+  },
+  "Shikimori": {
+   "chapter": "116",
+   "chapterNum": 116.0,
+   "ended": "2010-09-11",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z25-fullmetal-alchemist"
   },
   "Webtoon": {
    "chapter": "163",

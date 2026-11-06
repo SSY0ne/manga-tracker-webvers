@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2025-10-15",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": true,
   "limited": false,
   "quietDays": 387,
@@ -22,6 +23,13 @@
     "chapter": "147",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 14
@@ -104,6 +112,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 14,
    "url": "https://www.mangaupdates.com/series/ugf5dzu/sousou-no-frieren"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/126287-sousou-no-frieren"
   },
   "Webtoon": null
  },

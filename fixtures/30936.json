@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -40,6 +41,13 @@
     "chapter": "166",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2011-02-21",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -128,6 +136,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": null,
    "url": "https://www.mangaupdates.com/series/7fpp2m1/homunculus"
+  },
+  "Shikimori": {
+   "chapter": "166",
+   "chapterNum": 166.0,
+   "ended": "2011-02-21",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/936-homunculus"
   },
   "Webtoon": null
  },

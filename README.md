@@ -37,6 +37,11 @@ like it is on break.
     `"decimals": true` in `series.json` (or the checkbox in the detail panel).
   - **Upload dates are not release dates.** For a finished series a date after its last chapter (Kitsu
     knows it) is dropped, so Tokyo Ghoul:re (ended 2018) doesn't show "Aug 2026".
+  - **Shikimori is a status source, not a vote.** It mirrors MyAnimeList, so its chapter counts are the same
+    ones AniList, Kitsu and MangaBaka already copy and are never counted. It adds two facts: its status
+    (`paused` or `discontinued`, MyAnimeList's hiatus and "the author stopped") is a second hiatus vote, and
+    `released_on` is the date of the last chapter (Vagabond 2015-05-21, which makes its dormant age exact:
+    11 years). A `discontinued` listing marks a running series Dormant straight away.
   - **Licensed series: any language.** English chapters vanish when a series is licensed (Blue Lock's stop
     at 177, Spanish and Portuguese uploads are at 367). For a RUNNING series where nothing else fits,
     MangaDex is read in every language (chapter numbers are the same). It is a guarded fallback: the
@@ -242,5 +247,5 @@ python3 check.py --no-send            # same check on the real files: saves stat
 ## Data sources
 
 [AniList](https://anilist.co/) GraphQL API for titles, covers, status and finished-series chapter counts;
-[MangaDex](https://api.mangadex.org/docs/), [MangaUpdates](https://api.mangaupdates.com/), [MangaBaka](https://mangabaka.org/) and [Kitsu](https://kitsu.docs.apiary.io/) APIs and Webtoon's public RSS feeds for chapters, counts and dates. Only metadata and
+[MangaDex](https://api.mangadex.org/docs/), [MangaUpdates](https://api.mangaupdates.com/), [MangaBaka](https://mangabaka.org/), [Kitsu](https://kitsu.docs.apiary.io/) and [Shikimori](https://shikimori.one/api/doc) APIs and Webtoon's public RSS feeds for chapters, counts and dates. Only metadata and
 links to official sources are used.

@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2026-11-05",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -27,6 +28,13 @@
     "chapter": "620",
     "name": "Webtoon",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 6
@@ -109,6 +117,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/0udr4gz/lookism"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/111202-lookism"
   },
   "Webtoon": {
    "chapter": "620",

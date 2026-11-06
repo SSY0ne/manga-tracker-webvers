@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2019-01-01",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -37,6 +38,13 @@
     "chapter": "544",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2019-01-07",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -145,6 +153,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/snvji36/noblesse"
+  },
+  "Shikimori": {
+   "chapter": "544",
+   "chapterNum": 544.0,
+   "ended": "2019-01-07",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/29983-noblesse"
   },
   "Webtoon": {
    "chapter": "50",

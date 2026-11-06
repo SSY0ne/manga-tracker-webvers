@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -39,6 +40,13 @@
     "chapter": "171",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2024-11-14",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -207,6 +215,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/89n01s3/oshi-no-ko"
+  },
+  "Shikimori": {
+   "chapter": "171",
+   "chapterNum": 171.0,
+   "ended": "2024-11-14",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/126146-oshi-no-ko"
   },
   "Webtoon": null
  },

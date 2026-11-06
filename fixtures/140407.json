@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2026-04-01",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -42,6 +43,13 @@
     "chapter": "222",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2026-01-01",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -174,6 +182,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 4,
    "url": "https://www.mangaupdates.com/series/chin5uq/the-greatest-estate-developer"
+  },
+  "Shikimori": {
+   "chapter": "222",
+   "chapterNum": 222.0,
+   "ended": "2026-01-01",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/147272-the-greatest-estate-developer"
   },
   "Webtoon": {
    "chapter": "7",

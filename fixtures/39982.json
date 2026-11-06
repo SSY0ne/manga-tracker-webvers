@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -39,6 +40,13 @@
     "chapter": "539",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2017-12-21",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -207,6 +215,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 5,
    "url": "https://www.mangaupdates.com/series/ekvmelp/usogui"
+  },
+  "Shikimori": {
+   "chapter": "541",
+   "chapterNum": 541.0,
+   "ended": "2017-12-21",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/9982-usogui"
   },
   "Webtoon": null
  },

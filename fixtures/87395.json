@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-09-10",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -94,6 +95,13 @@
     "chapter": "112",
     "name": "MangaDex (any language)",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 30
@@ -212,6 +220,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 29,
    "url": "https://www.mangaupdates.com/series/u63f9zm/grand-blue"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/70345-grand-blue"
   },
   "Webtoon": null
  },

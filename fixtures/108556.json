@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-10-25",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -87,6 +88,13 @@
     "chapter": "142",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 10
@@ -229,6 +237,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 14,
    "url": "https://www.mangaupdates.com/series/v5is1fi/spy-x-family"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/119161-spy-x-family"
   },
   "Webtoon": null
  },

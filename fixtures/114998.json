@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -35,6 +36,13 @@
     "chapter": "22",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2022-01-26",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -143,6 +151,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 1,
    "url": "https://www.mangaupdates.com/series/2mwv8yr/bungou-stray-dogs-beast"
+  },
+  "Shikimori": {
+   "chapter": "22",
+   "chapterNum": 22.0,
+   "ended": "2022-01-26",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/123006-bungou-stray-dogs-beast"
   },
   "Webtoon": null
  },

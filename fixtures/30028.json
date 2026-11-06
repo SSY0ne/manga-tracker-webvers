@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2009-05-26",
   "dormant": true,
+  "dormantDays": 6373,
   "hiatus": true,
   "limited": false,
   "quietDays": 6373,
@@ -89,6 +90,13 @@
     "chapter": "84",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2009-05-26",
+    "name": "Shikimori",
+    "status": "hiatus"
    }
   ],
   "typicalGapDays": 28
@@ -195,6 +203,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 28,
    "url": "https://www.mangaupdates.com/series/ov4rpc8/nana"
+  },
+  "Shikimori": {
+   "chapter": "84",
+   "chapterNum": 84.0,
+   "ended": "2009-05-26",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/28-nana"
   },
   "Webtoon": null
  },

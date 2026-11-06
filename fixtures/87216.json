@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2020-05-17",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "207",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2020-05-18",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 6
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/gnv09ie/kimetsu-no-yaiba"
+  },
+  "Shikimori": {
+   "chapter": "207",
+   "chapterNum": 207.0,
+   "ended": "2020-05-18",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z96792-kimetsu-no-yaiba"
   },
   "Webtoon": null
  },

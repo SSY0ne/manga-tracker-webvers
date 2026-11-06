@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -29,6 +30,13 @@
     "chapter": "162",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2001-12-20",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -78,6 +86,20 @@
   },
   "MangaDex": null,
   "MangaUpdates": null,
+  "Shikimori": {
+   "chapter": "162",
+   "chapterNum": 162.0,
+   "ended": "2001-12-20",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/1-monster"
+  },
   "Webtoon": null
  },
  "status": "FINISHED",

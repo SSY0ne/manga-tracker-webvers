@@ -51,7 +51,7 @@ def frozen_datetime(when_iso):
 
 # ---------- replay ----------
 
-GOLDEN_KEYS = ("chapter", "agreement", "source", "countOnly", "hiatus", "dormant", "limited", "quietDays", "typicalGapDays", "rules")
+GOLDEN_KEYS = ("chapter", "agreement", "source", "countOnly", "hiatus", "dormant", "limited", "quietDays", "typicalGapDays", "rules", "dormantDays", "statusVotes")
 
 
 def snapshot(result):
@@ -151,6 +151,16 @@ def score(set_name=None):
 
 
 # ---------- recording (live) ----------
+
+def record_source_into(fx, name):
+    """Ask ONE source (live) for an existing fixture and store its answer, without touching the rest.
+    How a newly added source gets into the recorded series without re-recording all of them."""
+    fetch = dict(server.SOURCES)[name]
+    with mock.patch.object(server, "_cache", {}):
+        fx["sources"][name] = fetch(fx["id"], fx["titles"], fx.get("year"))
+    return fx["sources"][name]
+
+
 
 def record_live(al_id, titles, year, status, read=None, gap=None, matches=None, title=None, decimals=False):
     """Ask every source for real and freeze the answers. Needs the network."""

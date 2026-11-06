@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-03-03",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": true,
   "limited": false,
   "quietDays": 248,
@@ -87,6 +88,13 @@
     "chapter": "1515",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 8
@@ -217,6 +225,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 8,
    "url": "https://www.mangaupdates.com/series/9ft0dv5/hajime-no-ippo"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/7-hajime-no-ippo"
   },
   "Webtoon": null
  },

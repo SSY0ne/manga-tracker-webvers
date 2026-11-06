@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-10-28",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -82,6 +83,13 @@
     "chapter": "240",
     "name": "MangaUpdates",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 14
@@ -164,6 +172,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 14,
    "url": "https://www.mangaupdates.com/series/e1096mh/one-punch-man"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z44347-one-punch-man"
   },
   "Webtoon": null
  },

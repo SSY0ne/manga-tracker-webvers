@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -24,6 +25,13 @@
     "chapter": "7",
     "name": "MangaUpdates",
     "plausible": false
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": null
@@ -106,6 +114,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/auem2hr/yotsuba-to"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/104-yotsuba-to"
   },
   "Webtoon": null
  },

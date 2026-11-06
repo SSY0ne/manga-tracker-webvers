@@ -67,6 +67,7 @@
   "countOnly": true,
   "date": null,
   "dormant": true,
+  "dormantDays": 4187,
   "hiatus": true,
   "limited": false,
   "quietDays": 0,
@@ -92,6 +93,13 @@
     "chapter": "2",
     "name": "MangaUpdates",
     "plausible": false
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2015-05-21",
+    "name": "Shikimori",
+    "status": "hiatus"
    }
   ],
   "typicalGapDays": null
@@ -234,6 +242,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 18,
    "url": "https://www.mangaupdates.com/series/su6blie/vagabond"
+  },
+  "Shikimori": {
+   "chapter": "327",
+   "chapterNum": 327.0,
+   "ended": "2015-05-21",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "hiatus",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/656-vagabond"
   },
   "Webtoon": null
  },

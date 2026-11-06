@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -36,6 +37,13 @@
     "chapter": "191",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2018-09-12",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -144,6 +152,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 9,
    "url": "https://www.mangaupdates.com/series/xfuhued/dorohedoro"
+  },
+  "Shikimori": {
+   "chapter": "190",
+   "chapterNum": 190.0,
+   "ended": "2018-09-12",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/1133-dorohedoro"
   },
   "Webtoon": null
  },

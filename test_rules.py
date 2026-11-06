@@ -540,6 +540,12 @@ class DormantRule(unittest.TestCase):
         for status in ("FINISHED", "CANCELLED", "NOT_YET_RELEASED", None):
             self.assertEqual(server.dormant_days(status, day(9000)), 0, status)
 
+    def test_a_date_without_a_time_works(self):
+        from datetime import date
+        d = (datetime.now(timezone.utc) - timedelta(days=self.YEARS + 10)).date().isoformat()  # e.g. "2015-05-21"
+        self.assertEqual(len(d), 10)
+        self.assertGreaterEqual(server.dormant_days("RELEASING", d), self.YEARS)
+
     def test_without_a_date_nothing_is_claimed(self):
         self.assertEqual(server.dormant_days("RELEASING", None), 0)
 
@@ -651,7 +657,7 @@ class RuleFootprint(unittest.TestCase):
         self.assertIn("any_language", used["rules"])
 
     def test_every_rule_has_a_label(self):
-        for rule in ("count_vote", "stale_feed", "lagging_feed", "highest_chapter", "upload_date_dropped", "any_language", "any_language_refused", "dormant", "count_only", "above_finished_count", "decimal_ignored"):
+        for rule in ("count_vote", "stale_feed", "lagging_feed", "highest_chapter", "upload_date_dropped", "any_language", "any_language_refused", "dormant", "count_only", "above_finished_count", "decimal_ignored", "status_vote"):
             self.assertIn(rule, server.RULE_LABELS)
 
 
@@ -762,6 +768,86 @@ class BonusChapters(unittest.TestCase):
         r = self.info(True)
         self.assertEqual(r["chapter"], "205.5")
         self.assertNotIn("decimal_ignored", r["rules"])
+
+
+def vote(status, ended=None, chapter=None):
+    """A ready-made Shikimori 'status' candidate."""
+    return {
+        "kind": "status", "source": "Shikimori", "official": False,
+        "chapter": str(chapter) if chapter else None, "chapterNum": float(chapter) if chapter else None,
+        "publishedAt": None, "status": status, "ended": ended, "url": "https://shikimori.io/mangas/1",
+        "typicalGapDays": None, "expectedNext": None, "history": [],
+    }
+
+
+class ShikimoriStatusSource(unittest.TestCase):
+    """Shikimori mirrors MyAnimeList: its chapter counts are NOT a vote, its status and last date are evidence."""
+
+    def candidate(self, payload, mal=656):
+        record = {"source": {"my_anime_list": {"id": mal}}} if mal else {"source": {}}
+        with mock.patch.object(server, "mb_data", lambda *a: record), mock.patch.object(server, "http_json", lambda *a, **k: payload):
+            return server.shikimori_candidate(1, ["x"], None)
+
+    def test_it_reads_status_and_last_chapter_date(self):
+        c = self.candidate({"status": "paused", "chapters": 327, "released_on": "2015-05-21", "url": "/mangas/656-vagabond"})
+        self.assertEqual((c["kind"], c["status"], c["ended"], c["chapter"]), ("status", "hiatus", "2015-05-21", "327"))
+        self.assertEqual(c["url"], "https://shikimori.io/mangas/656-vagabond")
+
+    def test_the_status_words_are_translated(self):
+        for theirs, ours in (("ongoing", "releasing"), ("released", "finished"), ("paused", "hiatus"), ("discontinued", "discontinued")):
+            self.assertEqual(self.candidate({"status": theirs, "chapters": 0, "url": "/m"})["status"], ours)
+
+    def test_zero_chapters_means_not_tracked(self):
+        self.assertIsNone(self.candidate({"status": "ongoing", "chapters": 0, "url": "/m"})["chapterNum"])
+
+    def test_no_my_anime_list_id_or_an_unknown_status_gives_nothing(self):
+        self.assertIsNone(self.candidate({"status": "ongoing"}, mal=None))
+        self.assertIsNone(self.candidate({"status": "something new", "url": "/m"}))
+
+    def test_its_chapter_count_never_enters_the_vote(self):
+        # three counts say 719-725; a Shikimori 724 must not move the consensus or show up as a source
+        base = [cnt(725), cnt(719, source="Kitsu"), cnt(725, source="AniList")]
+        without = server.reconcile(base, None, "FINISHED")
+        with_vote = server.reconcile(base + [vote("finished", "2013-07-29", chapter=1000)], None, "FINISHED")
+        self.assertEqual(without["chapter"], with_vote["chapter"])
+        self.assertEqual([s["name"] for s in without["sources"]], [s["name"] for s in with_vote["sources"]])
+
+    def test_paused_is_a_hiatus_vote_next_to_mangabaka(self):
+        r = server.reconcile([cnt(84), rel("MangaUpdates", 84, 6000), vote("hiatus", "2009-05-26")], None, "RELEASING")
+        self.assertTrue(r["hiatus"])
+        self.assertIn("status_vote", r["rules"])                 # MangaBaka did not say so: only Shikimori did
+        self.assertEqual(r["statusVotes"][0]["status"], "hiatus")
+        both = server.reconcile([cnt(84, status="hiatus"), rel("MangaUpdates", 84, 6000), vote("hiatus")], None, "RELEASING")
+        self.assertNotIn("status_vote", both["rules"])           # no credit when MangaBaka already said it
+
+    def test_ongoing_or_finished_adds_no_hiatus(self):
+        self.assertFalse(server.reconcile([cnt(100), rel("MangaDex", 100, 3), vote("releasing")], None, "RELEASING")["hiatus"])
+
+    def test_its_end_date_removes_an_upload_date_for_a_finished_series(self):
+        # no Kitsu here: the end date from Shikimori alone is enough
+        r = server.reconcile([cnt(166), rel("MangaDex", 166, 70), vote("finished", "2024-11-14")], None, "FINISHED")
+        self.assertIsNone(r["publishedAt"])
+        self.assertIn("upload_date_dropped", r["rules"])
+
+    def info(self, status, votes_and_sources):
+        sources = [("S%d" % i, (lambda c: lambda *a: c)(c)) for i, c in enumerate(votes_and_sources)]
+        with mock.patch.object(server, "SOURCES", sources), mock.patch.object(server, "_cache", {}), \
+                mock.patch("time.sleep"), mock.patch.object(server, "mangadex_any_language_candidate", lambda *a: None):
+            return server.chapter_info(1, ["x"], status=status)
+
+    def test_a_paused_series_with_no_date_gets_its_age_from_shikimori(self):
+        # Vagabond: nothing else knows when the last chapter was; Shikimori says 2015-05-21
+        r = self.info("RELEASING", [cnt(327), rel("MangaDex", 303, 2000), vote("hiatus", "2015-05-21")])
+        self.assertTrue(r["dormant"])
+        self.assertGreater(r["dormantDays"], 4000)               # ~11 years, not a 2018 upload date's 8
+
+    def test_discontinued_means_dormant_without_counting_years(self):
+        r = self.info("RELEASING", [cnt(50), rel("MangaDex", 50, 10), vote("discontinued")])
+        self.assertTrue(r["dormant"])
+        self.assertEqual(r["dormantDays"], 0)                    # no years to show: the listing itself says so
+
+    def test_discontinued_does_nothing_for_a_finished_series(self):
+        self.assertFalse(self.info("FINISHED", [cnt(50), rel("MangaDex", 50, 10), vote("discontinued")])["dormant"])
 
 
 class TypicalGap(unittest.TestCase):

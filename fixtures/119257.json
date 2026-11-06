@@ -67,6 +67,7 @@
   "countOnly": null,
   "date": "2026-05-19",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": true,
   "limited": false,
   "quietDays": 171,
@@ -94,6 +95,13 @@
     "chapter": "308",
     "name": "Webtoon",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 6
@@ -204,6 +212,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/132214-omniscient-reader-s-viewpoint"
   },
   "Webtoon": {
    "chapter": "308",

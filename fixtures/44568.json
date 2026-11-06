@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -40,6 +41,13 @@
     "chapter": "401",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2015-10-15",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -208,6 +216,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 1,
    "url": "https://www.mangaupdates.com/series/zvovvo2/clover-tetsuhiro-hirakawa"
+  },
+  "Shikimori": {
+   "chapter": "401",
+   "chapterNum": 401.0,
+   "ended": "2015-10-15",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/14568-clover"
   },
   "Webtoon": null
  },

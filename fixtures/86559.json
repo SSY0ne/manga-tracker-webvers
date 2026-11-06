@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2022-04-28",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "314",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2022-04-28",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 6
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 6,
    "url": "https://www.mangaupdates.com/series/2vusaic/golden-kamui"
+  },
+  "Shikimori": {
+   "chapter": "314",
+   "chapterNum": 314.0,
+   "ended": "2022-04-28",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/85968-golden-kamuy"
   },
   "Webtoon": null
  },

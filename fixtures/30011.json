@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "700",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2014-11-10",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 1,
    "url": "https://www.mangaupdates.com/series/7z3yqqk/naruto"
+  },
+  "Shikimori": {
+   "chapter": "700",
+   "chapterNum": 700.0,
+   "ended": "2014-11-10",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z11-naruto"
   },
   "Webtoon": null
  },

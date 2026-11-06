@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2020-06-14",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "181",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2020-06-15",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/qwxz22l/yakusoku-no-neverland"
+  },
+  "Shikimori": {
+   "chapter": "181",
+   "chapterNum": 181.0,
+   "ended": "2020-06-15",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/z100128-yakusoku-no-neverland"
   },
   "Webtoon": null
  },

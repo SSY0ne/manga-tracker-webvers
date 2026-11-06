@@ -55,6 +55,7 @@
   "countOnly": null,
   "date": "2026-11-04",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -80,6 +81,13 @@
     "chapter": "249",
     "name": "Webtoon",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": null,
+    "name": "Shikimori",
+    "status": "releasing"
    }
   ],
   "typicalGapDays": 5
@@ -210,6 +218,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 5,
    "url": "https://www.mangaupdates.com/series/gsoa99l/manager-kim"
+  },
+  "Shikimori": {
+   "chapter": null,
+   "chapterNum": null,
+   "ended": null,
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "releasing",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/146879-manager-kim"
   },
   "Webtoon": {
    "chapter": "249",

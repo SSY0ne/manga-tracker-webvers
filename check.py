@@ -407,6 +407,7 @@ def check(series_path, state_path, dry):
             "dormant": dormant,
             "dormantDays": dormant_for,
             "rules": info.get("rules", []),  # which rules changed this answer (server.RULE_LABELS)
+            "statusVotes": info.get("statusVotes", []),  # Shikimori: paused / discontinued / last chapter date
         }
 
         if old is None:
@@ -445,11 +446,8 @@ def check(series_path, state_path, dry):
                 else:  # only the hiatus listing says so
                     say("break", f"⏸️ **{name}** is listed as on hiatus (last chapter {chapter})")
             if change == "dormant":
-                say(
-                    "dormant",
-                    f"💤 **{name}**: no new chapter for over {dormant_for // 365} years, marked dormant "
-                    f"(the author may never return; last was {chapter})",
-                )
+                since = f"no new chapter for over {dormant_for // 365} years" if dormant_for >= 365 else "listed as discontinued"
+                say("dormant", f"💤 **{name}**: {since}, marked dormant (the author may never return; last was {chapter})")
             if m["status"] != old.get("status"):
                 say("status", f"ℹ️ **{name}** is now {STATUS_TEXT.get(m['status'], m['status'])} on AniList")
 

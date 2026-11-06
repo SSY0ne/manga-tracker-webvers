@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2021-04-08",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "141",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2021-04-09",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 28
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 28,
    "url": "https://www.mangaupdates.com/series/aqw5kar/shingeki-no-kyojin"
+  },
+  "Shikimori": {
+   "chapter": "141",
+   "chapterNum": 141.0,
+   "ended": "2021-04-09",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/23390-shingeki-no-kyojin"
   },
   "Webtoon": null
  },

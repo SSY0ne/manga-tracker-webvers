@@ -7,6 +7,7 @@
   "countOnly": true,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "520",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "1995-05-23",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 20,
    "url": "https://www.mangaupdates.com/series/iitcsf0/dragon-ball"
+  },
+  "Shikimori": {
+   "chapter": "520",
+   "chapterNum": 520.0,
+   "ended": "1995-05-23",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/42-dragon-ball"
   },
   "Webtoon": null
  },

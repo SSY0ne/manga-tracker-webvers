@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2025-07-17",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -32,6 +33,13 @@
     "chapter": "129",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2025-07-18",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 14
@@ -140,6 +148,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 14,
    "url": "https://www.mangaupdates.com/series/8rwmnpj/kaijuu-8-gou"
+  },
+  "Shikimori": {
+   "chapter": "129",
+   "chapterNum": 129.0,
+   "ended": "2025-07-18",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/127907-kaijuu-8-gou"
   },
   "Webtoon": null
  },

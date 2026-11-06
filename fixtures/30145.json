@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "103",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2008-06-05",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 32,
    "url": "https://www.mangaupdates.com/series/q9z31ex/beck"
+  },
+  "Shikimori": {
+   "chapter": "103",
+   "chapterNum": 103.0,
+   "ended": "2008-06-05",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/145-beck"
   },
   "Webtoon": null
  },

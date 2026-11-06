@@ -46,6 +46,7 @@ MANGAUPDATES = "https://api.mangaupdates.com/v1"
 MANGABAKA = "https://api.mangabaka.org/v1"
 KITSU = "https://kitsu.io/api/edge"
 ANILIST = "https://graphql.anilist.co"
+SHIKIMORI = "https://shikimori.io/api"
 USER_AGENT = "manga-tracker-learning-project/0.1"
 CACHE_SECONDS = 15 * 60  # don't hit a source more than once per series per 15 min
 
@@ -289,6 +290,33 @@ def anilist_candidate(al_id, titles, year):
         "kind": "count", "source": "AniList", "official": False,
         "chapter": fmt_num(total), "chapterNum": total, "publishedAt": None,
         "url": f"https://anilist.co/manga/{al_id}",
+        "typicalGapDays": None, "expectedNext": None, "history": [],
+    }
+
+
+# ---------- source: Shikimori (status and last-chapter date, NOT a chapter vote) ----------
+# Shikimori is a MyAnimeList mirror: its chapter counts are MyAnimeList's, which AniList, Kitsu and MangaBaka
+# also copy, so counting them again would only strengthen one source's habits (Initial D 724, Dragon Ball 520).
+# What it adds: a status that says "paused" or "discontinued" (MyAnimeList's hiatus / discontinued) and
+# `released_on`, the date of the last chapter (Vagabond 2015-05-21, Demon Slayer 2020-05-18). So it is a
+# "status" candidate: reconcile() uses its status as a hiatus vote and its date as evidence, never its count.
+
+SHIKIMORI_STATUS = {"ongoing": "releasing", "released": "finished", "paused": "hiatus", "discontinued": "discontinued", "anons": "upcoming"}
+
+
+def shikimori_candidate(al_id, titles, year):
+    mal = (((mb_data(al_id, titles) or {}).get("source") or {}).get("my_anime_list") or {}).get("id")
+    if not mal:  # MangaBaka lists each series' MyAnimeList id: no title search needed
+        return None
+    r = http_json(f"{SHIKIMORI}/mangas/{int(mal)}")
+    status = SHIKIMORI_STATUS.get(r.get("status"))
+    if not status:
+        return None
+    chapters = chapter_number(r.get("chapters")) or None  # 0 means "not tracked" for a running series
+    return {
+        "kind": "status", "source": "Shikimori", "official": False,
+        "chapter": fmt_num(chapters) if chapters else None, "chapterNum": chapters, "publishedAt": None,
+        "status": status, "ended": r.get("released_on"), "url": f"https://shikimori.io{r.get('url', '')}",
         "typicalGapDays": None, "expectedNext": None, "history": [],
     }
 
@@ -554,8 +582,9 @@ SOURCES = [
     ("Webtoon", webtoon_candidate),
     ("Kitsu", kitsu_candidate),
     ("AniList", anilist_candidate),
+    ("Shikimori", shikimori_candidate),
 ]
-PRIORITY = {"Webtoon": 2, "MangaDex": 1, ANY_LANGUAGE: 0, "MangaUpdates": 0, "MangaBaka": -1, "Kitsu": -2, "AniList": -3}
+PRIORITY = {"Webtoon": 2, "MangaDex": 1, ANY_LANGUAGE: 0, "MangaUpdates": 0, "MangaBaka": -1, "Kitsu": -2, "AniList": -3, "Shikimori": -4}
 FINISHED_ONLY = {"Kitsu", "AniList"}  # they have no chapter count for a series that is still running
 
 
@@ -582,7 +611,8 @@ RULE_LABELS = {
     "decimal_ignored": "a bonus chapter (like 205.5) was ignored for the whole chapter",
     "any_language": "MangaDex in any language was used",
     "any_language_refused": "the any-language answer was refused (too old or too high)",
-    "dormant": "marked dormant (years without a chapter)",
+    "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
+    "status_vote": "Shikimori's paused/discontinued listing set the hiatus flag",
     "count_only": "no release feed fits: count only",
 }
 
@@ -647,13 +677,16 @@ def reconcile(candidates, read, status):
     hiatus = MangaBaka lists the series as on hiatus (a status vote besides our date rule).
     """
     candidates = [c for c in candidates if c]
+    status_votes = [c for c in candidates if c["kind"] == "status"]  # Shikimori: a hiatus vote and a date, never a count
+    candidates = [c for c in candidates if c["kind"] != "status"]
     counts = [c for c in candidates if c["kind"] == "count"]
     count = lower_median([c["chapterNum"] for c in counts if c["chapterNum"]])
     n_counts = sum(1 for c in counts if c["chapterNum"])
     release_top = max((c["chapterNum"] for c in candidates if c["kind"] == "release" and c["chapterNum"]), default=0)
     top = max(release_top, count)
     horizon = datetime.now(timezone.utc) + timedelta(days=1)
-    hiatus = any(c.get("status") == "hiatus" for c in counts)
+    count_hiatus = any(c.get("status") == "hiatus" for c in counts)
+    hiatus = count_hiatus or any(v["status"] in ("hiatus", "discontinued") for v in status_votes)
 
     def verdict(c):
         """None if the candidate fits, else why it does not (the rule that refused it)."""
@@ -683,6 +716,8 @@ def reconcile(candidates, read, status):
     # Which rules changed this answer (see RULE_LABELS): recorded so a rule that suddenly fires on many
     # series, or never fires, shows up in the Health tab and the digest.
     rules = sorted({v for v in (verdict(c) for c in candidates) if v in ("count_vote", "stale_feed", "above_finished_count")})
+    if hiatus and not count_hiatus:
+        rules.append("status_vote")  # only Shikimori's paused/discontinued listing says so
     summary = [
         {
             "name": c["source"],
@@ -693,7 +728,10 @@ def reconcile(candidates, read, status):
         }
         for c in candidates
     ]
-    base = {"hiatus": hiatus, "sources": summary, "rules": rules}
+    base = {
+        "hiatus": hiatus, "sources": summary, "rules": rules,
+        "statusVotes": [{"name": v["source"], "status": v["status"], "ended": v.get("ended")} for v in status_votes],
+    }
     releases = [c for c in good if c["kind"] == "release"]
     good_counts = [c for c in good if c["kind"] == "count"]
 
@@ -731,7 +769,7 @@ def reconcile(candidates, read, status):
         ended = next(
             (c["ended"] for c in good_counts if c.get("ended") and abs(c["chapterNum"] - best["chapterNum"]) <= 0.05 * best["chapterNum"]),
             None,
-        )
+        ) or next((v["ended"] for v in status_votes if v["status"] == "finished" and v.get("ended")), None)
         if status == "FINISHED" and ended and ended[:4].isdigit() and parse_time(best["publishedAt"]).year > int(ended[:4]):
             result.update({"publishedAt": None, "typicalGapDays": None, "expectedNext": None, "history": [], "dateDropped": True})
             rules.append("upload_date_dropped")
@@ -848,8 +886,15 @@ def chapter_info(al_id, titles, year=None, read=None, status=None, matches=None,
     )
 
     # Dormant: so long without a chapter that the author has probably stopped (see dormant_days).
-    result["dormantDays"] = 0 if result.get("limited") else dormant_days(status, result.get("publishedAt") or last_evidence)
-    result["dormant"] = result["dormantDays"] > 0
+    # A paused series' last chapter date from Shikimori beats a late-upload lower bound (Vagabond: 2015, not 2018).
+    votes = result.get("statusVotes") or []
+    paused_last = next((v["ended"] for v in votes if v["status"] in ("hiatus", "discontinued") and v.get("ended")), None)
+    result["dormantDays"] = 0 if result.get("limited") else dormant_days(status, result.get("publishedAt") or paused_last or last_evidence)
+    # "Discontinued" (MyAnimeList's own word for: the author has stopped) needs no years to count.
+    declared = (
+        any(v["status"] == "discontinued" for v in votes) and status in ("RELEASING", "HIATUS") and not result.get("limited")
+    )
+    result["dormant"] = result["dormantDays"] > 0 or declared
     if result["dormant"]:
         result["rules"] = sorted(set(result["rules"]) | {"dormant"})
 
@@ -905,6 +950,8 @@ def dormant_days(status, last_iso, years=DORMANT_YEARS):
     dormant one has not been declared over by anyone, it has just gone silent for years."""
     if status not in ("RELEASING", "HIATUS") or not last_iso:
         return 0
+    if len(last_iso) == 10:  # a date without a time ("2015-05-21", as Shikimori gives it): midnight UTC
+        last_iso += "T00:00:00+00:00"
     days = (datetime.now(timezone.utc) - parse_time(last_iso)).days
     return days if days >= years * 365 else 0
 

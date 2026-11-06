@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": null,
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -34,6 +35,13 @@
     "chapter": "137",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2006-11-20",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": null
@@ -142,6 +150,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 4,
    "url": "https://www.mangaupdates.com/series/a2ax9yb/fruits-basket"
+  },
+  "Shikimori": {
+   "chapter": "136",
+   "chapterNum": 136.0,
+   "ended": "2006-11-20",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/102-fruits-basket"
   },
   "Webtoon": null
  },

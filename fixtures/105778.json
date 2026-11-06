@@ -7,6 +7,7 @@
   "countOnly": null,
   "date": "2026-03-24",
   "dormant": false,
+  "dormantDays": 0,
   "hiatus": false,
   "limited": false,
   "quietDays": 0,
@@ -37,6 +38,13 @@
     "chapter": "232",
     "name": "AniList",
     "plausible": true
+   }
+  ],
+  "statusVotes": [
+   {
+    "ended": "2026-03-25",
+    "name": "Shikimori",
+    "status": "finished"
    }
   ],
   "typicalGapDays": 7
@@ -205,6 +213,20 @@
    "source": "MangaUpdates",
    "typicalGapDays": 7,
    "url": "https://www.mangaupdates.com/series/ylx5wzn/chainsaw-man"
+  },
+  "Shikimori": {
+   "chapter": "232",
+   "chapterNum": 232.0,
+   "ended": "2026-03-25",
+   "expectedNext": null,
+   "history": [],
+   "kind": "status",
+   "official": false,
+   "publishedAt": null,
+   "source": "Shikimori",
+   "status": "finished",
+   "typicalGapDays": null,
+   "url": "https://shikimori.io/mangas/116778-chainsaw-man"
   },
   "Webtoon": null
  },
