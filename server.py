@@ -110,6 +110,15 @@ def http_json(url, body=None, accept="application/json"):
         return json.load(res)
 
 
+def typical_gap(days):
+    """The usual number of days between releases: the lower quartile of the last 10 gaps between release
+    days (sorted dates), or None with fewer than 4 gaps. Breaks only ever make a gap LONGER, so the
+    short gaps show the real rhythm (a weekly series that skips weeks still says 7)."""
+    gaps = [(b - a).days for a, b in zip(days, days[1:])]
+    recent = sorted(gaps[-10:])
+    return recent[(len(recent) - 1) // 4] if len(gaps) >= 4 else None
+
+
 def build_candidate(source, pairs, series_url, official=False, newest="time"):
     """Turn (chapter text, ISO time, link or None) rows from ONE release source into a candidate.
 
@@ -141,9 +150,7 @@ def build_candidate(source, pairs, series_url, official=False, newest="time"):
     num, (published, link) = ordered[0]
 
     days = sorted({parse_time(t).date() for _, (t, _) in ordered})
-    gaps = [(b - a).days for a, b in zip(days, days[1:])]
-    recent = sorted(gaps[-10:])
-    typical = recent[(len(recent) - 1) // 4] if len(gaps) >= 4 else None
+    typical = typical_gap(days)
     expected = None
     if typical:
         expected = datetime.fromtimestamp(

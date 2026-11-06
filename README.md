@@ -196,6 +196,9 @@ were built on and the hold-out set; `python3 devtools.py score` compares answers
 series (19 seconds): a threshold nothing reacts to is safe, one that flips many series is a guess the answers
 lean on. It names the series sitting near each edge.
 
+`python3 devtools.py backtest` replays the history log: it predicts each chapter's date from the chapters before it
+(the real rule) and checks how the "on break" flag would have behaved. It gets better as the bot adds real events.
+
 `fixtures/truth.json` holds what the web says (each with its source). A truth marked `enforced` fails
 the tests when the code disagrees; known misses (Initial D: 725, the web says 719) are listed but not enforced.
 

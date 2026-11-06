@@ -17,6 +17,9 @@
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
     python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
                                           sourced truth for finished series); one polite request per title
+    python3 devtools.py backtest          check the rhythm and break rules against what really happened in history.jsonl:
+                                          predict each chapter's date from the earlier ones, and see how the "on break"
+                                          flag would have behaved. Gets better as the daily bot adds real events.
     python3 devtools.py sensitivity       move each threshold of the rules (x0.5 ... x2) and see which recorded series change
                                           and which web-checked truths flip: a threshold nothing reacts to is safe,
                                           one that flips many series is a guess you are leaning on
@@ -474,6 +477,64 @@ def sensitivity():
     print("A column with many changes at x0.75 or x1.25 = the answers lean on a guess: it needs better evidence.")
 
 
+def backtest():
+    """Predict each chapter's release day from the chapters BEFORE it (the real rule, server.typical_gap)
+    and compare with the day it came out. Also: would the "on break" flag have fired inside each gap?
+    The dates are the ones in history.jsonl: upload or release days as the sources reported them, so
+    this measures how well the rule fits the data we actually have, not the author's real schedule."""
+    import datetime as dt
+    import statistics
+
+    import server
+
+    events = [json.loads(l) for l in open(os.path.join(HERE, "history.jsonl")) if l.strip()]
+    state = json.load(open(os.path.join(HERE, "state.json"))).get("series", {})
+    by_series = {}
+    for e in events:
+        # A finished series' dates are the days copies were uploaded, in bulk: not a release rhythm.
+        if e["type"] == "chapter" and (state.get(str(e["id"])) or {}).get("status") != "FINISHED":
+            by_series.setdefault(e["id"], {"title": e["title"], "days": {}})["days"][e["chapter"]] = server.parse_time(e["t"]).date()
+    ours, naive_last, naive_mean, flags, per_series = [], [], [], [], {}
+    for sid, s in by_series.items():
+        days = sorted(set(s["days"].values()))
+        for i in range(5, len(days)):  # needs 4 earlier gaps, like the real rule
+            before, actual = days[:i], days[i]
+            typical = server.typical_gap(before)
+            if not typical:
+                continue
+            last_gap = (before[-1] - before[-2]).days
+            mean_gap = round(statistics.mean((b - a).days for a, b in zip(before, before[1:])))
+            err = lambda predicted: (actual - (before[-1] + dt.timedelta(days=predicted))).days
+            ours.append((err(typical), typical, s["title"]))
+            naive_last.append(abs(err(last_gap)))
+            naive_mean.append(abs(err(mean_gap)))
+            per_series.setdefault(s["title"], []).append(abs(err(typical)))
+            limit = max(2.5 * typical, typical + 14)
+            gap = (actual - before[-1]).days
+            flags.append((gap >= limit, gap - limit, typical, s["title"]))
+    if not ours:
+        print("Not enough dated chapters in history.jsonl for a backtest.")
+        return
+    pct = lambda xs, k: f"{100 * sum(1 for x in xs if x <= k) // len(xs)}%"
+    a = [abs(e[0]) for e in ours]
+    print(f"{len(ours)} predictions over {len(per_series)} running series (each uses only the chapters before it; finished series left out)\n")
+    print(f"{'next-chapter date prediction':36} {'median error':>13} {'within 2 days':>14} {'within 7 days':>14}")
+    for label, xs in (("the rhythm rule (lower quartile)", a), ("baseline: repeat the last gap", naive_last), ("baseline: the average gap", naive_mean)):
+        print(f"{label:36} {statistics.median(xs):>10.0f} d {pct(xs, 2):>14} {pct(xs, 7):>14}")
+    weekly = [abs(e[0]) for e in ours if e[1] <= 9]
+    if weekly and len(weekly) < len(a):
+        print(f"{'  (rhythm rule, weekly series only)':36} {statistics.median(weekly):>10.0f} d {pct(weekly, 2):>14} {pct(weekly, 7):>14}   [{len(weekly)} predictions]")
+    worst = sorted(per_series.items(), key=lambda kv: -statistics.median(kv[1]))[:5]
+    print("\nworst fitting series (median error in days): " + ", ".join(f"{t} {statistics.median(v):.0f}" for t, v in worst))
+    fired = [f for f in flags if f[0]]
+    print(f"\n\"on break\" flag: it would have fired inside {len(fired)} of {len(flags)} gaps between chapters ({100 * len(fired) // len(flags)}%).")
+    if fired:
+        extra = [f[1] for f in fired]
+        print(f"  once it fired, the next chapter came {statistics.median(extra):.0f} days later (median); "
+              f"{pct(extra, 14)} within 14 days (a flag that would have been a false alarm), {pct(extra, 28)} within 28 days.")
+        print("  series with flags: " + ", ".join(sorted({f[3] for f in fired})[:10]))
+
+
 def rules_footprint():
     import corpus
     import server
@@ -603,6 +664,8 @@ if __name__ == "__main__":
         record(sys.argv[2:])
     elif cmd == "wiki":
         wiki(sys.argv[2:])
+    elif cmd == "backtest":
+        backtest()
     elif cmd == "sensitivity":
         sensitivity()
     elif cmd == "rules":

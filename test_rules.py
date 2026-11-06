@@ -674,6 +674,27 @@ class RuleFootprintInTheBot(unittest.TestCase):
         self.assertEqual(len(check.rule_notes({"fresh_rule": 6}, {"count_vote": 1}, 40)), 1)
 
 
+class TypicalGap(unittest.TestCase):
+    """server.typical_gap: the rhythm the on-break rule and the backtest both use."""
+
+    def days(self, *gaps):
+        from datetime import date, timedelta
+        out = [date(2026, 1, 1)]
+        for g in gaps:
+            out.append(out[-1] + timedelta(days=g))
+        return out
+
+    def test_too_little_history_gives_no_rhythm(self):
+        self.assertIsNone(server.typical_gap(self.days(7, 7, 7)))        # 3 gaps
+        self.assertEqual(server.typical_gap(self.days(7, 7, 7, 7)), 7)   # 4 gaps
+
+    def test_breaks_do_not_change_the_rhythm_because_the_short_gaps_win(self):
+        self.assertEqual(server.typical_gap(self.days(7, 7, 28, 7, 14, 7, 7, 42, 7, 7)), 7)
+
+    def test_only_the_last_ten_gaps_count(self):
+        self.assertEqual(server.typical_gap(self.days(30, 30, 30, *([7] * 10))), 7)
+
+
 class ChapterInfoIsTheOnlyPlaceOfTheBreakRule(unittest.TestCase):
     """chapter_info() must return quietDays, because the bot and the page both trust it."""
 
