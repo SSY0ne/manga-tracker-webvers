@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T14:47:24+00:00",
+  "checkedAt": "2026-11-06T19:31:14+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 119,
+      "quietDays": 120,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 60,
+      "quietDays": 61,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -3963,9 +3963,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-06T14:47:24+00:00",
-    "finishedAt": "2026-11-06T14:50:27+00:00",
-    "durationSec": 183,
+    "startedAt": "2026-11-06T19:31:14+00:00",
+    "finishedAt": "2026-11-06T19:34:08+00:00",
+    "durationSec": 174,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3975,7 +3975,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 48.2,
+        "seconds": 43.5,
         "errors": []
       },
       "MangaDex": {
@@ -3984,7 +3984,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.9,
+        "seconds": 19.0,
         "errors": []
       },
       "MangaUpdates": {
@@ -3993,7 +3993,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.9,
+        "seconds": 17.3,
         "errors": []
       },
       "Webtoon": {
@@ -4002,7 +4002,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 8.1,
+        "seconds": 6.7,
         "errors": []
       },
       "Shikimori": {
@@ -4011,7 +4011,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 23.2,
+        "seconds": 18.7,
         "errors": []
       },
       "Kitsu": {
@@ -4020,7 +4020,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 4.6,
+        "seconds": 5.2,
         "errors": []
       },
       "AniList": {
@@ -4029,7 +4029,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.3,
+        "seconds": 1.6,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4038,7 +4038,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.9,
+        "seconds": 3.2,
         "errors": []
       }
     },
