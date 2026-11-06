@@ -184,8 +184,8 @@ input[type="search"]:focus, input[type="number"]:focus, select:focus { outline: 
 .chip.new { color: #fff; background: linear-gradient(135deg, #7a68ff, #ff6b9d); }
 .conflict-pill {
   position: absolute;
-  top: 9px;
-  right: 9px;
+  bottom: 12px; /* bottom-left: the top corners hold the status tag, bottom-right the "+N behind" pill */
+  left: 9px;
   z-index: 1;
   min-width: 22px;
   padding: 1px 6px;

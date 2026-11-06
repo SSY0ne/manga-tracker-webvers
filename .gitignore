@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .env
+
+# a calendar file downloaded from the Calendar tab
+*.ics
