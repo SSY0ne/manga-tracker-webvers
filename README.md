@@ -192,6 +192,10 @@ the answer for many more series than on the previous run (the data or the rule c
 `python3 devtools.py rules` shows the footprint on the recorded series, split into the series the rules
 were built on and the hold-out set; `python3 devtools.py score` compares answers with the web-checked truths.
 
+`python3 devtools.py sensitivity` moves each threshold of the rules (x0.5 to x2) and replays every recorded
+series (19 seconds): a threshold nothing reacts to is safe, one that flips many series is a guess the answers
+lean on. It names the series sitting near each edge.
+
 `fixtures/truth.json` holds what the web says (each with its source). A truth marked `enforced` fails
 the tests when the code disagrees; known misses (Initial D: 725, the web says 719) are listed but not enforced.
 

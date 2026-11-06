@@ -17,6 +17,9 @@
     python3 devtools.py replay --update   ...and accept the changes as the new expected output
     python3 devtools.py wiki TITLE...     what English Wikipedia's article says about the chapter count (the best
                                           sourced truth for finished series); one polite request per title
+    python3 devtools.py sensitivity       move each threshold of the rules (x0.5 ... x2) and see which recorded series change
+                                          and which web-checked truths flip: a threshold nothing reacts to is safe,
+                                          one that flips many series is a guess you are leaning on
     python3 devtools.py rules             how many recorded series each rule changes (the rule footprint), per set, and which
                                           series the rare ones touch: a rule that fires for almost nothing is a candidate to remove
     python3 devtools.py score [SET]       how often the current rules agree with the web-checked truths, per set
@@ -376,6 +379,101 @@ def score(set_name=None):
     print(f"\n{len(left)} recorded series have no web-checked truth yet (they count for nothing here).")
 
 
+def _num(x):
+    return str(int(x)) if abs(x - round(x)) < 1e-9 else f"{x:.3f}".rstrip("0").rstrip(".")
+
+
+# (name, text in server.py, base value, how to write the moved value). Every pattern must occur as written.
+THRESHOLDS = [
+    ("count outvoted beyond (fraction)", "> 0.05 * count", 0.05, lambda v: f"> {_num(v)} * count"),
+    ("feed counts as stale below (x count)", 'c["chapterNum"] < 0.8 * count', 0.8, lambda v: f'c["chapterNum"] < {_num(min(v, 0.99))} * count'),
+    ("candidate refused below (x highest)", 'c["chapterNum"] < 0.5 * top', 0.5, lambda v: f'c["chapterNum"] < {_num(min(v, 0.99))} * top'),
+    ("candidate refused below (x chapters you read)", 'c["chapterNum"] < 0.8 * read', 0.8, lambda v: f'c["chapterNum"] < {_num(min(v, 0.99))} * read'),
+    ("lone feed lagging: behind by (fraction)", 'best["chapterNum"] < 0.95 * count', 0.05, lambda v: f'best["chapterNum"] < {_num(1 - min(v, 0.9))} * count'),
+    ("lone feed lagging: and by more than (chapters)", 'count - best["chapterNum"] > 5', 5, lambda v: f'count - best["chapterNum"] > {_num(v)}'),
+    ("any-language answer too old after (days)", "ANY_LANGUAGE_MAX_AGE_DAYS = 120", 120, lambda v: f"ANY_LANGUAGE_MAX_AGE_DAYS = {_num(v)}"),
+    ("any-language answer too high: above (x count)", "cand[\"chapterNum\"] > 1.1 * count + 5", 0.1, lambda v: f'cand["chapterNum"] > {_num(1 + v)} * count + 5'),
+    ("dormant after (years)", 'os.environ.get("DORMANT_YEARS", "5")', 5, lambda v: f'os.environ.get("DORMANT_YEARS", "{_num(v)}")'),
+    ("on break: x its usual gap", "2.5 * typical_gap", 2.5, lambda v: f"{_num(v)} * typical_gap"),
+    ("on break: or its gap plus (days)", "typical_gap + 14", 14, lambda v: f"typical_gap + {_num(v)}"),
+    ("on break without a rhythm after (weeks)", 'os.environ.get("BREAK_WEEKS", "6")', 6, lambda v: f'os.environ.get("BREAK_WEEKS", "{round(v)}")'),  # a whole number of weeks
+]
+FACTORS = (0.5, 0.75, 1.25, 1.5, 2)
+
+_REPLAY_ALL = (
+    "import json, corpus\n"
+    "truth = corpus.load_truth(); out = {}\n"
+    "for fx in corpus.load_all():\n"
+    "    result, snap = corpus.replay(fx)\n"
+    "    t = truth.get(str(fx['id']))\n"
+    "    out[str(fx['id'])] = {'title': fx['title'], 'view': [snap['chapter'], snap['agreement'], snap['source'], snap['dormant'], (snap['quietDays'] or 0) > 0],\n"
+    "                          'truth': corpus.check_truth(t, result)[0] if t else None}\n"
+    "print(json.dumps(out))\n"
+)
+
+
+def _replay_in(folder):
+    r = subprocess.run([sys.executable, "-c", _REPLAY_ALL], cwd=folder, capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    return json.loads(r.stdout.strip().splitlines()[-1])
+
+
+def sensitivity():
+    """Move each threshold and replay every recorded series. 'changed' = the answer differs from today's
+    (chapter, how sure, source, dormant, on break); 'truths' = web-checked truths that start (+) or stop (-) agreeing."""
+    import glob
+
+    def scratch(old_text=None, new_text=None):
+        tmp = tempfile.mkdtemp(prefix="manga-sens-")
+        for f in glob.glob(os.path.join(HERE, "*.py")):
+            shutil.copy(f, tmp)
+        shutil.copytree(os.path.join(HERE, "fixtures"), os.path.join(tmp, "fixtures"))
+        if old_text:
+            text = open(os.path.join(tmp, "server.py")).read()
+            if old_text not in text:
+                shutil.rmtree(tmp, ignore_errors=True)
+                return None
+            open(os.path.join(tmp, "server.py"), "w").write(text.replace(old_text, new_text))
+        return tmp
+
+    base_dir = scratch()
+    base = _replay_in(base_dir)
+    shutil.rmtree(base_dir, ignore_errors=True)
+    n = len(base)
+    print(f"{n} recorded series. For each threshold: how many answers change when it moves (and truths gained/lost).\n")
+    header = "".join(f"{'x' + _num(f):>12}" for f in FACTORS)
+    print(f"{'threshold (today)':58}{header}")
+    near = []  # (threshold, series that change for a 25% move either way)
+    for name, pattern, value, make in THRESHOLDS:
+        cells, touched = [], set()
+        for f in FACTORS:
+            folder = scratch(pattern, make(value * f))
+            if folder is None:
+                cells.append("pattern?")
+                continue
+            got = _replay_in(folder)
+            shutil.rmtree(folder, ignore_errors=True)
+            if got is None:
+                cells.append("error")
+                continue
+            changed = [k for k in base if base[k]["view"] != got[k]["view"]]
+            gained = sum(1 for k in base if base[k]["truth"] is False and got[k]["truth"])
+            lost = sum(1 for k in base if base[k]["truth"] and got[k]["truth"] is False)
+            if f in (0.75, 1.25):
+                touched.update(base[k]["title"] for k in changed)
+            cells.append(f"{len(changed)}" + (f" (+{gained}/-{lost})" if gained or lost else ""))
+        print(f"{name + ' (' + _num(value) + ')':58}" + "".join(f"{c:>12}" for c in cells))
+        if touched:
+            near.append((name, sorted(touched)))
+    if near:
+        print("\nSeries that change for a 25% move (these sit near the edge of that threshold):")
+        for name, titles in near:
+            print(f"  {name}: {', '.join(titles[:8])}{' ...' if len(titles) > 8 else ''}")
+    print("\n0 everywhere = nothing recorded reacts to it (safe, or not covered by any recorded series).")
+    print("A column with many changes at x0.75 or x1.25 = the answers lean on a guess: it needs better evidence.")
+
+
 def rules_footprint():
     import corpus
     import server
@@ -505,6 +603,8 @@ if __name__ == "__main__":
         record(sys.argv[2:])
     elif cmd == "wiki":
         wiki(sys.argv[2:])
+    elif cmd == "sensitivity":
+        sensitivity()
     elif cmd == "rules":
         rules_footprint()
     elif cmd == "score":
