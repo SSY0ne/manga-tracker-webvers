@@ -33,6 +33,11 @@ let mineEntries = [];
 function personal() {
   return canEdit || viewMode === "mine";
 }
+// The Calendar, Activity and Health tabs describe what the daily bot tracks (the owner's list), so a
+// visitor looking at My list still sees those, not a list with no release dates.
+function botEntries() {
+  return canEdit ? entries : sampleEntries;
+}
 let checkedAt = null;
 let health = null;
 let lastResults = [];
@@ -109,7 +114,10 @@ function sourcesLine(e) {
         : e.agreement === "single"
           ? `1 source: ${used}`
           : e.agreement === "count"
-            ? `Count only (${used}): no release feed fits`
+            ? `Count only (${used}): no release feed fits` +
+              (list.some((s) => s.kind === "count" && !s.plausible)
+                ? `, ${list.filter((s) => s.kind === "count" && !s.plausible).map((s) => s.name).join(" and ")} outvoted`
+                : "")
             : "No reliable source";
   const detail = list
     .map((s) => {
@@ -749,7 +757,7 @@ const SHOW = {
   onbreak: isOnBreak,
   new: isNew,
   behind: (e) => behindShown(e) > 0,
-  disagree: (e) => e.agreement === "conflict",
+  disagree: (e) => e.agreement === "conflict" || (e.sources || []).some((s) => s.kind === "count" && !s.plausible),
   count: (e) => e.countOnly === true,
   finished: (e) => e.status === "FINISHED",
 };
@@ -1350,7 +1358,7 @@ function toast(message, undo) {
 async function refreshNow() {
   const btn = document.getElementById("refresh");
   btn.disabled = true;
-  document.getElementById("list-msg").textContent = "Checking AniList and MangaDex...";
+  document.getElementById("list-msg").textContent = "Checking all the sources...";
   entries.forEach((e) => (e.pending = true));
   await fillLive(entries);
   checkedAt = new Date().toISOString();
@@ -1626,7 +1634,7 @@ function renderHealth() {
 
   // Coverage: how many sources back each series (from the data on the page)
   const usable = (e) => (e.sources || []).filter((s) => s.plausible).length;
-  const known = entries.filter((e) => (e.sources || []).length > 0);
+  const known = botEntries().filter((e) => (e.sources || []).length > 0);
   const bucket = (test) => known.filter((e) => test(usable(e)));
   const rows = [
     ["3 or more usable sources", bucket((n) => n >= 3).length],
@@ -1676,7 +1684,7 @@ function buildEvents() {
   const horizon = addDays(today, 120);
   const events = [];
 
-  for (const e of entries) {
+  for (const e of botEntries()) {
     if (isLimited(e)) continue; // no source can be trusted: keep it off the calendar
     for (const h of e.history || []) {
       events.push({ date: localDay(h.date), kind: "released", id: e.id, title: e.title, label: `${e.title} ch. ${h.chapter}` });
@@ -1715,7 +1723,7 @@ function renderCalendar() {
   const today = startOfDay(new Date());
 
   // Overdue
-  const overdue = entries.filter((e) => quietDays(e) || onHiatus(e));
+  const overdue = botEntries().filter((e) => quietDays(e) || onHiatus(e));
   document.getElementById("overdue-block").hidden = overdue.length === 0;
   document.getElementById("overdue").replaceChildren(
     ...overdue.map((e) => {
