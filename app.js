@@ -40,6 +40,8 @@ function botEntries() {
 }
 let checkedAt = null;
 let health = null;
+let reference = {}; // reference_counts.json: Wikipedia's chapter-list count for finished series (see reference.py)
+const REFERENCE_TOLERANCE = 0.10; // a Wikipedia number more than 10% away from the one shown is a page we misread: ignored
 let lastResults = [];
 let calMonth = firstOfMonth(new Date());
 
@@ -132,11 +134,25 @@ function sourcesLine(e) {
 // numbering don't count: they are listed in the detail panel.) Whole chapters only: 223.9 and 223 agree.
 // The tile gets a note when they are at least 2 apart; a difference of 1 is normal (extras are counted
 // differently) and only appears in the detail panel.
+// Wikipedia's chapter list as a REFERENCE for a finished series. It never changes the answer: it is one more
+// opinion in the "sources differ" note (it read Bleach as 686 where AniList, Kitsu and MangaBaka all say 706).
+// Only used when it is within REFERENCE_TOLERANCE of the chapter shown: further away means its page was misread.
+function wikipediaRef(e) {
+  const r = reference[String(e.id)];
+  const shown = parseFloat(e.chapter);
+  if (!r || !r.count || e.status !== "FINISHED" || !Number.isFinite(shown)) return null;
+  if (Math.abs(r.count - shown) > REFERENCE_TOLERANCE * shown) return null;
+  const url = (r.urls || [])[0] || "";
+  return { count: r.count, url: url.startsWith("https://en.wikipedia.org/") ? url : null };
+}
+
 function chapterSpread(e) {
   const nums = (e.sources || [])
     .filter((s) => s.plausible && s.chapter != null && s.kind !== "status")
     .map((s) => Math.floor(parseFloat(s.chapter)))
     .filter((n) => Number.isFinite(n));
+  const wiki = wikipediaRef(e);
+  if (wiki) nums.push(Math.floor(wiki.count));
   return nums.length > 1 ? { min: Math.min(...nums), max: Math.max(...nums) } : null;
 }
 const CONFLICT_AT = 2;
@@ -263,6 +279,7 @@ async function loadAll(onProgress) {
   loadProblem = null;
   const seriesFile = await fetchJSON("series.json");
   const stateFile = await fetchJSON("state.json");
+  reference = (await fetchJSON("reference_counts.json")) || {};
   if (seriesFile === null) {
     loadProblem = {
       level: "bad",
@@ -680,6 +697,19 @@ function renderDetail(e) {
   if (spread && spread.max > spread.min) {
     facts.append(fact("Sources differ", `${spread.min} to ${spread.max}: shown is ${e.chapter || "?"}${e.source ? ` (${e.source})` : ""}`));
   }
+  const wiki = wikipediaRef(e);
+  if (wiki && Math.floor(wiki.count) !== Math.floor(parseFloat(e.chapter))) {
+    const note = el("span");
+    if (wiki.url) {
+      const a = el("a", "", `${wiki.count} chapters`);
+      a.href = wiki.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      note.append(a);
+    } else note.append(`${wiki.count} chapters`);
+    note.append(" · its chapter list's highest numbered chapter, a reference: not what is shown");
+    facts.append(fact("Wikipedia says", note));
+  }
   if (e.typicalGapDays) facts.append(fact("Usually every", `${Math.round(e.typicalGapDays)} days`));
   if (e.expectedNext && e.status === "RELEASING" && !isOnBreak(e) && !isLimited(e)) {
     facts.append(fact("Next expected", `around ${fmtShort(parseDay(e.expectedNext))}`));
@@ -715,12 +745,12 @@ function renderDetail(e) {
 
   // What each source said
   const list = e.sources || [];
-  if (list.length && !e.pending) {
-    const src = sourcesLine(e);
+  if ((list.length && !e.pending) || wiki) {
+    const src = list.length && !e.pending ? sourcesLine(e) : null;
     const sec = el("div", "d-section");
     sec.append(el("h3", "", "Sources"));
     if (src) sec.append(el("div", `src-line ${src.kind === "agree" ? "src-agree" : src.kind === "conflict" ? "src-conflict" : ""}`, src.text));
-    list.forEach((s) => {
+    (e.pending ? [] : list).forEach((s) => {
       const row = el("div", "src-row" + (s.plausible ? "" : " bad"));
       const dot = el("span", `dot ${s.plausible ? (s.name === e.source ? "ok" : "") : "bad"}`);
       const kind = s.kind === "count" ? "count" : "dated";
@@ -732,6 +762,17 @@ function renderDetail(e) {
       );
       sec.append(row);
     });
+    if (wiki) {
+      const row = el("div", "src-row");
+      const name = wiki.url ? el("a", "nm", "Wikipedia") : el("span", "nm", "Wikipedia");
+      if (wiki.url) {
+        name.href = wiki.url;
+        name.target = "_blank";
+        name.rel = "noopener noreferrer";
+      }
+      row.append(el("span", "dot"), name, el("span", "ch", `ch. ${wiki.count} · chapter list`), el("span", "note", "reference only"));
+      sec.append(row);
+    }
     main.append(sec);
   }
 

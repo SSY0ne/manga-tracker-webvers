@@ -202,6 +202,15 @@ python3 devtools.py mutate             # break each rule on purpose and check th
 range and which source is shown, even for a difference of 1 (normal on finished series, where extras are counted
 differently). No source is trusted blindly: the page says so when they conflict.
 
+**Wikipedia as a reference** (`reference.py`, `reference_counts.json`): AniList, Kitsu, MangaBaka and Shikimori copy the
+same upstream list, which counts extras as chapters (Bleach 706, Initial D 725). For FINISHED series, `python3
+devtools.py reference` reads Wikipedia's "List of X chapters" pages once (slow, polite, resumable) and saves the highest
+numbered chapter with its source page and date; the daily bot never calls Wikipedia. It is shown only as one more
+opinion in the "sources differ" note, never as the answer: measured on the web-checked series it fixed Bleach,
+Initial D and Fullmetal Alchemist but also disagreed with the truth for Clover and Yu Yu Hakusho (net +1), and on
+some pages my parser misreads the numbering (20th Century Boys "13"). A Wikipedia number more than 10% away from the
+chapter shown is ignored as a misread page.
+
 `test_js.py` guards the page script itself (it once shipped with a syntax error that no Python test could see): it
 parses `app.js` and checks that every element id the script asks for exists in `index.html`.
 
