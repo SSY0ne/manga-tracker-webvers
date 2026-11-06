@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-05T09:54:46+00:00",
+  "checkedAt": "2026-11-06T11:20:06+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -195,7 +195,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 118
+      "quietDays": 119
     },
     "86123": {
       "hiatus": false,
@@ -230,6 +230,20 @@
           "kind": "release",
           "chapter": "392",
           "publishedAt": "2026-04-30T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "392",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "392",
+          "publishedAt": null,
           "plausible": true
         }
       ],
@@ -468,6 +482,20 @@
           "chapter": "16",
           "publishedAt": "2022-04-18T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "22",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "22",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -516,6 +544,20 @@
           "kind": "release",
           "chapter": "232",
           "publishedAt": "2026-03-24T00:00:00+00:00",
+          "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "97",
+          "publishedAt": null,
+          "plausible": false
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "232",
+          "publishedAt": null,
           "plausible": true
         }
       ],
@@ -593,14 +635,14 @@
         }
       },
       "agreement": "count",
-      "source": "MangaBaka",
+      "source": "Kitsu",
       "sources": [
         {
           "name": "MangaBaka",
           "kind": "count",
           "chapter": "487",
           "publishedAt": null,
-          "plausible": true
+          "plausible": false
         },
         {
           "name": "MangaDex",
@@ -615,15 +657,29 @@
           "chapter": "1",
           "publishedAt": "2019-12-21T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "401",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "401",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
       "title": "Clover",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx44568-5TSVZlJLcfab.png",
       "status": "FINISHED",
-      "chapter": "487",
+      "chapter": "401",
       "publishedAt": null,
-      "url": "https://mangabaka.org/manga/13228/Clover",
+      "url": "https://kitsu.io/manga/24953",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
@@ -979,7 +1035,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 247
+      "quietDays": 248
     },
     "30936": {
       "hiatus": false,
@@ -1015,6 +1071,20 @@
           "chapter": "106",
           "publishedAt": "2009-08-16T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "166",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "166",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -1126,7 +1196,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 59
+      "quietDays": 60
     },
     "137280": {
       "hiatus": false,
@@ -1261,6 +1331,20 @@
           "chapter": "4",
           "publishedAt": "2021-03-03T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "719",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "725",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -1408,6 +1492,20 @@
           "chapter": "25",
           "publishedAt": "2026-03-08T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "26",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "25",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -1506,6 +1604,20 @@
           "chapter": "122",
           "publishedAt": "2024-12-14T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "170",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "170",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -1513,60 +1625,11 @@
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx37375-wkgev4kXhamw.png",
       "status": "FINISHED",
       "chapter": "170",
-      "publishedAt": "2024-12-30T01:19:36+00:00",
+      "publishedAt": null,
       "url": "https://mangadex.org/chapter/d2bc6464-9e95-450d-ba52-f6571ef69898",
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [
-        {
-          "chapter": "170",
-          "date": "2024-12-30T01:19:36+00:00"
-        },
-        {
-          "chapter": "169",
-          "date": "2024-12-30T01:19:02+00:00"
-        },
-        {
-          "chapter": "168",
-          "date": "2024-12-30T01:18:28+00:00"
-        },
-        {
-          "chapter": "167",
-          "date": "2024-12-30T01:17:34+00:00"
-        },
-        {
-          "chapter": "166",
-          "date": "2024-12-30T01:16:49+00:00"
-        },
-        {
-          "chapter": "165",
-          "date": "2024-12-30T01:16:31+00:00"
-        },
-        {
-          "chapter": "164",
-          "date": "2024-12-30T01:16:04+00:00"
-        },
-        {
-          "chapter": "163",
-          "date": "2024-12-30T01:15:50+00:00"
-        },
-        {
-          "chapter": "162",
-          "date": "2024-12-30T01:13:17+00:00"
-        },
-        {
-          "chapter": "161",
-          "date": "2024-12-30T01:12:46+00:00"
-        },
-        {
-          "chapter": "160",
-          "date": "2024-12-30T01:12:20+00:00"
-        },
-        {
-          "chapter": "159",
-          "date": "2024-12-30T01:11:59+00:00"
-        }
-      ],
+      "history": [],
       "quiet": false,
       "quietDays": 0
     },
@@ -1772,7 +1835,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 6372
+      "quietDays": 6373
     },
     "119257": {
       "hiatus": true,
@@ -1787,7 +1850,7 @@
         "Webtoon": "https://www.webtoons.com/en/action/omniscient-reader/rss?title_no=2154"
       },
       "agreement": "conflict",
-      "source": "Webtoon",
+      "source": "MangaUpdates",
       "sources": [
         {
           "name": "MangaBaka",
@@ -1822,63 +1885,63 @@
       "title": "Omniscient Reader",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx119257-Pi21aq3ey9GG.jpg",
       "status": "RELEASING",
-      "chapter": "308",
-      "publishedAt": "2026-06-02T01:00:36+00:00",
-      "url": "https://www.webtoons.com/en/action/omniscient-reader/episode-308/viewer?title_no=2154&episode_no=309",
-      "typicalGapDays": 7,
-      "expectedNext": "2026-06-09",
+      "chapter": "311",
+      "publishedAt": "2026-05-19T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/n50wl4o/omniscient-reader",
+      "typicalGapDays": 6,
+      "expectedNext": "2026-05-25",
       "history": [
         {
+          "chapter": "311",
+          "date": "2026-05-19T00:00:00+00:00"
+        },
+        {
+          "chapter": "310",
+          "date": "2026-05-12T00:00:00+00:00"
+        },
+        {
+          "chapter": "309",
+          "date": "2026-04-28T00:00:00+00:00"
+        },
+        {
           "chapter": "308",
-          "date": "2026-06-02T01:00:36+00:00"
+          "date": "2026-04-21T00:00:00+00:00"
         },
         {
           "chapter": "307",
-          "date": "2026-05-26T01:00:32+00:00"
+          "date": "2026-04-15T00:00:00+00:00"
         },
         {
           "chapter": "306",
-          "date": "2026-05-19T01:00:33+00:00"
-        },
-        {
-          "chapter": "305",
-          "date": "2026-05-12T01:00:33+00:00"
-        },
-        {
-          "chapter": "304",
-          "date": "2026-05-05T01:00:35+00:00"
-        },
-        {
-          "chapter": "303",
-          "date": "2026-04-28T01:00:40+00:00"
-        },
-        {
-          "chapter": "302",
-          "date": "2026-04-21T01:00:36+00:00"
-        },
-        {
-          "chapter": "301",
-          "date": "2026-04-14T01:00:37+00:00"
-        },
-        {
-          "chapter": "300",
-          "date": "2026-04-07T01:00:37+00:00"
+          "date": "2026-04-07T00:00:00+00:00"
         },
         {
           "chapter": "299",
-          "date": "2026-03-31T01:00:38+00:00"
+          "date": "2026-03-31T00:00:00+00:00"
+        },
+        {
+          "chapter": "305",
+          "date": "2026-03-24T00:00:00+00:00"
         },
         {
           "chapter": "298",
-          "date": "2026-03-24T01:00:37+00:00"
+          "date": "2026-03-24T00:00:00+00:00"
         },
         {
           "chapter": "297",
-          "date": "2026-03-17T01:00:38+00:00"
+          "date": "2026-03-17T00:00:00+00:00"
+        },
+        {
+          "chapter": "304",
+          "date": "2026-03-11T00:00:00+00:00"
+        },
+        {
+          "chapter": "296",
+          "date": "2026-03-10T00:00:00+00:00"
         }
       ],
       "quiet": true,
-      "quietDays": 156
+      "quietDays": 171
     },
     "74347": {
       "hiatus": false,
@@ -1998,6 +2061,20 @@
           "chapter": "147",
           "publishedAt": "2014-01-28T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "147",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "147",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -2005,60 +2082,11 @@
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx34632-5xMDkx3pXsEh.png",
       "status": "FINISHED",
       "chapter": "147",
-      "publishedAt": "2014-01-28T00:00:00+00:00",
+      "publishedAt": null,
       "url": "https://www.mangaupdates.com/series/a2xc67o/oyasumi-punpun",
-      "typicalGapDays": 1,
-      "expectedNext": "2014-01-29",
-      "history": [
-        {
-          "chapter": "147",
-          "date": "2014-01-28T00:00:00+00:00"
-        },
-        {
-          "chapter": "134",
-          "date": "2013-08-03T00:00:00+00:00"
-        },
-        {
-          "chapter": "121",
-          "date": "2012-12-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "110",
-          "date": "2012-05-18T00:00:00+00:00"
-        },
-        {
-          "chapter": "99",
-          "date": "2011-11-27T00:00:00+00:00"
-        },
-        {
-          "chapter": "96",
-          "date": "2011-11-26T00:00:00+00:00"
-        },
-        {
-          "chapter": "90",
-          "date": "2011-11-25T00:00:00+00:00"
-        },
-        {
-          "chapter": "89",
-          "date": "2011-04-13T00:00:00+00:00"
-        },
-        {
-          "chapter": "84",
-          "date": "2011-04-10T00:00:00+00:00"
-        },
-        {
-          "chapter": "80",
-          "date": "2011-04-08T00:00:00+00:00"
-        },
-        {
-          "chapter": "79",
-          "date": "2011-04-07T00:00:00+00:00"
-        },
-        {
-          "chapter": "78",
-          "date": "2011-04-04T00:00:00+00:00"
-        }
-      ],
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false,
       "quietDays": 0
     },
@@ -2080,7 +2108,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "228",
+          "chapter": "224",
           "publishedAt": null,
           "plausible": true
         },
@@ -2383,6 +2411,20 @@
           "chapter": "4",
           "publishedAt": null,
           "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "4",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "4",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -2432,6 +2474,20 @@
           "chapter": "134",
           "publishedAt": "2020-07-23T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "338",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "338",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -2482,6 +2538,20 @@
           "chapter": "6",
           "publishedAt": "2021-04-15T01:00:58+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "69",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "69",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -2875,6 +2945,20 @@
           "chapter": "14",
           "publishedAt": "2018-04-02T04:00:18+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "141",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "141",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -2981,6 +3065,20 @@
           "chapter": "7",
           "publishedAt": "2021-12-19T02:00:37+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "222",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "222",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3043,6 +3141,20 @@
           "chapter": "91",
           "publishedAt": "2023-09-28T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "179",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "181",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3050,60 +3162,11 @@
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx85611-Asb0BNP23NsJ.png",
       "status": "FINISHED",
       "chapter": "179",
-      "publishedAt": "2026-08-26T18:41:30+00:00",
+      "publishedAt": null,
       "url": "https://mangaplus.shueisha.co.jp/viewer/1010463",
-      "typicalGapDays": 37,
-      "expectedNext": "2026-10-02",
-      "history": [
-        {
-          "chapter": "179",
-          "date": "2026-08-26T18:41:30+00:00"
-        },
-        {
-          "chapter": "4",
-          "date": "2026-08-26T18:41:24+00:00"
-        },
-        {
-          "chapter": "3",
-          "date": "2022-01-13T19:24:17+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2022-01-08T16:17:13+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2022-01-08T16:17:05+00:00"
-        },
-        {
-          "chapter": "72",
-          "date": "2021-07-07T20:01:46+00:00"
-        },
-        {
-          "chapter": "71",
-          "date": "2021-07-07T20:00:43+00:00"
-        },
-        {
-          "chapter": "70",
-          "date": "2021-02-16T16:02:49+00:00"
-        },
-        {
-          "chapter": "69",
-          "date": "2020-08-21T22:59:53+00:00"
-        },
-        {
-          "chapter": "68",
-          "date": "2020-07-15T00:50:18+00:00"
-        },
-        {
-          "chapter": "67",
-          "date": "2020-07-15T00:49:34+00:00"
-        },
-        {
-          "chapter": "66",
-          "date": "2020-07-15T00:49:15+00:00"
-        }
-      ],
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false,
       "quietDays": 0
     },
@@ -3141,6 +3204,20 @@
           "chapter": "157",
           "publishedAt": "2023-09-13T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "278",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "279",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3190,6 +3267,20 @@
           "chapter": "4",
           "publishedAt": "2025-04-05T00:00:00+00:00",
           "plausible": false
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "541",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "539",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3207,7 +3298,7 @@
     },
     "30656": {
       "hiatus": true,
-      "countOnly": false,
+      "countOnly": true,
       "matches": {
         "MangaBaka": 1566,
         "MangaDex": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
@@ -3216,8 +3307,8 @@
           "url": "https://www.mangaupdates.com/series/su6blie/vagabond"
         }
       },
-      "agreement": "conflict",
-      "source": "MangaDex",
+      "agreement": "count",
+      "source": "MangaBaka",
       "sources": [
         {
           "name": "MangaBaka",
@@ -3245,63 +3336,14 @@
       "title": "Vagabond",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx30656-9mW113O7rDnA.png",
       "status": "RELEASING",
-      "chapter": "303",
-      "publishedAt": "2020-06-30T07:40:34+00:00",
-      "url": "https://mangadex.org/chapter/dde72257-bcc9-44f5-915a-a94aa3b7b1e2",
+      "chapter": "327",
+      "publishedAt": null,
+      "url": "https://mangabaka.org/manga/1566/Vagabond",
       "typicalGapDays": null,
       "expectedNext": null,
-      "history": [
-        {
-          "chapter": "303",
-          "date": "2020-06-30T07:40:34+00:00"
-        },
-        {
-          "chapter": "302",
-          "date": "2020-06-30T07:40:13+00:00"
-        },
-        {
-          "chapter": "301",
-          "date": "2020-06-30T07:39:49+00:00"
-        },
-        {
-          "chapter": "309",
-          "date": "2019-09-27T08:31:54+00:00"
-        },
-        {
-          "chapter": "308",
-          "date": "2019-09-27T08:31:15+00:00"
-        },
-        {
-          "chapter": "307",
-          "date": "2019-09-27T08:30:35+00:00"
-        },
-        {
-          "chapter": "306",
-          "date": "2019-09-27T08:29:55+00:00"
-        },
-        {
-          "chapter": "305",
-          "date": "2019-09-27T08:29:27+00:00"
-        },
-        {
-          "chapter": "298",
-          "date": "2019-09-27T08:28:28+00:00"
-        },
-        {
-          "chapter": "297",
-          "date": "2019-09-27T08:28:09+00:00"
-        },
-        {
-          "chapter": "324",
-          "date": "2019-07-28T09:26:58+00:00"
-        },
-        {
-          "chapter": "323",
-          "date": "2019-07-28T09:26:31+00:00"
-        }
-      ],
+      "history": [],
       "quiet": true,
-      "quietDays": 2319
+      "quietDays": 0
     },
     "117195": {
       "hiatus": false,
@@ -3337,6 +3379,20 @@
           "chapter": "166.5",
           "publishedAt": "2024-12-22T00:00:00+00:00",
           "plausible": true
+        },
+        {
+          "name": "Kitsu",
+          "kind": "count",
+          "chapter": "168",
+          "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "AniList",
+          "kind": "count",
+          "chapter": "171",
+          "publishedAt": null,
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3344,68 +3400,19 @@
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx117195-r3kf8eF0xkDJ.png",
       "status": "FINISHED",
       "chapter": "166",
-      "publishedAt": "2026-08-26T18:44:14+00:00",
+      "publishedAt": null,
       "url": "https://mangaplus.shueisha.co.jp/viewer/1022527",
-      "typicalGapDays": 8,
-      "expectedNext": "2026-09-03",
-      "history": [
-        {
-          "chapter": "166",
-          "date": "2026-08-26T18:44:14+00:00"
-        },
-        {
-          "chapter": "4",
-          "date": "2026-08-26T18:44:08+00:00"
-        },
-        {
-          "chapter": "3",
-          "date": "2025-10-22T01:17:02+00:00"
-        },
-        {
-          "chapter": "2",
-          "date": "2025-10-22T01:17:00+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2025-10-22T01:16:58+00:00"
-        },
-        {
-          "chapter": "152.5",
-          "date": "2025-02-18T20:45:19+00:00"
-        },
-        {
-          "chapter": "166.5",
-          "date": "2024-12-23T07:40:48+00:00"
-        },
-        {
-          "chapter": "100.5",
-          "date": "2023-01-21T19:41:50+00:00"
-        },
-        {
-          "chapter": "94",
-          "date": "2022-09-16T11:13:33+00:00"
-        },
-        {
-          "chapter": "93",
-          "date": "2022-09-08T14:14:02+00:00"
-        },
-        {
-          "chapter": "92",
-          "date": "2022-09-02T06:59:15+00:00"
-        },
-        {
-          "chapter": "91",
-          "date": "2022-08-25T19:09:43+00:00"
-        }
-      ],
+      "typicalGapDays": null,
+      "expectedNext": null,
+      "history": [],
       "quiet": false,
       "quietDays": 0
     }
   },
   "health": {
-    "startedAt": "2026-11-05T09:54:46+00:00",
-    "finishedAt": "2026-11-05T09:56:46+00:00",
-    "durationSec": 120,
+    "startedAt": "2026-11-06T11:20:06+00:00",
+    "finishedAt": "2026-11-06T11:22:15+00:00",
+    "durationSec": 129,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3415,7 +3422,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 43.9,
+        "seconds": 48.3,
         "errors": []
       },
       "MangaDex": {
@@ -3424,7 +3431,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.2,
+        "seconds": 14.3,
         "errors": []
       },
       "MangaUpdates": {
@@ -3433,7 +3440,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.8,
+        "seconds": 8.7,
         "errors": []
       },
       "Webtoon": {
@@ -3442,7 +3449,25 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.9,
+        "seconds": 4.9,
+        "errors": []
+      },
+      "Kitsu": {
+        "ok": 18,
+        "none": 0,
+        "failed": 0,
+        "cached": 0,
+        "rateLimited": 0,
+        "seconds": 3.2,
+        "errors": []
+      },
+      "AniList": {
+        "ok": 18,
+        "none": 0,
+        "failed": 0,
+        "cached": 0,
+        "rateLimited": 0,
+        "seconds": 2.5,
         "errors": []
       }
     }
