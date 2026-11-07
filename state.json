@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T19:31:14+00:00",
+  "checkedAt": "2026-11-07T13:44:55+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 248,
+      "quietDays": 249,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1481,15 +1481,15 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "283",
+          "chapter": "284",
           "publishedAt": null,
           "plausible": true
         },
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "283",
-          "publishedAt": "2026-10-29T00:00:00+00:00",
+          "chapter": "284",
+          "publishedAt": "2026-11-06T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -1504,12 +1504,16 @@
       "title": "I’m the Max-Level Newbie",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx137280-juUL79K7f9s7.png",
       "status": "RELEASING",
-      "chapter": "283",
-      "publishedAt": "2026-10-29T00:00:00+00:00",
+      "chapter": "284",
+      "publishedAt": "2026-11-06T00:00:00+00:00",
       "url": "https://www.mangaupdates.com/series/upay4jv/i-m-the-max-level-newbie",
       "typicalGapDays": 6,
-      "expectedNext": "2026-11-04",
+      "expectedNext": "2026-11-12",
       "history": [
+        {
+          "chapter": "284",
+          "date": "2026-11-06T00:00:00+00:00"
+        },
         {
           "chapter": "283",
           "date": "2026-10-29T00:00:00+00:00"
@@ -1553,10 +1557,6 @@
         {
           "chapter": "273",
           "date": "2026-08-20T00:00:00+00:00"
-        },
-        {
-          "chapter": "272",
-          "date": "2026-08-13T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -1992,8 +1992,8 @@
         {
           "name": "Webtoon",
           "kind": "release",
-          "chapter": "249",
-          "publishedAt": "2026-10-31T01:00:29+00:00",
+          "chapter": "250",
+          "publishedAt": "2026-11-07T02:00:21+00:00",
           "plausible": true
         }
       ],
@@ -2003,7 +2003,7 @@
       "status": "RELEASING",
       "chapter": "266",
       "publishedAt": "2026-11-04T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/gsoa99l/manager-kim",
+      "url": "https://www.webtoons.com/en/action/manager-kim/ep-250-an-important-job/viewer?title_no=3917&episode_no=250",
       "typicalGapDays": 5,
       "expectedNext": "2026-11-09",
       "history": [
@@ -2040,6 +2040,10 @@
           "date": "2026-09-21T00:00:00+00:00"
         },
         {
+          "chapter": "243",
+          "date": "2026-09-19T00:00:00+00:00"
+        },
+        {
           "chapter": "259",
           "date": "2026-09-14T00:00:00+00:00"
         },
@@ -2050,17 +2054,15 @@
         {
           "chapter": "258",
           "date": "2026-09-07T00:00:00+00:00"
-        },
-        {
-          "chapter": "241",
-          "date": "2026-09-05T00:00:00+00:00"
         }
       ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [],
+      "rules": [
+        "highest_chapter"
+      ],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -2165,9 +2167,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6373,
+      "quietDays": 6374,
       "dormant": true,
-      "dormantDays": 6373,
+      "dormantDays": 6374,
       "rules": [
         "dormant"
       ],
@@ -2283,7 +2285,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 171,
+      "quietDays": 172,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3871,7 +3873,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4187,
+      "dormantDays": 4188,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3963,9 +3965,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-06T19:31:14+00:00",
-    "finishedAt": "2026-11-06T19:34:08+00:00",
-    "durationSec": 174,
+    "startedAt": "2026-11-07T13:44:55+00:00",
+    "finishedAt": "2026-11-07T13:48:44+00:00",
+    "durationSec": 230,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3975,7 +3977,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 43.5,
+        "seconds": 41.7,
         "errors": []
       },
       "MangaDex": {
@@ -3984,7 +3986,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.0,
+        "seconds": 19.1,
         "errors": []
       },
       "MangaUpdates": {
@@ -3993,7 +3995,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 17.3,
+        "seconds": 77.0,
         "errors": []
       },
       "Webtoon": {
@@ -4011,7 +4013,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.7,
+        "seconds": 19.1,
         "errors": []
       },
       "Kitsu": {
@@ -4020,7 +4022,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 5.2,
+        "seconds": 3.7,
         "errors": []
       },
       "AniList": {
@@ -4029,7 +4031,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 1.6,
+        "seconds": 1.1,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4038,7 +4040,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.2,
+        "seconds": 2.8,
         "errors": []
       }
     },
@@ -4048,8 +4050,8 @@
       "count_only": 9,
       "count_vote": 1,
       "upload_date_dropped": 4,
+      "highest_chapter": 2,
       "dormant": 2,
-      "highest_chapter": 1,
       "any_language_refused": 1,
       "lagging_feed": 1
     },
@@ -4059,8 +4061,8 @@
       "count_only": "no release feed fits: count only",
       "count_vote": "a chapter count was outvoted by the others",
       "upload_date_dropped": "an upload date after the series ended was dropped",
-      "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
       "highest_chapter": "the highest chapter beat a fresher date",
+      "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
       "any_language_refused": "the any-language answer was refused (too old or too high)",
       "lagging_feed": "a lone feed that stopped early lost to the count"
     }
