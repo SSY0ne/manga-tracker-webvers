@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-07T13:44:55+00:00",
+  "checkedAt": "2026-11-08T14:04:35+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 120,
+      "quietDays": 121,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 249,
+      "quietDays": 250,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 61,
+      "quietDays": 62,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -2167,9 +2167,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6374,
+      "quietDays": 6375,
       "dormant": true,
-      "dormantDays": 6374,
+      "dormantDays": 6375,
       "rules": [
         "dormant"
       ],
@@ -2285,7 +2285,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 172,
+      "quietDays": 173,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3873,7 +3873,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4188,
+      "dormantDays": 4189,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3965,9 +3965,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-07T13:44:55+00:00",
-    "finishedAt": "2026-11-07T13:48:44+00:00",
-    "durationSec": 230,
+    "startedAt": "2026-11-08T14:04:35+00:00",
+    "finishedAt": "2026-11-08T14:07:33+00:00",
+    "durationSec": 177,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3977,7 +3977,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 41.7,
+        "seconds": 44.2,
         "errors": []
       },
       "MangaDex": {
@@ -3995,7 +3995,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 77.0,
+        "seconds": 16.0,
         "errors": []
       },
       "Webtoon": {
@@ -4004,7 +4004,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.7,
+        "seconds": 7.8,
         "errors": []
       },
       "Shikimori": {
@@ -4013,7 +4013,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.1,
+        "seconds": 21.3,
         "errors": []
       },
       "Kitsu": {
@@ -4022,7 +4022,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.7,
+        "seconds": 4.9,
         "errors": []
       },
       "AniList": {
@@ -4031,7 +4031,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 1.1,
+        "seconds": 2.0,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4040,7 +4040,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.8,
+        "seconds": 3.2,
         "errors": []
       }
     },
