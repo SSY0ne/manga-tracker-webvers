@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-09T17:10:26+00:00",
+  "checkedAt": "2026-11-10T15:24:53+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 122,
+      "quietDays": 123,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -377,8 +377,8 @@
         {
           "name": "MangaDex (any language)",
           "kind": "release",
-          "chapter": "367",
-          "publishedAt": "2026-10-31T03:40:10+00:00",
+          "chapter": "368",
+          "publishedAt": "2026-11-10T07:52:05+00:00",
           "plausible": true
         }
       ],
@@ -386,12 +386,16 @@
       "title": "Blue Lock",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106130-yPNeuSu75ey1.jpg",
       "status": "RELEASING",
-      "chapter": "367",
-      "publishedAt": "2026-10-31T03:40:10+00:00",
+      "chapter": "368",
+      "publishedAt": "2026-11-10T07:52:05+00:00",
       "url": "https://mangadex.org/title/4141c5dc-c525-4df5-afd7-cc7d192a832f",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [
+        {
+          "chapter": "368",
+          "date": "2026-11-10T07:52:05+00:00"
+        },
         {
           "chapter": "367",
           "date": "2026-10-31T03:40:10+00:00"
@@ -435,10 +439,6 @@
         {
           "chapter": "359",
           "date": "2026-09-01T03:56:49+00:00"
-        },
-        {
-          "chapter": "358",
-          "date": "2026-08-25T02:39:13+00:00"
         }
       ],
       "quiet": false,
@@ -847,7 +847,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "251",
+          "chapter": "252",
           "publishedAt": null,
           "plausible": true
         },
@@ -861,8 +861,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "251",
-          "publishedAt": "2026-11-02T00:00:00+00:00",
+          "chapter": "252",
+          "publishedAt": "2026-11-09T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -977,8 +977,8 @@
         {
           "name": "Webtoon",
           "kind": "release",
-          "chapter": "410",
-          "publishedAt": "2026-11-03T02:00:12+00:00",
+          "chapter": "411",
+          "publishedAt": "2026-11-10T02:00:12+00:00",
           "plausible": true
         }
       ],
@@ -988,7 +988,7 @@
       "status": "RELEASING",
       "chapter": "425",
       "publishedAt": "2026-11-03T00:00:00+00:00",
-      "url": "https://www.webtoons.com/en/action/eleceed/episode-410/viewer?title_no=1571&episode_no=410",
+      "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed",
       "typicalGapDays": 7,
       "expectedNext": "2026-11-10",
       "history": [
@@ -1006,6 +1006,10 @@
         },
         {
           "chapter": "422",
+          "date": "2026-10-13T00:00:00+00:00"
+        },
+        {
+          "chapter": "407",
           "date": "2026-10-13T00:00:00+00:00"
         },
         {
@@ -1035,17 +1039,15 @@
         {
           "chapter": "418",
           "date": "2026-09-15T00:00:00+00:00"
-        },
-        {
-          "chapter": "403",
-          "date": "2026-09-15T00:00:00+00:00"
         }
       ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [],
+      "rules": [
+        "highest_chapter"
+      ],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -1267,7 +1269,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 251,
+      "quietDays": 252,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1453,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 64,
+      "quietDays": 65,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1971,7 +1973,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "267",
+          "chapter": "268",
           "publishedAt": null,
           "plausible": true
         },
@@ -2167,9 +2169,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6376,
+      "quietDays": 6377,
       "dormant": true,
-      "dormantDays": 6376,
+      "dormantDays": 6377,
       "rules": [
         "dormant"
       ],
@@ -2285,7 +2287,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 174,
+      "quietDays": 175,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3873,7 +3875,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4190,
+      "dormantDays": 4191,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3965,9 +3967,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-09T17:10:26+00:00",
-    "finishedAt": "2026-11-09T17:13:29+00:00",
-    "durationSec": 183,
+    "startedAt": "2026-11-10T15:24:53+00:00",
+    "finishedAt": "2026-11-10T15:27:46+00:00",
+    "durationSec": 174,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3977,7 +3979,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 47.1,
+        "seconds": 48.0,
         "errors": []
       },
       "MangaDex": {
@@ -3986,7 +3988,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.8,
+        "seconds": 14.4,
         "errors": []
       },
       "MangaUpdates": {
@@ -3995,7 +3997,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.0,
+        "seconds": 12.6,
         "errors": []
       },
       "Webtoon": {
@@ -4004,7 +4006,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 7.7,
+        "seconds": 5.0,
         "errors": []
       },
       "Shikimori": {
@@ -4013,7 +4015,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 22.6,
+        "seconds": 26.9,
         "errors": []
       },
       "Kitsu": {
@@ -4022,7 +4024,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 4.1,
+        "seconds": 2.9,
         "errors": []
       },
       "AniList": {
@@ -4031,7 +4033,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.1,
+        "seconds": 2.7,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4040,7 +4042,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.6,
+        "seconds": 2.3,
         "errors": []
       }
     },
@@ -4049,8 +4051,8 @@
       "stale_feed": 3,
       "count_only": 9,
       "count_vote": 1,
+      "highest_chapter": 3,
       "upload_date_dropped": 4,
-      "highest_chapter": 2,
       "dormant": 2,
       "any_language_refused": 1,
       "lagging_feed": 1
@@ -4060,8 +4062,8 @@
       "stale_feed": "a release feed far behind the count was ignored",
       "count_only": "no release feed fits: count only",
       "count_vote": "a chapter count was outvoted by the others",
-      "upload_date_dropped": "an upload date after the series ended was dropped",
       "highest_chapter": "the highest chapter beat a fresher date",
+      "upload_date_dropped": "an upload date after the series ended was dropped",
       "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
       "any_language_refused": "the any-language answer was refused (too old or too high)",
       "lagging_feed": "a lone feed that stopped early lost to the count"
