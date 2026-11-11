@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-10T15:24:53+00:00",
+  "checkedAt": "2026-11-11T14:55:11+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 123,
+      "quietDays": 124,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -956,7 +956,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "425",
+          "chapter": "426",
           "publishedAt": null,
           "plausible": true
         },
@@ -970,8 +970,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "425",
-          "publishedAt": "2026-11-03T00:00:00+00:00",
+          "chapter": "426",
+          "publishedAt": "2026-11-10T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -986,12 +986,16 @@
       "title": "Eleceed",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106929-flAUvHZDUz5v.jpg",
       "status": "RELEASING",
-      "chapter": "425",
-      "publishedAt": "2026-11-03T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed",
+      "chapter": "426",
+      "publishedAt": "2026-11-10T00:00:00+00:00",
+      "url": "https://www.webtoons.com/en/action/eleceed/episode-411/viewer?title_no=1571&episode_no=411",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-10",
+      "expectedNext": "2026-11-17",
       "history": [
+        {
+          "chapter": "426",
+          "date": "2026-11-10T00:00:00+00:00"
+        },
         {
           "chapter": "425",
           "date": "2026-11-03T00:00:00+00:00"
@@ -1035,19 +1039,13 @@
         {
           "chapter": "404",
           "date": "2026-09-22T00:00:00+00:00"
-        },
-        {
-          "chapter": "418",
-          "date": "2026-09-15T00:00:00+00:00"
         }
       ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [
-        "highest_chapter"
-      ],
+      "rules": [],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -1269,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 252,
+      "quietDays": 253,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1383,13 +1381,6 @@
           "kind": "release",
           "chapter": "420",
           "publishedAt": "2026-09-06T15:20:29+00:00",
-          "plausible": true
-        },
-        {
-          "name": "MangaUpdates",
-          "kind": "release",
-          "chapter": "420",
-          "publishedAt": "2026-09-06T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2169,9 +2160,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6377,
+      "quietDays": 6378,
       "dormant": true,
-      "dormantDays": 6377,
+      "dormantDays": 6378,
       "rules": [
         "dormant"
       ],
@@ -2287,7 +2278,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 175,
+      "quietDays": 176,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -2603,22 +2594,22 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "213",
+          "chapter": "214",
           "publishedAt": null,
           "plausible": true
         },
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "213",
-          "publishedAt": "2026-11-03T17:21:27+00:00",
+          "chapter": "214",
+          "publishedAt": "2026-11-10T17:32:07+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "213",
-          "publishedAt": "2026-11-03T00:00:00+00:00",
+          "chapter": "214",
+          "publishedAt": "2026-11-10T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2626,12 +2617,16 @@
       "title": "Red Blue",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx144939-znZFKewRGtqE.jpg",
       "status": "RELEASING",
-      "chapter": "213",
-      "publishedAt": "2026-11-03T17:21:27+00:00",
-      "url": "https://mangadex.org/chapter/3e1585f7-03ee-4455-82a3-08e06654c5f1",
+      "chapter": "214",
+      "publishedAt": "2026-11-10T17:32:07+00:00",
+      "url": "https://mangadex.org/chapter/b80afcb5-b693-429a-9829-fecac109886c",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-10",
+      "expectedNext": "2026-11-17",
       "history": [
+        {
+          "chapter": "214",
+          "date": "2026-11-10T17:32:07+00:00"
+        },
         {
           "chapter": "213",
           "date": "2026-11-03T17:21:27+00:00"
@@ -2675,10 +2670,6 @@
         {
           "chapter": "203",
           "date": "2026-08-05T12:49:25+00:00"
-        },
-        {
-          "chapter": "202",
-          "date": "2026-07-29T14:51:38+00:00"
         }
       ],
       "quiet": false,
@@ -3335,7 +3326,7 @@
           "date": "2026-10-11T15:11:23+00:00"
         },
         {
-          "chapter": "140.5",
+          "chapter": "4.5",
           "date": "2026-09-13T15:12:25+00:00"
         },
         {
@@ -3875,7 +3866,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4191,
+      "dormantDays": 4192,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3967,9 +3958,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-10T15:24:53+00:00",
-    "finishedAt": "2026-11-10T15:27:46+00:00",
-    "durationSec": 174,
+    "startedAt": "2026-11-11T14:55:11+00:00",
+    "finishedAt": "2026-11-11T14:58:14+00:00",
+    "durationSec": 183,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3979,7 +3970,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 48.0,
+        "seconds": 47.1,
         "errors": []
       },
       "MangaDex": {
@@ -3988,17 +3979,19 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.4,
+        "seconds": 21.6,
         "errors": []
       },
       "MangaUpdates": {
-        "ok": 39,
+        "ok": 38,
         "none": 1,
-        "failed": 0,
+        "failed": 1,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 12.6,
-        "errors": []
+        "seconds": 15.3,
+        "errors": [
+          "RemoteDisconnected: Remote end closed connection without response"
+        ]
       },
       "Webtoon": {
         "ok": 8,
@@ -4006,7 +3999,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 5.0,
+        "seconds": 5.1,
         "errors": []
       },
       "Shikimori": {
@@ -4015,7 +4008,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 26.9,
+        "seconds": 27.1,
         "errors": []
       },
       "Kitsu": {
@@ -4033,7 +4026,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.7,
+        "seconds": 2.1,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4042,7 +4035,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.3,
+        "seconds": 3.3,
         "errors": []
       }
     },
@@ -4051,8 +4044,8 @@
       "stale_feed": 3,
       "count_only": 9,
       "count_vote": 1,
-      "highest_chapter": 3,
       "upload_date_dropped": 4,
+      "highest_chapter": 2,
       "dormant": 2,
       "any_language_refused": 1,
       "lagging_feed": 1
@@ -4062,8 +4055,8 @@
       "stale_feed": "a release feed far behind the count was ignored",
       "count_only": "no release feed fits: count only",
       "count_vote": "a chapter count was outvoted by the others",
-      "highest_chapter": "the highest chapter beat a fresher date",
       "upload_date_dropped": "an upload date after the series ended was dropped",
+      "highest_chapter": "the highest chapter beat a fresher date",
       "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
       "any_language_refused": "the any-language answer was refused (too old or too high)",
       "lagging_feed": "a lone feed that stopped early lost to the count"
