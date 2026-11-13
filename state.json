@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-12T15:46:54+00:00",
+  "checkedAt": "2026-11-13T15:06:48+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 125,
+      "quietDays": 126,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 254,
+      "quietDays": 255,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -2167,9 +2167,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6379,
+      "quietDays": 6380,
       "dormant": true,
-      "dormantDays": 6379,
+      "dormantDays": 6380,
       "rules": [
         "dormant"
       ],
@@ -2285,7 +2285,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 177,
+      "quietDays": 178,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -2889,6 +2889,13 @@
           "plausible": false
         },
         {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "134",
+          "publishedAt": "2020-07-23T00:00:00+00:00",
+          "plausible": false
+        },
+        {
           "name": "Kitsu",
           "kind": "count",
           "chapter": "338",
@@ -2930,7 +2937,7 @@
     },
     "130229": {
       "hiatus": false,
-      "countOnly": true,
+      "countOnly": false,
       "matches": {
         "MangaBaka": 47590,
         "MangaDex": "e8c8bc87-0b71-4893-9940-3fbd4bfd386b",
@@ -2940,14 +2947,21 @@
         },
         "Webtoon": "https://www.webtoons.com/en/thriller/shotgun-boy/rss?title_no=2534"
       },
-      "agreement": "count",
-      "source": "MangaBaka",
+      "agreement": "agree",
+      "source": "MangaUpdates",
       "sources": [
         {
           "name": "MangaBaka",
           "kind": "count",
           "chapter": "69",
           "publishedAt": null,
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "67",
+          "publishedAt": "2022-07-21T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -2976,19 +2990,66 @@
       "title": "Shotgun Boy",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx130229-w8eYyQnAaPh8.jpg",
       "status": "FINISHED",
-      "chapter": "69",
-      "publishedAt": null,
-      "url": "https://mangabaka.org/manhwa/47590/Shotgun-Boy",
-      "typicalGapDays": null,
-      "expectedNext": null,
-      "history": [],
+      "chapter": "67",
+      "publishedAt": "2022-07-21T00:00:00+00:00",
+      "url": "https://www.mangaupdates.com/series/h96si2z/shotgun-boy",
+      "typicalGapDays": 7,
+      "expectedNext": "2022-07-28",
+      "history": [
+        {
+          "chapter": "67",
+          "date": "2022-07-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "66",
+          "date": "2022-07-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "65",
+          "date": "2022-07-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "64",
+          "date": "2022-06-30T00:00:00+00:00"
+        },
+        {
+          "chapter": "63",
+          "date": "2022-06-23T00:00:00+00:00"
+        },
+        {
+          "chapter": "62",
+          "date": "2022-05-12T00:00:00+00:00"
+        },
+        {
+          "chapter": "61",
+          "date": "2022-05-05T00:00:00+00:00"
+        },
+        {
+          "chapter": "60",
+          "date": "2022-04-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "59",
+          "date": "2022-04-21T00:00:00+00:00"
+        },
+        {
+          "chapter": "58",
+          "date": "2022-04-14T00:00:00+00:00"
+        },
+        {
+          "chapter": "57",
+          "date": "2022-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "56",
+          "date": "2022-03-31T00:00:00+00:00"
+        }
+      ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [
-        "count_only"
-      ],
+      "rules": [],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -3023,6 +3084,13 @@
           "kind": "release",
           "chapter": "126",
           "publishedAt": "2026-10-29T18:19:09+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "126",
+          "publishedAt": "2026-10-29T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -3125,6 +3193,13 @@
           "chapter": "32",
           "publishedAt": "2026-10-29T18:32:55+00:00",
           "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "32",
+          "publishedAt": "2026-10-29T00:00:00+00:00",
+          "plausible": true
         }
       ],
       "limited": false,
@@ -3225,6 +3300,13 @@
           "kind": "release",
           "chapter": "143",
           "publishedAt": "2026-11-08T15:11:33+00:00",
+          "plausible": true
+        },
+        {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "143",
+          "publishedAt": "2026-11-08T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -3791,7 +3873,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4193,
+      "dormantDays": 4194,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3883,9 +3965,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-12T15:46:54+00:00",
-    "finishedAt": "2026-11-12T15:49:53+00:00",
-    "durationSec": 179,
+    "startedAt": "2026-11-13T15:06:48+00:00",
+    "finishedAt": "2026-11-13T15:09:53+00:00",
+    "durationSec": 185,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3895,7 +3977,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 45.2,
+        "seconds": 47.7,
         "errors": []
       },
       "MangaDex": {
@@ -3904,23 +3986,17 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.5,
+        "seconds": 17.9,
         "errors": []
       },
       "MangaUpdates": {
-        "ok": 34,
-        "none": 0,
-        "failed": 6,
+        "ok": 39,
+        "none": 1,
+        "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 23.8,
-        "errors": [
-          "HTTPError: HTTP Error 500: Internal Server Error",
-          "HTTPError: HTTP Error 500: Internal Server Error",
-          "HTTPError: HTTP Error 500: Internal Server Error",
-          "HTTPError: HTTP Error 500: Internal Server Error",
-          "HTTPError: HTTP Error 500: Internal Server Error"
-        ]
+        "seconds": 22.4,
+        "errors": []
       },
       "Webtoon": {
         "ok": 8,
@@ -3928,7 +4004,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.8,
+        "seconds": 6.9,
         "errors": []
       },
       "Shikimori": {
@@ -3937,7 +4013,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 17.1,
+        "seconds": 17.3,
         "errors": []
       },
       "Kitsu": {
@@ -3946,7 +4022,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.0,
+        "seconds": 10.1,
         "errors": []
       },
       "AniList": {
@@ -3955,7 +4031,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 1.6,
+        "seconds": 1.4,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -3964,14 +4040,14 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.9,
+        "seconds": 2.6,
         "errors": []
       }
     },
     "rules": {
       "any_language": 2,
       "stale_feed": 3,
-      "count_only": 10,
+      "count_only": 9,
       "count_vote": 1,
       "upload_date_dropped": 4,
       "highest_chapter": 2,
