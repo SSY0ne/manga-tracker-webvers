@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13T15:06:48+00:00",
+  "checkedAt": "2026-11-14T13:56:57+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 126,
+      "quietDays": 127,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 255,
+      "quietDays": 256,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 67,
+      "quietDays": 68,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1966,7 +1966,7 @@
         "Webtoon": "https://www.webtoons.com/en/action/manager-kim/rss?title_no=3917"
       },
       "agreement": "conflict",
-      "source": "MangaUpdates",
+      "source": "Webtoon",
       "sources": [
         {
           "name": "MangaBaka",
@@ -1985,15 +1985,15 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "266",
-          "publishedAt": "2026-11-04T00:00:00+00:00",
+          "chapter": "251",
+          "publishedAt": "2026-11-14T00:00:00+00:00",
           "plausible": true
         },
         {
           "name": "Webtoon",
           "kind": "release",
-          "chapter": "250",
-          "publishedAt": "2026-11-07T02:00:21+00:00",
+          "chapter": "251",
+          "publishedAt": "2026-11-14T02:00:20+00:00",
           "plausible": true
         }
       ],
@@ -2001,68 +2001,66 @@
       "title": "Manager Kim",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141626-2AQM2uUYS8wC.jpg",
       "status": "RELEASING",
-      "chapter": "266",
-      "publishedAt": "2026-11-04T00:00:00+00:00",
-      "url": "https://www.webtoons.com/en/action/manager-kim/ep-250-an-important-job/viewer?title_no=3917&episode_no=250",
-      "typicalGapDays": 5,
-      "expectedNext": "2026-11-09",
+      "chapter": "251",
+      "publishedAt": "2026-11-14T02:00:20+00:00",
+      "url": "https://www.webtoons.com/en/action/manager-kim/ep-251-dads-a-bit-mad/viewer?title_no=3917&episode_no=251",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-11-21",
       "history": [
         {
-          "chapter": "266",
-          "date": "2026-11-04T00:00:00+00:00"
+          "chapter": "251",
+          "date": "2026-11-14T02:00:20+00:00"
         },
         {
-          "chapter": "265",
-          "date": "2026-10-30T00:00:00+00:00"
+          "chapter": "250",
+          "date": "2026-11-07T02:00:21+00:00"
+        },
+        {
+          "chapter": "249",
+          "date": "2026-10-31T01:00:29+00:00"
         },
         {
           "chapter": "248",
-          "date": "2026-10-24T00:00:00+00:00"
+          "date": "2026-10-24T01:00:28+00:00"
         },
         {
-          "chapter": "264",
-          "date": "2026-10-19T00:00:00+00:00"
+          "chapter": "247",
+          "date": "2026-10-17T01:00:25+00:00"
         },
         {
-          "chapter": "263",
-          "date": "2026-10-13T00:00:00+00:00"
+          "chapter": "246",
+          "date": "2026-10-10T01:00:27+00:00"
         },
         {
-          "chapter": "262",
-          "date": "2026-10-05T00:00:00+00:00"
+          "chapter": "245",
+          "date": "2026-10-03T01:00:24+00:00"
         },
         {
-          "chapter": "261",
-          "date": "2026-09-28T00:00:00+00:00"
-        },
-        {
-          "chapter": "260",
-          "date": "2026-09-21T00:00:00+00:00"
+          "chapter": "244",
+          "date": "2026-09-26T01:00:24+00:00"
         },
         {
           "chapter": "243",
-          "date": "2026-09-19T00:00:00+00:00"
-        },
-        {
-          "chapter": "259",
-          "date": "2026-09-14T00:00:00+00:00"
+          "date": "2026-09-19T01:00:26+00:00"
         },
         {
           "chapter": "242",
-          "date": "2026-09-12T00:00:00+00:00"
+          "date": "2026-09-12T01:00:28+00:00"
         },
         {
-          "chapter": "258",
-          "date": "2026-09-07T00:00:00+00:00"
+          "chapter": "241",
+          "date": "2026-09-05T01:00:24+00:00"
+        },
+        {
+          "chapter": "240",
+          "date": "2026-08-29T01:00:31+00:00"
         }
       ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [
-        "highest_chapter"
-      ],
+      "rules": [],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -2167,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6380,
+      "quietDays": 6381,
       "dormant": true,
-      "dormantDays": 6380,
+      "dormantDays": 6381,
       "rules": [
         "dormant"
       ],
@@ -2285,7 +2283,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 178,
+      "quietDays": 179,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3703,13 +3701,6 @@
           "plausible": false
         },
         {
-          "name": "MangaUpdates",
-          "kind": "release",
-          "chapter": "157",
-          "publishedAt": "2023-09-13T00:00:00+00:00",
-          "plausible": false
-        },
-        {
           "name": "Kitsu",
           "kind": "count",
           "chapter": "278",
@@ -3873,7 +3864,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4194,
+      "dormantDays": 4195,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3965,9 +3956,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-13T15:06:48+00:00",
-    "finishedAt": "2026-11-13T15:09:53+00:00",
-    "durationSec": 185,
+    "startedAt": "2026-11-14T13:56:57+00:00",
+    "finishedAt": "2026-11-14T13:59:52+00:00",
+    "durationSec": 175,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3977,7 +3968,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 47.7,
+        "seconds": 47.4,
         "errors": []
       },
       "MangaDex": {
@@ -3986,17 +3977,19 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 17.9,
+        "seconds": 15.0,
         "errors": []
       },
       "MangaUpdates": {
-        "ok": 39,
+        "ok": 38,
         "none": 1,
-        "failed": 0,
+        "failed": 1,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 22.4,
-        "errors": []
+        "seconds": 11.3,
+        "errors": [
+          "HTTPError: HTTP Error 503: Service Unavailable"
+        ]
       },
       "Webtoon": {
         "ok": 8,
@@ -4004,7 +3997,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.9,
+        "seconds": 4.9,
         "errors": []
       },
       "Shikimori": {
@@ -4013,7 +4006,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 17.3,
+        "seconds": 22.5,
         "errors": []
       },
       "Kitsu": {
@@ -4022,7 +4015,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 10.1,
+        "seconds": 10.3,
         "errors": []
       },
       "AniList": {
@@ -4031,7 +4024,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 1.4,
+        "seconds": 2.4,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4040,7 +4033,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.6,
+        "seconds": 2.4,
         "errors": []
       }
     },
@@ -4050,8 +4043,8 @@
       "count_only": 9,
       "count_vote": 1,
       "upload_date_dropped": 4,
-      "highest_chapter": 2,
       "dormant": 2,
+      "highest_chapter": 1,
       "any_language_refused": 1,
       "lagging_feed": 1
     },
@@ -4061,8 +4054,8 @@
       "count_only": "no release feed fits: count only",
       "count_vote": "a chapter count was outvoted by the others",
       "upload_date_dropped": "an upload date after the series ended was dropped",
-      "highest_chapter": "the highest chapter beat a fresher date",
       "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
+      "highest_chapter": "the highest chapter beat a fresher date",
       "any_language_refused": "the any-language answer was refused (too old or too high)",
       "lagging_feed": "a lone feed that stopped early lost to the count"
     }
