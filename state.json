@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T13:56:57+00:00",
+  "checkedAt": "2026-11-15T14:31:42+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 127,
+      "quietDays": 128,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 256,
+      "quietDays": 257,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 68,
+      "quietDays": 69,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1481,15 +1481,15 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "284",
+          "chapter": "285",
           "publishedAt": null,
           "plausible": true
         },
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "284",
-          "publishedAt": "2026-11-06T00:00:00+00:00",
+          "chapter": "285",
+          "publishedAt": "2026-11-14T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -1504,12 +1504,16 @@
       "title": "I’m the Max-Level Newbie",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx137280-juUL79K7f9s7.png",
       "status": "RELEASING",
-      "chapter": "284",
-      "publishedAt": "2026-11-06T00:00:00+00:00",
+      "chapter": "285",
+      "publishedAt": "2026-11-14T00:00:00+00:00",
       "url": "https://www.mangaupdates.com/series/upay4jv/i-m-the-max-level-newbie",
       "typicalGapDays": 6,
-      "expectedNext": "2026-11-12",
+      "expectedNext": "2026-11-20",
       "history": [
+        {
+          "chapter": "285",
+          "date": "2026-11-14T00:00:00+00:00"
+        },
         {
           "chapter": "284",
           "date": "2026-11-06T00:00:00+00:00"
@@ -1553,10 +1557,6 @@
         {
           "chapter": "274",
           "date": "2026-08-27T00:00:00+00:00"
-        },
-        {
-          "chapter": "273",
-          "date": "2026-08-20T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6381,
+      "quietDays": 6382,
       "dormant": true,
-      "dormantDays": 6381,
+      "dormantDays": 6382,
       "rules": [
         "dormant"
       ],
@@ -2283,7 +2283,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 179,
+      "quietDays": 180,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3701,6 +3701,13 @@
           "plausible": false
         },
         {
+          "name": "MangaUpdates",
+          "kind": "release",
+          "chapter": "157",
+          "publishedAt": "2023-09-13T00:00:00+00:00",
+          "plausible": false
+        },
+        {
           "name": "Kitsu",
           "kind": "count",
           "chapter": "278",
@@ -3752,15 +3759,8 @@
         }
       },
       "agreement": "count",
-      "source": "MangaBaka",
+      "source": "AniList",
       "sources": [
-        {
-          "name": "MangaBaka",
-          "kind": "count",
-          "chapter": "541",
-          "publishedAt": null,
-          "plausible": true
-        },
         {
           "name": "MangaDex",
           "kind": "release",
@@ -3794,9 +3794,9 @@
       "title": "Usogui",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx39982-68LS2Z9075Kw.jpg",
       "status": "FINISHED",
-      "chapter": "541",
+      "chapter": "539",
       "publishedAt": null,
-      "url": "https://mangabaka.org/manga/1518/Usogui",
+      "url": "https://anilist.co/manga/39982",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
@@ -3864,7 +3864,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4195,
+      "dormantDays": 4196,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3956,20 +3956,22 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-14T13:56:57+00:00",
-    "finishedAt": "2026-11-14T13:59:52+00:00",
-    "durationSec": 175,
+    "startedAt": "2026-11-15T14:31:42+00:00",
+    "finishedAt": "2026-11-15T14:34:59+00:00",
+    "durationSec": 197,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
       "MangaBaka": {
-        "ok": 40,
+        "ok": 39,
         "none": 0,
-        "failed": 0,
+        "failed": 1,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 47.4,
-        "errors": []
+        "seconds": 61.5,
+        "errors": [
+          "TimeoutError: The read operation timed out"
+        ]
       },
       "MangaDex": {
         "ok": 33,
@@ -3977,19 +3979,17 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 15.0,
+        "seconds": 14.4,
         "errors": []
       },
       "MangaUpdates": {
-        "ok": 38,
+        "ok": 39,
         "none": 1,
-        "failed": 1,
+        "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 11.3,
-        "errors": [
-          "HTTPError: HTTP Error 503: Service Unavailable"
-        ]
+        "seconds": 19.1,
+        "errors": []
       },
       "Webtoon": {
         "ok": 8,
@@ -3997,7 +3997,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 4.9,
+        "seconds": 6.0,
         "errors": []
       },
       "Shikimori": {
@@ -4006,7 +4006,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 22.5,
+        "seconds": 21.6,
         "errors": []
       },
       "Kitsu": {
@@ -4015,7 +4015,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 10.3,
+        "seconds": 10.9,
         "errors": []
       },
       "AniList": {
@@ -4024,7 +4024,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.4,
+        "seconds": 2.5,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4033,7 +4033,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.4,
+        "seconds": 2.1,
         "errors": []
       }
     },
