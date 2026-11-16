@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-15T14:31:42+00:00",
+  "checkedAt": "2026-11-16T16:45:24+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 128,
+      "quietDays": 129,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -854,8 +854,8 @@
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "252",
-          "publishedAt": "2026-11-09T15:08:07+00:00",
+          "chapter": "253",
+          "publishedAt": "2026-11-16T15:08:02+00:00",
           "plausible": true
         },
         {
@@ -870,12 +870,16 @@
       "title": "Dandadan",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx132029-prGF4gePdSKv.jpg",
       "status": "RELEASING",
-      "chapter": "252",
-      "publishedAt": "2026-11-09T15:08:07+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1031036",
+      "chapter": "253",
+      "publishedAt": "2026-11-16T15:08:02+00:00",
+      "url": "https://mangaplus.shueisha.co.jp/viewer/1031037",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-16",
+      "expectedNext": "2026-11-23",
       "history": [
+        {
+          "chapter": "253",
+          "date": "2026-11-16T15:08:02+00:00"
+        },
         {
           "chapter": "252",
           "date": "2026-11-09T15:08:07+00:00"
@@ -919,10 +923,6 @@
         {
           "chapter": "243",
           "date": "2026-08-10T15:06:41+00:00"
-        },
-        {
-          "chapter": "242",
-          "date": "2026-07-29T14:27:03+00:00"
         }
       ],
       "quiet": false,
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 257,
+      "quietDays": 258,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 69,
+      "quietDays": 71,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1966,7 +1966,7 @@
         "Webtoon": "https://www.webtoons.com/en/action/manager-kim/rss?title_no=3917"
       },
       "agreement": "conflict",
-      "source": "Webtoon",
+      "source": "MangaUpdates",
       "sources": [
         {
           "name": "MangaBaka",
@@ -1985,8 +1985,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "251",
-          "publishedAt": "2026-11-14T00:00:00+00:00",
+          "chapter": "267",
+          "publishedAt": "2026-11-15T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -2001,59 +2001,59 @@
       "title": "Manager Kim",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141626-2AQM2uUYS8wC.jpg",
       "status": "RELEASING",
-      "chapter": "251",
-      "publishedAt": "2026-11-14T02:00:20+00:00",
+      "chapter": "267",
+      "publishedAt": "2026-11-15T00:00:00+00:00",
       "url": "https://www.webtoons.com/en/action/manager-kim/ep-251-dads-a-bit-mad/viewer?title_no=3917&episode_no=251",
-      "typicalGapDays": 7,
-      "expectedNext": "2026-11-21",
+      "typicalGapDays": 5,
+      "expectedNext": "2026-11-20",
       "history": [
         {
+          "chapter": "267",
+          "date": "2026-11-15T00:00:00+00:00"
+        },
+        {
           "chapter": "251",
-          "date": "2026-11-14T02:00:20+00:00"
+          "date": "2026-11-14T00:00:00+00:00"
         },
         {
-          "chapter": "250",
-          "date": "2026-11-07T02:00:21+00:00"
+          "chapter": "266",
+          "date": "2026-11-04T00:00:00+00:00"
         },
         {
-          "chapter": "249",
-          "date": "2026-10-31T01:00:29+00:00"
+          "chapter": "265",
+          "date": "2026-10-30T00:00:00+00:00"
         },
         {
           "chapter": "248",
-          "date": "2026-10-24T01:00:28+00:00"
+          "date": "2026-10-24T00:00:00+00:00"
         },
         {
-          "chapter": "247",
-          "date": "2026-10-17T01:00:25+00:00"
+          "chapter": "264",
+          "date": "2026-10-19T00:00:00+00:00"
         },
         {
-          "chapter": "246",
-          "date": "2026-10-10T01:00:27+00:00"
+          "chapter": "263",
+          "date": "2026-10-13T00:00:00+00:00"
         },
         {
-          "chapter": "245",
-          "date": "2026-10-03T01:00:24+00:00"
+          "chapter": "262",
+          "date": "2026-10-05T00:00:00+00:00"
         },
         {
-          "chapter": "244",
-          "date": "2026-09-26T01:00:24+00:00"
+          "chapter": "261",
+          "date": "2026-09-28T00:00:00+00:00"
+        },
+        {
+          "chapter": "260",
+          "date": "2026-09-21T00:00:00+00:00"
         },
         {
           "chapter": "243",
-          "date": "2026-09-19T01:00:26+00:00"
+          "date": "2026-09-19T00:00:00+00:00"
         },
         {
-          "chapter": "242",
-          "date": "2026-09-12T01:00:28+00:00"
-        },
-        {
-          "chapter": "241",
-          "date": "2026-09-05T01:00:24+00:00"
-        },
-        {
-          "chapter": "240",
-          "date": "2026-08-29T01:00:31+00:00"
+          "chapter": "259",
+          "date": "2026-09-14T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6382,
+      "quietDays": 6383,
       "dormant": true,
-      "dormantDays": 6382,
+      "dormantDays": 6383,
       "rules": [
         "dormant"
       ],
@@ -2283,7 +2283,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 180,
+      "quietDays": 181,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -2707,22 +2707,22 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "282",
+          "chapter": "283",
           "publishedAt": null,
           "plausible": true
         },
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "282",
-          "publishedAt": "2026-11-08T15:12:33+00:00",
+          "chapter": "283",
+          "publishedAt": "2026-11-15T15:10:18+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "282",
-          "publishedAt": "2026-11-08T00:00:00+00:00",
+          "chapter": "283",
+          "publishedAt": "2026-11-15T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2730,12 +2730,16 @@
       "title": "Sakamoto Days",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx125828-p78Z8SflkfmO.jpg",
       "status": "RELEASING",
-      "chapter": "282",
-      "publishedAt": "2026-11-08T15:12:33+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1030910",
+      "chapter": "283",
+      "publishedAt": "2026-11-15T15:10:18+00:00",
+      "url": "https://mangaplus.shueisha.co.jp/viewer/1030911",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-15",
+      "expectedNext": "2026-11-22",
       "history": [
+        {
+          "chapter": "283",
+          "date": "2026-11-15T15:10:18+00:00"
+        },
         {
           "chapter": "282",
           "date": "2026-11-08T15:12:33+00:00"
@@ -2779,10 +2783,6 @@
         {
           "chapter": "4",
           "date": "2026-08-26T17:31:11+00:00"
-        },
-        {
-          "chapter": "272",
-          "date": "2026-08-23T15:08:14+00:00"
         }
       ],
       "quiet": false,
@@ -3048,13 +3048,7 @@
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
-      "statusVotes": [
-        {
-          "name": "Shikimori",
-          "status": "finished",
-          "ended": "2022-06-06"
-        }
-      ]
+      "statusVotes": []
     },
     "107098": {
       "hiatus": false,
@@ -3759,8 +3753,15 @@
         }
       },
       "agreement": "count",
-      "source": "AniList",
+      "source": "MangaBaka",
       "sources": [
+        {
+          "name": "MangaBaka",
+          "kind": "count",
+          "chapter": "541",
+          "publishedAt": null,
+          "plausible": true
+        },
         {
           "name": "MangaDex",
           "kind": "release",
@@ -3794,9 +3795,9 @@
       "title": "Usogui",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx39982-68LS2Z9075Kw.jpg",
       "status": "FINISHED",
-      "chapter": "539",
+      "chapter": "541",
       "publishedAt": null,
-      "url": "https://anilist.co/manga/39982",
+      "url": "https://mangabaka.org/manga/1518/Usogui",
       "typicalGapDays": null,
       "expectedNext": null,
       "history": [],
@@ -3864,7 +3865,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4196,
+      "dormantDays": 4197,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3956,22 +3957,20 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-15T14:31:42+00:00",
-    "finishedAt": "2026-11-15T14:34:59+00:00",
-    "durationSec": 197,
+    "startedAt": "2026-11-16T16:45:24+00:00",
+    "finishedAt": "2026-11-16T16:48:25+00:00",
+    "durationSec": 181,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
       "MangaBaka": {
-        "ok": 39,
+        "ok": 40,
         "none": 0,
-        "failed": 1,
+        "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 61.5,
-        "errors": [
-          "TimeoutError: The read operation timed out"
-        ]
+        "seconds": 46.7,
+        "errors": []
       },
       "MangaDex": {
         "ok": 33,
@@ -3979,7 +3978,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.4,
+        "seconds": 17.7,
         "errors": []
       },
       "MangaUpdates": {
@@ -3988,7 +3987,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.1,
+        "seconds": 12.1,
         "errors": []
       },
       "Webtoon": {
@@ -3997,17 +3996,19 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.0,
+        "seconds": 4.6,
         "errors": []
       },
       "Shikimori": {
-        "ok": 40,
+        "ok": 39,
         "none": 0,
-        "failed": 0,
+        "failed": 1,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 21.6,
-        "errors": []
+        "seconds": 27.1,
+        "errors": [
+          "URLError: <urlopen error timed out>"
+        ]
       },
       "Kitsu": {
         "ok": 18,
@@ -4015,7 +4016,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 10.9,
+        "seconds": 4.9,
         "errors": []
       },
       "AniList": {
@@ -4024,7 +4025,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.5,
+        "seconds": 6.3,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4033,7 +4034,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.1,
+        "seconds": 2.6,
         "errors": []
       }
     },
