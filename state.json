@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T16:41:06+00:00",
+  "checkedAt": "2026-11-18T16:11:02+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 130,
+      "quietDays": 131,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -956,7 +956,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "426",
+          "chapter": "427",
           "publishedAt": null,
           "plausible": true
         },
@@ -970,8 +970,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "426",
-          "publishedAt": "2026-11-10T00:00:00+00:00",
+          "chapter": "427",
+          "publishedAt": "2026-11-17T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -986,12 +986,16 @@
       "title": "Eleceed",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106929-flAUvHZDUz5v.jpg",
       "status": "RELEASING",
-      "chapter": "426",
-      "publishedAt": "2026-11-10T00:00:00+00:00",
-      "url": "https://www.mangaupdates.com/series/4mnd0g3/eleceed",
+      "chapter": "427",
+      "publishedAt": "2026-11-17T00:00:00+00:00",
+      "url": "https://www.webtoons.com/en/action/eleceed/episode-412/viewer?title_no=1571&episode_no=412",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-17",
+      "expectedNext": "2026-11-24",
       "history": [
+        {
+          "chapter": "427",
+          "date": "2026-11-17T00:00:00+00:00"
+        },
         {
           "chapter": "426",
           "date": "2026-11-10T00:00:00+00:00"
@@ -1035,19 +1039,13 @@
         {
           "chapter": "405",
           "date": "2026-09-29T00:00:00+00:00"
-        },
-        {
-          "chapter": "419",
-          "date": "2026-09-22T00:00:00+00:00"
         }
       ],
       "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
-      "rules": [
-        "highest_chapter"
-      ],
+      "rules": [],
       "statusVotes": [
         {
           "name": "Shikimori",
@@ -1269,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 259,
+      "quietDays": 260,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1453,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 72,
+      "quietDays": 73,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1673,8 +1671,8 @@
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "41",
-          "publishedAt": "2026-10-18T14:56:32+00:00",
+          "chapter": "42",
+          "publishedAt": "2026-11-18T14:57:14+00:00",
           "plausible": true
         },
         {
@@ -1689,12 +1687,16 @@
       "title": "JoJo no Kimyou na Bouken: The JOJOLands",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx138072-G9PrTnqb8CRI.jpg",
       "status": "RELEASING",
-      "chapter": "41",
-      "publishedAt": "2026-10-18T14:56:32+00:00",
-      "url": "https://mangadex.org/chapter/8ece7468-be3a-456b-9a45-033071c814a8",
+      "chapter": "42",
+      "publishedAt": "2026-11-18T14:57:14+00:00",
+      "url": "https://mangadex.org/chapter/2b8a6c2c-c635-4531-a27e-ccb7f1ee916b",
       "typicalGapDays": 29,
-      "expectedNext": "2026-11-16",
+      "expectedNext": "2026-12-17",
       "history": [
+        {
+          "chapter": "42",
+          "date": "2026-11-18T14:57:14+00:00"
+        },
         {
           "chapter": "41",
           "date": "2026-10-18T14:56:32+00:00"
@@ -1738,10 +1740,6 @@
         {
           "chapter": "38",
           "date": "2026-07-16T14:55:05+00:00"
-        },
-        {
-          "chapter": "37",
-          "date": "2026-06-17T14:51:24+00:00"
         }
       ],
       "quiet": false,
@@ -2167,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6384,
+      "quietDays": 6385,
       "dormant": true,
-      "dormantDays": 6384,
+      "dormantDays": 6385,
       "rules": [
         "dormant"
       ],
@@ -2285,7 +2283,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 182,
+      "quietDays": 183,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -2486,7 +2484,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "229",
+          "chapter": "230",
           "publishedAt": null,
           "plausible": true
         },
@@ -2500,8 +2498,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "228",
-          "publishedAt": "2026-10-30T00:00:00+00:00",
+          "chapter": "230",
+          "publishedAt": "2026-11-17T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -2516,12 +2514,16 @@
       "title": "Reality Quest",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141705-2OMBDYY5Tguc.jpg",
       "status": "RELEASING",
-      "chapter": "228",
-      "publishedAt": "2026-10-30T00:00:00+00:00",
+      "chapter": "230",
+      "publishedAt": "2026-11-17T00:00:00+00:00",
       "url": "https://www.mangaupdates.com/series/oug0awj/reality-quest",
       "typicalGapDays": 4,
-      "expectedNext": "2026-11-03",
+      "expectedNext": "2026-11-21",
       "history": [
+        {
+          "chapter": "230",
+          "date": "2026-11-17T00:00:00+00:00"
+        },
         {
           "chapter": "228",
           "date": "2026-10-30T00:00:00+00:00"
@@ -2547,6 +2549,10 @@
           "date": "2026-10-01T00:00:00+00:00"
         },
         {
+          "chapter": "212",
+          "date": "2026-09-28T00:00:00+00:00"
+        },
+        {
           "chapter": "223",
           "date": "2026-09-23T00:00:00+00:00"
         },
@@ -2561,14 +2567,6 @@
         {
           "chapter": "220",
           "date": "2026-09-02T00:00:00+00:00"
-        },
-        {
-          "chapter": "211",
-          "date": "2026-09-01T00:00:00+00:00"
-        },
-        {
-          "chapter": "210",
-          "date": "2026-08-31T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -2601,22 +2599,22 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "214",
+          "chapter": "215",
           "publishedAt": null,
           "plausible": true
         },
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "214",
-          "publishedAt": "2026-11-10T17:32:07+00:00",
+          "chapter": "215",
+          "publishedAt": "2026-11-17T18:28:44+00:00",
           "plausible": true
         },
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "214",
-          "publishedAt": "2026-11-10T00:00:00+00:00",
+          "chapter": "215",
+          "publishedAt": "2026-11-17T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2624,12 +2622,16 @@
       "title": "Red Blue",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx144939-znZFKewRGtqE.jpg",
       "status": "RELEASING",
-      "chapter": "214",
-      "publishedAt": "2026-11-10T17:32:07+00:00",
-      "url": "https://mangadex.org/chapter/b80afcb5-b693-429a-9829-fecac109886c",
+      "chapter": "215",
+      "publishedAt": "2026-11-17T18:28:44+00:00",
+      "url": "https://mangadex.org/chapter/1ea4032e-a771-4e5f-ad32-646af78084f4",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-17",
+      "expectedNext": "2026-11-24",
       "history": [
+        {
+          "chapter": "215",
+          "date": "2026-11-17T18:28:44+00:00"
+        },
         {
           "chapter": "214",
           "date": "2026-11-10T17:32:07+00:00"
@@ -2673,10 +2675,6 @@
         {
           "chapter": "204",
           "date": "2026-08-20T03:01:23+00:00"
-        },
-        {
-          "chapter": "203",
-          "date": "2026-08-05T12:49:25+00:00"
         }
       ],
       "quiet": false,
@@ -3873,7 +3871,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4198,
+      "dormantDays": 4199,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3965,9 +3963,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-17T16:41:06+00:00",
-    "finishedAt": "2026-11-17T16:43:50+00:00",
-    "durationSec": 164,
+    "startedAt": "2026-11-18T16:11:02+00:00",
+    "finishedAt": "2026-11-18T16:14:17+00:00",
+    "durationSec": 195,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3977,7 +3975,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 43.3,
+        "seconds": 53.8,
         "errors": []
       },
       "MangaDex": {
@@ -3986,7 +3984,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 17.5,
+        "seconds": 14.5,
         "errors": []
       },
       "MangaUpdates": {
@@ -3995,7 +3993,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 12.4,
+        "seconds": 18.7,
         "errors": []
       },
       "Webtoon": {
@@ -4013,7 +4011,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 16.6,
+        "seconds": 22.7,
         "errors": []
       },
       "Kitsu": {
@@ -4022,7 +4020,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 5.8,
+        "seconds": 16.4,
         "errors": []
       },
       "AniList": {
@@ -4031,7 +4029,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.1,
+        "seconds": 2.7,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4040,7 +4038,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.5,
+        "seconds": 2.2,
         "errors": []
       }
     },
@@ -4049,9 +4047,9 @@
       "stale_feed": 3,
       "count_only": 9,
       "count_vote": 1,
-      "highest_chapter": 2,
       "upload_date_dropped": 4,
       "dormant": 2,
+      "highest_chapter": 1,
       "any_language_refused": 1,
       "lagging_feed": 1
     },
@@ -4060,9 +4058,9 @@
       "stale_feed": "a release feed far behind the count was ignored",
       "count_only": "no release feed fits: count only",
       "count_vote": "a chapter count was outvoted by the others",
-      "highest_chapter": "the highest chapter beat a fresher date",
       "upload_date_dropped": "an upload date after the series ended was dropped",
       "dormant": "marked dormant (years without a chapter, or listed as discontinued)",
+      "highest_chapter": "the highest chapter beat a fresher date",
       "any_language_refused": "the any-language answer was refused (too old or too high)",
       "lagging_feed": "a lone feed that stopped early lost to the count"
     }
