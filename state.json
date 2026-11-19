@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T16:11:02+00:00",
+  "checkedAt": "2026-11-19T16:18:36+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 131,
+      "quietDays": 132,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -480,8 +480,8 @@
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "38",
-          "publishedAt": "2026-10-20T15:08:27+00:00",
+          "chapter": "39",
+          "publishedAt": "2026-11-19T15:08:19+00:00",
           "plausible": true
         },
         {
@@ -496,12 +496,16 @@
       "title": "Boruto: Two Blue Vortex",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx168468-FEo5x1ZZyWj4.png",
       "status": "RELEASING",
-      "chapter": "38",
-      "publishedAt": "2026-10-20T15:08:27+00:00",
-      "url": "https://mangaplus.shueisha.co.jp/viewer/1029602",
-      "typicalGapDays": 14,
-      "expectedNext": "2026-11-03",
+      "chapter": "39",
+      "publishedAt": "2026-11-19T15:08:19+00:00",
+      "url": "https://mangaplus.shueisha.co.jp/viewer/1029603",
+      "typicalGapDays": 27,
+      "expectedNext": "2026-12-16",
       "history": [
+        {
+          "chapter": "39",
+          "date": "2026-11-19T15:08:19+00:00"
+        },
         {
           "chapter": "38",
           "date": "2026-10-20T15:08:27+00:00"
@@ -545,10 +549,6 @@
         {
           "chapter": "32",
           "date": "2026-03-18T15:05:26+00:00"
-        },
-        {
-          "chapter": "31",
-          "date": "2026-02-19T15:05:42+00:00"
         }
       ],
       "quiet": false,
@@ -1009,6 +1009,10 @@
           "date": "2026-10-27T00:00:00+00:00"
         },
         {
+          "chapter": "409",
+          "date": "2026-10-27T00:00:00+00:00"
+        },
+        {
           "chapter": "423",
           "date": "2026-10-20T00:00:00+00:00"
         },
@@ -1034,10 +1038,6 @@
         },
         {
           "chapter": "420",
-          "date": "2026-09-29T00:00:00+00:00"
-        },
-        {
-          "chapter": "405",
           "date": "2026-09-29T00:00:00+00:00"
         }
       ],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 260,
+      "quietDays": 261,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 73,
+      "quietDays": 74,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1664,7 +1664,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "41",
+          "chapter": "42",
           "publishedAt": null,
           "plausible": true
         },
@@ -1678,8 +1678,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "41",
-          "publishedAt": "2026-10-18T00:00:00+00:00",
+          "chapter": "42",
+          "publishedAt": "2026-11-18T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6385,
+      "quietDays": 6386,
       "dormant": true,
-      "dormantDays": 6385,
+      "dormantDays": 6386,
       "rules": [
         "dormant"
       ],
@@ -2283,7 +2283,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 183,
+      "quietDays": 184,
       "dormant": false,
       "dormantDays": 0,
       "rules": [
@@ -3871,7 +3871,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4199,
+      "dormantDays": 4200,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3963,9 +3963,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-18T16:11:02+00:00",
-    "finishedAt": "2026-11-18T16:14:17+00:00",
-    "durationSec": 195,
+    "startedAt": "2026-11-19T16:18:36+00:00",
+    "finishedAt": "2026-11-19T16:21:32+00:00",
+    "durationSec": 176,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3975,7 +3975,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 53.8,
+        "seconds": 48.2,
         "errors": []
       },
       "MangaDex": {
@@ -3984,7 +3984,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 14.5,
+        "seconds": 14.4,
         "errors": []
       },
       "MangaUpdates": {
@@ -3993,7 +3993,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.7,
+        "seconds": 14.7,
         "errors": []
       },
       "Webtoon": {
@@ -4002,7 +4002,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 4.9,
+        "seconds": 4.5,
         "errors": []
       },
       "Shikimori": {
@@ -4011,7 +4011,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 22.7,
+        "seconds": 25.7,
         "errors": []
       },
       "Kitsu": {
@@ -4020,7 +4020,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 16.4,
+        "seconds": 5.2,
         "errors": []
       },
       "AniList": {
@@ -4029,7 +4029,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.7,
+        "seconds": 2.3,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4038,7 +4038,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.2,
+        "seconds": 2.1,
         "errors": []
       }
     },
