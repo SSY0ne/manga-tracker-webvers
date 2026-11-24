@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-23T18:58:42+00:00",
+  "checkedAt": "2026-11-24T18:39:01+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 136,
+      "quietDays": 137,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -956,7 +956,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "427",
+          "chapter": "428",
           "publishedAt": null,
           "plausible": true
         },
@@ -970,15 +970,15 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "427",
-          "publishedAt": "2026-11-17T00:00:00+00:00",
+          "chapter": "428",
+          "publishedAt": "2026-11-24T00:00:00+00:00",
           "plausible": true
         },
         {
           "name": "Webtoon",
           "kind": "release",
-          "chapter": "412",
-          "publishedAt": "2026-11-17T02:00:13+00:00",
+          "chapter": "413",
+          "publishedAt": "2026-11-24T02:00:13+00:00",
           "plausible": true
         }
       ],
@@ -986,12 +986,16 @@
       "title": "Eleceed",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx106929-flAUvHZDUz5v.jpg",
       "status": "RELEASING",
-      "chapter": "427",
-      "publishedAt": "2026-11-17T00:00:00+00:00",
-      "url": "https://www.webtoons.com/en/action/eleceed/episode-412/viewer?title_no=1571&episode_no=412",
+      "chapter": "428",
+      "publishedAt": "2026-11-24T00:00:00+00:00",
+      "url": "https://www.webtoons.com/en/action/eleceed/episode-413/viewer?title_no=1571&episode_no=413",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-24",
+      "expectedNext": "2026-12-01",
       "history": [
+        {
+          "chapter": "428",
+          "date": "2026-11-24T00:00:00+00:00"
+        },
         {
           "chapter": "427",
           "date": "2026-11-17T00:00:00+00:00"
@@ -1002,6 +1006,10 @@
         },
         {
           "chapter": "425",
+          "date": "2026-11-03T00:00:00+00:00"
+        },
+        {
+          "chapter": "410",
           "date": "2026-11-03T00:00:00+00:00"
         },
         {
@@ -1031,14 +1039,6 @@
         {
           "chapter": "421",
           "date": "2026-10-06T00:00:00+00:00"
-        },
-        {
-          "chapter": "406",
-          "date": "2026-10-06T00:00:00+00:00"
-        },
-        {
-          "chapter": "420",
-          "date": "2026-09-29T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 265,
+      "quietDays": 266,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 78,
+      "quietDays": 79,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6390,
+      "quietDays": 6391,
       "dormant": true,
-      "dormantDays": 6390,
+      "dormantDays": 6391,
       "rules": [
         "dormant"
       ],
@@ -2197,7 +2197,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "311",
+          "chapter": "312",
           "publishedAt": null,
           "plausible": true
         },
@@ -2211,15 +2211,15 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "311",
-          "publishedAt": "2026-05-19T00:00:00+00:00",
+          "chapter": "312",
+          "publishedAt": "2026-11-24T00:00:00+00:00",
           "plausible": true
         },
         {
           "name": "Webtoon",
           "kind": "release",
-          "chapter": "311",
-          "publishedAt": "2026-11-23T13:00:02+00:00",
+          "chapter": "312",
+          "publishedAt": "2026-11-24T13:00:04+00:00",
           "plausible": true
         }
       ],
@@ -2227,12 +2227,16 @@
       "title": "Omniscient Reader",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx119257-Pi21aq3ey9GG.jpg",
       "status": "RELEASING",
-      "chapter": "311",
-      "publishedAt": "2026-11-23T13:00:02+00:00",
-      "url": "https://www.webtoons.com/en/action/omniscient-reader/episode-311-season-1-finale/viewer?title_no=2154&episode_no=312",
-      "typicalGapDays": 7,
-      "expectedNext": "2026-11-30",
+      "chapter": "312",
+      "publishedAt": "2026-11-24T13:00:04+00:00",
+      "url": "https://www.webtoons.com/en/action/omniscient-reader/s2-ep-312-chapter-51-colossal-story-1-season-2-premiere/viewer?title_no=2154&episode_no=314",
+      "typicalGapDays": 1,
+      "expectedNext": "2026-11-25",
       "history": [
+        {
+          "chapter": "312",
+          "date": "2026-11-24T13:00:04+00:00"
+        },
         {
           "chapter": "311",
           "date": "2026-11-23T13:00:02+00:00"
@@ -2276,10 +2280,6 @@
         {
           "chapter": "302",
           "date": "2026-04-21T01:00:36+00:00"
-        },
-        {
-          "chapter": "301",
-          "date": "2026-04-14T01:00:37+00:00"
         }
       ],
       "quiet": true,
@@ -3883,7 +3883,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4204,
+      "dormantDays": 4205,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3975,9 +3975,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-23T18:58:42+00:00",
-    "finishedAt": "2026-11-23T19:03:56+00:00",
-    "durationSec": 314,
+    "startedAt": "2026-11-24T18:39:01+00:00",
+    "finishedAt": "2026-11-24T18:42:53+00:00",
+    "durationSec": 232,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3987,7 +3987,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 47.6,
+        "seconds": 43.2,
         "errors": []
       },
       "MangaDex": {
@@ -3996,7 +3996,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.7,
+        "seconds": 18.5,
         "errors": []
       },
       "MangaUpdates": {
@@ -4005,7 +4005,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 151.5,
+        "seconds": 64.8,
         "errors": []
       },
       "Webtoon": {
@@ -4014,7 +4014,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 7.2,
+        "seconds": 7.1,
         "errors": []
       },
       "Shikimori": {
@@ -4023,7 +4023,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 21.5,
+        "seconds": 20.5,
         "errors": []
       },
       "Kitsu": {
@@ -4032,7 +4032,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.1,
+        "seconds": 13.8,
         "errors": []
       },
       "AniList": {
@@ -4041,7 +4041,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.6,
+        "seconds": 2.3,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4050,7 +4050,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.6,
+        "seconds": 2.3,
         "errors": []
       }
     },
