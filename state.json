@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-24T18:39:01+00:00",
+  "checkedAt": "2026-11-25T17:48:45+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 137,
+      "quietDays": 138,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -350,13 +350,13 @@
           "url": "https://www.mangaupdates.com/series/joxc7wz/blue-lock"
         }
       },
-      "agreement": "conflict",
+      "agreement": "agree",
       "source": "MangaDex (any language)",
       "sources": [
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "367",
+          "chapter": "370",
           "publishedAt": null,
           "plausible": true
         },
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 266,
+      "quietDays": 267,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 79,
+      "quietDays": 80,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1971,7 +1971,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "268",
+          "chapter": "269",
           "publishedAt": null,
           "plausible": true
         },
@@ -1985,8 +1985,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "268",
-          "publishedAt": "2026-11-21T00:00:00+00:00",
+          "chapter": "269",
+          "publishedAt": "2026-11-24T00:00:00+00:00",
           "plausible": true
         },
         {
@@ -2001,12 +2001,16 @@
       "title": "Manager Kim",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx141626-2AQM2uUYS8wC.jpg",
       "status": "RELEASING",
-      "chapter": "268",
-      "publishedAt": "2026-11-21T00:00:00+00:00",
+      "chapter": "269",
+      "publishedAt": "2026-11-24T00:00:00+00:00",
       "url": "https://www.webtoons.com/en/action/manager-kim/ep-252-a-chapters-end/viewer?title_no=3917&episode_no=252",
-      "typicalGapDays": 5,
-      "expectedNext": "2026-11-26",
+      "typicalGapDays": 3,
+      "expectedNext": "2026-11-27",
       "history": [
+        {
+          "chapter": "269",
+          "date": "2026-11-24T00:00:00+00:00"
+        },
         {
           "chapter": "268",
           "date": "2026-11-21T00:00:00+00:00"
@@ -2044,16 +2048,12 @@
           "date": "2026-10-05T00:00:00+00:00"
         },
         {
+          "chapter": "245",
+          "date": "2026-10-03T00:00:00+00:00"
+        },
+        {
           "chapter": "261",
           "date": "2026-09-28T00:00:00+00:00"
-        },
-        {
-          "chapter": "244",
-          "date": "2026-09-26T00:00:00+00:00"
-        },
-        {
-          "chapter": "260",
-          "date": "2026-09-21T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6391,
+      "quietDays": 6392,
       "dormant": true,
-      "dormantDays": 6391,
+      "dormantDays": 6392,
       "rules": [
         "dormant"
       ],
@@ -2180,7 +2180,7 @@
       ]
     },
     "119257": {
-      "hiatus": true,
+      "hiatus": false,
       "countOnly": false,
       "matches": {
         "MangaBaka": 2060,
@@ -2192,7 +2192,7 @@
         "Webtoon": "https://www.webtoons.com/en/action/omniscient-reader/rss?title_no=2154"
       },
       "agreement": "conflict",
-      "source": "Webtoon",
+      "source": "MangaUpdates",
       "sources": [
         {
           "name": "MangaBaka",
@@ -2211,7 +2211,7 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "312",
+          "chapter": "317",
           "publishedAt": "2026-11-24T00:00:00+00:00",
           "plausible": true
         },
@@ -2227,62 +2227,62 @@
       "title": "Omniscient Reader",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx119257-Pi21aq3ey9GG.jpg",
       "status": "RELEASING",
-      "chapter": "312",
-      "publishedAt": "2026-11-24T13:00:04+00:00",
+      "chapter": "317",
+      "publishedAt": "2026-11-24T00:00:00+00:00",
       "url": "https://www.webtoons.com/en/action/omniscient-reader/s2-ep-312-chapter-51-colossal-story-1-season-2-premiere/viewer?title_no=2154&episode_no=314",
-      "typicalGapDays": 1,
-      "expectedNext": "2026-11-25",
+      "typicalGapDays": 7,
+      "expectedNext": "2026-12-01",
       "history": [
         {
+          "chapter": "317",
+          "date": "2026-11-24T00:00:00+00:00"
+        },
+        {
           "chapter": "312",
-          "date": "2026-11-24T13:00:04+00:00"
+          "date": "2026-11-24T00:00:00+00:00"
         },
         {
           "chapter": "311",
-          "date": "2026-11-23T13:00:02+00:00"
-        },
-        {
-          "chapter": "1",
-          "date": "2026-11-23T13:00:02+00:00"
+          "date": "2026-05-19T00:00:00+00:00"
         },
         {
           "chapter": "310",
-          "date": "2026-11-22T13:00:03+00:00"
+          "date": "2026-05-12T00:00:00+00:00"
         },
         {
           "chapter": "309",
-          "date": "2026-11-21T13:00:04+00:00"
+          "date": "2026-04-28T00:00:00+00:00"
         },
         {
           "chapter": "308",
-          "date": "2026-06-02T01:00:36+00:00"
+          "date": "2026-04-21T00:00:00+00:00"
         },
         {
           "chapter": "307",
-          "date": "2026-05-26T01:00:32+00:00"
+          "date": "2026-04-15T00:00:00+00:00"
+        },
+        {
+          "chapter": "301",
+          "date": "2026-04-14T00:00:00+00:00"
         },
         {
           "chapter": "306",
-          "date": "2026-05-19T01:00:33+00:00"
+          "date": "2026-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "300",
+          "date": "2026-04-07T00:00:00+00:00"
+        },
+        {
+          "chapter": "299",
+          "date": "2026-03-31T00:00:00+00:00"
         },
         {
           "chapter": "305",
-          "date": "2026-05-12T01:00:33+00:00"
-        },
-        {
-          "chapter": "304",
-          "date": "2026-05-05T01:00:35+00:00"
-        },
-        {
-          "chapter": "303",
-          "date": "2026-04-28T01:00:40+00:00"
-        },
-        {
-          "chapter": "302",
-          "date": "2026-04-21T01:00:36+00:00"
+          "date": "2026-03-24T00:00:00+00:00"
         }
       ],
-      "quiet": true,
+      "quiet": false,
       "quietDays": 0,
       "dormant": false,
       "dormantDays": 0,
@@ -2604,8 +2604,8 @@
         {
           "name": "MangaDex",
           "kind": "release",
-          "chapter": "215",
-          "publishedAt": "2026-11-17T18:28:44+00:00",
+          "chapter": "216",
+          "publishedAt": "2026-11-25T10:59:45+00:00",
           "plausible": true
         },
         {
@@ -2620,12 +2620,16 @@
       "title": "Red Blue",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx144939-znZFKewRGtqE.jpg",
       "status": "RELEASING",
-      "chapter": "215",
-      "publishedAt": "2026-11-17T18:28:44+00:00",
-      "url": "https://mangadex.org/chapter/1ea4032e-a771-4e5f-ad32-646af78084f4",
+      "chapter": "216",
+      "publishedAt": "2026-11-25T10:59:45+00:00",
+      "url": "https://mangadex.org/chapter/def4016e-224e-41f0-b8b3-fa112abb5999",
       "typicalGapDays": 7,
-      "expectedNext": "2026-11-24",
+      "expectedNext": "2026-12-02",
       "history": [
+        {
+          "chapter": "216",
+          "date": "2026-11-25T10:59:45+00:00"
+        },
         {
           "chapter": "215",
           "date": "2026-11-17T18:28:44+00:00"
@@ -2669,10 +2673,6 @@
         {
           "chapter": "205",
           "date": "2026-08-26T17:43:33+00:00"
-        },
-        {
-          "chapter": "204",
-          "date": "2026-08-20T03:01:23+00:00"
         }
       ],
       "quiet": false,
@@ -3883,7 +3883,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4205,
+      "dormantDays": 4206,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3975,9 +3975,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-24T18:39:01+00:00",
-    "finishedAt": "2026-11-24T18:42:53+00:00",
-    "durationSec": 232,
+    "startedAt": "2026-11-25T17:48:45+00:00",
+    "finishedAt": "2026-11-25T17:51:46+00:00",
+    "durationSec": 180,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3987,7 +3987,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 43.2,
+        "seconds": 45.2,
         "errors": []
       },
       "MangaDex": {
@@ -3996,7 +3996,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 18.5,
+        "seconds": 21.2,
         "errors": []
       },
       "MangaUpdates": {
@@ -4005,7 +4005,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 64.8,
+        "seconds": 21.2,
         "errors": []
       },
       "Webtoon": {
@@ -4014,7 +4014,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 7.1,
+        "seconds": 6.3,
         "errors": []
       },
       "Shikimori": {
@@ -4023,7 +4023,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 20.5,
+        "seconds": 19.4,
         "errors": []
       },
       "Kitsu": {
@@ -4032,7 +4032,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 13.8,
+        "seconds": 3.4,
         "errors": []
       },
       "AniList": {
@@ -4041,7 +4041,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.3,
+        "seconds": 1.5,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4050,7 +4050,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.3,
+        "seconds": 2.8,
         "errors": []
       }
     },
