@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-25T17:48:45+00:00",
+  "checkedAt": "2026-11-26T17:32:14+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 138,
+      "quietDays": 139,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1005,6 +1005,10 @@
           "date": "2026-11-10T00:00:00+00:00"
         },
         {
+          "chapter": "411",
+          "date": "2026-11-10T00:00:00+00:00"
+        },
+        {
           "chapter": "425",
           "date": "2026-11-03T00:00:00+00:00"
         },
@@ -1035,10 +1039,6 @@
         {
           "chapter": "407",
           "date": "2026-10-13T00:00:00+00:00"
-        },
-        {
-          "chapter": "421",
-          "date": "2026-10-06T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 267,
+      "quietDays": 268,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 80,
+      "quietDays": 81,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6392,
+      "quietDays": 6393,
       "dormant": true,
-      "dormantDays": 6392,
+      "dormantDays": 6393,
       "rules": [
         "dormant"
       ],
@@ -2319,8 +2319,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "241",
-          "publishedAt": "2026-11-11T00:00:00+00:00",
+          "chapter": "242",
+          "publishedAt": "2026-11-25T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -2328,12 +2328,16 @@
       "title": "One-Punch Man",
       "cover": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/small/bx74347-sZpmNJ5xLwRK.jpg",
       "status": "RELEASING",
-      "chapter": "241",
-      "publishedAt": "2026-11-11T00:00:00+00:00",
+      "chapter": "242",
+      "publishedAt": "2026-11-25T00:00:00+00:00",
       "url": "https://www.mangaupdates.com/series/e1096mh/one-punch-man",
       "typicalGapDays": 14,
-      "expectedNext": "2026-11-25",
+      "expectedNext": "2026-12-09",
       "history": [
+        {
+          "chapter": "242",
+          "date": "2026-11-25T00:00:00+00:00"
+        },
         {
           "chapter": "241",
           "date": "2026-11-11T00:00:00+00:00"
@@ -2377,10 +2381,6 @@
         {
           "chapter": "231",
           "date": "2026-06-24T00:00:00+00:00"
-        },
-        {
-          "chapter": "230",
-          "date": "2026-06-10T00:00:00+00:00"
         }
       ],
       "quiet": false,
@@ -2597,7 +2597,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "215",
+          "chapter": "216",
           "publishedAt": null,
           "plausible": true
         },
@@ -2611,8 +2611,8 @@
         {
           "name": "MangaUpdates",
           "kind": "release",
-          "chapter": "215",
-          "publishedAt": "2026-11-17T00:00:00+00:00",
+          "chapter": "216",
+          "publishedAt": "2026-11-25T00:00:00+00:00",
           "plausible": true
         }
       ],
@@ -3883,7 +3883,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4206,
+      "dormantDays": 4207,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3975,9 +3975,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-25T17:48:45+00:00",
-    "finishedAt": "2026-11-25T17:51:46+00:00",
-    "durationSec": 180,
+    "startedAt": "2026-11-26T17:32:14+00:00",
+    "finishedAt": "2026-11-26T17:35:16+00:00",
+    "durationSec": 182,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3987,7 +3987,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 45.2,
+        "seconds": 46.7,
         "errors": []
       },
       "MangaDex": {
@@ -3996,7 +3996,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 21.2,
+        "seconds": 19.9,
         "errors": []
       },
       "MangaUpdates": {
@@ -4005,7 +4005,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 21.2,
+        "seconds": 16.6,
         "errors": []
       },
       "Webtoon": {
@@ -4014,7 +4014,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 6.3,
+        "seconds": 5.3,
         "errors": []
       },
       "Shikimori": {
@@ -4023,7 +4023,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.4,
+        "seconds": 25.5,
         "errors": []
       },
       "Kitsu": {
@@ -4032,7 +4032,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.4,
+        "seconds": 2.3,
         "errors": []
       },
       "AniList": {
@@ -4041,7 +4041,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 1.5,
+        "seconds": 2.8,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4050,7 +4050,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.8,
+        "seconds": 3.0,
         "errors": []
       }
     },
