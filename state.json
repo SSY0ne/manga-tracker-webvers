@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-26T17:32:14+00:00",
+  "checkedAt": "2026-11-27T17:14:22+00:00",
   "series": {
     "30013": {
       "hiatus": false,
@@ -205,7 +205,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 139,
+      "quietDays": 140,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1267,7 +1267,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 268,
+      "quietDays": 269,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -1451,7 +1451,7 @@
         }
       ],
       "quiet": true,
-      "quietDays": 81,
+      "quietDays": 82,
       "dormant": false,
       "dormantDays": 0,
       "rules": [],
@@ -2165,9 +2165,9 @@
         }
       ],
       "quiet": false,
-      "quietDays": 6393,
+      "quietDays": 6394,
       "dormant": true,
-      "dormantDays": 6393,
+      "dormantDays": 6394,
       "rules": [
         "dormant"
       ],
@@ -2197,7 +2197,7 @@
         {
           "name": "MangaBaka",
           "kind": "count",
-          "chapter": "312",
+          "chapter": "317",
           "publishedAt": null,
           "plausible": true
         },
@@ -3883,7 +3883,7 @@
       "quiet": false,
       "quietDays": 0,
       "dormant": true,
-      "dormantDays": 4207,
+      "dormantDays": 4208,
       "rules": [
         "any_language_refused",
         "count_only",
@@ -3975,9 +3975,9 @@
     }
   },
   "health": {
-    "startedAt": "2026-11-26T17:32:14+00:00",
-    "finishedAt": "2026-11-26T17:35:16+00:00",
-    "durationSec": 182,
+    "startedAt": "2026-11-27T17:14:22+00:00",
+    "finishedAt": "2026-11-27T17:17:15+00:00",
+    "durationSec": 173,
     "series": 40,
     "lookupFailed": 0,
     "sources": {
@@ -3987,7 +3987,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 46.7,
+        "seconds": 43.1,
         "errors": []
       },
       "MangaDex": {
@@ -3996,7 +3996,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 19.9,
+        "seconds": 20.3,
         "errors": []
       },
       "MangaUpdates": {
@@ -4005,7 +4005,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 16.6,
+        "seconds": 13.6,
         "errors": []
       },
       "Webtoon": {
@@ -4014,7 +4014,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 5.3,
+        "seconds": 5.0,
         "errors": []
       },
       "Shikimori": {
@@ -4023,7 +4023,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 25.5,
+        "seconds": 23.9,
         "errors": []
       },
       "Kitsu": {
@@ -4032,7 +4032,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.3,
+        "seconds": 2.2,
         "errors": []
       },
       "AniList": {
@@ -4041,7 +4041,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 2.8,
+        "seconds": 2.2,
         "errors": []
       },
       "MangaDex (any language)": {
@@ -4050,7 +4050,7 @@
         "failed": 0,
         "cached": 0,
         "rateLimited": 0,
-        "seconds": 3.0,
+        "seconds": 3.3,
         "errors": []
       }
     },
